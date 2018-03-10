@@ -1,56 +1,39 @@
 <html>
     <head>
         <title>Schedule My Lessons</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="index.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="index.js"></script>
     </head>
 
     <body>
         <div class="container">
-        <h2>Agenda</h2>
+        <h1>Schedule My Lessons</h1>
             <p class="lead">
-                This agenda viewer will let you see multiple events cleanly!
+                Schedule your lessons with ease, and achieve your best results!
             </p>
-            
-            <div class="alert alert-warning">
-                <h4>Mobile Support</h4>
-                <p>In order to get the lines between cells looking their best without any JavaScript, I had to use tables for this design. While this could be done in ".row", doing so will cause issues when displaying the vertical borders between cells, which is a compromise I wasn't willing to make this time.'</p>
-            </div>
 
             <hr />
 
             <div class="agenda">
                 <div class="table-responsive">
-                    <table class="table table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Event</th>
-                            </tr>
-                        </thead>
+                    <button type="button" class="btn btn-success add-event">Add a lesson</button>
+                    <table id="agenda_table" class="table table-condensed table-bordered">
+                        <thead></thead>
                         <tbody>
-                            <!-- Single event in a single day -->
                             <tr>
                                 <td class="agenda-date" class="active" rowspan="1">
-                                    <div class="dayofmonth">26</div>
-                                    <div class="dayofweek">Saturday</div>
-                                    <div class="shortdate text-muted">July, 2014</div>
+                                    <div class="dayofmonth"></div>
+                                    <div class="dayofweek"></div>
+                                    <div class="shortdate text-muted"></div>
                                 </td>
-                                <td class="agenda-time">
-                                    5:30 AM
-                                </td>
-                                <td class="agenda-events">
-                                    <div class="agenda-event">
-                                        <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i> 
-                                        Fishing
-                                    </div>
-                                </td>
+                                <td class="agenda-time"></td>
+                                <td class="agenda-events"></td>
                             </tr>
                             
-                            <!-- Multiple events in a single day (note the rowspan) -->
+                            
                             <tr>
                                 <td class="agenda-date" class="active" rowspan="3">
                                     <div class="dayofmonth">24</div>
