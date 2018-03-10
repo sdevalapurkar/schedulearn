@@ -1,7 +1,17 @@
-.agenda {  }
+@font-face {
+    font-family: LightFont;
+    src: url('TheLightFont.otf');
+}
+
+h1 {
+    font-family: LightFont;
+}
 
 /* Dates */
-.agenda .agenda-date { width: 170px; }
+.agenda .agenda-date {
+    width: 170px;
+}
+
 .agenda .agenda-date .dayofmonth {
   width: 40px;
   font-size: 36px;
@@ -10,19 +20,17 @@
   text-align: right;
   margin-right: 10px; 
 }
+
 .agenda .agenda-date .shortdate {
   font-size: 0.75em; 
 }
 
-
 /* Times */
-.agenda .agenda-time { width: 140px; } 
+.agenda .agenda-time {
+    width: 140px;
+}
 
-
-/* Events */
-.agenda .agenda-events {  } 
-.agenda .agenda-events .agenda-event {  } 
-
-@media (max-width: 767px) {
-    
+.add-event {
+    float: right;
+    margin-bottom: 20px;
 }
