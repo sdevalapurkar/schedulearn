@@ -50,9 +50,10 @@ def home(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        tutor_id = request.body['tutor_id']
+        tutor_id = request.body.get('tutor_id')
         try:
-            Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            new_rel.save()
             return HttpResponse(status=200)
         except Exception as e:
             print (str(e))
@@ -126,7 +127,7 @@ def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
         availability = tutor.profile.availability
-        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_type': request.user.profile.user_type})
+        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
 def set_availability(request):

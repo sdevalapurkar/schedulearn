@@ -10,5 +10,6 @@ urlpatterns = [
     path('availability/<tutor_id>', views.get_availability, name='get_availability'),
     path('edit_availability', views.edit_availability, name='edit_availability'),
     path('my_profile', views.my_profile, name='my_profile'),
-    path('user_type', views.user_type, name='user_type')
+    path('user_type', views.user_type, name='user_type'),
+    path('add_tutor', views.add_tutor, name='add_tutor')
 ]
