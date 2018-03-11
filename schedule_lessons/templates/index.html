@@ -69,7 +69,9 @@
                                 <th> Date </th>
                                 <th> Times </th>
                                 <th> Name </th>
-                                <th> Confirm </th>
+                                {% if user_type == "tutor" %}
+                                    <th> Confirmation </th>
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
@@ -88,12 +90,14 @@
                                             {{ event.name }}
                                         </div>
                                     </td>
-                                    <td class="agenda-events">
-                                        <div class="agenda-event">
-                                            <button id="{{event.id}}" type="button" class="btn btn-success sauce-confirm" style="margin-right: 10px;">Confirm</button>
-                                            <button id="{{event.id}}" type="button" class="btn btn-danger sauce-decline">Decline</button>
-                                        </div>
-                                    </td>
+                                    {% if user_type == "tutor" %}
+                                        <td class="agenda-events">
+                                            <div class="agenda-event">
+                                                <button id="{{event.id}}" type="button" class="btn btn-success sauce-confirm" style="margin-right: 10px;">Confirm</button>
+                                                <button id="{{event.id}}" type="button" class="btn btn-danger sauce-decline">Decline</button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>
