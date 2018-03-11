@@ -46,7 +46,7 @@ def home(request):
                     event_list.append(data)
             except Exception as e:
                 print(str(e))
-        return render(request, 'index.html', {'user_type': user_type, 'events': event_list})
+        return render(request, 'index.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
     
     return HttpResponse(status=404)
 
@@ -59,12 +59,12 @@ def add_tutor(request):
         try:
             try:
                 existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
-            except:
                 return HttpResponse(status=200)
 
-            new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
-            new_rel.save()
-            return HttpResponse(status=200)
+            except:
+                new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+                new_rel.save()
+                return HttpResponse(status=200)
         except Exception as e:
             print (str(e))
             return HttpResponse(status=404)
