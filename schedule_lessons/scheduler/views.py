@@ -50,8 +50,13 @@ def home(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        tutor_id = request.body.get('tutor_id')
+        tutor_id = request.POST.get('tutor_id')
         try:
+            try:
+                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            except:
+                return HttpResponse(status=200)
+
             new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
             new_rel.save()
             return HttpResponse(status=200)
