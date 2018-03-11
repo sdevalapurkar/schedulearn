@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def home(request):
     if request.method == 'GET':
-        return render(request, 'index.html')
+        user_type = request.user.profile.user_type
+        return render(request, 'index.html', {'user_type': user_type})
     
     return HttpResponse(status=404)
 
@@ -81,5 +82,5 @@ def set_availability(request):
             return HttpResponse(status=200)
         except Exception as e:
             print(str(e))
-            
+
     return HttpResponse(status=404)
