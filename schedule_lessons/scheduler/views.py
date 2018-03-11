@@ -126,7 +126,7 @@ def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
         availability = tutor.profile.availability
-        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_type': request.user.profile.user_type})
+        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
 def set_availability(request):
