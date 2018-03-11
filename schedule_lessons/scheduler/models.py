@@ -20,6 +20,6 @@ class Events(models.Model):
 
 
 class Relationships(models.Model):
-    tutor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
-    client = models.OneToOneField(User, on_delete=models.CASCADE, related_name='client_user_rel')
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user_rel')
     
