@@ -52,6 +52,11 @@ h3 {
     width: 170px;
 }
 
+#editAvailability {
+    float: right;
+    margin-right: 20px;
+}
+
 .agenda .agenda-date .dayofmonth {
   width: 40px;
   font-size: 36px;
