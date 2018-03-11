@@ -1,0 +1,61 @@
+{% load static %}
+<html> 
+    <head> 
+      <link rel="stylesheet" href="{%static "index.css" %}"> 
+    </head> 
+ 
+    <body> 
+      <h1 class = "headerText"> My Profile</h1> 
+      <img class = "profilepic" src = "https://www.tribute.ca/news/wp-content/uploads/2014/12/gandalf1-650x487.jpg"> 
+        <div class = "boxed"></div> 
+      <h1 class = "headerText"> Availability</h1> 
+      <h2 class = "secondHeader "></h2> 
+ 
+      <button id="scheduleLesson" type="button" class="btn btn-success schedule-lesson" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
+
+      <table> 
+        <caption>Open Time Slots for Dr.Jones</caption> 
+          <tr> 
+            <th> Date </th> 
+            <th> Time </th> 
+          </tr> 
+ 
+          <tr> 
+            <td> Monday </td> 
+            <td> 5:00PM - 8:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Tuesday </td> 
+            <td> 6:00PM - 7:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Wednesday </td> 
+            <td> 1:00PM - 3:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Thursday </td> 
+            <td> 9:00AM - 1:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Friday </td> 
+            <td> 4:00PM - 7:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Saturday </td> 
+            <td> 4:00PM - 9:00PM </td> 
+          </tr> 
+ 
+          <tr> 
+            <td> Sunday </td> 
+            <td> 9:00AM - 5:00PM </td> 
+          </tr> 
+ 
+      </table> 
+ 
+    </body> 
+</html>
