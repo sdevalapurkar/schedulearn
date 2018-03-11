@@ -19,9 +19,9 @@ $(document).ready(function () {
         console.log(data);
         var content = "<table>";
         content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
-        for (i = 0; i < data.length; i++) {
+        for (i = 0; i < 3; i++) {
             // content += '<tr>'+'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>'+'</tr>';
-            content += '<tr>' +'<td>' + 'thehhs' + '</td>'+'<td>' + 'sauce' + '</td>' +'<td>' + '<a href='+ '/home/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
+            content += '<tr>' +'<td>' + 'thehhs' + '</td>'+'<td>' + 'sauce' + '</td>' +'<td>' + '<a href='+ '/home/availability/' + 'data[i][2]' + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
         }
         content += "</table>";
         $('#tutors-table').append(content);
