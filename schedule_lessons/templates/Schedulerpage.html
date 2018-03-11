@@ -23,7 +23,7 @@
         <div class="container">
       <h1 class = "headerText"> Availability</h1>
       <h2 class = "secondHeader "></h2>
-      <h3>Schedule your lessons with ease, and achieve your best results!</h3>
+      <h3>Open time slots for {{ user_full_name }}</h3>
       <hr id="availhr" />
 
       <button id="scheduleLesson" type="button" class="btn btn-success" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
@@ -125,12 +125,11 @@
             <th> Available Times </th>
           </tr>
 
-          
-        {% for day, value in availability %}
-          <tr>
+        {% for day, value in availability.items %}
+        <tr>
             <td> {{ day }} </td>
-            <td> {{ value.0 }} - {{ value.1 }} </td>
-          </tr>
+            <td> {{ value }} </td>
+        </tr>
         {% endfor %}
 <!--
           <tr>

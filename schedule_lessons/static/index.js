@@ -1,10 +1,37 @@
 let tutorID = undefined;
 let testUrl = undefined;
+let tutor = undefined;
 
 $(document).ready(function () {
     let url = window.location.pathname;
     testUrl = url.replace('/home/', '');
     tutorID = url.replace('/home/availability/', '');
+
+    $.get('/home/user_type', function (data) {
+        let userType = data.user_type;
+        tutor = data.id;
+        if (userType === 'client') {
+            if (document.getElementById("editAvailability")) {
+                document.getElementById("editAvailability").style.display = "none";
+            }
+            if (document.getElementById('editAvailabilityButton')) {
+                document.getElementById('editAvailabilityButton').style.display = "none";
+            }
+            if (document.getElementById("addTutor")) {
+                document.getElementById("addTutor").style.display = "block";
+            }
+        } else {
+            if (document.getElementById("myTutors")) {
+                document.getElementById("myTutors").style.display = 'none';
+            }
+            if (document.getElementById("editAvailability")) {
+                document.getElementById("editAvailability").style.display = "block";
+            }
+            if (document.getElementById('editAvailabilityButton')) {
+                document.getElementById('editAvailabilityButton').style.display = 'block';
+            }
+        }
+    });
 
     $(function () {
         $('#startDatePicker').datetimepicker();
@@ -21,6 +48,8 @@ $(document).ready(function () {
             scheduleJSON.endDate = $('#endDatePicker').find('input').val();
             scheduleJSON.tutorID = tutorID;
 
+            $('#scheduleLessonModal').modal('toggle');
+
             $.ajax({
                 type: 'POST',
                 url: '/home/set_event',
@@ -29,25 +58,44 @@ $(document).ready(function () {
         });
     });
 
+    $('#addTutorModal').on('show.bs.modal', function (event) {
+        let saveButton = $(this).find('#addTutorButton');
+        saveButton.unbind().click(function () {
+            let addedTutor = {};
+            addedTutor.tutor_id = $('#tutorID').val();
+            
+            $('#addTutorModal').modal('toggle');
+
+            $.ajax({
+                type: 'POST',
+                url: '/home/add_tutor',
+                data: addedTutor
+            });
+        });
+    });
+
     $('#editAvailabilityModal').on('show.bs.modal', function (event) {
         let saveButton = $(this).find('#saveAvailability');
         saveButton.unbind().click(function () {
             let availabilityJSON = {};
-            availabilityJSON.day = $('#day').val();
-            availabilityJSON.times = $('#availableTimes').val();
+            let key = $('#day').val();
+            let day = '' + $('#day').val() + '';
+            let times = '' + $('#availableTimes').val() + '';
+            availabilityJSON[key] = $('#availableTimes').val();
             
             var content = $('#availabilityTable');
             for (var i = 0; i < 1; i++) {
-                content += '<tr>' +'<td>' + (availabilityJSON.day).toUpperCase() + '</td>'+'<td>' + (availabilityJSON.times).toUpperCase() + '</td>' + '</tr>';
+                content += '<tr>' +'<td>' + (day).toUpperCase() + '</td>'+'<td>' + (times).toUpperCase() + '</td>' + '</tr>';
                 content += $('#availabilityTable');
             }
             $('#availabilityTable').append(content);
 
-            availabilityJSON = {};
             $('#day').val('');
             $('#availableTimes').val('');
             $('#editAvailabilityModal').modal('toggle');
             sortTable($('#availabilityTable'),'asc');
+
+            console.log(availabilityJSON);
 
             $.ajax({
                 type: 'POST',
@@ -74,6 +122,10 @@ $(document).ready(function () {
 
 function openMyProfile() {
     window.open('/home/my_profile', "_self");
+}
+
+function openAvailability() {
+    window.open('/home/availability/' + tutor, "_self");
 }
 
 function sortTable(table, order) {
