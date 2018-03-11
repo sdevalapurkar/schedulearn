@@ -2,6 +2,10 @@
     font-family: LightFont;
     src: url('TheLightFont.otf');
 }
+@font-face {
+    font-family: MankSans;
+    src: url('MankSans.ttf');
+}
 
 h1 {
     font-family: LightFont;
@@ -13,6 +17,11 @@ h3 {
     font-family: LightFont;
     font-size: 25px;
     text-align: center;
+}
+
+#scheduleLesson {
+    float: right;
+    margin-bottom: 20px;
 }
 
 .modal-body {
@@ -27,6 +36,7 @@ h3 {
 
 .modal-content {
     margin: 0 auto;
+    height: auto;
 }
 
 .start-date-picker {
@@ -81,7 +91,7 @@ table, td, th {
 
 table {
     overflow-y: auto;
-    font-family: LightFont;
+    font-family: MankSans;
     border-collapse: collapse;
     border: 2px solid black;
     width: 100%;
