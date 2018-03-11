@@ -79,8 +79,6 @@ def set_event(request):
             name = data.get('lessonName')
             start_time = data.get('startDate')
 
-            print(datetime.datetime(start_time))
-
             end_time = data.get('endDate')
             description = data.get('lessonDescription')
             tutor = User.objects.get(profile__id=data.get('tutorID'))
