@@ -125,10 +125,10 @@
             <th> Available Times </th>
           </tr>
 
-        {% for day, value in availability %}
+        {% for day, value in availability.items %}
         <tr>
             <td> {{ day }} </td>
-            <td> {{ value.0 }} - {{ value.1 }} </td>
+            <td> {{ value }} </td>
         </tr>
         {% endfor %}
 <!--
