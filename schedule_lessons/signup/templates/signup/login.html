@@ -1,6 +1,9 @@
 {% extends "signup/base.html" %}
 {% load static %}
-    
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+{% endblock %}
+
   {% block content %}
     <div class="header">
       <h2>Schedule My Lessons</h2>
@@ -19,6 +22,17 @@
           <button id="auth-button" class="btn" type="submit">Log In</button>
         </div>
       </form>
+      <div class="or">
+        <p>-- OR --</p>
+      </div>
+      <div class="row signup-links">
+        <div class="col-sm-6">
+            <a href="/signup/client" class="btn">Learn Some Stuff</a>
+        </div>
+        <div class="col-sm-6">
+            <a href="/signup/tutor" class="btn">Become a Tutor</a>
+        </div>
+      </div>
       <div class="footer">
         <p>Hack Uvic 2018</p>
       </div>
