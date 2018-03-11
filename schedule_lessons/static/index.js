@@ -7,7 +7,10 @@ $(document).ready(function () {
     tutorID = url.replace('/home/availability/', '');
 
     $.get('user_type', function (data) {
-        console.log(data);
+        let userType = data.user_type;
+        if (userType === 'client') {
+            document.getElementById("addTutor").style.display = "block";
+        }
     });
 
     $(function () {
