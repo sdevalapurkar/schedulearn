@@ -18,7 +18,6 @@ def home(request):
         events = Events.objects.filter(client=request.user)
 
         for event in events:
-            print(event)
             try:
                 event_list.append({
                     'name': event.name,
@@ -130,7 +129,6 @@ def get_availability(request, tutor_id):
         return render(request, 'Schedulerpage.html', {'availability': availability})
     return HttpResponse(status=404)
 
-'''
 def set_availability(request):
     if request.method == 'POST':
         data = request.body
@@ -154,8 +152,13 @@ def edit_availability(request):
             request.user.profile.availability = current
             request.user.save()
             return HttpResponse(status=200)
-            
+
         except Exception as e:
             print (str(e))
 
+    return HttpResponse(status=404)
+
+def view_profile(request):
+    if request.method == 'GET':
+        return render(request, 'my_profile.html')
     return HttpResponse(status=404)
