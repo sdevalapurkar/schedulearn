@@ -160,10 +160,11 @@ def edit_availability(request):
     if request.method == 'POST':
         data = request.POST
         try:
+            current_user = User.objects.get(id=request.user.id)
             current = json.loads(request.user.profile.availability)
             current.update(data.dict())
-            request.user.profile.availability = current
-            request.user.save()
+            current_user.profile.availability = current
+            current_user.save()
             return HttpResponse(status=200)
 
         except Exception as e:
