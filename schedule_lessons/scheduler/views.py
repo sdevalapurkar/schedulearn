@@ -50,7 +50,7 @@ def home(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        tutor_id = request.body['tutor_id']
+        tutor_id = request.body.get('tutor_id')
         try:
             Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
             return HttpResponse(status=200)
