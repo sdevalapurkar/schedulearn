@@ -6,10 +6,14 @@ $(document).ready(function () {
     testUrl = url.replace('/home/', '');
     tutorID = url.replace('/home/availability/', '');
 
-    $.get('user_type', function (data) {
+    $.get('/home/user_type', function (data) {
         let userType = data.user_type;
         if (userType === 'client') {
-            document.getElementById("addTutor").style.display = "block";
+            if (document.getElementById("addTutor")) {
+                document.getElementById("addTutor").style.display = "block";
+            } else if (document.getElementById("editAvailability")) {
+                document.getElementById("editAvailability").style.display = "none";
+            }
         }
     });
 
@@ -28,10 +32,28 @@ $(document).ready(function () {
             scheduleJSON.endDate = $('#endDatePicker').find('input').val();
             scheduleJSON.tutorID = tutorID;
 
+            $('#scheduleLessonModal').modal('toggle');
+
             $.ajax({
                 type: 'POST',
                 url: '/home/set_event',
                 data: scheduleJSON
+            });
+        });
+    });
+
+    $('#addTutorModal').on('show.bs.modal', function (event) {
+        let saveButton = $(this).find('#addTutorButton');
+        saveButton.unbind().click(function () {
+            let addedTutor = {};
+            addedTutor.tutor_id = $('#tutorID').val();
+            
+            $('#addTutorModal').modal('toggle');
+
+            $.ajax({
+                type: 'POST',
+                url: '/home/add_tutor',
+                data: addedTutor
             });
         });
     });
