@@ -6,6 +6,10 @@ $(document).ready(function () {
     testUrl = url.replace('/home/', '');
     tutorID = url.replace('/home/availability/', '');
 
+    $.get('user_type', function (data) {
+        console.log(data);
+    });
+
     $(function () {
         $('#startDatePicker').datetimepicker();
         $('#endDatePicker').datetimepicker();
