@@ -15,9 +15,10 @@ def home(request):
 
         pending_event_list = []
         event_list = []
-
-        events = Events.objects.filter(client=request.user)
-
+        if user_type == 'client':
+            events = Events.objects.filter(client=request.user)
+        else:
+            events = Events.objects.filter(tutor=request.user)
         for event in events:
             try:
                 data = {
@@ -62,7 +63,8 @@ def add_tutor(request):
                 existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
                 return HttpResponse(status=200)
 
-            except:
+            except Exception as e:
+                print(str(e))
                 new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
                 new_rel.save()
                 return HttpResponse(status=200)
