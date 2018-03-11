@@ -11,6 +11,7 @@ $(document).ready(function () {
         let userType = data.user_type;
         tutor = data.id;
         if (userType === 'client') {
+            document.getElementById('editAvailabilityButton').style.display = 'none';
             if (document.getElementById("addTutor")) {
                 document.getElementById("addTutor").style.display = "block";
             } else if (document.getElementById("editAvailability")) {
