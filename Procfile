@@ -1,1 +1,1 @@
-web: gunicorn schedule_lessons/schedule_lessons.wsgi
+web: gunicorn schedule_lessons.schedule_lessons.wsgi
