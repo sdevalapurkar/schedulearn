@@ -31,6 +31,8 @@
                     <button id="myTutors" type="button" class="btn btn-info options-button" data-toggle="modal" data-target="#myTutorsModal" style="display:block;">My Tutors</button>
                     <button id="editAvailabilityButton" type="button" class="btn btn-info options-button" style="display:block;" onclick="openAvailability()">Edit Availability</button>
                     <button id="addTutor" type="button" class="btn btn-warning options-button" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add Tutor</button>
+                    <hr style="margin-top:55px;" />
+                    <h3 style="margin-top: 30px;">Confirmed Lessons</h3>    
                     <table id="agendaTable" class="table table-condensed table-bordered">
                         <thead> 
                             <tr>
@@ -67,6 +69,9 @@
                                 <th> Date </th>
                                 <th> Times </th>
                                 <th> Name </th>
+                                {% if user_type == "tutor" %}
+                                    <th> Confirmation </th>
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
@@ -85,6 +90,14 @@
                                             {{ event.name }}
                                         </div>
                                     </td>
+                                    {% if user_type == "tutor" %}
+                                        <td class="agenda-events">
+                                            <div class="agenda-event">
+                                                <button id="{{event.id}}" type="button" class="btn btn-success sauce-confirm" style="margin-right: 10px;">Confirm</button>
+                                                <button id="{{event.id}}" type="button" class="btn btn-danger sauce-decline">Decline</button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>
