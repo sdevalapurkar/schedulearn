@@ -52,7 +52,8 @@ def add_tutor(request):
     if request.method == 'POST':
         tutor_id = request.body.get('tutor_id')
         try:
-            Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            new_rel.save()
             return HttpResponse(status=200)
         except Exception as e:
             print (str(e))
