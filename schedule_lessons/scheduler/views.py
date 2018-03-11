@@ -160,5 +160,10 @@ def edit_availability(request):
 
 def my_profile(request):
     if request.method == 'GET':
-        return render(request, 'my_profile.html')
+        return render(request, 'my_profile.html', {'user': request.user})
+    return HttpResponse(status=404)
+
+def user_type(request):
+    if request.method == 'GET':
+        return JsonResponse({'user_type': request.user.profile.user_type})
     return HttpResponse(status=404)
