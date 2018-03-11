@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     if request.method == 'GET':
-        return HttpResponse(status=200)
+        return render(request, 'index.html')
     
     return HttpResponse(status=404)
 
