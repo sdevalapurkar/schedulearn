@@ -1,5 +1,6 @@
 let tutorID = undefined;
 let testUrl = undefined;
+let tutor = undefined;
 
 $(document).ready(function () {
     let url = window.location.pathname;
@@ -8,11 +9,18 @@ $(document).ready(function () {
 
     $.get('/home/user_type', function (data) {
         let userType = data.user_type;
+        tutor = data.id;
         if (userType === 'client') {
             if (document.getElementById("addTutor")) {
                 document.getElementById("addTutor").style.display = "block";
             } else if (document.getElementById("editAvailability")) {
                 document.getElementById("editAvailability").style.display = "none";
+            }
+        } else {
+            if (document.getElementById("myTutors")) {
+                document.getElementById("myTutors").style.display = 'none';
+                document.getElementById("editAvailability").style.display = "block";
+                document.getElementById('editAvailabilityButton').style.display = 'block';
             }
         }
     });
@@ -103,6 +111,10 @@ $(document).ready(function () {
 
 function openMyProfile() {
     window.open('/home/my_profile', "_self");
+}
+
+function openAvailability() {
+    window.open('/home/availability/' + tutor, "_self");
 }
 
 function sortTable(table, order) {
