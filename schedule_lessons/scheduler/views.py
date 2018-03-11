@@ -135,11 +135,27 @@ def set_availability(request):
     if request.method == 'POST':
         data = request.body
         try:
-            tutor = User.objects.get(profile__id=data['id'])
-            tutor.profile.availability = data['data']
+            tutor = User.objects.get(profile__id=data.get('id'))
+            tutor.profile.availability = data.get('data')
             tutor.save()
             return HttpResponse(status=200)
         except Exception as e:
             print(str(e))
+
+    return HttpResponse(status=404)
+
+
+def edit_availability(request):
+    if request.method == 'POST':
+        data = request.POST
+        try:
+            current = json.loads(request.user.profile.availability)
+            current.update(data.dict())
+            request.user.profile.availability = current
+            request.user.save()
+            return HttpResponse(status=200)
+            
+        except Exception as e:
+            print (str(e))
 
     return HttpResponse(status=404)
