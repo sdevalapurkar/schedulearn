@@ -40,7 +40,7 @@ def home(request):
                     'end_time': event.start_time.strftime('%I:%M %p'),
                     'description': event.description
                 }
-                if event.is_pending:
+                if event.pending:
                     pending_event_list.append(data)
                 else:
                     event_list.append(data)
