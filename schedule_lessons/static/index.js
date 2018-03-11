@@ -73,7 +73,7 @@ $(document).ready(function () {
 });
 
 function openMyProfile() {
-    window.open('home/my_profile');
+    window.open('/home/my_profile', "_self");
 }
 
 function sortTable(table, order) {
