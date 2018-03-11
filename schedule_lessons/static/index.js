@@ -125,7 +125,7 @@ $(document).ready(function () {
             
             var content = $('#availabilityTable');
             for (var i = 0; i < 1; i++) {
-                content += '<tr>' +'<td>' + (day).toUpperCase() + '</td>'+'<td>' + (times).toUpperCase() + '</td>' + '</tr>';
+                content += '<tr>' +'<td>' + (day) + '</td>'+'<td>' + (times) + '</td>' + '</tr>';
                 content += $('#availabilityTable');
             }
             $('#availabilityTable').append(content);
