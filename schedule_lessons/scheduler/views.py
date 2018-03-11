@@ -158,7 +158,7 @@ def edit_availability(request):
 
     return HttpResponse(status=404)
 
-def view_profile(request):
+def my_profile(request):
     if request.method == 'GET':
         return render(request, 'my_profile.html')
     return HttpResponse(status=404)
