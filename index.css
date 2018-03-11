@@ -5,6 +5,37 @@
 
 h1 {
     font-family: LightFont;
+    font-size: 80px;
+    text-align: center;
+}
+
+h3 {
+    font-family: LightFont;
+    font-size: 25px;
+    text-align: center;
+}
+
+.modal-body {
+    height: 60%;
+
+}
+
+.modal-title {
+    font-family: LightFont;
+    font-size: 35px;
+    text-align: center;
+}
+
+.modal-content {
+    margin: 0 auto;
+}
+
+.start-date-picker {
+    float: left;
+}
+
+.end-date-picker {
+    float: right;
 }
 
 /* Dates */
@@ -30,7 +61,8 @@ h1 {
     width: 140px;
 }
 
-.add-event {
+.options-button {
+    margin-left: 20px;
     float: right;
     margin-bottom: 20px;
 }
