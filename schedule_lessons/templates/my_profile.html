@@ -10,16 +10,12 @@
 
     <div class="panel">
       <img class="profilePicture" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAPJAAAAJDY5YzQxZTZjLTc0NGEtNDI5ZC1hMmRiLWM3YjQ4MThiOTQ3OA.jpg" alt="Profile Picture">
-    <!--  <p class="label">First Name: <span class="info">Shreyas</span></p>
-      <p class="label">Last Name: <span class="info">Devalapurkar</span></p>
-      <p class="label">Place of Education: <span class="info">University of Victoria</span></p>
-      <p class="label"> Bio: <span class="info">I am a fuccboi </span></p> -->
       <p class="label">First Name</p>
-      <p class="info">Ali</p>
+      <p class="info">{{ user.first_name }}</p>
       <p class="label">Last Name</p>
-      <p class="info">Siddiqui</p>
-      <p class="label">Hash Key</p>
-      <p class="info">qer=254jshreyasishungryboyok5jkl34=</p>
+      <p class="info">{{ user.last_name }}</p>
+      <p class="label">ID</p>
+      <p class="info hash">{{ user.profile.id }}</p>
     </div>
 
   </body>
