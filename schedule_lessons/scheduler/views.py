@@ -27,8 +27,9 @@ def add_tutor(request):
             return HttpResponse(status=404)
     return HttpResponse(status=404)
 
-@login_required
+
 # Return list of tutors that have relationships with the client
+@login_required
 def get_tutors(request):
     if request.method == 'GET':
         response = []
@@ -63,9 +64,27 @@ def get_events(request):
                 'end_time': event.end_time,
                 'description': event.description
             })
-
         return JsonResponse(event_list, safe=False)
+    return HttpResponse(status=404)
 
+
+@login_required
+def set_event(request):
+    if request.method == 'POST':
+        data = request.body
+        try:
+            name = data['lessonName']
+            start_time = data['startDate']
+            end_time = data['endDate']
+            description = data['lessonDescription']
+            tutor = User.objects.get(profile__id=data['tutorID'])
+
+            event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, client=request.user)
+            event.save()
+            return HttpResponse(status=200)
+        except Exception as e:
+            print (str(e))
+            return HttpResponse(status=404)
     return HttpResponse(status=404)
 
 
