@@ -39,8 +39,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'schedule_lessons.signup.apps.SignupConfig',
-    'schedule_lessons.scheduler.apps.SchedulerConfig',
+    'signup.apps.SignupConfig',
+    'scheduler.apps.SchedulerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
