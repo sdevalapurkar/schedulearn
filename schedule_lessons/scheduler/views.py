@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Relationships
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -11,7 +12,7 @@ def home(request):
     
     return HttpResponse(status=404)
 
-
+@login_required
 def add_tutor(request):
     if request.method == 'POST':
         data = request.body
