@@ -1,5 +1,5 @@
+{% load static %}
 <html> 
-    {% load static %}
     <head> 
       <link rel="stylesheet" href="{%static "index.css" %}"> 
     </head> 
@@ -11,11 +11,8 @@
       <h1 class = "headerText"> Availability</h1> 
       <h2 class = "secondHeader "></h2> 
  
- 
-      <button type="button" onclick="alert('Created New Session')">Book Session 
-      </button> 
- 
- 
+      <button id="scheduleLesson" type="button" class="btn btn-success schedule-lesson" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
+
       <table> 
         <caption>Open Time Slots for Dr.Jones</caption> 
           <tr> 

@@ -31,13 +31,17 @@ def add_tutor(request):
 # Return list of tutors that have relationships with the client
 def get_tutors(request):
     if request.method == 'GET':
-        tutors = []
+        response = []
         clients_tutors = Relationships.objects.filter(client=request.user)
+        if request.user.profile.user_type == 'client':
+            for tutor in clients_tutors:
+                response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id])
+        else:
+            for tutor in clients_tutors:
+                response.append([tutor.client.first_name, tutor.client.last_name, tutor.client.profile.id])
 
-        for tutor in clients_tutors:
-            tutors.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id])
+        return JsonResponse(response, safe=False)
 
-        return JsonResponse(tutors, safe=False)
 
 @login_required
 def get_events(request):
@@ -67,7 +71,9 @@ def get_events(request):
 
 def get_availability(request, tutor_id):
     if request.method == 'GET':
-        return render(request, 'Schedulerpage.html')
+        tutor = User.objects.get(profile__id=tutor_id)
+        availability = tutor.profile.availability
+        return render(request, 'Schedulerpage.html', {'availability': availability})
     return HttpResponse(status=404)
 
 '''
