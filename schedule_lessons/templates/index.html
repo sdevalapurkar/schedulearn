@@ -59,6 +59,35 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <table id="pendingAgendaTable" class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Date </th>
+                                <th> Times </th>
+                                <th> Name </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in pending_events %}
+                                <tr>
+                                    <td class="agenda-date" class="active" rowspan="1">
+                                        <div class="dayofmonth">{{ event.start_month_day }}</div>
+                                        <div class="dayofweek">{{ event.start_week_day }}</div>
+                                        <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
+                                    </td>
+                                    <td class="agenda-time">
+                                        {{ event.start_time }} - {{ event.end_time }} 
+                                    </td>
+                                    <td class="agenda-events">
+                                        <div class="agenda-event">
+                                            {{ event.name }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
