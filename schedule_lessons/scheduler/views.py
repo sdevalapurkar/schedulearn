@@ -13,13 +13,14 @@ def home(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
 
+        pending_event_list = []
         event_list = []
 
         events = Events.objects.filter(client=request.user)
 
         for event in events:
             try:
-                event_list.append({
+                data = {
                     'name': event.name,
                     'tutor_name': event.tutor.get_full_name(),
                     'tutor_id': event.tutor.profile.id,
@@ -38,7 +39,11 @@ def home(request):
                     'end_month_day': event.end_time.strftime('%d'),
                     'end_time': event.start_time.strftime('%I:%M %p'),
                     'description': event.description
-                })
+                }
+                if event.is_pending:
+                    pending_event_list.append(data)
+                else:
+                    event_list.append(data)
             except Exception as e:
                 print(str(e))
         return render(request, 'index.html', {'user_type': user_type, 'events': event_list})
@@ -50,8 +55,13 @@ def home(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        tutor_id = request.body.get('tutor_id')
+        tutor_id = request.POST.get('tutor_id')
         try:
+            try:
+                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+            except:
+                return HttpResponse(status=200)
+
             new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
             new_rel.save()
             return HttpResponse(status=200)
@@ -166,5 +176,5 @@ def my_profile(request):
 
 def user_type(request):
     if request.method == 'GET':
-        return JsonResponse({'user_type': request.user.profile.user_type})
+        return JsonResponse({'user_type': request.user.profile.user_type, 'id': request.user.profile.id})
     return HttpResponse(status=404)
