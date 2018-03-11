@@ -125,14 +125,12 @@
             <th> Available Times </th>
           </tr>
 
-        {% if availability %}
-            {% for day, value in availability %}
-            <tr>
-                <td> {{ day }} </td>
-                <td> {{ value.0 }} - {{ value.1 }} </td>
-            </tr>
-            {% endfor %}
-        {% endif %}
+        {% for day, value in availability %}
+        <tr>
+            <td> {{ day }} </td>
+            <td> {{ value.0 }} - {{ value.1 }} </td>
+        </tr>
+        {% endfor %}
 <!--
           <tr>
             <td> Monday </td>
