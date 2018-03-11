@@ -21,6 +21,7 @@ def home(request):
         for event in events:
             try:
                 data = {
+                    'id': event.id,
                     'name': event.name,
                     'tutor_name': event.tutor.get_full_name(),
                     'tutor_id': event.tutor.profile.id,
@@ -136,9 +137,9 @@ def set_event(request):
 def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
-        print(tutor.profile.availability)
-        availability = json.loads(tutor.profile.availability.replace("'", '"'))
-        print (availability)
+        availability = tutor.profile.availability
+        if tutor.profile.availability is not None:
+            availability = json.loads(tutor.profile.availability.replace("'", '"'))
         if availability == {} or availability == '{}':
             availability = None
         
@@ -186,4 +187,21 @@ def my_profile(request):
 def user_type(request):
     if request.method == 'GET':
         return JsonResponse({'user_type': request.user.profile.user_type, 'id': request.user.profile.id})
+    return HttpResponse(status=404)
+
+def confirm_lesson(request):
+    if request.method == 'POST':
+        event_id = request.POST.get('id')
+        event = Events.objects.get(id=event_id)
+        event.pending = False
+        event.save()
+        return HttpResponse(status=200)
+    return HttpResponse(status=404)
+
+
+def decline_lesson(request):
+    if request.method == 'POST':
+        event_id = request.POST.get('id')
+        Events.objects.get(id=event_id).delete()
+        return HttpResponse(status=200)
     return HttpResponse(status=404)
