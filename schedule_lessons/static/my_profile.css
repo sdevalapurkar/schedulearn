@@ -1,61 +1,52 @@
-@font-face { font-family: LightFont; src: url('THeLightFont.otf');}
+@font-face { font-family: LightFont; src: url('TheLightFont.otf'); }
+@font-face { font-family: Feeding; src: url('Feeding_a_Moment.otf'); }
+@font-face { font-family: Comforta; src: url('Comfortaa-Regular.ttf'); }
 
-body {
-  background-color: #eeeeee;
-}
-
-.headerText{
-  font-size: 60px;
-  border-bottom: 1px solid black;
-  width: 300px;
+.headerText {
+  font-size: 80px;
+  width: 400px;
+  height: auto;
   text-align: center;
-  margin:0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid black;
+  margin-top: 20px;
   font-family: LightFont;
 }
 
-.secondHeader{
+.edit {
+  float: right;
+}
 
-  font-family: LightFont;
+.panel {
+  text-align: center;
+  border: 3px solid black;
+  width: 400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  border-radius: 4%;
 }
 
 
-
-  td,th {
-    text-align: center;
-
-  }
-
-
-  table, td, th {
-
-      border: 1px solid #c6c6c6;
-      text-align: left;
-
-      }
-
-    table {
-            border-collapse: collapse;
-            border: 3px solid black;
-            width: 50%;
-            margin: 0 auto;
-            position: sticky;
-            font-family: LightFont;
-
-        }
-
-    th, td {
-      padding: 15px;
-      font-size: 20px;
+.profilePicture {
+  height: 256px;
+  width: 256px;
+  border: 3px solid black;
+  border-radius: 50%;
+}
 
 
-    }
+.label {
+  font-size: 25px;
+  width: auto;
+  text-align: center;
+  border-bottom: 1px solid black;
+  font-family: Feeding;
+}
 
-    th {
-  background-color: #FFDE00;
-  color: black;
-  font-family: LightFont;
-  font-size: 24px;
-
-  }
-
- tr:nth-child(even) {background-color: #F8F9F9;}
+.info {
+  font-size: 20px;
+  font-family: Comforta;
+}
