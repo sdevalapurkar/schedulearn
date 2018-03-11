@@ -3,6 +3,43 @@ let testUrl = undefined;
 let tutor = undefined;
 
 $(document).ready(function () {
+    $('.sauce-confirm').click(function (event) {
+        $.ajax({
+            type: 'POST',
+            url: '/home/confirm_lesson',
+            data: {'id': event.currentTarget.id},
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+
+    $('.sauce-decline').click(function (event) {
+        $.ajax({
+            type: 'POST',
+            url: '/home/decline_lesson',
+            data: {'id': event.currentTarget.id},
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+
+    $('#myTutors').click(function (event) {
+        $.get('get_tutors', function (data) {
+            if (data.length < 200) {
+                $('#tutors-table').empty();
+                var content = "<table>";
+                content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
+                for (i = 0; i < data.length; i++) {
+                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/home/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
+                }
+                content += "</table>";
+                $('#tutors-table').append(content);
+            }
+        });
+    });
+
     let url = window.location.pathname;
     testUrl = url.replace('/home/', '');
     tutorID = url.replace('/home/availability/', '');
@@ -53,7 +90,10 @@ $(document).ready(function () {
             $.ajax({
                 type: 'POST',
                 url: '/home/set_event',
-                data: scheduleJSON
+                data: scheduleJSON,
+                success: function () {
+                    window.open('/home', "_self");
+                }
             });
         });
     });

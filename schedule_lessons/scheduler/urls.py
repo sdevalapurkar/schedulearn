@@ -11,5 +11,7 @@ urlpatterns = [
     path('edit_availability', views.edit_availability, name='edit_availability'),
     path('my_profile', views.my_profile, name='my_profile'),
     path('user_type', views.user_type, name='user_type'),
-    path('add_tutor', views.add_tutor, name='add_tutor')
+    path('add_tutor', views.add_tutor, name='add_tutor'),
+    path('confirm_lesson', views.confirm_lesson, name='confirm_lesson'),
+    path('decline_lesson', views.decline_lesson, name='decline_lesson')
 ]
