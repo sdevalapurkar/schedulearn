@@ -13,13 +13,14 @@ def home(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
 
+        pending_event_list = []
         event_list = []
 
         events = Events.objects.filter(client=request.user)
 
         for event in events:
             try:
-                event_list.append({
+                data = {
                     'name': event.name,
                     'tutor_name': event.tutor.get_full_name(),
                     'tutor_id': event.tutor.profile.id,
@@ -38,10 +39,14 @@ def home(request):
                     'end_month_day': event.end_time.strftime('%d'),
                     'end_time': event.start_time.strftime('%I:%M %p'),
                     'description': event.description
-                })
+                }
+                if event.pending:
+                    pending_event_list.append(data)
+                else:
+                    event_list.append(data)
             except Exception as e:
                 print(str(e))
-        return render(request, 'index.html', {'user_type': user_type, 'events': event_list})
+        return render(request, 'index.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
     
     return HttpResponse(status=404)
 
@@ -50,10 +55,16 @@ def home(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        tutor_id = request.body['tutor_id']
+        tutor_id = request.POST.get('tutor_id')
         try:
-            Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
-            return HttpResponse(status=200)
+            try:
+                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+                return HttpResponse(status=200)
+
+            except:
+                new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+                new_rel.save()
+                return HttpResponse(status=200)
         except Exception as e:
             print (str(e))
             return HttpResponse(status=404)
@@ -125,8 +136,13 @@ def set_event(request):
 def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
-        availability = tutor.profile.availability
-        return render(request, 'Schedulerpage.html', {'availability': availability})
+        print(tutor.profile.availability)
+        availability = json.loads(tutor.profile.availability.replace("'", '"'))
+        print (availability)
+        if availability == {} or availability == '{}':
+            availability = None
+        
+        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
 def set_availability(request):
@@ -147,10 +163,14 @@ def edit_availability(request):
     if request.method == 'POST':
         data = request.POST
         try:
-            current = json.loads(request.user.profile.availability)
+            current_user = User.objects.get(id=request.user.id)
+            current = json.loads(request.user.profile.availability.replace("'", '"'))
+            print(current)
+            print(data.dict())
             current.update(data.dict())
-            request.user.profile.availability = current
-            request.user.save()
+            current_user.profile.availability = current
+            print(current_user.profile.availability)
+            current_user.save()
             return HttpResponse(status=200)
 
         except Exception as e:
@@ -160,5 +180,10 @@ def edit_availability(request):
 
 def my_profile(request):
     if request.method == 'GET':
-        return render(request, 'my_profile.html')
+        return render(request, 'my_profile.html', {'user': request.user})
+    return HttpResponse(status=404)
+
+def user_type(request):
+    if request.method == 'GET':
+        return JsonResponse({'user_type': request.user.profile.user_type, 'id': request.user.profile.id})
     return HttpResponse(status=404)

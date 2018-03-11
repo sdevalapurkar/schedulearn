@@ -25,5 +25,5 @@ urlpatterns = [
     path('home/', include('scheduler.urls')),
     path('signup/', include('signup.urls')),
     path('login/', login, {'template_name': 'signup/login.html'}),
-    path('logout/', logout, name='logout')
+    path('logout/', logout, name='logout'),
 ]

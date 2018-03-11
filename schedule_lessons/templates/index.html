@@ -27,12 +27,50 @@
             <div class="agenda">
                 <div class="table-responsive">
                     <button id="signOut" type="button" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal">Sign Out</button>
-                    <button id="myTutors" type="button" class="btn btn-info options-button" data-toggle="modal" data-target="#myTutorsModal">My Tutors</button>
                     <button id="myProfile" type="button" class="btn btn-primary options-button" onclick="openMyProfile()">My Profile</button>
+                    <button id="myTutors" type="button" class="btn btn-info options-button" data-toggle="modal" data-target="#myTutorsModal" style="display:block;">My Tutors</button>
+                    <button id="editAvailabilityButton" type="button" class="btn btn-info options-button" style="display:block;" onclick="openAvailability()">Edit Availability</button>
+                    <button id="addTutor" type="button" class="btn btn-warning options-button" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add Tutor</button>
                     <table id="agendaTable" class="table table-condensed table-bordered">
-                        <thead></thead>
+                        <thead> 
+                            <tr>
+                                <th> Date </th>
+                                <th> Times </th>
+                                <th> Name </th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {% for event in events %}
+                                <tr>
+                                    <td class="agenda-date" class="active" rowspan="1">
+                                        <div class="dayofmonth">{{ event.start_month_day }}</div>
+                                        <div class="dayofweek">{{ event.start_week_day }}</div>
+                                        <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
+                                    </td>
+                                    <td class="agenda-time">
+                                        {{ event.start_time }} - {{ event.end_time }} 
+                                    </td>
+                                    <td class="agenda-events">
+                                        <div class="agenda-event">
+                                            {{ event.name }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table id="pendingAgendaTable" class="table table-condensed table-bordered">
+                        <h3>Pending Lessons</h3>
+                        <thead>
+                            <tr>
+                                <th> Date </th>
+                                <th> Times </th>
+                                <th> Name </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in pending_events %}
                                 <tr>
                                     <td class="agenda-date" class="active" rowspan="1">
                                         <div class="dayofmonth">{{ event.start_month_day }}</div>
@@ -71,6 +109,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="addTutorModal" tabindex="-1" role="dialog" aria-labelledby="addTutorLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="exampleModalLabel">Add a Tutor</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <h3>Tutor ID</h3>
+                                    <label for="tutorID"></label>
+                                    <input type="text" class="form-control" id="tutorID" placeholder="a9a381e5-b70d-445e-a37f-4757d5c2cf32">
+                                </div>
+                            </div>
+                            <div style="border-top: 0px solid black" class="modal-footer">
+                                <button id="addTutorButton" type="button" class="btn btn-success">Add</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <!-- Modal -->
             <div class="modal fade" id="myTutorsModal" tabindex="-1" role="dialog" aria-labelledby="myTutorsModalLabel" aria-hidden="true">
