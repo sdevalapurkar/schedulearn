@@ -19,7 +19,7 @@ from django.contrib.auth.views import login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('scheduler.urls')),
+    path('/', include('scheduler.urls')),
     path('signup/', include('signup.urls')),
     path('login/', login, {'template_name': 'signup/login.html'}),
 ]
