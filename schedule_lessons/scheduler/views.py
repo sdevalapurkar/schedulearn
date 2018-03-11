@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import json
+import datetime
 from django.http import HttpResponse
 from .models import Relationships, Events
 from django.http import JsonResponse
@@ -70,14 +72,17 @@ def get_events(request):
 
 @login_required
 def set_event(request):
-    if request.method == 'POST':
-        data = request.body
+    if request.method == 'POST':   
+        data = request.POST
         try:
-            name = data['lessonName']
-            start_time = data['startDate']
-            end_time = data['endDate']
-            description = data['lessonDescription']
-            tutor = User.objects.get(profile__id=data['tutorID'])
+            name = data.get('lessonName')
+            start_time = data.get('startDate')
+
+            print(datetime.datetime(start_time))
+
+            end_time = data.get('endDate')
+            description = data.get('lessonDescription')
+            tutor = User.objects.get(profile__id=data.get('tutorID'))
 
             event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, client=request.user)
             event.save()
