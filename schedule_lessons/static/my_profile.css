@@ -1,0 +1,52 @@
+@font-face { font-family: LightFont; src: url('TheLightFont.otf'); }
+@font-face { font-family: Feeding; src: url('Feeding_a_Moment.otf'); }
+@font-face { font-family: Comforta; src: url('Comfortaa-Regular.ttf'); }
+
+.headerText {
+  font-size: 80px;
+  width: 400px;
+  height: auto;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid black;
+  margin-top: 20px;
+  font-family: LightFont;
+}
+
+.edit {
+  float: right;
+}
+
+.panel {
+  text-align: center;
+  border: 3px solid black;
+  width: 400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  border-radius: 4%;
+}
+
+
+.profilePicture {
+  height: 256px;
+  width: 256px;
+  border: 3px solid black;
+  border-radius: 50%;
+}
+
+
+.label {
+  font-size: 25px;
+  width: auto;
+  text-align: center;
+  border-bottom: 1px solid black;
+  font-family: Feeding;
+}
+
+.info {
+  font-size: 20px;
+  font-family: Comforta;
+}

@@ -15,11 +15,13 @@ class Events(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
+    pending = models.BooleanField(null=False, default=True)
+
     def __str__(self):
         return self.name
 
 
 class Relationships(models.Model):
-    tutor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
-    client = models.OneToOneField(User, on_delete=models.CASCADE, related_name='client_user_rel')
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user_rel')
     
