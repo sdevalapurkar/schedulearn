@@ -13,18 +13,49 @@ body {
   font-family: LightFont;
 }
 
-.profilepic{
-  width: 20%;
-  height: 20%;
-  border-radius: 65%;
+.secondHeader{
+
+  font-family: LightFont;
 }
 
-.boxed {
 
-    width: 300px;
-    border: 300px solid orange;
-    margin:right 10px;
-    position: fixed;
-    
 
-}
+  td,th {
+    text-align: center;
+
+  }
+
+
+  table, td, th {
+
+      border: 1px solid #c6c6c6;
+      text-align: left;
+
+      }
+
+    table {
+            border-collapse: collapse;
+            border: 3px solid black;
+            width: 50%;
+            margin: 0 auto;
+            position: sticky;
+            font-family: LightFont;
+
+        }
+
+    th, td {
+      padding: 15px;
+      font-size: 20px;
+
+
+    }
+
+    th {
+  background-color: #FFDE00;
+  color: black;
+  font-family: LightFont;
+  font-size: 24px;
+
+  }
+
+ tr:nth-child(even) {background-color: #F8F9F9;}
