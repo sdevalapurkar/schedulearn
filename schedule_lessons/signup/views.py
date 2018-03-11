@@ -31,7 +31,6 @@ def signup_tutor(request):
 
             # Authenticate new user and add them to tutor group
             new_user = authenticate(username=username, password=raw_password)
-            Group.objects.get(name='tutor').user_set.add(new_user)
             
             new_user.profile.user_type = 'tutor'
 
@@ -59,7 +58,6 @@ def signup_client(request):
             user = authenticate(username=username, password=raw_password)
        
             new_user = authenticate(username=username, password=raw_password)
-            Group.objects.get(name='client').user_set.add(new_user)
             new_user.profile.user_type = 'client'
 
             login(request, new_user)
