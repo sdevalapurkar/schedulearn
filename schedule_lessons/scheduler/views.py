@@ -12,7 +12,37 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
-        return render(request, 'index.html', {'user_type': user_type})
+
+        event_list = []
+
+        events = Events.objects.filter(client=request.user)
+
+        for event in events:
+            print(event)
+            try:
+                event_list.append({
+                    'name': event.name,
+                    'tutor_name': event.tutor.get_full_name(),
+                    'tutor_id': event.tutor.profile.id,
+                    'tutor_username': event.tutor.username,
+                    'client_name': event.client.get_full_name(),
+                    'client_id': event.client.profile.id,
+                    'client_username': event.client.username,
+                    'start_date': event.start_time,
+                    'end_date': event.end_time,
+                    'start_shortdate': event.start_time.strftime('%B, %Y'),
+                    'start_week_day': event.start_time.strftime('%A'),
+                    'start_month_day': event.start_time.strftime('%d'),
+                    'start_time': event.start_time.strftime('%I:%M %p'),
+                    'end_shortdate': event.end_time.strftime('%B, %Y'),
+                    'end_week_day': event.end_time.strftime('%A'),
+                    'end_month_day': event.end_time.strftime('%d'),
+                    'end_time': event.start_time.strftime('%I:%M %p'),
+                    'description': event.description
+                })
+            except Exception as e:
+                print(str(e))
+        return render(request, 'index.html', {'user_type': user_type, 'events': event_list})
     
     return HttpResponse(status=404)
 
@@ -77,9 +107,10 @@ def set_event(request):
         data = request.POST
         try:
             name = data.get('lessonName')
-            start_time = data.get('startDate')
+            start_time = datetime.datetime.strptime(data.get('startDate'), '%m/%d/%Y %I:%M %p')
 
-            end_time = data.get('endDate')
+            end_time = datetime.datetime.strptime(data.get('endDate'), '%m/%d/%Y %I:%M %p')
+
             description = data.get('lessonDescription')
             tutor = User.objects.get(profile__id=data.get('tutorID'))
 

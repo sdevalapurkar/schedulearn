@@ -12,8 +12,8 @@ class Events(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user')
 
-    start_time = models.CharField(max_length=32)
-    end_time = models.CharField(max_length=32)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
 
     pending = models.BooleanField(null=False, default=True)
 
