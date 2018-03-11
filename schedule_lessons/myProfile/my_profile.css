@@ -1,0 +1,62 @@
+@font-face { font-family: LightFont; src: url('TheLightFont.otf'); } 
+
+.headerText { 
+  font-size: 60px; 
+  width: 300px; 
+  text-align: center; 
+  width: 300px; 
+  border-bottom: 1px solid black; 
+  margin: 0 auto; 
+  font-family: LightFont; 
+} 
+ 
+.leftpanel { 
+  border: 3px solid black; 
+  background-color: #9fc5f8; 
+  padding-top: 50px; 
+  margin: 50px auto; 
+  width: auto; 
+  height: auto; 
+  float: left; 
+} 
+ 
+.profilePicture { 
+  border: 3px solid black; 
+  border-radius: 50%; 
+} 
+ 
+.signOut { 
+  background-color: #f44336; 
+  border: none; 
+    padding: 15px 32px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    width: auto; 
+ 
+} 
+
+.form { 
+  /*border: 3px solid black; 
+  background-color: #9fc5f8; */ 
+  border-radius: 2%; 
+  float: right; 
+  margin-top: 50px; 
+  width: 1000px; 
+  height: auto; 
+  padding-top: 50px; 
+  padding-bottom: 50px; 
+  margin-right: 60px; 
+ 
+} 
+
+.label { 
+  font-size: 25px; 
+  font-family: LightFont; 
+} 
+ 
+.info { 
+  font-size: 20px; 
+  font-family: arial; 
+}
