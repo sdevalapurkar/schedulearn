@@ -78,21 +78,24 @@ $(document).ready(function () {
         let saveButton = $(this).find('#saveAvailability');
         saveButton.unbind().click(function () {
             let availabilityJSON = {};
-            availabilityJSON.day = $('#day').val();
-            availabilityJSON.times = $('#availableTimes').val();
+            let key = $('#day').val();
+            let day = '' + $('#day').val() + '';
+            let times = '' + $('#availableTimes').val() + '';
+            availabilityJSON[key] = $('#availableTimes').val();
             
             var content = $('#availabilityTable');
             for (var i = 0; i < 1; i++) {
-                content += '<tr>' +'<td>' + (availabilityJSON.day).toUpperCase() + '</td>'+'<td>' + (availabilityJSON.times).toUpperCase() + '</td>' + '</tr>';
+                content += '<tr>' +'<td>' + (day).toUpperCase() + '</td>'+'<td>' + (times).toUpperCase() + '</td>' + '</tr>';
                 content += $('#availabilityTable');
             }
             $('#availabilityTable').append(content);
 
-            availabilityJSON = {};
             $('#day').val('');
             $('#availableTimes').val('');
             $('#editAvailabilityModal').modal('toggle');
             sortTable($('#availabilityTable'),'asc');
+
+            console.log(availabilityJSON);
 
             $.ajax({
                 type: 'POST',

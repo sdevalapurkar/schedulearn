@@ -136,9 +136,12 @@ def set_event(request):
 def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
-        availability = tutor.profile.availability
+        print(tutor.profile.availability)
+        availability = json.loads(tutor.profile.availability.replace("'", '"'))
+        print (availability)
         if availability == {} or availability == '{}':
             availability = None
+        
         return render(request, 'Schedulerpage.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
@@ -161,9 +164,12 @@ def edit_availability(request):
         data = request.POST
         try:
             current_user = User.objects.get(id=request.user.id)
-            current = json.loads(request.user.profile.availability)
+            current = json.loads(request.user.profile.availability.replace("'", '"'))
+            print(current)
+            print(data.dict())
             current.update(data.dict())
             current_user.profile.availability = current
+            print(current_user.profile.availability)
             current_user.save()
             return HttpResponse(status=200)
 
