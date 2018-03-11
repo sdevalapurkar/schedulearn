@@ -21,6 +21,8 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/home'
 
+LOGOUT_REDIRECT_URL = '/login'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 

@@ -70,10 +70,16 @@ def get_availability(request, tutor_id):
         return render(request, 'Schedulerpage.html')
     return HttpResponse(status=404)
 
-'''
+
 def set_availability(request):
     if request.method == 'POST':
         data = request.body
-        tutor = User.objects.get
+        try:
+            tutor = User.objects.get(profile__id=data['id'])
+            tutor.profile.availability = data['data']
+            tutor.save()
+            return HttpResponse(status=200)
+        except Exception as e:
+            print(str(e))
+            
     return HttpResponse(status=404)
-'''
