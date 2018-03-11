@@ -1,0 +1,30 @@
+@font-face { font-family: LightFont; src: url('THeLightFont.otf');}
+
+body {
+  background-color: #eeeeee;
+}
+
+.headerText{
+  font-size: 60px;
+  border-bottom: 1px solid black;
+  width: 300px;
+  text-align: center;
+  margin:0 auto;
+  font-family: LightFont;
+}
+
+.profilepic{
+  width: 20%;
+  height: 20%;
+  border-radius: 65%;
+}
+
+.boxed {
+
+    width: 300px;
+    border: 300px solid orange;
+    margin:right 10px;
+    position: fixed;
+    
+
+}
