@@ -14,4 +14,12 @@ $(document).ready(function () {
             scheduleJSON.endDate = $('#endDatePicker').find('input').val();
         });
     });
+
+    // $.get('home/get_tutors', function (data) {
+    //     console.log('data', data);
+    // });
 });
+
+function openMyProfile() {
+    window.open('myProfile/my_profile.html');
+}

@@ -25,8 +25,9 @@
             <hr />
             <div class="agenda">
                 <div class="table-responsive">
+                    <button id="signOut" type="button" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal">Sign Out</button>
                     <button id="myTutors" type="button" class="btn btn-info options-button" data-toggle="modal" data-target="#myTutorsModal">My Tutors</button>
-                    <button id="myProfile" type="button" class="btn btn-primary options-button">My Profile</button>
+                    <button id="myProfile" type="button" class="btn btn-primary options-button" onclick="openMyProfile()">My Profile</button>
                     <table id="agendaTable" class="table table-condensed table-bordered">
                         <thead></thead>
                         <tbody>
@@ -82,6 +83,24 @@
             </div>
 
             <!-- Modal -->
+            <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Sure you want to sign out???</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger">Sign Out</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
             <div class="modal fade" id="myTutorsModal" tabindex="-1" role="dialog" aria-labelledby="myTutorsModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -95,8 +114,8 @@
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-success">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -151,8 +170,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button>
+                            <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button> 
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
                         </div>
                     </div>
                 </div>
