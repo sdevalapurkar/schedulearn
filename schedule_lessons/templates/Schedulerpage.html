@@ -4,17 +4,85 @@
 
 <html>
     <head>
-      <link rel="stylesheet" href="{% static "my_profile.css" %}">
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static "index.css" %}">
+      <script src="{% static "index.js" %}"></script>
     </head>
 
     <body>
+            <div class="container">
       <h1 class = "headerText"> Availability</h1>
       <h2 class = "secondHeader "></h2>
+      <h3>Schedule your lessons with ease, and achieve your best results!</h3>
+      <hr id="availhr" />
 
+      <button id="scheduleLesson" type="button" class="btn btn-success" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
 
-      <button type="button" onclick="alert('Created New Session')">Book Session
-      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="scheduleLessonModal" tabindex="-1" role="dialog" aria-labelledby="scheduleLessonModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Schedule A Lesson</h5>
+                    </div>
 
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <h3>Lesson Name</h3>
+                            <label for="lessonName" class="form-control-label"></label>
+                            <input type="text" class="form-control" id="lessonName">
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Lesson Description</h3>
+                            <textarea class="form-control" id="lessonDescription" rows="2" cols="30"></textarea>
+                        </div>
+
+                        <div class='col-sm-6 start-date-picker'>
+                            <h3>Start Date</h3>
+                            <div class="form-group">
+                                <div class='input-group date' id='startDatePicker'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class='col-sm-6 end-date-picker'>
+                            <h3>End Date</h3>
+                            <div class="form-group">
+                                <div class='input-group date' id='endDatePicker'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
 
       <table>
         <caption>Open Time Slots for Dr.Jones</caption>
@@ -29,7 +97,7 @@
         {% for day, value in availability %}
           <tr>
             <td> {{ day }} </td>
-            <td> {{ value[0] }} - {{ value[1] }} </td>
+            <td> {{ value.0 }} - {{ value.1 }} </td>
           </tr>
         {% endfor %}
 <!--
@@ -70,7 +138,7 @@
         -->
 
       </table>
-
+        </div>
     </body>
 
 </html>
