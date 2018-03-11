@@ -63,3 +63,17 @@ def get_events(request):
         return JsonResponse(event_list, safe=False)
 
     return HttpResponse(status=404)
+
+
+def get_availability(request, tutor_id):
+    if request.method == 'GET':
+        return render(request, 'Schedulerpage.html')
+    return HttpResponse(status=404)
+
+'''
+def set_availability(request):
+    if request.method == 'POST':
+        data = request.body
+        tutor = User.objects.get
+    return HttpResponse(status=404)
+'''
