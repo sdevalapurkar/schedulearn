@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Relationships
+from .models import Relationships, Events
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -40,7 +40,28 @@ def get_tutors(request):
             print('full name: ' + tutor.tutor.get_full_name())
             tutors.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id])
 
-        
         return JsonResponse(tutors, safe=False)
 
-        
+def get_events(request):
+    if request.method == 'GET':
+        event_list = []
+
+        events = Events.objects.filter(client=request.user)
+
+        for event in events:
+            event_list.append({
+                'name': event.name,
+                'tutor_name': event.tutor.get_full_name(),
+                'tutor_id': event.tutor.profile.id,
+                'client_name': event.client.get_full_name(),
+                'client_id': event.client.profile.id,
+                'start_time': event.start_time,
+                'end_time': event.end_time,
+                'description': event.description
+            })
+
+        print (event_list)
+
+    return JsonResponse(event_list, safe=False)
+
+    return HttpResponse(status=404)
