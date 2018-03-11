@@ -97,7 +97,7 @@
         {% for day, value in availability %}
           <tr>
             <td> {{ day }} </td>
-            <td> {{ value[0] }} - {{ value[1] }} </td>
+            <td> {{ value.0 }} - {{ value.1 }} </td>
           </tr>
         {% endfor %}
 <!--
