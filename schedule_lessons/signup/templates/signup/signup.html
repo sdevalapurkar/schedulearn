@@ -1,0 +1,42 @@
+{% extends "signup/base.html" %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/signup.css" %}">
+{% endblock %}
+  {% block content %}
+    <div class="header">
+      <h2>Schedule My Lessons</h2>
+      <h3>Sign Up</h3>
+    </div>
+    <div class="auth-form">
+      <form method="post" action="{{ user_type }}">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+          </p>
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+        <div class="auth">
+          <button id="auth-button" class="btn" type="submit">Sign up</button>
+        </div>
+        <div class="or">
+            <p>-- OR --</p>
+          </div>
+          <div class="row signup-links">
+              <a href="/login" class="btn">Login</a>
+          </div>
+        </div>
+      </form>
+      <div class="footer">
+        <p>Hack Uvic 2018</p>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block js %}
+    <script src="{% static "js/signup.js" %}" type="text/javascript"></script>
+  {% endblock %}

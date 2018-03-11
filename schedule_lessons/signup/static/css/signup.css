@@ -1,0 +1,68 @@
+body {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.header, .footer {
+    margin: 3em auto 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.footer {
+    color: grey;
+}
+
+h3 {
+    color: grey;
+}
+
+.content {
+    box-sizing: border-box;
+    background-color: #363636;
+    margin: 0 auto;
+    color: white;
+}
+
+.auth-form {
+    margin: 3em auto;
+    float: none;
+    width: 75%;
+}
+
+/* Signup Button */
+#auth-button {
+    background-color: #ffce0c;
+    width: 200px;
+    border-radius: 0px;
+    color: black;
+}
+
+.auth {
+    margin: 4em auto 2em auto;
+    text-align: center;
+}
+
+
+.form-control {
+    margin-bottom: 3em;
+}
+
+.container {
+    width: 500px;
+    height: 700px;
+    margin: 4em auto;
+}
+
+.or {
+    text-align: center;
+}
+
+.signup-links {
+    margin: 0 auto;
+    text-align: center;
+}
+
+a.btn {
+    font-size: 16px;
+}
