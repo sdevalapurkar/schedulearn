@@ -6,13 +6,6 @@ from .forms import MyRegistrationForm
 
 # Create your views here.
 
-def signup(request):
-    if request.method == 'GET':
-        form = MyRegistrationForm()
-        return render(request, 'signup/signup.html', {'form': form})
-    return HttpResponse(status=404)
-
-
 # Create new Tutor
 def signup_tutor(request):
     if request.method == 'GET':
@@ -37,6 +30,8 @@ def signup_tutor(request):
             # Log in new user and take them home
             login(request, new_user)
             return redirect('home')     
+        else:
+            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'}) 
 
     return HttpResponse(status=404)
 
@@ -62,7 +57,7 @@ def signup_client(request):
 
             login(request, new_user)
             return redirect('home')
-
-        print (form.errors)
+        else:
+            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'})
 
     return HttpResponse(status=404)
