@@ -11,16 +11,23 @@ $(document).ready(function () {
         let userType = data.user_type;
         tutor = data.id;
         if (userType === 'client') {
-            document.getElementById('editAvailabilityButton').style.display = 'none';
+            if (document.getElementById("editAvailability")) {
+                document.getElementById("editAvailability").style.display = "none";
+            }
+            if (document.getElementById('editAvailabilityButton')) {
+                document.getElementById('editAvailabilityButton').style.display = "none";
+            }
             if (document.getElementById("addTutor")) {
                 document.getElementById("addTutor").style.display = "block";
-            } else if (document.getElementById("editAvailability")) {
-                document.getElementById("editAvailability").style.display = "none";
             }
         } else {
             if (document.getElementById("myTutors")) {
                 document.getElementById("myTutors").style.display = 'none';
+            }
+            if (document.getElementById("editAvailability")) {
                 document.getElementById("editAvailability").style.display = "block";
+            }
+            if (document.getElementById('editAvailabilityButton')) {
                 document.getElementById('editAvailabilityButton').style.display = 'block';
             }
         }
