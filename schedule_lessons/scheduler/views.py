@@ -39,7 +39,7 @@ def home(request):
                     'end_shortdate': event.end_time.strftime('%B, %Y'),
                     'end_week_day': event.end_time.strftime('%A'),
                     'end_month_day': event.end_time.strftime('%d'),
-                    'end_time': event.start_time.strftime('%I:%M %p'),
+                    'end_time': event.end_time.strftime('%I:%M %p'),
                     'description': event.description
                 }
                 if event.pending:
@@ -167,12 +167,13 @@ def edit_availability(request):
         data = request.POST
         try:
             current_user = User.objects.get(id=request.user.id)
-            current = json.loads(request.user.profile.availability.replace("'", '"'))
-            print(current)
-            print(data.dict())
+            availability = request.user.profile.availability
+            if availability is not None:
+                current = json.loads(availability.replace("'", '"'))
+            else:
+                current = {}
             current.update(data.dict())
             current_user.profile.availability = current
-            print(current_user.profile.availability)
             current_user.save()
             return HttpResponse(status=200)
 
