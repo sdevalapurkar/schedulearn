@@ -39,7 +39,7 @@ def home(request):
                     'end_shortdate': event.end_time.strftime('%B, %Y'),
                     'end_week_day': event.end_time.strftime('%A'),
                     'end_month_day': event.end_time.strftime('%d'),
-                    'end_time': event.start_time.strftime('%I:%M %p'),
+                    'end_time': event.end_time.strftime('%I:%M %p'),
                     'description': event.description
                 }
                 if event.pending:
