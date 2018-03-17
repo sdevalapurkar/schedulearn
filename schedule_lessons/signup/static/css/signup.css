@@ -1,57 +1,75 @@
+@font-face { font-family: LightFont; src: url('TheLightFont.otf'); }
+@font-face { font-family: Feeding; src: url('Feeding_a_Moment.otf'); }
+@font-face { font-family: Comforta; src: url('Comfortaa-Regular.ttf'); }
+
+
 body {
-    height: 100%;
+    height: auto;
     box-sizing: border-box;
 }
 
-.header, .footer {
-    margin: 3em auto 0 auto;
+.header {
+    margin: 0 auto 0 auto;
     width: 100%;
     text-align: center;
 }
 
-.footer {
-    color: grey;
+.header {
+  height: auto;
+  width: 100%;
+}
+.image {
+  width: auto;
+  height: 22%;
+  border: 3px solid black;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3 {
-    color: grey;
+  font-size: 40px;
+  text-align: center;
+  font-family: LightFont;
+  margin: 0 auto;
 }
 
 .content {
     box-sizing: border-box;
-    background-color: #363636;
     margin: 0 auto;
-    color: white;
 }
 
 .auth-form {
-    margin: 3em auto;
+    border: 3px solid black;
+    margin: 1.5em auto;
     float: none;
-    width: 75%;
+    width: 78%;
+    padding: 10px;
 }
 
 /* Signup Button */
 #auth-button {
     background-color: #ffce0c;
     width: 200px;
-    border-radius: 0px;
+    border: 3px solid black;
+    border-radius: 5%;
     color: black;
 }
 
 .auth {
-    margin: 4em auto 2em auto;
+    margin: 3em auto 2em auto;
     text-align: center;
 }
 
 
 .form-control {
-    margin-bottom: 3em;
+    margin-bottom: 1.5em;
+    border: 3px solid black;
 }
 
 .container {
     width: 500px;
-    height: 900px;
-    margin: 4em auto;
+    height: 600px;
+    margin: 1.5em auto;
 }
 
 .or {
@@ -59,10 +77,21 @@ h3 {
 }
 
 .signup-links {
+  text-align: center;
+  align-items: center;
     margin: 0 auto;
-    text-align: center;
 }
 
 a.btn {
     font-size: 16px;
+    text-align: center;
+}
+
+.col-sm-6 {
+  text-align: center;
+  align-items: center;
+}
+
+p {
+    font-weight: bold;
 }

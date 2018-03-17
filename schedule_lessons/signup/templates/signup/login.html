@@ -5,11 +5,14 @@
 {% endblock %}
 
   {% block content %}
+
+
     <div class="header">
-      <h2>Schedule My Lessons</h2>
-      <h3>Log In</h3>
+      <img class="image" src="{% static "images/logo.png" %}" alt="Scheduler">
+
     </div>
     <div class="auth-form">
+      <h3>Log In</h3>
       <form method="post">
         {% csrf_token %}
         {% for field in form %}
@@ -23,18 +26,16 @@
         </div>
       </form>
       <div class="or">
-        <p>-- OR --</p>
+        <p > Or Sign Up As: </p>
+        
       </div>
       <div class="row signup-links">
         <div class="col-sm-6">
-            <a href="/signup/client" class="btn">Learn Some Stuff</a>
+            <a href="/signup/client" class="btn">Student</a>
         </div>
         <div class="col-sm-6">
-            <a href="/signup/tutor" class="btn">Become a Tutor</a>
+            <a href="/signup/tutor" class="btn">Tutor</a>
         </div>
-      </div>
-      <div class="footer">
-        <p>Hack Uvic 2018</p>
       </div>
     </div>
   {% endblock %}
