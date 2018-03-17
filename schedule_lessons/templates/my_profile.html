@@ -3,13 +3,16 @@
 <html>
   <head>
     <link rel="stylesheet" href="{% static "my_profile.css" %}">
-  </head>
+    <script src="{% static "index.js" %}"></script>
+    </head>
   <body>
 
-    <p class="headerText">My Profile</p>
-
+    <div>
+        <button class="homebutton" onclick="renderHomepage()">Home</button>
+        <p class="headerText">My Profile</p>
+    </div>
     <div class="panel">
-      <img class="profilePicture" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAPJAAAAJDY5YzQxZTZjLTc0NGEtNDI5ZC1hMmRiLWM3YjQ4MThiOTQ3OA.jpg" alt="Profile Picture">
+      <img src="{% static "man.png" %}" height="200" class="profilePicture">
       <p class="label">First Name</p>
       <p class="info">{{ user.first_name }}</p>
       <p class="label">Last Name</p>
