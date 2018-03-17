@@ -6,6 +6,7 @@ from .models import Relationships, Events
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 # Create your views here.
 @login_required
@@ -82,10 +83,10 @@ def get_tutors(request):
         clients_tutors = Relationships.objects.filter(client=request.user)
         if request.user.profile.user_type == 'client':
             for tutor in clients_tutors:
-                response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id])
+                response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
         else:
             for tutor in clients_tutors:
-                response.append([tutor.client.first_name, tutor.client.last_name, tutor.client.profile.id])
+                response.append([tutor.client.first_name, tutor.client.last_name, tutor.client.profile.id, tutor.tutor.email])
 
         return JsonResponse(response, safe=False)
 
@@ -129,6 +130,15 @@ def set_event(request):
 
             event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, client=request.user)
             event.save()
+
+            # send_mail(
+            #     'Schedulearn: Lesson scheduled!',
+            #     'A new lesson has been scheduled',
+            #     'shreyasdevalapurkar@gmail.com',
+            #     ['shreyasdevalapurkar@gmail.com'],
+            #     fail_silently=False,
+            # )
+
             return HttpResponse(status=200)
         except Exception as e:
             print (str(e))
