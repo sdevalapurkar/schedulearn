@@ -4,11 +4,13 @@
   <link rel="stylesheet" type="text/css" href="{% static "css/signup.css" %}">
 {% endblock %}
   {% block content %}
-    <div class="header">
-      <h2>Schedule My Lessons</h2>
-      <h3>Sign Up</h3>
+  <div class="header">
+    <img class="image" src="{% static "images/logo.png" %}" alt="Scheduler">
+
     </div>
     <div class="auth-form">
+      
+      <h3>Sign Up</h3>
       <form method="post" action="{{ user_type }}">
         {% csrf_token %}
         {% for field in form %}
@@ -24,16 +26,13 @@
           <button id="auth-button" class="btn" type="submit">Sign up</button>
         </div>
         <div class="or">
-            <p>-- OR --</p>
+            <p> OR </p>
           </div>
           <div class="row signup-links">
               <a href="/login" class="btn">Login</a>
           </div>
         </div>
       </form>
-      <div class="footer">
-        <p>Hack Uvic 2018</p>
-      </div>
     </div>
   {% endblock %}
 
