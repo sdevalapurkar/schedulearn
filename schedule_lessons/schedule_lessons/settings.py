@@ -24,6 +24,12 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'schedulearn'
+EMAIL_HOST_PASSWORD = 'hackuvic2018'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
