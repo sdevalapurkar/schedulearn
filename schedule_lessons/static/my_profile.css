@@ -33,7 +33,6 @@
 .profilePicture {
   height: 200px;
   width: 200px;
-  border: 3px solid black;
   border-radius: 50%;
 }
 
@@ -57,4 +56,21 @@ p {
 
 .hash {
   font-size: 15px;
+}
+
+.homebutton {
+    display: block;
+    width: 115px;
+    height: 40px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    float: left;
+    margin-left: 240px;
+    margin-top: 5px;
+    font-family: LightFont;
+    font-size: 16px;
 }
