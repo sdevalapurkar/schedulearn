@@ -67,6 +67,9 @@ $(document).ready(function () {
             if (document.getElementById('editAvailabilityButton')) {
                 document.getElementById('editAvailabilityButton').style.display = 'block';
             }
+            if (document.getElementById('scheduleLesson')) {
+                document.getElementById('scheduleLesson').style.display = 'none';
+            }
         }
     });
 
@@ -166,6 +169,10 @@ function openMyProfile() {
 
 function openAvailability() {
     window.open('/home/availability/' + tutor, "_self");
+}
+
+function renderHomepage() {
+    window.open('/home', "_self");
 }
 
 function sortTable(table, order) {
