@@ -131,13 +131,13 @@ def set_event(request):
             event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, client=request.user)
             event.save()
 
-            # send_mail(
-            #     'Schedulearn: Lesson scheduled!',
-            #     'A new lesson has been scheduled',
-            #     'shreyasdevalapurkar@gmail.com',
-            #     ['shreyasdevalapurkar@gmail.com'],
-            #     fail_silently=False,
-            # )
+            send_mail(
+                'Schedulearn: Lesson scheduled!',
+                'Student: ' + request.user.first_name + ' ' + request.user.last_name +  '. ' + str(name) + ': ' + str(description) + '. ' + 'Start time: ' + str(start_time) + '. End time: ' + str(end_time) + '. Please visit Schedulearn to confirm this lesson.',
+                'schedulearn@schedulearn.com',
+                [tutor.email],
+                fail_silently=False,
+            )
 
             return HttpResponse(status=200)
         except Exception as e:
