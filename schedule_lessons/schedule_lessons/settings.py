@@ -26,7 +26,7 @@ LOGOUT_REDIRECT_URL = '/login'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'sdevalapurkar'
-EMAIL_HOST_PASSWORD = 'ragavendra6789'
+EMAIL_HOST_PASSWORD = 'hackuvic2018'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
