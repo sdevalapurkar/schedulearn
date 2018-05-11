@@ -8,15 +8,18 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static "index.css" %}">
         <script src="{% static "index.js" %}"></script>
-        
+        <link rel="stylesheet" href="{% static "jquery.timeentry.css" %}">
+        <script src="{% static "jquery.plugin.min.js" %}"></script>
+        <script src="{% static "jquery.timeentry.js" %}"></script>
+
     </head>
 
     <body>
@@ -32,9 +35,9 @@
                     <button id="editAvailabilityButton" type="button" class="btn btn-info options-button" style="display:block;" onclick="openAvailability()">Edit Availability</button>
                     <button id="addTutor" type="button" class="btn btn-warning options-button" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add Tutor</button>
                     <hr style="margin-top:55px;" />
-                    <h3 style="margin-top: 30px;">Confirmed Lessons</h3>    
+                    <h3 style="margin-top: 30px;">Confirmed Lessons</h3>
                     <table id="agendaTable" class="table table-condensed table-bordered">
-                        <thead> 
+                        <thead>
                             <tr>
                                 <th> Date </th>
                                 <th> Times </th>
@@ -50,7 +53,7 @@
                                         <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
                                     </td>
                                     <td class="agenda-time">
-                                        {{ event.start_time }} - {{ event.end_time }} 
+                                        {{ event.start_time }} - {{ event.end_time }}
                                     </td>
                                     <td class="agenda-events">
                                         <div class="agenda-event">
@@ -83,7 +86,7 @@
                                         <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
                                     </td>
                                     <td class="agenda-time">
-                                        {{ event.start_time }} - {{ event.end_time }} 
+                                        {{ event.start_time }} - {{ event.end_time }}
                                     </td>
                                     <td class="agenda-events">
                                         <div class="agenda-event">
@@ -159,7 +162,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">My Tutors</h5>
                         </div>
                         <div id="tutors-table" class="modal-body modal-tutor">
-                            
+
                         </div>
                         <div style="border-top: 0px solid black" class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

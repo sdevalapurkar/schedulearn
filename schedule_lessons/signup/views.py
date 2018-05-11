@@ -11,7 +11,7 @@ def signup_tutor(request):
     if request.method == 'GET':
         form = MyRegistrationForm()
         return render(request, 'signup/signup.html', {'form': form, 'user_type': 'tutor'})
-        
+
     elif request.method == 'POST':
         form = MyRegistrationForm(request.POST)
         print ('tutor')
@@ -24,14 +24,14 @@ def signup_tutor(request):
 
             # Authenticate new user and add them to tutor group
             new_user = authenticate(username=username, password=raw_password)
-            
+
             new_user.profile.user_type = 'tutor'
 
             # Log in new user and take them home
             login(request, new_user)
-            return redirect('home')     
+            return redirect('home')
         else:
-            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'}) 
+            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'})
 
     return HttpResponse(status=404)
 
@@ -41,7 +41,7 @@ def signup_client(request):
     if request.method == 'GET':
         form = MyRegistrationForm()
         return render(request, 'signup/signup.html', {'form': form, 'user_type': 'client'})
-        
+
     elif request.method == 'POST':
         form = MyRegistrationForm(request.POST)
         print('client')
@@ -51,13 +51,14 @@ def signup_client(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-       
+
+
             new_user = authenticate(username=username, password=raw_password)
             new_user.profile.user_type = 'client'
 
             login(request, new_user)
             return redirect('home')
         else:
-            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'})
+            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'client'})
 
     return HttpResponse(status=404)
