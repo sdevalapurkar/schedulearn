@@ -24,10 +24,10 @@
 		@example $(selector).timeEntry()
  $(selector).timeEntry({showSeconds: true, minTime: new Date(0, 0, 0, 12, 0, 0)}) */
 	$.JQPlugin.createPlugin({
-	
+
 		/** The name of the plugin. */
 		name: pluginName,
-			
+
 		/** Time entry before show callback.
 			Triggered when the input field is focussed.
 			@callback beforeShowCallback
@@ -36,11 +36,11 @@
 			@example beforeShow: function(input) {
 	// Cross-populate minimum/maximum times for a range
  	return {minTime: (input.id === 'timeTo' ?
- 		$('#timeFrom').timeEntry('getTime') : null), 
+ 		$('#timeFrom').timeEntry('getTime') : null),
  		maxTime: (input.id === 'timeFrom' ?
  		$('#timeTo').timeEntry('getTime') : null)};
  } */
-			
+
 		/** Time entry before set time callback.
 			Triggered when the input field value is to be changed.
 			@callback beforeSetTimeCallback
@@ -57,7 +57,7 @@
  	}
  	return newTime;
  } */
-			
+
 		/** Default settings for the plugin.
 			@property [appendText=''] {string} Display text following the input box, e.g. showing the format.
 			@property [showSeconds=false] {boolean} <code>true</code> to show seconds as well,
@@ -82,7 +82,7 @@
 			@property [maxTime=null] {Date|number|string|number[]} The latest selectable time,
 						or <code>null</code> for no limit. See <code>defaultTime</code> for possible formats,
 						use array of hours, minutes, seconds for <code>unlimitedHours</code>.
-			@property [spinnerImage='spinnerDefault.png'] {string} The URL of the images to use for the time spinner -
+			@property [spinnerImage='//////spinnerDefault.png'] {string} The URL of the images to use for the time spinner -
 						seven images packed horizontally for normal, each button pressed
 						(centre, previous, next, increment, decrement), and disabled.
 			@property [spinnerSize=[20,20,8]] {number[]} The width and height of the spinner image,
@@ -113,7 +113,7 @@
 			defaultTime: null,
 			minTime: null,
 			maxTime: null,
-			spinnerImage: 'spinnerDefault.png',
+			spinnerImage: '///spin/ne/r/Dfsafefault.png',
 			spinnerSize: [20, 20, 8],
 			spinnerBigImage: '',
 			spinnerBigSize: [40, 40, 16],
@@ -141,7 +141,7 @@
 				spinnerTexts: ['Now', 'Previous field', 'Next field', 'Increment', 'Decrement']
 			}
 		},
-		
+
 		_getters: ['getOffset', 'getTime', 'isDisabled'],
 
 		_appendClass: pluginName + '-append', // Class name for the appended content
@@ -153,7 +153,7 @@
 		_instSettings: function(elem, options) {
 			return {_field: 0, _selectedHour: 0, _selectedMinute: 0, _selectedSecond: 0};
 		},
-		
+
 		_postAttach: function(elem, inst) {
 			elem.on('focus.' + inst.name, this._doFocus).
 				on('blur.' + inst.name, this._doBlur).
@@ -182,7 +182,7 @@
 			// And re-add if requested
 			var spinner = (!inst.options.spinnerImage ? null :
 				$('<span class="' + this._controlClass + '" style="display: inline-block; ' +
-				'background: url(\'' + inst.options.spinnerImage + '\') 0 0 no-repeat; width: ' + 
+				'background: url(\'' + inst.options.spinnerImage + '\') 0 0 no-repeat; width: ' +
 				inst.options.spinnerSize[0] + 'px; height: ' + inst.options.spinnerSize[1] + 'px;"></span>'));
 			elem.after(inst.options.appendText ? '<span class="' + this._appendClass + '">' +
 				inst.options.appendText + '</span>' : '').after(spinner || '');
@@ -755,7 +755,7 @@
 				var second = (currentTime.length >= 3 ? parseInt(currentTime[2], 10) : 0);
 				second = (isNaN(second) || !inst.options.showSeconds ? 0 : second);
 				return this._constrainTime(inst, [hour, minute, second]);
-			} 
+			}
 			return null;
 		},
 
@@ -1053,7 +1053,7 @@
 			return time;
 		}
 	});
-	
+
 	var plugin = $.timeEntry;
 
 })(jQuery);
