@@ -6,14 +6,14 @@ let tutor = undefined;
 
 $(document).ready(function () {
 
-    $('#defaultEntry1').timeEntry().change(function() {
+    $('#startingTimeEntry').timeEntry().change(function() {
       var log = $('#log');
-      log.val(log.val() + ($('#defaultEntry').val() || 'blank') + '\n');
+      log.val(log.val() + ($('#startingTimeEntry').val() || 'blank') + '\n');
     });
 
-    $('#defaultEntry2').timeEntry().change(function() {
+    $('#endingTimeEntry').timeEntry().change(function() {
       var log = $('#log');
-      log.val(log.val() + ($('#defaultEntry').val() || 'blank') + '\n');
+      log.val(log.val() + ($('#endingTimeEntry').val() || 'blank') + '\n');
     });
 
     $('.list').click(function (event) {
@@ -141,12 +141,10 @@ $(document).ready(function () {
             let availabilityJSON = {};
             let key = $('#day')[0].innerText;
             let day = '' + $('#day') + '';
-            console.log(day);
-            let times1 = '' + $('#defaultEntry1').val() + '';
-            let times2 = '' + $('#defaultEntry2').val() + '';
+            let times1 = '' + $('#startingTimeEntry').val() + '';
+            let times2 = '' + $('#endingTimeEntry').val() + '';
 
             availabilityJSON[key] = times1 + ' to ' + times2;
-            console.log(availabilityJSON);
 
             var content = $('#availabilityTable');
             for (var i = 0; i < 1; i++) {
@@ -155,14 +153,11 @@ $(document).ready(function () {
             }
 
             $('#availabilityTable').append(content);
-            console.log(content);
 
             $('#day').val('');
             $('#availableTimes').val('');
             $('#editAvailabilityModal').modal('toggle');
             sortTable($('#availabilityTable'),'asc');
-
-            console.log(availabilityJSON);
 
             $.ajax({
                 type: 'POST',
@@ -188,12 +183,10 @@ $(document).ready(function () {
 });
 
 function openMyProfile() {
-  console.log("bye");
     window.open('/home/my_profile', "_self");
 }
 
 function openAvailability() {
-    console.log("hi");
     window.open('/home/availability/' + tutor, "_self");
 }
 
@@ -202,7 +195,6 @@ function renderHomepage() {
 }
 
 function sortTable(table, order) {
-    console.log(table, order);
     var asc = order === 'asc',
         tbody = table.find('tbody');
 
