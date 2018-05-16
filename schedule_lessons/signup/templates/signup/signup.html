@@ -1,15 +1,17 @@
 {% extends "signup/base.html" %}
 {% load static %}
+
 {% block css %}
   <link rel="stylesheet" type="text/css" href="{% static "css/signup.css" %}">
 {% endblock %}
+
   {% block content %}
   <div class="header">
     <img class="image" src="{% static "images/logo.png" %}" alt="Scheduler">
 
     </div>
     <div class="auth-form">
-      
+
       <h3>Sign Up</h3>
       <form method="post" action="{{ user_type }}">
         {% csrf_token %}
@@ -17,11 +19,14 @@
           <p>
             {{ field.label_tag }}<br>
             {{ field }}
+            {% for error_field, message in errors %}
+              {% if error_field == field.name %}
+                {{ message }}
+              {% endif %}
+            {% endfor %}
           </p>
-          {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-          {% endfor %}
         {% endfor %}
+
         <div class="auth">
           <button id="auth-button" class="btn" type="submit">Sign up</button>
         </div>
