@@ -21,13 +21,18 @@
             {{ field }}
           </p>
         {% endfor %}
+        {% if form.errors %}
+        <ul>
+          <li class="error_class">Not a valid username/password combination. Try again.</li>
+        </ul>
+        {% endif %}
         <div class="auth">
           <button id="auth-button" class="btn" type="submit">Log In</button>
         </div>
       </form>
       <div class="or">
         <p > Or Sign Up As: </p>
-        
+
       </div>
       <div class="row signup-links">
         <div class="col-sm-6">
