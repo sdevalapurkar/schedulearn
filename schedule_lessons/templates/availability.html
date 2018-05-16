@@ -1,61 +1,163 @@
-{% load static %}
-<html> 
-    <head> 
-      <link rel="stylesheet" href="{%static "index.css" %}"> 
-    </head> 
- 
-    <body> 
-      <h1 class = "headerText"> My Profile</h1> 
-      <img class = "profilepic" src = "https://www.tribute.ca/news/wp-content/uploads/2014/12/gandalf1-650x487.jpg"> 
-        <div class = "boxed"></div> 
-      <h1 class = "headerText"> Availability</h1> 
-      <h2 class = "secondHeader "></h2> 
- 
-      <button id="scheduleLesson" type="button" class="btn btn-success schedule-lesson" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
+<!DOCTYPE html>
 
-      <table> 
-        <caption>Open Time Slots for Dr.Jones</caption> 
-          <tr> 
-            <th> Date </th> 
-            <th> Time </th> 
-          </tr> 
- 
-          <tr> 
-            <td> Monday </td> 
-            <td> 5:00PM - 8:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Tuesday </td> 
-            <td> 6:00PM - 7:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Wednesday </td> 
-            <td> 1:00PM - 3:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Thursday </td> 
-            <td> 9:00AM - 1:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Friday </td> 
-            <td> 4:00PM - 7:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Saturday </td> 
-            <td> 4:00PM - 9:00PM </td> 
-          </tr> 
- 
-          <tr> 
-            <td> Sunday </td> 
-            <td> 9:00AM - 5:00PM </td> 
-          </tr> 
- 
-      </table> 
- 
-    </body> 
+{% load static %}
+
+<html>
+    <head>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static "scheduler/css/Schedulerpage.css" %}">
+      <script src="{% static "scheduler/js/Schedulerpage.js" %}"></script>
+      <link rel="stylesheet" href="{% static "scheduler/css/jquery.timeentry.css" %}">
+      <script src="{% static "scheduler/js/jquery.plugin.min.js" %}"></script>
+      <script src="{% static "scheduler/js/jquery.timeentry.js" %}"></script>
+    </head>
+
+    <body>
+        <div class="container">
+      <h1 class = "headerText"> Availability</h1>
+      <h2 class = "secondHeader "></h2>
+      <h3>Open time slots for {{ user_full_name }}</h3>
+      <hr id="availhr" />
+
+      <button id="homepage" type="button" class="btn btn-warning" style="float: left" onclick="renderHomepage()">Home</button>
+      <button id="editAvailability" type="button" class="btn btn-info" data-toggle="modal" data-target="#editAvailabilityModal">Edit Availability</button>
+      <button id="scheduleLesson" type="button" class="btn btn-success" data-toggle="modal" data-target="#scheduleLessonModal">Schedule Lesson</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="scheduleLessonModal" tabindex="-1" role="dialog" aria-labelledby="scheduleLessonModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Schedule A Lesson</h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <h3>Lesson Name</h3>
+                            <label for="lessonName"></label>
+                            <input type="text" class="form-control" id="lessonName" placeholder="Violin Lesson">
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Lesson Description</h3>
+                            <textarea class="form-control" id="lessonDescription" rows="2" cols="30" placeholder="Training for my grade 4 RCM exam!"></textarea>
+                        </div>
+
+                        <div style="margin-bottom: 20px;" class='col-sm-6 start-date-picker'>
+                            <h3>Start Date</h3>
+                            <div class="form-group">
+                                <div class='input-group date' id='startDatePicker'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;" class='col-sm-6 end-date-picker'>
+                            <h3>End Date</h3>
+                            <div class="form-group">
+                                <div class='input-group date' id='endDatePicker'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 0px solid black" class="modal-footer">
+                        <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+      <div class="modal fade" id="editAvailabilityModal" tabindex="-1" role="dialog" aria-labelledby="editAvailabilityModalLabel" aria-hidden="true">
+            <div style="width:650px;" class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Availability</h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group text-center">
+                            <h3>Day</h3>
+
+                            <div class="btn-group">
+
+                                <button type="button" id="day" class="btn btn-info dropdown-toggle form-control dropdown-title" data-toggle="dropdown">
+                                  Select a day <span class="caret"></span>
+                                </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a class="list" href="#">Monday</a></li>
+                                <li><a class="list" href="#">Tuesday</a></li>
+                                <li><a class="list" href="#">Wednesday</a></li>
+                                <li><a class="list" href="#">Thursday</a></li>
+                                <li><a class="list" href="#">Friday</a></li>
+                                <li><a class="list" href="#">Saturday</a></li>
+                                <li><a class="list" href="#">Sunday</a></li>
+
+                              </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <h3>Timings</h3>
+                            <form class="center form-inline ">
+                              <div class="form-group">
+                                <label for="startingTimeEntry">Starting:</label>
+                                <input type="text" id="startingTimeEntry" class="form-control" value="12:00">
+                              </div>
+                              <div class="form-group text-right">
+                                <label for="endingTimeEntry">Ending:</label>
+                                <input type="text" id="endingTimeEntry" class="form-control" value="6:00P.M">
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div style="border-top: 0px solid black" class="modal-footer">
+                            <button id="saveAvailability" type="button" class="btn btn-success">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <table id="availabilityTable">
+          <tr>
+            <th> Day </th>
+            <th> Available Times </th>
+          </tr>
+
+        {% for day, value in availability.items %}
+        <tr>
+            <td> {{ day }} </td>
+            <td> {{ value }} </td>
+        </tr>
+        {% endfor %}
+      </table>
+        </div>
+    </body>
+
 </html>
