@@ -95,3 +95,7 @@ a.btn {
 p {
     font-weight: bold;
 }
+
+.errorlist, li {
+  color: red;
+}
