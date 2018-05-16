@@ -3,7 +3,7 @@ A web app that tutors and students can use to interact with each other and easil
 
 ## Try it out
 
-You can visit our website @ www.jesuisahmedn.pythonanywhere.com
+You can visit our website @ jesuisahmedn.pythonanywhere.com
 
 OR 
 
