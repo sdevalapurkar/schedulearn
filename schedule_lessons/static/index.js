@@ -2,7 +2,25 @@ let tutorID = undefined;
 let testUrl = undefined;
 let tutor = undefined;
 
+
+
 $(document).ready(function () {
+
+    $('#startingTimeEntry').timeEntry().change(function() {
+      var log = $('#log');
+      log.val(log.val() + ($('#startingTimeEntry').val() || 'blank') + '\n');
+    });
+
+    $('#endingTimeEntry').timeEntry().change(function() {
+      var log = $('#log');
+      log.val(log.val() + ($('#endingTimeEntry').val() || 'blank') + '\n');
+    });
+
+    $('.list').click(function (event) {
+
+        $(".dropdown-title").html($(this).text()+'<span class="caret"></span>');
+
+    });
     $('.sauce-confirm').click(function (event) {
         $.ajax({
             type: 'POST',
@@ -106,7 +124,7 @@ $(document).ready(function () {
         saveButton.unbind().click(function () {
             let addedTutor = {};
             addedTutor.tutor_id = $('#tutorID').val();
-            
+
             $('#addTutorModal').modal('toggle');
 
             $.ajax({
@@ -121,24 +139,25 @@ $(document).ready(function () {
         let saveButton = $(this).find('#saveAvailability');
         saveButton.unbind().click(function () {
             let availabilityJSON = {};
-            let key = $('#day').val();
-            let day = '' + $('#day').val() + '';
-            let times = '' + $('#availableTimes').val() + '';
-            availabilityJSON[key] = $('#availableTimes').val();
-            
+            let key = $('#day')[0].innerText;
+            let day = '' + $('#day') + '';
+            let times1 = '' + $('#startingTimeEntry').val() + '';
+            let times2 = '' + $('#endingTimeEntry').val() + '';
+
+            availabilityJSON[key] = times1 + ' to ' + times2;
+
             var content = $('#availabilityTable');
             for (var i = 0; i < 1; i++) {
-                content += '<tr>' +'<td>' + (day) + '</td>'+'<td>' + (times) + '</td>' + '</tr>';
+                content += '<tr>' +'<td>' + (key) + '</td>'+'<td>' + (times1) + ' to ' + (times2) + '</td>' + '</tr>';
                 content += $('#availabilityTable');
             }
+
             $('#availabilityTable').append(content);
 
             $('#day').val('');
             $('#availableTimes').val('');
             $('#editAvailabilityModal').modal('toggle');
             sortTable($('#availabilityTable'),'asc');
-
-            console.log(availabilityJSON);
 
             $.ajax({
                 type: 'POST',
@@ -176,7 +195,6 @@ function renderHomepage() {
 }
 
 function sortTable(table, order) {
-    console.log(table, order);
     var asc = order === 'asc',
         tbody = table.find('tbody');
 
@@ -205,7 +223,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-$.ajaxSetup({ 
+$.ajaxSetup({
      beforeSend: function(xhr, settings) {
          if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
              // Only send the token to relative URLs i.e. locally.
