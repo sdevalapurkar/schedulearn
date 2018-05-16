@@ -9,14 +9,16 @@
       <!-- Optional theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-      
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="{% static "index.css" %}">
       <script src="{% static "index.js" %}"></script>
+      <link rel="stylesheet" href="{% static "jquery.timeentry.css" %}">
+      <script src="{% static "jquery.plugin.min.js" %}"></script>
+      <script src="{% static "jquery.timeentry.js" %}"></script>
     </head>
 
     <body>
@@ -64,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                            
+
                         <div style="margin-bottom: 20px;" class='col-sm-6 end-date-picker'>
                             <h3>End Date</h3>
                             <div class="form-group">
@@ -79,8 +81,8 @@
                     </div>
 
                     <div style="border-top: 0px solid black" class="modal-footer">
-                        <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button> 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                        <button id="saveSchedule" type="button" class="btn btn-success">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@
 
         <!-- Modal -->
       <div class="modal fade" id="editAvailabilityModal" tabindex="-1" role="dialog" aria-labelledby="editAvailabilityModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div style="width:650px;" class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,22 +101,44 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <h3>Day</h3>
-                            <label for="day" class="form-control-label"></label>
-                            <input type="text" class="form-control" id="day" placeholder="Monday">
-                        </div>
 
+                            <div class="btn-group">
+
+                                <button type="button" id="day" class="btn btn-info dropdown-toggle form-control dropdown-title" data-toggle="dropdown">
+                                  Select a day <span class="caret"></span>
+                                </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a class="list" href="#">Monday</a></li>
+                                <li><a class="list" href="#">Tuesday</a></li>
+                                <li><a class="list" href="#">Wednesday</a></li>
+                                <li><a class="list" href="#">Thursday</a></li>
+                                <li><a class="list" href="#">Friday</a></li>
+                                <li><a class="list" href="#">Saturday</a></li>
+                                <li><a class="list" href="#">Sunday</a></li>
+
+                              </ul>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <h3>Available Times</h3>
-                            <label for="availableTimes" class="form-control-label"></label>
-                            <input type="text" class="form-control" id="availableTimes" placeholder="5:00 PM - 8:00 PM">
+                          <h3>Timings</h3>
+                            <form class="center form-inline ">
+                              <div class="form-group">
+                                <label for="startingTimeEntry">Starting:</label>
+                                <input type="text" id="startingTimeEntry" class="form-control" value="12:00">
+                              </div>
+                              <div class="form-group text-right">
+                                <label for="endingTimeEntry">Ending:</label>
+                                <input type="text" id="endingTimeEntry" class="form-control" value="6:00P.M">
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                    </div>
-
-                    <div style="border-top: 0px solid black" class="modal-footer">
-                        <button id="saveAvailability" type="button" class="btn btn-success">Save changes</button> 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                        <div style="border-top: 0px solid black" class="modal-footer">
+                            <button id="saveAvailability" type="button" class="btn btn-success">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
