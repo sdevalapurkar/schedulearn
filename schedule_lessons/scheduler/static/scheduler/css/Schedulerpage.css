@@ -1,10 +1,10 @@
 @font-face {
     font-family: LightFont;
-    src: url('TheLightFont.otf');
+    src: url("../fonts/TheLightFont.otf");
 }
 @font-face {
     font-family: MankSans;
-    src: url('MankSans.ttf');
+    src: url("../fonts/MankSans.ttf");
 }
 
 h1 {
