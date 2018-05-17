@@ -19,7 +19,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home", "static"),
-    os.path.join(BASE_DIR, "scheduler", "static"),
+    os.path.join(BASE_DIR, "dashboard", "static"),
 ]
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -50,7 +50,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'signup.apps.SignupConfig',
-    'scheduler.apps.SchedulerConfig',
+    'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
