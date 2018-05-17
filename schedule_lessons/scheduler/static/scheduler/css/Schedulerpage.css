@@ -71,6 +71,10 @@ h3 {
   margin-right: 10px;
 }
 
+.daysofmonth {
+  font-size: 20px;
+}
+
 .agenda .agenda-date .shortdate {
   font-size: 0.75em;
 }
