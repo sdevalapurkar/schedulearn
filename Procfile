@@ -1,1 +1,1 @@
-web: gunicorn schedule_lessons.wsgi:application --log-file -
+web: gunicorn schedule_lessons.wsgi --log-file -
