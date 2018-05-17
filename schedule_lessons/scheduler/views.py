@@ -25,6 +25,7 @@ def home(request):
                 data = {
                     'id': event.id,
                     'name': event.name,
+                    'location': event.location,
                     'tutor_name': event.tutor.get_full_name(),
                     'tutor_id': event.tutor.profile.id,
                     'tutor_username': event.tutor.username,
@@ -126,9 +127,10 @@ def set_event(request):
             end_time = datetime.datetime.strptime(data.get('endDate'), '%m/%d/%Y %I:%M %p')
 
             description = data.get('lessonDescription')
+            location = data.get('lessonLocation')
             tutor = User.objects.get(profile__id=data.get('tutorID'))
 
-            event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, client=request.user)
+            event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, client=request.user)
             event.save()
 
             send_mail(
