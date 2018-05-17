@@ -100,10 +100,7 @@ DATABASES = {
     }
 }
 
-import dj_database_url
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -144,3 +141,10 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# ie if Heroku server
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
