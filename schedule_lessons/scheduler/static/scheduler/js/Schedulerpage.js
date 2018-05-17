@@ -102,6 +102,7 @@ $(document).ready(function () {
             let scheduleJSON = {};
             scheduleJSON.lessonName = $('#lessonName').val();
             scheduleJSON.lessonDescription = $('#lessonDescription').val();
+            scheduleJSON.lessonLocation = $('#lessonLocation').val();
             scheduleJSON.startDate = $('#startDatePicker').find('input').val();
             scheduleJSON.endDate = $('#endDatePicker').find('input').val();
             scheduleJSON.tutorID = tutorID;

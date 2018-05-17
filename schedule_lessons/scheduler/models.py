@@ -8,6 +8,7 @@ class Events(models.Model):
 
     name = models.CharField(max_length=32, blank=True, null=True)
     description = models.CharField(max_length=1000, blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True, null=True)
 
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user')
@@ -17,6 +18,7 @@ class Events(models.Model):
 
     pending = models.BooleanField(null=False, default=True)
 
+
     def __str__(self):
         return self.name
 
@@ -24,4 +26,3 @@ class Events(models.Model):
 class Relationships(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user_rel')
-    

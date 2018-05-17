@@ -42,13 +42,25 @@
                                 <th> Date </th>
                                 <th> Times </th>
                                 <th> Name </th>
+                                <th> Location </th>
+                                {% if user_type == "tutor" %}
+                                  <th> Student Name </th>
+                                {% else %}
+                                  <th> Tutor Name </th>
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
                             {% for event in events %}
                                 <tr>
                                     <td class="agenda-date" class="active" rowspan="1">
+                                      {% if event.start_month_day == event.end_month_day %}
                                         <div class="dayofmonth">{{ event.start_month_day }}</div>
+                                      {% else %}
+                                        <div class="daysofmonth">
+                                          {{ event.start_month_day }} - {{ event.end_month_day }}
+                                        </div>
+                                      {% endif %}
                                         <div class="dayofweek">{{ event.start_week_day }}</div>
                                         <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
                                     </td>
@@ -60,6 +72,24 @@
                                             {{ event.name }}
                                         </div>
                                     </td>
+                                    <td>
+                                      <div>
+                                        {{ event.location }}
+                                      </div>
+                                    </td>
+                                    {% if user_type == "tutor" %}
+                                        <td>
+                                          <div>
+                                            {{ event.client_name }}
+                                          </div>
+                                        </td>
+                                        {% else %}
+                                        <td>
+                                          <div>
+                                            {{ event.tutor_name }}
+                                          </div>
+                                        </td>
+                                      {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -72,8 +102,13 @@
                                 <th> Date </th>
                                 <th> Times </th>
                                 <th> Name </th>
+                                <th> Location </th>
+
                                 {% if user_type == "tutor" %}
+                                    <th> Student Name </th>
                                     <th> Confirmation </th>
+                                {% else %}
+                                  <th> Tutor Name </th>
                                 {% endif %}
                             </tr>
                         </thead>
@@ -81,7 +116,13 @@
                             {% for event in pending_events %}
                                 <tr>
                                     <td class="agenda-date" class="active" rowspan="1">
+                                      {% if event.start_month_day == event.end_month_day %}
                                         <div class="dayofmonth">{{ event.start_month_day }}</div>
+                                      {% else %}
+                                        <div class="daysofmonth">
+                                          {{ event.start_month_day }} - {{ event.end_month_day }}
+                                        </div>
+                                      {% endif %}
                                         <div class="dayofweek">{{ event.start_week_day }}</div>
                                         <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
                                     </td>
@@ -93,11 +134,27 @@
                                             {{ event.name }}
                                         </div>
                                     </td>
+                                    <td>
+                                      <div>
+                                        {{ event.location }}
+                                      </div>
+                                    </td>
                                     {% if user_type == "tutor" %}
+                                        <td>
+                                          <div>
+                                            {{ event.client_name }}
+                                          </div>
+                                        </td>
                                         <td class="agenda-events">
                                             <div class="agenda-event">
                                                 <button id="{{event.id}}" type="button" class="btn btn-success sauce-confirm" style="margin-right: 10px;">Confirm</button>
                                                 <button id="{{event.id}}" type="button" class="btn btn-danger sauce-decline">Decline</button>
+                                            </div>
+                                        </td>
+                                        {% else %}
+                                        <td>
+                                            <div>
+                                                {{ event.tutor_name }}
                                             </div>
                                         </td>
                                     {% endif %}
