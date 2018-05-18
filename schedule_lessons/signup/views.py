@@ -10,12 +10,10 @@ from .forms import MyRegistrationForm
 def signup_tutor(request):
     if request.method == 'GET':
         form = MyRegistrationForm()
-        return render(request, 'signup/signup.html', {'form': form, 'user_type': 'tutor'})
+        return render(request, 'signup/signup.html', {'form': form, 'user_type': 'tutor', 'errors': []})
 
     elif request.method == 'POST':
         form = MyRegistrationForm(request.POST)
-        print ('tutor')
-        print (request.POST)
         if form.is_valid():
             # Create the user
             form.save()
@@ -31,7 +29,7 @@ def signup_tutor(request):
             login(request, new_user)
             return redirect('home')
         else:
-            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'tutor'})
+            return render(request, 'signup/signup.html', {'form': form, 'user_type': 'tutor', 'errors': form.errors.items()})
 
     return HttpResponse(status=404)
 
@@ -40,12 +38,10 @@ def signup_tutor(request):
 def signup_client(request):
     if request.method == 'GET':
         form = MyRegistrationForm()
-        return render(request, 'signup/signup.html', {'form': form, 'user_type': 'client'})
+        return render(request, 'signup/signup.html', {'form': form, 'user_type': 'client', 'errors': []})
 
     elif request.method == 'POST':
         form = MyRegistrationForm(request.POST)
-        print('client')
-        print (request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -59,6 +55,6 @@ def signup_client(request):
             login(request, new_user)
             return redirect('home')
         else:
-            return render(request, 'signup/signup.html', {'form': form.errors, 'user_type': 'client'})
+            return render(request, 'signup/signup.html', {'form': form, 'user_type': 'client', 'errors': form.errors.items()})
 
     return HttpResponse(status=404)
