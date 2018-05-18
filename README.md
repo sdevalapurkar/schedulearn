@@ -3,20 +3,59 @@ A web app that tutors and students can use to interact with each other and easil
 
 ## Try it out
 
-You can visit our website @ jesuisahmedn.pythonanywhere.com
+If you want to see our work in action, visit: schedulearn.com
 
-OR 
+Otherwise, if you'd like to run a test module and play around with our code, complete the following steps:
 
-You can run a test module by completing the following steps.
+1- Using your terminal or command prompt, navigate to your workspace directory such as the following:
 
 ```
+$ cd Desktop
+$ cd Workspace
+```
 
+2- Next, you need to clone our repo on the terminal. You can do this by the following command:
+NOTE: $ sign at the beginning denotes the terminal, you don't type that in
+
+```
 $ git clone https://github.com/sdevalapurkar/schedule-my-lessons.git
-$ cd schedule-my-lessons/schedule_lessons
-$ python3 manage.py runserver
+```
+
+OR if you would like to clone from a specific branch, then the following command will do:
 
 ```
-Next: Visit the ip address given on your terminal.
+$ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedule-my-lessons.git
+```
+
+3- Navigate inside our repo:
+
+```
+$ cd schedule-my-lessons
+$ cd schedule_lessons
+```
+
+4- Now you want to run our app locally on your computer, you can do this using the following command:
+NOTE: This part might give you an error as you need to install django for this work. If you get an error, we recommend you make a virtual environment and install django in that virtual enviornment, and THEN run this command (For more info, check out the following video: https://www.youtube.com/watch?v=c2zTxSqHTc8)
+
+```
+$ python manage.py runserver
+```
+
+After running that command, you should get the following output: 
+
+```
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 18, 2018 - 04:04:08
+Django version 2.0.2, using settings 'schedule_lessons.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+
+5- You can now go to IP address that the app is running on (in our case: http://127.0.0.1:8000/) in your browser
+
+NOTE: You can make changes to the code while the server is running and the new code will show up as soon as you refresh your browser, you don't need to restart the server. HOWEVER, in the advanced case you make changes to the database (models.py), you will need to migrate those changes. Additonally, changes to the css files may not show up even if you refresh your browser, this can be because your browser is storing cache files of the css (HINT: try holding shift and refreshing your browser).
 
 ## Authors
 
