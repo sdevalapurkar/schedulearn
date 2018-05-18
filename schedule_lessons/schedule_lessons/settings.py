@@ -27,8 +27,8 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'sdevalapurkar'
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = 'lesson_scheduler@schedulearn.com'
 EMAIL_HOST_PASSWORD = 'hackuvic2018'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
