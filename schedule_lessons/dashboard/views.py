@@ -134,9 +134,9 @@ def set_event(request):
             event.save()
 
             send_mail(
-                'Schedulearn: Lesson scheduled!',
-                'Student: ' + request.user.first_name + ' ' + request.user.last_name +  '. ' + str(name) + ': ' + str(description) + '. ' + 'Start time: ' + str(start_time) + '. End time: ' + str(end_time) + '. Please visit Schedulearn to confirm this lesson.',
-                'schedulearn@schedulearn.com',
+                'Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
+                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n' + 'Lesson Name: '  + str(name) + '\nLesson Description: ' + str(description) + '\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\nLesson Location: ' + location,
+                'lesson_scheduler@schedulearn.com',
                 [tutor.email],
                 fail_silently=False,
             )
