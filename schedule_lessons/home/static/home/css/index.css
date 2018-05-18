@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   width: 100%;
 }
-
+/*
 .navbar {
   background-color: #FEDC32;
   padding: 1% 0;
@@ -40,6 +40,10 @@ html, body {
 .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav>.active>a {
   background-color: #edc91a;
   color: #FFF;
+} */
+
+.nav-link {
+  font-size: 20px;
 }
 
 #home {
