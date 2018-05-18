@@ -19,7 +19,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home", "static"),
-    os.path.join(BASE_DIR, "scheduler", "static"),
+    os.path.join(BASE_DIR, "dashboard", "static"),
 ]
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -50,7 +50,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'signup.apps.SignupConfig',
-    'scheduler.apps.SchedulerConfig',
+    'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -100,10 +100,7 @@ DATABASES = {
     }
 }
 
-import dj_database_url
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -144,3 +141,10 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# ie if Heroku server
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)

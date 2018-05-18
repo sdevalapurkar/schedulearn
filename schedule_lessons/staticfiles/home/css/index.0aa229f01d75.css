@@ -1,0 +1,107 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.navbar {
+  background-color: #FEDC32;
+  padding: 1% 0;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+  border: 0px;
+}
+
+.navbar-brand {
+  min-height: 55px;
+  padding: 0 15px 5px;
+}
+
+#logo {
+  width: 65%;
+}
+
+.collapsed {
+  margin-top: 5%;
+}
+
+#bs-example-navbar-collapse-1 {
+  padding: 2% 1% 0 3%;
+}
+
+
+.navbar-default .navbar-nav li a {
+  color: black;
+}
+.navbar-default .navbar-nav>.active>a {
+  color: black;
+  background-color: #edc91a;
+}
+
+.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav>.active>a {
+  background-color: #edc91a;
+  color: #FFF;
+}
+
+#home {
+  background: url("../images/background.2513d588bc6f.jpg") no-repeat 0% 0% fixed;
+  display: table;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  background-size: cover;
+}
+
+.landing-text {
+  color: black;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.landing-text h1 {
+  font-size: 500%;
+  font-weight: 700;
+}
+
+.padding {
+  padding: 80px 0;
+}
+
+.padding img {
+  width: 100%;
+}
+
+footer {
+  width: 100%;
+  background-color: #FEDC32;
+  padding: 5% 5% 10% 5%;
+  color: black;
+}
+
+.fab {
+  padding: 15px;
+  font-size: 25px;
+  color: black;
+}
+
+.fab:hover {
+  color: #D5D5D5;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+
+  #bs-example-navbar-collapse-1 {
+    margin-top: 2%;
+    padding: 2% 0 0 3%;
+  }
+
+  .landing-text h1 {
+    font-size: 300%;
+  }
+
+  .fa {
+    font-size: 20px;
+    max-width: 10px;
+  }
+}
