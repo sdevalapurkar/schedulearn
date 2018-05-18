@@ -1,0 +1,97 @@
+@font-face { font-family: LightFont; src: url("TheLightFont.e027c1173c04.otf"); }
+@font-face { font-family: Feeding; src: url("Feeding_a_Moment.04dc9ffd6194.otf"); }
+@font-face { font-family: Comforta; src: url("Comfortaa-Regular.d350ce249a30.ttf"); }
+
+
+body {
+    height: auto;
+    box-sizing: border-box;
+}
+
+.header, .footer {
+    margin: 0 auto 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.image {
+  width: 75%;
+  height: 22%;
+  border: 3px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.footer {
+    color: grey;
+}
+
+h3 {
+  font-size: 40px;
+  text-align: center;
+  font-family: LightFont;
+  margin: 0 auto;
+}
+
+.content {
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.auth-form {
+    border: 3px solid black;
+    margin: 1.5em auto;
+    float: none;
+    width: 75%;
+    height: auto;
+    padding: 10px;
+}
+
+/* Signup Button */
+#auth-button {
+    background-color: #ffce0c;
+    width: 200px;
+    border: 3px solid black;
+    border-radius: 5%;
+    color: black;
+}
+
+.auth {
+    margin: 3em auto 2em auto;
+    text-align: center;
+}
+
+
+.form-control {
+    margin-bottom: 2em;
+    border: 3px solid black;
+}
+
+.container {
+    width: 500px;
+    height: 600px;
+    margin: 1.5em auto;
+}
+
+.or {
+    text-align: center;
+    font-weight: bold;
+}
+
+.signup-links {
+    margin: 0 auto;
+}
+
+a.btn {
+    font-size: 16px;
+}
+
+.col-sm-6 {
+  text-align: center;
+  align-items: center;
+}
+
+.error_class {
+  color: red;
+}
