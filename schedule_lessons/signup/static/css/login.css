@@ -44,7 +44,7 @@ h3 {
     margin: 1.5em auto;
     float: none;
     width: 75%;
-    height: 65%;
+    height: auto;
     padding: 10px;
 }
 
@@ -90,4 +90,8 @@ a.btn {
 .col-sm-6 {
   text-align: center;
   align-items: center;
+}
+
+.error_class {
+  color: red;
 }
