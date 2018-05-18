@@ -3,14 +3,20 @@ A web app that tutors and students can use to interact with each other and easil
 
 ## Try it out
 
-You can run example module by performing these steps:
+You can visit our website @ jesuisahmedn.pythonanywhere.com
+
+OR 
+
+You can run a test module by completing the following steps.
 
 ```
+
 $ git clone https://github.com/sdevalapurkar/schedule-my-lessons.git
 $ cd schedule-my-lessons/schedule_lessons
-$ python3 manage.py runserver [port]
+$ python3 manage.py runserver
+
 ```
-Next: Visit the ip address given on your terminal adding "/login" at the end of the ip address on your web browser. e.g 100.0.0.0:3000/login
+Next: Visit the ip address given on your terminal.
 
 ## Authors
 
