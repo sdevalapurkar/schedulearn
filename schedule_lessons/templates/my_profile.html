@@ -2,8 +2,8 @@
 {% load static %}
 <html>
   <head>
-    <link rel="stylesheet" href="{% static "scheduler/css/my_profile.css" %}">
-    <script src="{% static "scheduler/js/Schedulerpage.js" %}"></script>
+    <link rel="stylesheet" href="{% static "dashboard/css/my_profile.css" %}">
+    <script src="{% static "dashboard/js/dashboard.js" %}"></script>
     </head>
   <body>
 
@@ -12,7 +12,7 @@
         <p class="headerText">My Profile</p>
     </div>
     <div class="panel">
-      <img src="{% static "scheduler/images/man.png" %}" height="200" class="profilePicture">
+      <img src="{% static "dashboard/images/man.png" %}" height="200" class="profilePicture">
       <p class="label">First Name</p>
       <p class="info">{{ user.first_name }}</p>
       <p class="label">Last Name</p>
