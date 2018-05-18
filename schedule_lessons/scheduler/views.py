@@ -49,7 +49,7 @@ def home(request):
                     event_list.append(data)
             except Exception as e:
                 print(str(e))
-        return render(request, 'index.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'Schedulerpage.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
 
@@ -155,7 +155,7 @@ def get_availability(request, tutor_id):
         if availability == {} or availability == '{}':
             availability = None
 
-        return render(request, 'Schedulerpage.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
+        return render(request, 'availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
 def set_availability(request):

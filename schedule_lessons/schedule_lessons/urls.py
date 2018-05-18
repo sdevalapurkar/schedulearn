@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import login, logout
-from django.views.generic import RedirectView
+from django.views.generic.base import RedirectView
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(pattern_name='home', permanent=False)),
+    path('', include('home.urls')),
     path('home/', include('scheduler.urls')),
     path('signup/', include('signup.urls')),
     path('login/', login, {'template_name': 'signup/login.html'}),
     path('logout/', logout, name='logout'),
+    path('admin/', admin.site.urls),
 ]

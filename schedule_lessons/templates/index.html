@@ -1,175 +1,77 @@
+<!DOCTYPE html>
 {% load static %}
 <html>
-    <head>
-        <title>Welcome to Schedulearn</title>
-        <link rel="shortcut icon" href="{% static "favicon.ico" %}" />
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+  <head>
+    <title>Home | Schedulearn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+  </head>
+  <body>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static "index.css" %}">
-        <script src="{% static "index.js" %}"></script>
-        <link rel="stylesheet" href="{% static "jquery.timeentry.css" %}">
-        <script src="{% static "jquery.plugin.min.js" %}"></script>
-        <script src="{% static "jquery.timeentry.js" %}"></script>
-
-    </head>
-
-    <body>
-        <div class="container">
-        <h1>Schedulearn</h1>
-            <h3>Schedule your lessons with ease, and achieve your best results!</h3>
-            <hr />
-            <div class="agenda">
-                <div class="table-responsive">
-                    <button id="signOut" type="button" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal">Sign Out</button>
-                    <button id="myProfile" type="button" class="btn btn-primary options-button" onclick="openMyProfile()">My Profile</button>
-                    <button id="myTutors" type="button" class="btn btn-info options-button" data-toggle="modal" data-target="#myTutorsModal" style="display:block;">My Tutors</button>
-                    <button id="editAvailabilityButton" type="button" class="btn btn-info options-button" style="display:block;" onclick="openAvailability()">Edit Availability</button>
-                    <button id="addTutor" type="button" class="btn btn-warning options-button" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add Tutor</button>
-                    <hr style="margin-top:55px;" />
-                    <h3 style="margin-top: 30px;">Confirmed Lessons</h3>
-                    <table id="agendaTable" class="table table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th> Date </th>
-                                <th> Times </th>
-                                <th> Name </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for event in events %}
-                                <tr>
-                                    <td class="agenda-date" class="active" rowspan="1">
-                                        <div class="dayofmonth">{{ event.start_month_day }}</div>
-                                        <div class="dayofweek">{{ event.start_week_day }}</div>
-                                        <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
-                                    </td>
-                                    <td class="agenda-time">
-                                        {{ event.start_time }} - {{ event.end_time }}
-                                    </td>
-                                    <td class="agenda-events">
-                                        <div class="agenda-event">
-                                            {{ event.name }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
-                    <table id="pendingAgendaTable" class="table table-condensed table-bordered">
-                        <h3>Pending Lessons</h3>
-                        <thead>
-                            <tr>
-                                <th> Date </th>
-                                <th> Times </th>
-                                <th> Name </th>
-                                {% if user_type == "tutor" %}
-                                    <th> Confirmation </th>
-                                {% endif %}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for event in pending_events %}
-                                <tr>
-                                    <td class="agenda-date" class="active" rowspan="1">
-                                        <div class="dayofmonth">{{ event.start_month_day }}</div>
-                                        <div class="dayofweek">{{ event.start_week_day }}</div>
-                                        <div class="shortdate text-muted">{{ event.start_shortdate }}</div>
-                                    </td>
-                                    <td class="agenda-time">
-                                        {{ event.start_time }} - {{ event.end_time }}
-                                    </td>
-                                    <td class="agenda-events">
-                                        <div class="agenda-event">
-                                            {{ event.name }}
-                                        </div>
-                                    </td>
-                                    {% if user_type == "tutor" %}
-                                        <td class="agenda-events">
-                                            <div class="agenda-event">
-                                                <button id="{{event.id}}" type="button" class="btn btn-success sauce-confirm" style="margin-right: 10px;">Confirm</button>
-                                                <button id="{{event.id}}" type="button" class="btn btn-danger sauce-decline">Decline</button>
-                                            </div>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h5 class="modal-title" id="exampleModalLabel">Sure you want to sign out???</h5>
-                        </div>
-                        <div style="border-top: 0px solid black" class="modal-footer">
-                            <a href="/logout"><button type="button" class="btn btn-danger">Sign Out</button></a>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="addTutorModal" tabindex="-1" role="dialog" aria-labelledby="addTutorLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h5 class="modal-title" id="exampleModalLabel">Add a Tutor</h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <h3>Tutor ID</h3>
-                                    <label for="tutorID"></label>
-                                    <input type="text" class="form-control" id="tutorID" placeholder="a9a381e5-b70d-445e-a37f-4757d5c2cf32">
-                                </div>
-                            </div>
-                            <div style="border-top: 0px solid black" class="modal-footer">
-                                <button id="addTutorButton" type="button" class="btn btn-success">Add</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="myTutorsModal" tabindex="-1" role="dialog" aria-labelledby="myTutorsModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h5 class="modal-title" id="exampleModalLabel">My Tutors</h5>
-                        </div>
-                        <div id="tutors-table" class="modal-body modal-tutor">
-
-                        </div>
-                        <div style="border-top: 0px solid black" class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a style="background-image: url({%static 'home/images/logo_transparent.png' %}); width: 324px; height: 95px;" class="navbar-brand" href="/"></a>
         </div>
-    </body>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about-schedulearn">About Schedulearn</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="login">Log in</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="home">
+      <div class="landing-text">
+        <h1>SCHEDULEARN</h1>
+        <h3>Increasing connectivity between students and teachers.</h3>
+        <a href="signup/client" class="btn btn-primary btn-lg">Sign Up as a Student</a>
+        <a href="signup/tutor" class="btn btn-success btn-lg">Sign Up as a Tutor</a>
+      </div>
+    </div>
+
+    <div id="about-schedulearn" class="padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <img style="width:90%" src="{% static 'home/images/demo.png' %}">
+          </div>
+          <div class="col-sm-6 text-center">
+            <h2>About Schedulearn</h2>
+            <p class="lead">Schedulearn is all about connecting students and professors in a way that hasn't been done before. The way Schedulearn does that is by giving tutors the ability to give students assignments, schedule lessons and much more.</p>
+            <p class="lead">Students get access to features that enhance their learning experience such as chatrooms with other students, the ability to schedule lessons with their teacher and more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>Contact Us</h3><br>
+          <h4>Our contact information is here.</h4>
+        </div>
+        <div class="col-sm-6">
+          <h3>Connect</h3>
+          <a href="https://github.com/sdevalapurkar/schedule-my-lessons" class="fab fa-github"></a>
+        </div>
+
+      </div>
+    </footer>
+
+  </body>
 </html>
