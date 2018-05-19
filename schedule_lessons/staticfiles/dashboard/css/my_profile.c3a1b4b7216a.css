@@ -1,10 +1,10 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
+@font-face { font-family: LightFont; src: url("../fonts/TheLightFont.e027c1173c04.otf"); }
+@font-face { font-family: Feeding; src: url("../fonts/Feeding_a_Moment.04dc9ffd6194.otf"); }
+@font-face { font-family: Comforta; src: url("../fonts/Comfortaa-Regular.d350ce249a30.ttf"); }
 
 
 body {
-  background: url("../images/funky-lines.png");
+  background: url("../images/funky-lines.7c2eac8723aa.png");
 }
 
 nav {
