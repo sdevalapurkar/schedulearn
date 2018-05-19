@@ -8,8 +8,8 @@ import uuid
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True, null=True)
-    user_type = models.CharField(max_length=16, blank=False, null=False, default='client')
-    image_path = models.CharField(max_length=100, blank=True, null=True)
+    user_type  = models.CharField(max_length=16, blank=False, null=False, default='client')
+    profile_pic = models.ImageField(upload_to="profile_pics", blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     availability = models.CharField(max_length=1000, blank=True, null=True, default='{}')
 

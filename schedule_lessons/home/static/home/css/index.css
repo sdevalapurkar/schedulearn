@@ -3,10 +3,18 @@ html, body {
   width: 100%;
 }
 
+nav {
+  background-color: #FEDC32;
+  height: 8%;
+}
+
 .nav-link {
   font-size: 20px;
 }
 
+#logo {
+  width: 70%;
+}
 .errorlist {
   list-style-type: none;
   color: red;
@@ -80,7 +88,7 @@ footer {
     font-size: 300%;
   }
 
-  .fa {
+  .fab {
     font-size: 20px;
     max-width: 10px;
   }

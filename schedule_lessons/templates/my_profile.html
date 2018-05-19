@@ -3,24 +3,105 @@
 <html>
   <head>
     <link rel="stylesheet" href="{% static "dashboard/css/my_profile.css" %}">
-    <script src="{% static "dashboard/js/dashboard.js" %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="{% static "dashboard/js/my_profile.js" %}"></script>
     </head>
   <body>
 
-    <div>
-        <button class="homebutton" onclick="renderHomepage()">Home</button>
-        <p class="headerText">My Profile</p>
-    </div>
-    <div class="panel">
-      <img src="{% static "dashboard/images/man.png" %}" height="200" class="profilePicture">
-      <p class="label">First Name</p>
-      <p class="info">{{ user.first_name }}</p>
-      <p class="label">Last Name</p>
-      <p class="info">{{ user.last_name }}</p>
-      <p class="label">ID</p>
-      <p class="info hash">{{ user.profile.id }}</p>
+    <nav style="height:72px;"class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">
+        <img id="logo" src="{% static 'home/images/logo_transparent.png'%}" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a id="dashboard" class="nav-link" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item active">
+            <a id="myProfile" class="nav-link" href="#">My Profile<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a id="addTutor" class="btn btn-success options-button" href="#" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add a tutor</a>
+          </li>
+          <li class="nav-item">
+            <a id="myTutors" class="btn btn-info options-button" href="#" data-toggle="modal" data-target="#myTutorsModal" style="display:block;">My Tutors</a>
+          </li>
+          <li class="nav-item">
+            <a id="editAvailabilityButton" class="btn btn-info" href="#">Edit Availability</a>
+          </li>
+          <li class="nav-item">
+            <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div style="border-top: 0px solid black" class="modal-footer">
+                    <a href="/logout"><button type="button" class="btn btn-danger">Sign Out</button></a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div class="container">
+      <h1>{{ user.first_name}} {{user.last_name}}'s Profile</h1>
+      <div class="picture-container">
+        <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+      <!--  <div class="middle">
+          <div class="text">{{ profile_form.profile_pic }}</div>
+        </div> -->
+      </div>
+      <hr>
+
+      <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ name_form.first_name.id_for_label }}">First Name</label>
+          {{ name_form.first_name }}
+        </div>
+        <div class="form-group">
+          <label for="{{ name_form.last_name.id_for_label }}">Last Name</label>
+          {{ name_form.last_name }}
+        </div>
+        <div class="form-group">
+          <label for="ID">Your ID</label>
+          <input type="text" class="form-control" id="ID" value="{{ user.profile.id }}" disabled>
+          <small id="IDHelp" class="form-text text-muted">You can not modify your ID as it is computer-generated</small>
+        </div>
+        <div class="form-group">
+          <label for="profilePicture">Profile Picture</label>
+          {{ profile_form.profile_pic }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+
+    <script src="{% static "dashboard/js/my_profile.js" %}"></script>
+    <script type="text/javascript">
+        $('#id_first_name').val("{{ user.first_name }}");
+        $('#id_last_name').val("{{ user.last_name }}");
+
+    </script>
   </body>
-
 </html>
