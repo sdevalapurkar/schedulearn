@@ -2,6 +2,7 @@ from django.shortcuts import render
 import json
 import datetime
 from django.http import HttpResponse
+from .forms import ProfileForm, NameForm
 from .models import Relationships, Events
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -195,9 +196,36 @@ def edit_availability(request):
     return HttpResponse(status=404)
 
 def my_profile(request):
+    try:
+        profile = request.user.profile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+
     if request.method == 'GET':
-        return render(request, 'my_profile.html', {'user': request.user})
-    return HttpResponse(status=404)
+        profile_form = ProfileForm()
+        name_form = NameForm()
+        print(name_form)
+    elif request.method == 'POST':
+        name_form = NameForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=profile)
+        if name_form.is_valid() and profile_form.is_valid():
+            request.user.first_name = name_form.cleaned_data['first_name']
+            request.user.last_name = name_form.cleaned_data['last_name']
+            request.user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = request.user
+
+            if 'profile_pic' in request.FILES:
+                 profile.profile_pic = request.FILES['profile_pic']
+
+            profile.save()
+        else:
+            print("***********ERROR************\n\n\n\n\n\n")
+            print("name_form.errors, profile_form.errors:\n", name_form.errors, profile_form.errors)
+
+    return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+
 
 def user_type(request):
     if request.method == 'GET':
