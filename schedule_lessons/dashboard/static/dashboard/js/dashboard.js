@@ -124,10 +124,6 @@ $(document).ready(function () {
         window.open('/dashboard/my_profile', "_self");
     });
 
-    $('#homepage').click(function(){
-        window.open('/dashboard/', "_self");
-    });
-
     $('#editAvailabilityButton').click(function(){
         window.open('/dashboard/availability/' + tutor, "_self");
     });
