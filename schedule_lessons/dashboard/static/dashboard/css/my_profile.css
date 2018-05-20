@@ -9,7 +9,6 @@ body {
 
 nav {
   background-color: #FEDC32;
-  height: 72px;
 }
 
 .nav-link {
@@ -22,6 +21,10 @@ nav {
 
 #logo {
   width: 70%;
+}
+
+#availability {
+  width: 150px;
 }
 
 #editAvailabilityButton {
@@ -47,6 +50,7 @@ h1 {
     overflow: hidden;
     position: relative;
 }
+
 #profilePicture {
   margin-left: auto;
   margin-right: auto;
@@ -63,4 +67,10 @@ h1 {
   background-color: #4CAF50;
   color: white;
   font-size: 13px;
+}
+
+@media (max-width: 991.98px) {
+  #availability {
+    margin-bottom: 10px;
+  }
 }
