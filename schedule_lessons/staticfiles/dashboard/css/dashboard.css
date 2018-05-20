@@ -7,6 +7,27 @@
     src: url("../fonts/MankSans.ttf");
 }
 
+body {
+  background: url("../images/funky-lines.png");
+}
+
+nav {
+  background-color: #FEDC32;
+  height: 8%;
+}
+
+.nav-link {
+  background-color: #FEDC32;
+}
+
+.ml-auto {
+  margin-top: 10px;
+}
+
+#logo {
+  width: 70%;
+}
+
 h1 {
     font-family: LightFont;
     font-size: 80px;
@@ -24,6 +45,12 @@ h3 {
     margin-bottom: 20px;
 }
 
+#editAvailabilityButton {
+  background-color: #17a2b8;
+  color: white;
+  margin-right: 10px;
+}
+
 #editAvailability {
     float: right;
     margin-bottom: 20px;
@@ -31,6 +58,10 @@ h3 {
 
 .center {
   text-align: center;
+}
+
+.modal-title {
+  margin-left: 150px;
 }
 
 .modal-title {
@@ -88,10 +119,6 @@ h3 {
     margin-right: 20px;
     float: left;
     margin-bottom: 20px;
-}
-
-.signout-button {
-    float: right;
 }
 
 td, th {
