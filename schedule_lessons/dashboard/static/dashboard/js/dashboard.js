@@ -24,7 +24,7 @@ $(document).ready(function () {
     $('.sauce-confirm').click(function (event) {
         $.ajax({
             type: 'POST',
-            url: '/home/confirm_lesson',
+            url: '/dashboard/confirm_lesson',
             data: {'id': event.currentTarget.id},
             success: function () {
                 location.reload();
@@ -35,7 +35,7 @@ $(document).ready(function () {
     $('.sauce-decline').click(function (event) {
         $.ajax({
             type: 'POST',
-            url: '/home/decline_lesson',
+            url: '/dashboard/decline_lesson',
             data: {'id': event.currentTarget.id},
             success: function () {
                 location.reload();
@@ -50,7 +50,7 @@ $(document).ready(function () {
                 var content = "<table>";
                 content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
                 for (i = 0; i < data.length; i++) {
-                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/home/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
+                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
                 }
                 content += "</table>";
                 $('#tutors-table').append(content);
@@ -59,10 +59,10 @@ $(document).ready(function () {
     });
 
     let url = window.location.pathname;
-    testUrl = url.replace('/home/', '');
-    tutorID = url.replace('/home/availability/', '');
+    testUrl = url.replace('/dashboard/', '');
+    tutorID = url.replace('/dashboard/availability/', '');
 
-    $.get('/home/user_type', function (data) {
+    $.get('/dashboard/user_type', function (data) {
         let userType = data.user_type;
         tutor = data.id;
         if (userType === 'client') {
@@ -111,13 +111,21 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: '/home/set_event',
+                url: '/dashboard/set_event',
                 data: scheduleJSON,
                 success: function () {
-                    window.open('/home', "_self");
+                    window.open('/dashboard', "_self");
                 }
             });
         });
+    });
+
+    $('#myProfile').click(function(){
+        window.open('/dashboard/my_profile', "_self");
+    });
+
+    $('#editAvailabilityButton').click(function(){
+        window.open('/dashboard/availability/' + tutor, "_self");
     });
 
     $('#addTutorModal').on('show.bs.modal', function (event) {
@@ -130,7 +138,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: '/home/add_tutor',
+                url: '/dashboard/add_tutor',
                 data: addedTutor
             });
         });
@@ -162,7 +170,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: '/home/edit_availability',
+                url: '/dashboard/edit_availability',
                 data: availabilityJSON
             });
         });
@@ -174,7 +182,7 @@ $(document).ready(function () {
                 var content = "<table>";
                 content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
                 for (i = 0; i < data.length; i++) {
-                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/home/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
+                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
                 }
                 content += "</table>";
                 $('#tutors-table').append(content);
@@ -182,18 +190,6 @@ $(document).ready(function () {
         });
     }
 });
-
-function openMyProfile() {
-    window.open('/home/my_profile', "_self");
-}
-
-function openAvailability() {
-    window.open('/home/availability/' + tutor, "_self");
-}
-
-function renderHomepage() {
-    window.open('/home', "_self");
-}
 
 function sortTable(table, order) {
     var asc = order === 'asc',
