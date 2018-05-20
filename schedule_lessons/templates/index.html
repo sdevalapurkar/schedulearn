@@ -10,32 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+    <script src="{% static 'home/js/index.js' %}"></script>
+
   </head>
   <body>
-<!--
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a style="background-image: url({%static 'home/images/logo_transparent.png' %}); width: 324px; height: 95px;" class="navbar-brand" href="/"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about-schedulearn">About Schedulearn</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="login">Log in</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FEDC32;">
       <a class="navbar-brand" href="#">
         <img src="{% static 'home/images/logo_transparent.png'%}" alt="">
@@ -49,24 +27,118 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about">About Schedulearn</a>
-          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="login/">Log In</a>
+              <button type="button" style="background-color: #FEDC32;" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
+                Sign Up
+              </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" style="background-color: #FEDC32;" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
+              Log In
+            </button>
           </li>
         </ul>
       </div>
     </nav>
 
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalHeader" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalHeader">Login to Schedulearn</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <form method="post" action="/login/">
+                {% csrf_token %}
+                  <div class="form-group">
+                    <input name="u" placeholder="Enter Username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                  </div>
+                  <div class="form-group">
+                    <input name="p" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <small id="signUpHelp" class="form-text text-muted">Don't have an account yet?
+                      <a href="" id="signUp" data-toggle="modal" data-target="#signUpModal">Sign Up!</a>
+                    </small>
+                    <br>
+                    {% if login_error %}
+                    <p class="errorlist"> {{ login_error }} </p>
+                    {% endif %}
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Login</button>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign up for Schedulearn</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <form method="post" action="/signup/">
+                {% csrf_token %}
+                {% for field in form %}
+                  <p>
+                    {{ field }}
+                    {% for error_field, message in signup_errors %}
+                      {% if error_field == field.name %}
+                        {{ message }}
+                      {% endif %}
+                    {% endfor %}
+                  </p>
+                {% endfor %}
+
+              </div>
+              <small id="loginHelp" class="form-text float-right text-muted">
+                <a href="" id="login" data-toggle="modal" data-target="loginModal">Log in </a>instead
+              </small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
     <div id="home">
       <div class="landing-text">
         <h1>SCHEDULEARN</h1>
         <h3>Increasing connectivity between students and teachers.</h3>
-        <a href="signup/client" class="btn btn-primary btn-lg">Sign Up as a Student</a>
-        <a href="signup/tutor" class="btn btn-success btn-lg">Sign Up as a Tutor</a>
+      </div>
+    </div>
+
+    <div id="about-schedulearn" class="padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <img style="width:90%" src="{% static 'home/images/demo.png' %}">
+          </div>
+          <div class="col-sm-6 text-center">
+            <h2>About Schedulearn</h2>
+            <p class="lead">Schedulearn is all about connecting students and professors in a way that hasn't been done before. The way Schedulearn does that is by giving tutors the ability to give students assignments, schedule lessons and much more.</p>
+            <p class="lead">Students get access to features that enhance their learning experience such as chatrooms with other students, the ability to schedule lessons with their teacher and more.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -83,6 +155,18 @@
 
       </div>
     </footer>
+
+    {% if signup_errors %}
+      <script type="text/javascript">
+        $('#signUpModal').modal();
+      </script>
+    {% endif %}
+
+    {% if login_error %}
+      <script type="text/javascript">
+        $('#loginModal').modal();
+      </script>
+    {% endif %}
 
   </body>
 </html>
