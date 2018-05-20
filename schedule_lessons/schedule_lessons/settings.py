@@ -49,7 +49,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
-    'signup.apps.SignupConfig',
     'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
