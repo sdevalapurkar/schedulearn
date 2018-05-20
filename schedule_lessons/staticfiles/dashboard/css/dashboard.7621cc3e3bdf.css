@@ -1,18 +1,19 @@
 @font-face {
     font-family: LightFont;
-    src: url("../fonts/TheLightFont.otf");
+    src: url("../fonts/TheLightFont.e027c1173c04.otf");
 }
 @font-face {
     font-family: MankSans;
-    src: url("../fonts/MankSans.ttf");
+    src: url("../fonts/MankSans.213ae56e9885.ttf");
 }
 
 body {
-  background: url("../images/funky-lines.png");
+  background: url("../images/funky-lines.7c2eac8723aa.png");
 }
 
 nav {
   background-color: #FEDC32;
+  height: 8%;
 }
 
 .nav-link {
@@ -31,10 +32,6 @@ h1 {
     font-family: LightFont;
     font-size: 80px;
     text-align: center;
-}
-
-#availability {
-  width: 150px;
 }
 
 h3 {
@@ -162,10 +159,4 @@ tr:nth-child(even) {
 p {
     font-size: 16px;
     margin-top: 9px;
-}
-
-@media (max-width: 991.98px) {
-  #availability {
-    margin-bottom: 10px;
-  }
 }

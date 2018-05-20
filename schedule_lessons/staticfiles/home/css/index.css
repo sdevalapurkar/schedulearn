@@ -3,44 +3,32 @@ html, body {
   width: 100%;
 }
 
-.navbar {
+nav {
   background-color: #FEDC32;
-  padding: 1% 0;
-  font-size: 1.2em;
-  margin-bottom: 0px;
-  border: 0px;
+  height: 8%;
 }
 
-.navbar-brand {
-  min-height: 55px;
-  padding: 0 15px 5px;
+.nav-link {
+  font-size: 20px;
 }
 
 #logo {
-  width: 65%;
+  width: 70%;
+}
+.errorlist {
+  list-style-type: none;
+  color: red;
 }
 
-.collapsed {
-  margin-top: 5%;
+#id_tutor_or_student {
+  list-style-type: none;
+  margin-left: 105px;
 }
 
-#bs-example-navbar-collapse-1 {
-  padding: 2% 1% 0 3%;
+#id_tutor_or_student>li:nth-child(2) {
+  margin-left: 30px;
 }
 
-
-.navbar-default .navbar-nav li a {
-  color: black;
-}
-.navbar-default .navbar-nav>.active>a {
-  color: black;
-  background-color: #edc91a;
-}
-
-.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav>.active>a {
-  background-color: #edc91a;
-  color: #FFF;
-}
 
 #home {
   background: url("../images/background.jpg") no-repeat 0% 0% fixed;
@@ -100,7 +88,7 @@ footer {
     font-size: 300%;
   }
 
-  .fa {
+  .fab {
     font-size: 20px;
     max-width: 10px;
   }
