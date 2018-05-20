@@ -25,7 +25,7 @@ def signup_view(request):
             new_user = authenticate(username=username, password=raw_password)
 
             new_user.profile.user_type = form.cleaned_data.get('tutor_or_student')
-
+            new_user.profile.profile_pic = 'default/man.png'
             # Log in new user and take them home
             login(request, new_user)
             return redirect('dashboard')
@@ -45,7 +45,6 @@ def login_view(request):
 
         try:
             findUser = User._default_manager.get(username__iexact=username)
-            print(findUser)
         except User.DoesNotExist:
             findUser = None
 

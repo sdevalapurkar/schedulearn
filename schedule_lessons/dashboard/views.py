@@ -204,7 +204,6 @@ def my_profile(request):
     if request.method == 'GET':
         profile_form = ProfileForm()
         name_form = NameForm()
-        print(name_form)
     elif request.method == 'POST':
         name_form = NameForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=profile)
@@ -221,8 +220,7 @@ def my_profile(request):
 
             profile.save()
         else:
-            print("***********ERROR************\n\n\n\n\n\n")
-            print("name_form.errors, profile_form.errors:\n", name_form.errors, profile_form.errors)
+            print("Errors:\n", name_form.errors, profile_form.errors)
 
     return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
 
