@@ -5,7 +5,10 @@ html, body {
 
 nav {
   background-color: #FEDC32;
-  height: 8%;
+}
+
+.navbar-brand {
+  margin-right: -70px;
 }
 
 .nav-link {
