@@ -69,6 +69,26 @@ h1 {
   font-size: 13px;
 }
 
+#copy {
+  font-size: 25px;
+  background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+#ID {
+  width: 400px;
+}
+
+#profileSave {
+  margin-bottom: 50px;
+}
+
+
+
 @media (max-width: 991.98px) {
   #availability {
     margin-bottom: 10px;
