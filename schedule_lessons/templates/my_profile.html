@@ -2,6 +2,7 @@
 {% load static %}
 <html>
   <head>
+    <title>My Profile | Schedulearn</title>
     <link rel="stylesheet" href="{% static "dashboard/css/my_profile.css" %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
@@ -26,8 +27,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-
             <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
           </li>
           <li class="nav-item active">
             <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile<span class="sr-only">(current)</span></a>
@@ -35,16 +38,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a id="addTutor" class="btn btn-success options-button" href="#" style="display:none;" data-toggle="modal" data-target="#addTutorModal">Add a tutor</a>
-          </li>
-          <li class="nav-item">
-            <a id="myTutors" class="btn btn-info options-button" href="#" data-toggle="modal" data-target="#myTutorsModal" style="display:block;">My Tutors</a>
-          </li>
-          <li id="availability" class="nav-item">
-            <a id="editAvailabilityButton" class="btn btn-info" href="#">Edit Availability</a>
-          </li>
-          <li class="nav-item">
-            <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#">Sign Out</a>
+            <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
           </li>
         </ul>
       </div>
@@ -60,7 +54,7 @@
                     </button>
                 </div>
                 <div style="border-top: 0px solid black" class="modal-footer">
-                    <a href="/logout"><button type="button" class="btn btn-danger">Sign Out</button></a>
+                    <a href="/logout"><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i>  Sign Out</button></a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

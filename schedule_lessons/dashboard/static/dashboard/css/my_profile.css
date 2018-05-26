@@ -87,6 +87,11 @@ h1 {
   margin-bottom: 50px;
 }
 
+.modal-title {
+  margin-left: 150px;
+    font-family: LightFont;
+    font-size: 35px;
+}
 
 
 @media (max-width: 991.98px) {
