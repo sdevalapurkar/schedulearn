@@ -10,6 +10,10 @@ $(document).ready(function () {
     window.open('/dashboard/', '_self');
   });
 
+  $('#scheduler').click(function() {
+    window.open('/dashboard/scheduler', '_self');
+  });
+
   $('#copy').click(function() {
     var tutor_id = $("#ID");
     tutor_id.select();
