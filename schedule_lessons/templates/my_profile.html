@@ -64,7 +64,11 @@
     <div class="container">
       <h1>{{ user.first_name}} {{user.last_name}}'s Profile</h1>
       <div class="picture-container">
-        <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+        {% if user.profile.profile_pic %}
+          <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+        {% else %}
+          <img id="profilePicture" src="{% static "dashboard/images/man.png" %}" alt="Profile Picture">
+        {% endif %}
       <!--  <div class="middle">
           <div class="text">{{ profile_form.profile_pic }}</div>
         </div> -->
