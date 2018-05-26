@@ -13,45 +13,7 @@ from django.core.mail import send_mail
 @login_required
 def home(request):
     if request.method == 'GET':
-        user_type = request.user.profile.user_type
-
-        pending_event_list = []
-        event_list = []
-        if user_type == 'client':
-            events = Events.objects.filter(client=request.user)
-        else:
-            events = Events.objects.filter(tutor=request.user)
-        for event in events:
-            try:
-                data = {
-                    'id': event.id,
-                    'name': event.name,
-                    'location': event.location,
-                    'tutor_name': event.tutor.get_full_name(),
-                    'tutor_id': event.tutor.profile.id,
-                    'tutor_username': event.tutor.username,
-                    'client_name': event.client.get_full_name(),
-                    'client_id': event.client.profile.id,
-                    'client_username': event.client.username,
-                    'start_date': event.start_time,
-                    'end_date': event.end_time,
-                    'start_shortdate': event.start_time.strftime('%B, %Y'),
-                    'start_week_day': event.start_time.strftime('%A'),
-                    'start_month_day': event.start_time.strftime('%d'),
-                    'start_time': event.start_time.strftime('%I:%M %p'),
-                    'end_shortdate': event.end_time.strftime('%B, %Y'),
-                    'end_week_day': event.end_time.strftime('%A'),
-                    'end_month_day': event.end_time.strftime('%d'),
-                    'end_time': event.end_time.strftime('%I:%M %p'),
-                    'description': event.description
-                }
-                if event.pending:
-                    pending_event_list.append(data)
-                else:
-                    event_list.append(data)
-            except Exception as e:
-                print(str(e))
-        return render(request, 'dashboard.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'dashboard.html', {})
 
     return HttpResponse(status=404)
 
@@ -194,6 +156,51 @@ def edit_availability(request):
             print (str(e))
 
     return HttpResponse(status=404)
+
+def scheduler(request):
+    if request.method == 'GET':
+        user_type = request.user.profile.user_type
+
+        pending_event_list = []
+        event_list = []
+        if user_type == 'client':
+            events = Events.objects.filter(client=request.user)
+        else:
+            events = Events.objects.filter(tutor=request.user)
+        for event in events:
+            try:
+                data = {
+                    'id': event.id,
+                    'name': event.name,
+                    'location': event.location,
+                    'tutor_name': event.tutor.get_full_name(),
+                    'tutor_id': event.tutor.profile.id,
+                    'tutor_username': event.tutor.username,
+                    'client_name': event.client.get_full_name(),
+                    'client_id': event.client.profile.id,
+                    'client_username': event.client.username,
+                    'start_date': event.start_time,
+                    'end_date': event.end_time,
+                    'start_shortdate': event.start_time.strftime('%B, %Y'),
+                    'start_week_day': event.start_time.strftime('%A'),
+                    'start_month_day': event.start_time.strftime('%d'),
+                    'start_time': event.start_time.strftime('%I:%M %p'),
+                    'end_shortdate': event.end_time.strftime('%B, %Y'),
+                    'end_week_day': event.end_time.strftime('%A'),
+                    'end_month_day': event.end_time.strftime('%d'),
+                    'end_time': event.end_time.strftime('%I:%M %p'),
+                    'description': event.description
+                }
+                if event.pending:
+                    pending_event_list.append(data)
+                else:
+                    event_list.append(data)
+            except Exception as e:
+                print(str(e))
+        return render(request, 'scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+
+    return HttpResponse(status=404)
+
 
 def my_profile(request):
     try:
