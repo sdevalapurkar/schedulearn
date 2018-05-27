@@ -18,10 +18,6 @@
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-light">
-      <!-- DON'T REMOVE WILL NEED BRAND FOR FUTURE
-      <a class="navbar-brand" href="#">
-        <img id="logo" src="{% static 'home/images/logo_transparent.png'%}" alt="">
-      </a> -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -47,9 +43,9 @@
     </nav>
 
     <div class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-body">
+      <div id="crop-modal-dialog" class="modal-dialog modal-lg">
+        <div id="crop-modal-content" class="modal-content">
+          <div id="crop-modal-body" class="modal-body">
             <img id="crop_picture" src="" alt="Your profile picture">
           </div>
           <div style="border-top:0px" class="modal-footer">
@@ -124,9 +120,8 @@
 
     </div>
     <style>
-      .croppie-container {
-        width: 750px;
-        height: 400px;
+      .cr-boundary {
+        height: 100%;
       }
     </style>
     <script type="text/javascript">
