@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 import datetime
 from django.http import HttpResponse
@@ -218,18 +218,34 @@ def my_profile(request):
             request.user.first_name = name_form.cleaned_data['first_name']
             request.user.last_name = name_form.cleaned_data['last_name']
             request.user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = request.user
-
-            if 'profile_pic' in request.FILES:
-                 profile.profile_pic = request.FILES['profile_pic']
-
-            profile.save()
         else:
             print("Errors:\n", name_form.errors, profile_form.errors)
 
     return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+
+
+def edit_profile_pic(request):
+    try:
+        profile = request.user.profile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=profile)
+        name_form = NameForm()
+        if profile_form.is_valid():
+            if 'profile_pic' in request.POST:
+                 cropped_img = request.POST['profile_pic']
+
+            import base64
+            from django.core.files.base import ContentFile
+            format, imgstr = cropped_img.split(';base64,')
+            ext = format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+            profile.profile_pic = cropped_img
+            profile.save()
+            return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+        else:
+            print("Errors:\n", name_form.errors, profile_form.errors)
 
 
 def user_type(request):

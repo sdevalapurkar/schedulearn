@@ -11,6 +11,7 @@ urlpatterns = [
     path('availability/<tutor_id>', views.get_availability, name='get_availability'),
     path('edit_availability', views.edit_availability, name='edit_availability'),
     path('my_profile', views.my_profile, name='my_profile'),
+    path('my_profile/edit_profile_pic/', views.edit_profile_pic, name='edit_profile_pic'),
     path('user_type', views.user_type, name='user_type'),
     path('add_tutor', views.add_tutor, name='add_tutor'),
     path('confirm_lesson', views.confirm_lesson, name='confirm_lesson'),
