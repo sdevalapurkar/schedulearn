@@ -34,7 +34,7 @@ nav {
 
 
 #home {
-  background: url("../images/background.jpg") no-repeat 0% 0% fixed;
+  background: url("../images/background.jpg") no-repeat 0% 50% fixed;
   display: table;
   height: 100%;
   position: relative;
@@ -81,6 +81,15 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+  #home {
+    background: url("../images/background.jpg") no-repeat 0% 0% fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+  }
 
   #bs-example-navbar-collapse-1 {
     margin-top: 2%;
