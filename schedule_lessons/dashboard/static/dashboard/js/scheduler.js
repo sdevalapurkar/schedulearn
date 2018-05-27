@@ -63,17 +63,17 @@ $(document).ready(function () {
                 document.getElementById('editAvailabilityButton').style.display = "none";
             }
             if (document.getElementById("addTutor")) {
-                document.getElementById("addTutor").style.display = "block";
+                document.getElementById("addTutor").style.display = "inline-block";
             }
         } else {
             if (document.getElementById("myTutors")) {
                 document.getElementById("myTutors").style.display = 'none';
             }
             if (document.getElementById("editAvailability")) {
-                document.getElementById("editAvailability").style.display = "block";
+                document.getElementById("editAvailability").style.display = "inline-block";
             }
             if (document.getElementById('editAvailabilityButton')) {
-                document.getElementById('editAvailabilityButton').style.display = 'block';
+                document.getElementById('editAvailabilityButton').style.display = 'inline-block';
             }
             if (document.getElementById('scheduleLesson')) {
                 document.getElementById('scheduleLesson').style.display = 'none';
