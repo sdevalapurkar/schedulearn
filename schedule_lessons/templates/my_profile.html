@@ -10,8 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  </body>
     <script src="{% static "dashboard/js/my_profile.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
     </head>
   <body>
 
@@ -44,6 +45,21 @@
       </div>
     </nav>
 
+    <div class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img id="crop_picture" src="" alt="Your profile picture">
+          </div>
+          <div style="border-top:0px" class="modal-footer">
+            <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -62,16 +78,26 @@
     </div>
 
     <div class="container">
+      {% if user.last_name %}
       <h1>{{ user.first_name}} {{user.last_name}}'s Profile</h1>
+      {% else %}
+        <h1>{{ user.first_name}}'s Profile</h1>
+      {% endif %}
       <div class="picture-container">
         <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
-      <!--  <div class="middle">
-          <div class="text">{{ profile_form.profile_pic }}</div>
-        </div> -->
+        <div class="middle">
+          <div class="text"><i class="fas fa-camera-retro"></i></div>
+        </div>
       </div>
+
+        <div class="form-group">
+          {{ profile_form.profile_pic }}
+        </div>
+
+
       <hr>
 
-      <form enctype="multipart/form-data" method="POST">
+      <form method="POST">
         {% csrf_token %}
         <div class="form-group">
           <label for="{{ name_form.first_name.id_for_label }}">First Name</label>
@@ -91,16 +117,17 @@
           </div>
           <small id="IDHelp" class="form-text text-muted">You can not modify your ID as it is computer-generated</small>
         </div>
-        <div class="form-group">
-          <label for="profilePicture">Profile Picture</label>
-          {{ profile_form.profile_pic }}
-        </div>
+
         <button id="profileSave" type="submit" class="btn btn-primary">Save Changes</button>
       </form>
 
     </div>
-
-    <script src="{% static "dashboard/js/my_profile.js" %}"></script>
+    <style>
+      .croppie-container {
+        width: 750px;
+        height: 400px;
+      }
+    </style>
     <script type="text/javascript">
         $('#id_first_name').val("{{ user.first_name }}");
         $('#id_last_name').val("{{ user.last_name }}");
