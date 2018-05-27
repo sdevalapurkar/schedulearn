@@ -71,6 +71,10 @@ $(document).ready(function () {
               })
   });
 
+  $("#cancelCrop").on("click", function () {
+    location.reload();
+  });
+
   $(".text").on("click", function() {
     $("#id_profile_pic").click();
   });
