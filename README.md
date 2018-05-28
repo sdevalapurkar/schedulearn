@@ -1,4 +1,4 @@
-# schedule-my-lessons
+# Schedulearn
 A web app that tutors and students can use to interact with each other and easily schedule/manage all their lessons
 
 ## Try it out
