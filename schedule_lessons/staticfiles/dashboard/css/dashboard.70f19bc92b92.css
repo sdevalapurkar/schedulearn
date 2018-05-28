@@ -1,14 +1,14 @@
 @font-face {
     font-family: LightFont;
-    src: url("../fonts/TheLightFont.otf");
+    src: url("../fonts/TheLightFont.e027c1173c04.otf");
 }
 @font-face {
     font-family: MankSans;
-    src: url("../fonts/MankSans.ttf");
+    src: url("../fonts/MankSans.213ae56e9885.ttf");
 }
 
 body {
-  background: url("../images/funky-lines.png");
+  background: url("../images/funky-lines.7c2eac8723aa.png");
 }
 
 nav {

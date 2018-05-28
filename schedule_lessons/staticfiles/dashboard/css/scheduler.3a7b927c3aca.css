@@ -1,0 +1,136 @@
+@font-face {
+    font-family: LightFont;
+    src: url("../fonts/TheLightFont.e027c1173c04.otf");
+}
+@font-face {
+    font-family: MankSans;
+    src: url("../fonts/MankSans.213ae56e9885.ttf");
+}
+
+body {
+  background: url("../images/funky-lines.7c2eac8723aa.png");
+}
+
+nav {
+  background-color: #FEDC32;
+}
+
+.nav-link {
+  background-color: #FEDC32;
+}
+
+.ml-auto {
+  margin-top: 10px;
+}
+
+/* Not used right now; no logo
+#logo {
+  width: 70%;
+}
+*/
+
+h3 {
+    font-family: LightFont;
+    font-size: 30px;
+    text-align: center;
+}
+
+#editAvailabilityButton {
+  background-color: #17a2b8;
+  color: white;
+  margin-right: 10px;
+}
+
+
+.modal-title {
+  margin-left: 150px;
+}
+
+.modal-title {
+    font-family: LightFont;
+    font-size: 35px;
+    text-align: center;
+}
+
+.modal-content {
+    margin: 0 auto;
+    height: auto;
+}
+
+.agenda {
+  margin-top: 55px;
+}
+
+/* Dates */
+.agenda .agenda-date {
+    width: 170px;
+}
+
+.agenda .agenda-date .dayofmonth {
+  width: 40px;
+  font-size: 36px;
+  line-height: 36px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.daysofmonth {
+  font-size: 20px;
+}
+
+.agenda .agenda-date .shortdate {
+  font-size: 0.75em;
+}
+
+/* Times */
+.agenda .agenda-time {
+    width: 180px;
+}
+
+.options-button {
+    margin-right: 20px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+td, th {
+    text-align: center;
+}
+
+table, td, th {
+    border: 1px solid #c6c6c6;
+    text-align: left;
+}
+
+table {
+    overflow-y: auto;
+    font-family: MankSans;
+    border-collapse: collapse;
+    border: 2px solid black;
+    width: 100%;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 7px;
+    font-size: 16px;
+    text-align: center;
+}
+
+th {
+    background-color: #B0E0E6;
+    color: black;
+    font-family: LightFont;
+    font-size: 18px;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9f9;
+}
+
+@media (max-width: 991.98px) {
+  #availability {
+    margin-bottom: 10px;
+  }
+}
