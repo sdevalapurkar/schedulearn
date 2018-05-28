@@ -15,9 +15,6 @@ nav {
   font-size: 20px;
 }
 
-#logo {
-  width: 70%;
-}
 .errorlist {
   list-style-type: none;
   color: red;
@@ -32,6 +29,9 @@ nav {
   margin-left: 30px;
 }
 
+#id_tutor_or_student_0, #id_tutor_or_student_1 {
+  margin-right: 4px;
+}
 
 #home {
   background: url("../images/background.jpg") no-repeat 0% 50% fixed;
