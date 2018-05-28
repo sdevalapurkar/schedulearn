@@ -7,28 +7,12 @@ body {
   background: url("../images/funky-lines.png");
 }
 
-nav {
-  background-color: #FEDC32;
-}
-
-.nav-link {
+nav, .nav-link{
   background-color: #FEDC32;
 }
 
 .ml-auto {
   margin-top: 10px;
-}
-
-#logo {
-  width: 70%;
-}
-
-#availability {
-  width: 150px;
-}
-
-#editAvailabilityButton {
-  margin-right: 10px;
 }
 
 .container {
@@ -39,34 +23,64 @@ h1 {
     text-align: center;
 }
 
-#fullName {
-    text-align: center;
-}
-
 .picture-container {
+    text-align: center;
     margin: 0 auto;
     width: 300px;
-    height: 300px;
+    height: 200px;
     overflow: hidden;
     position: relative;
 }
 
-#profilePicture {
-  margin-left: auto;
-  margin-right: auto;
-    position: absolute;
-    left: -1000%;
-    right: -1000%;
-    top: -1000%;
-    bottom: -1000%;
-    margin: auto;
-    width: 100%;
+.bd-crop-picture-modal-lg {
+  height:95%;
+}
+
+#crop-modal-dialog, #crop-modal-content {
+  height: inherit;
+}
+
+#crop-modal-body {
+  height:74%;
+  margin-bottom:4%;
+}
+
+.middle {
+  cursor: pointer;
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.picture-container:hover .image {
+  opacity: 0.3;
+}
+
+.picture-container:hover .middle {
+  opacity: 1;
 }
 
 .text {
   background-color: #4CAF50;
   color: white;
-  font-size: 13px;
+  font-size: 32px;
+  padding: 0 15px;
+}
+
+#profilePicture {
+  transition: .5s ease;
+  backface-visibility: hidden;
+  display: block;
+  opacity: 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
 }
 
 #copy {
@@ -87,6 +101,11 @@ h1 {
   margin-bottom: 50px;
 }
 
+.modal-title {
+  margin-left: 150px;
+    font-family: LightFont;
+    font-size: 35px;
+}
 
 
 @media (max-width: 991.98px) {
