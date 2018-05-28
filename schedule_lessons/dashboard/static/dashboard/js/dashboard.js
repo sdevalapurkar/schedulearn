@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     $('#scheduler').click(function(){
         window.open('/dashboard/scheduler', "_self");
+
     });
 });
 
