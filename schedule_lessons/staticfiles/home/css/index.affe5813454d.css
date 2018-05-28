@@ -15,6 +15,9 @@ nav {
   font-size: 20px;
 }
 
+#logo {
+  width: 70%;
+}
 .errorlist {
   list-style-type: none;
   color: red;
@@ -29,12 +32,9 @@ nav {
   margin-left: 30px;
 }
 
-#id_tutor_or_student_0, #id_tutor_or_student_1 {
-  margin-right: 4px;
-}
 
 #home {
-  background: url("../images/background.jpg") no-repeat 0% 50% fixed;
+  background: url("../images/background.2513d588bc6f.jpg") no-repeat 0% 0% fixed;
   display: table;
   height: 100%;
   position: relative;
@@ -81,15 +81,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-
-  #home {
-    background: url("../images/background.jpg") no-repeat 0% 0% fixed;
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
 
   #bs-example-navbar-collapse-1 {
     margin-top: 2%;

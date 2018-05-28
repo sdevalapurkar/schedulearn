@@ -1,0 +1,167 @@
+@font-face {
+    font-family: LightFont;
+    src: url("../fonts/TheLightFont.otf");
+}
+@font-face {
+    font-family: MankSans;
+    src: url("../fonts/MankSans.ttf");
+}
+
+body {
+  background: url("../images/funky-lines.png");
+}
+
+nav {
+  background-color: #FEDC32;
+}
+
+.nav-link {
+  background-color: #FEDC32;
+}
+
+#logo {
+  width: 70%;
+}
+
+h1 {
+    font-family: LightFont;
+    font-size: 80px;
+    text-align: center;
+}
+
+#availability {
+  width: 150px;
+}
+
+h3 {
+    font-family: LightFont;
+    font-size: 25px;
+    text-align: center;
+}
+
+#scheduleLesson {
+    float: right;
+    margin-bottom: 20px;
+}
+
+#editAvailabilityButton {
+  background-color: #17a2b8;
+  color: white;
+  margin-right: 10px;
+}
+
+#editAvailability {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.modal-title {
+  margin-left: 150px;
+}
+
+.modal-title {
+    font-family: LightFont;
+    font-size: 35px;
+    text-align: center;
+}
+
+.modal-content {
+    margin: 0 auto;
+    height: auto;
+}
+
+.start-date-picker {
+    float: left;
+}
+
+.end-date-picker {
+    float: right;
+}
+
+/* Dates */
+.agenda .agenda-date {
+    width: 170px;
+}
+
+#editAvailability {
+    float: right;
+    margin-right: 20px;
+}
+
+.agenda .agenda-date .dayofmonth {
+  width: 40px;
+  font-size: 36px;
+  line-height: 36px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.daysofmonth {
+  font-size: 20px;
+}
+
+.agenda .agenda-date .shortdate {
+  font-size: 0.75em;
+}
+
+/* Times */
+.agenda .agenda-time {
+    width: 180px;
+}
+
+.options-button {
+    margin-right: 20px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+td, th {
+    text-align: center;
+}
+
+table, td, th {
+    border: 1px solid #c6c6c6;
+    text-align: left;
+}
+
+table {
+    overflow-y: auto;
+    font-family: MankSans;
+    border-collapse: collapse;
+    border: 2px solid black;
+    width: 100%;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 7px;
+    font-size: 16px;
+    text-align: center;
+}
+
+th {
+    background-color: #B0E0E6;
+    color: black;
+    font-family: LightFont;
+    font-size: 18px;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9f9;
+}
+
+p {
+    font-size: 16px;
+    margin-top: 9px;
+}
+
+@media (max-width: 991.98px) {
+  #availability {
+    margin-bottom: 10px;
+  }
+}
