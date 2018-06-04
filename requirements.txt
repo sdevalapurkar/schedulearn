@@ -1,5 +1,6 @@
 Django==2.0.6
 Pillow==5.1.0
+psycopg2==2.7.4
 pytz==2018.4
 whitenoise==3.3.1
 dj_database_url
