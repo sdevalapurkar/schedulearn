@@ -28,18 +28,25 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <button type="button" style="background-color: #FEDC32;" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
+              <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
                 Sign Up
               </button>
           </li>
           <li class="nav-item">
-            <button type="button" style="background-color: #FEDC32;" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
+            <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
               Log In
             </button>
           </li>
         </ul>
       </div>
     </nav>
+
+    <style media="screen">
+      .ml-auto .nav-item .nav-link {
+        background-color: #FEDC32;
+        box-shadow: none;
+      }
+    </style>
 
 
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalHeader" aria-hidden="true">
