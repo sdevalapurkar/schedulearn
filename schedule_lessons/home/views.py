@@ -2,38 +2,18 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login
-from .forms import MyRegistrationForm
-
-
-# Create your views here.
 
 def load_home(request):
-    if request.method == 'GET':
-        form = MyRegistrationForm()
-        return render(request, 'index.html', {'form': form, 'signup_errors': []})
+    return render(request, 'index.html')
 
 def signup_view(request):
     if request.method == 'POST':
-        form = MyRegistrationForm(request.POST)
-        # Check if signup information is valid
-        if form.is_valid():
-            form.save() # If it is, save the user in our database.
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-
-            # Then authenticate this new user and log him in.
-            new_user = authenticate(username=username, password=raw_password)
-
-            new_user.profile.user_type = form.cleaned_data.get('tutor_or_student')
-            new_user.profile.profile_pic = 'default/man.png'
-            # Log in new user and take them home
-            login(request, new_user)
-            return redirect('dashboard')
-        else:
-            return render(request, 'index.html', {'form': form, 'signup_errors': form.errors.items(), 'login_errors': ''})
+        #User has send post request with information such as email, password
+        #etc and they want to sing up.
+        return render(request, "index.html")
     else:
-        form = MyRegistrationForm()
-        return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': ''})
+        #User want to access homepage.
+        return render(request, "index.html")
 
 
 def login_view(request):
