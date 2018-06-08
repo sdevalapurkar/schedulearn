@@ -13,6 +13,8 @@ class Profile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     availability = models.CharField(max_length=1000, blank=True, null=True, default='{}')
 
+    def __str__(self):
+        return str(self.user)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
