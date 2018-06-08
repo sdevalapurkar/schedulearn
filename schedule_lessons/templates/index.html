@@ -63,10 +63,10 @@
               <form method="post" action="/login/">
                 {% csrf_token %}
                   <div class="form-group">
-                    <input name="u" placeholder="Enter Username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                    <input name="username" placeholder="Enter Username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
                   </div>
                   <div class="form-group">
-                    <input name="p" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input name="password" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     <small id="signUpHelp" class="form-text text-muted">Don't have an account yet?
                       <a href="" id="signUp" data-toggle="modal" data-target="#signUpModal">Sign Up!</a>
                     </small>
@@ -101,22 +101,42 @@
               <form method="post" action="{% url 'signup' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                  <input type="email" class="form-control" id="email" placeholder="Email Address">
+                  <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ email }}" required>
+                  {% if email_error %}
+                  <p class="errorlist">{{ email_error }}</p>
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="username" placeholder="Username">
+                  <input name="username" type="text" class="form-control" id="username" value="{{ username }}" placeholder="Username" required>
+                  {% if username_error %}
+                  <p class="errorlist">{{ username_error }}</p>
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                  <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ firstName }}" placeholder="First Name" required>
+                  {% if name_error %}
+                  <p class="errorlist">{{ name_error }}</p>
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="lastName" placeholder="Last Name (Optional)">
+                  <input name="lastName" type="text" class="form-control" id="lastName" value="{{ lastName }}" placeholder="Last Name (Optional)">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="password1" placeholder="Password">
+                  <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+                  <input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password" required>
+                  {% if password_error %}
+                  <p class="errorlist">{{ password_error }}</p>
+                  {% endif %}
+                  {% if password_errors %}
+                  <li>
+                    {% for error in password_errors %}
+                      <ul class="errorlist">{{ error }}</ul>
+                    {% endfor %}
+                  </li>
+                  {% endif %}
+
                 </div>
               </div>
               <small id="loginHelp" class="form-text float-right text-muted">
@@ -168,7 +188,7 @@
       </div>
     </footer>
 
-    {% if signup_errors %}
+    {% if username_error or email_error or password_error or name_error %}
       <script type="text/javascript">
         $('#signUpModal').modal();
       </script>
