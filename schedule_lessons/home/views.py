@@ -36,6 +36,8 @@ def signup_view(request):
                     user = User.objects.create_user(username, email=request.POST['email'], password=request.POST['password1'])
                     user.first_name = request.POST['firstName']
                     user.last_name = request.POST['lastName']
+                    user.profile.profile_pic = 'default/man.png'
+                    user.profile.user_type = request.POST.get('teacher_or_student')
                     user.save()
                     login(request, user)
                     return redirect('dashboard')
