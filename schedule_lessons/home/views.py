@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 def load_home(request):
     return render(request, 'index.html')
@@ -10,36 +13,63 @@ def signup_view(request):
     if request.method == 'POST':
         #User has send post request with information such as email, password
         #etc and they want to sing up.
-        return render(request, "index.html")
+
+        if request.POST.get('password1') == request.POST.get('password2'):
+            # The user enterered the password correctly.
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            try:
+                user = User.objects.get(username__iexact=username)
+                return render(request, 'index.html', {'username_error': 'Username is already in use',  'email': request.POST.get('email'), 'username': request.POST.get('username'), 'firstName':request.POST.get('firstName'), 'lastName':request.POST.get('lastName')})
+            except User.DoesNotExist:
+                try:
+                    user = User.objects.get(email__iexact=email)
+                    return render(request, 'index.html', {'email_error': 'Email is already in use',  'email': request.POST.get('email'), 'username': request.POST.get('username'), 'firstName':request.POST.get('firstName'), 'lastName':request.POST.get('lastName')})
+                except User.DoesNotExist:
+                    # If code gets here it means that email and username are not used and we can begin password validation.
+                    try:
+                        validate_password(request.POST.get('password1'))
+                    except ValidationError as password_errors:
+                        return render(request, 'index.html', {'password_errors': password_errors,  'email': request.POST.get('email'), 'username': request.POST.get('username'), 'firstName':request.POST.get('firstName'), 'lastName':request.POST.get('lastName')})
+                    #password validated, ready to put user in database.
+
+                    user = User.objects.create_user(username, email=request.POST['email'], password=request.POST['password1'])
+                    user.first_name = request.POST['firstName']
+                    user.last_name = request.POST['lastName']
+                    user.save()
+                    login(request, user)
+                    return redirect('dashboard')
+        else:
+            return render(request, 'index.html', {'password_error': 'Passwords do not match.', 'email': request.POST.get('email'), 'username': request.POST.get('username'), 'firstName':request.POST.get('firstName'), 'lastName':request.POST.get('lastName')})
     else:
         #User want to access homepage.
         return render(request, "index.html")
 
 
 def login_view(request):
-    form = MyRegistrationForm()
     if request.method == 'POST':
-        username = request.POST['u']
-        password = request.POST['p']
-        caseSensitiveUsername = username
-
+        username = request.POST['username'] # can be username or email
+        password = request.POST['password']
+        #check if email first.
         try:
-            findUser = User._default_manager.get(username__iexact=username)
-        except User.DoesNotExist:
-            findUser = None
+            validate_email(username)
+            # it's a valid email.
+            user = User.objects.get(email__iexact=username) #searches the database if email exists, ignores case
+            valid_combination = user.check_password(password) # is a boolean, true if valid login.
+            if valid_combination:
+                login(request, user)
+                return redirct('dashboard')
+            else:
+                return render(request, 'index.html', {'email_error': 'Invalid email/password combination'})
+        except validate_email.ValidationError:
+            # it's a username.
+            user = User.objects.get(username__iexact=username)
+            valid_combination = user.check_password(password)
+            if valid_combination:
+                login(request, user)
 
-        if findUser is not None:
-            caseSensitiveUsername = findUser
 
 
-        user = authenticate(username=caseSensitiveUsername, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard')
-        else:
-            login_error = "Invalid username/password combination. Please try again."
-            return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': login_error})
 
     else:
-        return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': ''})
+        return render(request, "index.html")
