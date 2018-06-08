@@ -3,16 +3,21 @@ $(document).ready(function() {
     $('#emailInput').trigger('focus')
   });
 
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  });
-
-  $('#signUp').on('click', function () {
+  $('#signUpTeacher').on('click', function () {
     $('#loginModal').modal('toggle');
   });
 
-  $('#login').on('click', function () {
-    $('#signUpModal').modal('toggle');
+  $('#signUpStudent').on('click', function () {
+    $('#loginModal').modal('toggle');
+  });
+
+  $('#loginStudent').on('click', function () {
+    $('#signUpStudentModal').modal('toggle');
+    $('#loginModal').modal('toggle');
+  });
+
+  $('#loginTeacher').on('click', function () {
+    $('#signUpTeacherModal').modal('toggle');
     $('#loginModal').modal('toggle');
   });
 
