@@ -28,13 +28,8 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpTeacherModal">
-            Sign Up as a Teacher
-          </button>
-        </li>
-        <li class="nav-item">
-          <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpStudentModal">
-            Sign Up as a Student
+          <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
+            Sign Up
           </button>
         </li>
         <li class="nav-item">
@@ -95,49 +90,42 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="signUpTeacherModal" tabindex="-1" role="dialog" aria-labelledby="teacher_sign_up_title" aria-hidden="true">
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="sign_up_title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="teacher_sign_up_title">Sign up as a teacher for Schedulearn</h5>
+          <h5 class="modal-title" id="sign_up_title">Sign up for Schedulearn</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div>
-            <form method="post" action="{% url 'signup' %}">
+            <form method="POST" action="{% url 'signup' %}">
               {% csrf_token %}
               <div class="form-group">
-                <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ teacher_email }}" required>
-                {% if teacher_email_error %}
-                <p class="errorlist">{{ teacher_email_error }}</p>
-                {% endif %}
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ email }}" required>
+                <p class="errorlist">{{ email_error }}</p>
               </div>
               <div class="form-group">
-                <input name="username" type="text" class="form-control" id="username" value="{{ teacher_username }}" placeholder="Username" required>
-                {% if teacher_username_error %}
+                <input name="username" type="text" class="form-control" id="username" value="{{ username }}" placeholder="Username" required>
                 <p class="errorlist">{{ teacher_username_error }}</p>
-                {% endif %}
               </div>
               <div class="form-group">
-                <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ teacher_firstName }}" placeholder="First Name" required>
-                {% if teacher_name_error %}
-                <p class="errorlist">{{ teacher_name_error }}</p>
-                {% endif %}
+                <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ firstName }}" placeholder="First Name" required>
+                <p class="errorlist">{{ name_error }}</p>
               </div>
               <div class="form-group">
-                <input name="lastName" type="text" class="form-control" id="lastName" value="{{ teacher_lastName }}" placeholder="Last Name (Optional)">
+                <input name="lastName" type="text" class="form-control" id="lastName" value="{{ lastName }}" placeholder="Last Name (Optional)">
               </div>
               <div class="form-group">
                 <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
               </div>
               <div class="form-group">
                 <input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password" required>
-                {% if teacher_password_error %}
-                <p class="errorlist">{{ teacher_password_error }}</p>
-                {% endif %}
-                {% if teacher_password_errors %}
+                <p class="errorlist">{{ password_error }}</p>
+
+                {% if password_errors %}
                 <li>
                   {% for error in teacher_password_errors %}
                   <ul class="errorlist">{{ error }}</ul>
@@ -146,19 +134,9 @@
                 {% endif %}
 
               </div>
-              <div hidden>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="teacher_or_student" id="teacher" value="teacher" checked>
-                  <label class="form-check-label" for="exampleRadios1">Teacher</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="teacher_or_student" id="student" value="client">
-                  <label class="form-check-label" for="exampleRadios2">Student</label>
-                </div>
-              </div>
 
               <p><strong>-- OR --</strong></p>
-              <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Sign Up with Google</a></button>
+              <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}?next=/welcome/">Sign Up with Google</a></button>
 
 
             </div>
@@ -175,78 +153,6 @@
     </div>
   </div>
 
-  <div class="modal fade" id="signUpStudentModal" tabindex="-1" role="dialog" aria-labelledby="student_sign_up_title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="student_sign_up_title">Sign up as a student for Schedulearn</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <form method="post" action="{% url 'signup' %}">
-              {% csrf_token %}
-              <div class="form-group">
-                <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ student_email }}" required>
-                {% if student_email_error %}
-                <p class="errorlist">{{ student_email_error }}</p>
-                {% endif %}
-              </div>
-              <div class="form-group">
-                <input name="username" type="text" class="form-control" id="username" value="{{ username }}" placeholder="Username" required>
-                {% if student_username_error %}
-                <p class="errorlist">{{ student_username_error }}</p>
-                {% endif %}
-              </div>
-              <div class="form-group">
-                <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ student_firstName }}" placeholder="First Name" required>
-                {% if student_name_error %}
-                <p class="errorlist">{{ student_name_error }}</p>
-                {% endif %}
-              </div>
-              <div class="form-group">
-                <input name="lastName" type="text" class="form-control" id="lastName" value="{{ student_lastName }}" placeholder="Last Name (Optional)">
-              </div>
-              <div class="form-group">
-                <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
-              </div>
-              <div class="form-group">
-                <input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password" required>
-                {% if student_password_error %}
-                <p class="errorlist">{{ student_password_error }}</p>
-                {% endif %}
-                {% if student_password_errors %}
-                <li>
-                  {% for error in student_password_errors %}
-                  <ul class="errorlist">{{ error }}</ul>
-                  {% endfor %}
-                </li>
-                {% endif %}
-
-              </div>
-              <div hidden>
-                <input class="form-check-input" type="radio" name="teacher_or_student" id="teacher" value="tutor">
-                <input class="form-check-input" type="radio" name="teacher_or_student" id="student" value="client" checked>
-              </div>
-            </div>
-            <p><strong>-- OR --</strong></p>
-            <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Sign Up with Google</a></button>
-
-            <br>
-            <small id="loginHelp" class="form-text float-right text-muted">
-              <a href="" id="loginStudent" data-toggle="modal" data-target="#loginModal">Log in</a> instead
-            </small>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
   <div id="home">
     <div class="landing-text">
