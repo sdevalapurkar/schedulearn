@@ -1,204 +1,215 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-  <head>
-    <title>Home | Schedulearn</title>
-    <meta name="description" content="Schedulearn is a platform for tutors to connect with the students in your classroom by giving them assignments and scheduling lessons with them through Schedulearn!">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
-    <script src="{% static 'home/js/index.js' %}"></script>
+<head>
+  <title>Home | Schedulearn</title>
+  <meta name="description" content="Schedulearn is a platform for tutors to connect with the students in your classroom by giving them assignments and scheduling lessons with them through Schedulearn!">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+  <script src="{% static 'home/js/index.js' %}"></script>
 
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-              <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
-                Sign Up
-              </button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
-              Log In
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <button type="button" class="btn nav-link" data-toggle="modal" data-target="#signUpModal">
+            Sign Up
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
+            Log In
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <style media="screen">
-      .ml-auto .nav-item .nav-link {
-        background-color: #FEDC32;
-        box-shadow: none;
-      }
-    </style>
+  <style media="screen">
+  .ml-auto .nav-item .nav-link {
+    background-color: #FEDC32;
+    box-shadow: none;
+  }
+  </style>
 
 
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalHeader" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalHeader">Login to Schedulearn</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <form method="post" action="/login/">
-                {% csrf_token %}
-                  <div class="form-group">
-                    <input name="username" placeholder="Enter Username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
-                  </div>
-                  <div class="form-group">
-                    <input name="password" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    <small id="signUpHelp" class="form-text text-muted">Don't have an account yet?
-                      <a href="" id="signUp" data-toggle="modal" data-target="#signUpModal">Sign Up!</a>
-                    </small>
-                    <br>
-                    {% if login_error %}
-                    <p class="errorlist"> {{ login_error }} </p>
-                    {% endif %}
-                  </div>
-
-                  <button type="submit" class="btn btn-primary">Login</button>
-
-              </form>
-            </div>
-          </div>
-
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalHeader" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalHeader">Login to Schedulearn</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <div>
+            <form method="post" action="/login/">
+              {% csrf_token %}
+              <div class="form-group">
+                <input name="username" placeholder="Enter Username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+              </div>
+              <div class="form-group">
+                <input name="password" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <small id="signUpHelp" class="form-text text-muted">Don't have an account yet?
+                  <a href="" id="signUp" data-toggle="modal" data-target="#signUpModal">Sign Up!</a>
+                </small>
+                <br>
+                {% if login_error %}
+                <p class="errorlist"> {{ login_error }} </p>
+                {% endif %}
+              </div>
+
+              <button type="submit" class="btn btn-primary">Login</button>
+
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign up for Schedulearn</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <form method="post" action="{% url 'signup' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                  <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ email }}" required>
-                  {% if email_error %}
-                  <p class="errorlist">{{ email_error }}</p>
-                  {% endif %}
-                </div>
-                <div class="form-group">
-                  <input name="username" type="text" class="form-control" id="username" value="{{ username }}" placeholder="Username" required>
-                  {% if username_error %}
-                  <p class="errorlist">{{ username_error }}</p>
-                  {% endif %}
-                </div>
-                <div class="form-group">
-                  <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ firstName }}" placeholder="First Name" required>
-                  {% if name_error %}
-                  <p class="errorlist">{{ name_error }}</p>
-                  {% endif %}
-                </div>
-                <div class="form-group">
-                  <input name="lastName" type="text" class="form-control" id="lastName" value="{{ lastName }}" placeholder="Last Name (Optional)">
-                </div>
-                <div class="form-group">
-                  <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                  <input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password" required>
-                  {% if password_error %}
-                  <p class="errorlist">{{ password_error }}</p>
-                  {% endif %}
-                  {% if password_errors %}
-                  <li>
-                    {% for error in password_errors %}
-                      <ul class="errorlist">{{ error }}</ul>
-                    {% endfor %}
-                  </li>
-                  {% endif %}
+  <!-- Modal -->
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign up for Schedulearn</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <form method="post" action="{% url 'signup' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ email }}" required>
+                {% if email_error %}
+                <p class="errorlist">{{ email_error }}</p>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <input name="username" type="text" class="form-control" id="username" value="{{ username }}" placeholder="Username" required>
+                {% if username_error %}
+                <p class="errorlist">{{ username_error }}</p>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <input name="firstName" type="text" class="form-control" id="firstName"  value="{{ firstName }}" placeholder="First Name" required>
+                {% if name_error %}
+                <p class="errorlist">{{ name_error }}</p>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <input name="lastName" type="text" class="form-control" id="lastName" value="{{ lastName }}" placeholder="Last Name (Optional)">
+              </div>
+              <div class="form-group">
+                <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
+              </div>
+              <div class="form-group">
+                <input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password" required>
+                {% if password_error %}
+                <p class="errorlist">{{ password_error }}</p>
+                {% endif %}
+                {% if password_errors %}
+                <li>
+                  {% for error in password_errors %}
+                  <ul class="errorlist">{{ error }}</ul>
+                  {% endfor %}
+                </li>
+                {% endif %}
 
+              </div>
+              <div style="margin-left:28%">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="teacher_or_student" id="teacher" value="tutor" checked>
+                  <label class="form-check-label" for="exampleRadios1">Teacher</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="teacher_or_student" id="student" value="client">
+                  <label class="form-check-label" for="exampleRadios2">Student</label>
                 </div>
               </div>
-              <small id="loginHelp" class="form-text float-right text-muted">
-                <a href="" id="login" data-toggle="modal" data-target="loginModal">Log in</a> instead
-              </small>
+
+            </div>
+            <small id="loginHelp" class="form-text float-right text-muted">
+              <a href="" id="login" data-toggle="modal" data-target="loginModal">Log in</a> instead
+            </small>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Sign Up</button>
           </div>
         </form>
-        </div>
       </div>
     </div>
+  </div>
 
-    <div id="home">
-      <div class="landing-text">
-        <h1>SCHEDULEARN</h1>
-        <h3>Increasing connectivity between students and teachers.</h3>
-      </div>
+  <div id="home">
+    <div class="landing-text">
+      <h1>SCHEDULEARN</h1>
+      <h3>Increasing connectivity between students and teachers.</h3>
     </div>
+  </div>
 
-    <div id="about-schedulearn" class="padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <img style="width:90%" src="{% static 'home/images/demo.png' %}">
-          </div>
-          <div class="col-sm-6 text-center">
-            <h2>About Schedulearn</h2>
-            <p class="lead">Schedulearn is all about connecting students and professors in a way that hasn't been done before. The way Schedulearn does that is by giving tutors the ability to give students assignments, schedule lessons and much more.</p>
-            <p class="lead">Students get access to features that enhance their learning experience such as chatrooms with other students, the ability to schedule lessons with their teacher and more.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <footer class="container-fluid text-center">
+  <div id="about-schedulearn" class="padding">
+    <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          <h3>Contact Us</h3><br>
-          <h4>Our contact information is here.</h4>
+          <img style="width:90%" src="{% static 'home/images/demo.png' %}">
         </div>
-        <div class="col-sm-6">
-          <h3>Connect</h3>
-          <a href="https://github.com/sdevalapurkar/schedule-my-lessons" class="fab fa-github"></a>
+        <div class="col-sm-6 text-center">
+          <h2>About Schedulearn</h2>
+          <p class="lead">Schedulearn is all about connecting students and professors in a way that hasn't been done before. The way Schedulearn does that is by giving tutors the ability to give students assignments, schedule lessons and much more.</p>
+          <p class="lead">Students get access to features that enhance their learning experience such as chatrooms with other students, the ability to schedule lessons with their teacher and more.</p>
         </div>
-
       </div>
-    </footer>
+    </div>
+  </div>
 
-    {% if username_error or email_error or password_error or name_error %}
-      <script type="text/javascript">
-        $('#signUpModal').modal();
-      </script>
-    {% endif %}
+  <footer class="container-fluid text-center">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Contact Us</h3><br>
+        <h4>Our contact information is here.</h4>
+      </div>
+      <div class="col-sm-6">
+        <h3>Connect</h3>
+        <a href="https://github.com/sdevalapurkar/schedule-my-lessons" class="fab fa-github"></a>
+      </div>
 
-    {% if login_error %}
-      <script type="text/javascript">
-        $('#loginModal').modal();
-      </script>
-    {% endif %}
+    </div>
+  </footer>
 
-  </body>
+  {% if username_error or email_error or password_error or name_error %}
+  <script type="text/javascript">
+  $('#signUpModal').modal();
+  </script>
+  {% endif %}
+
+  {% if login_error %}
+  <script type="text/javascript">
+  $('#loginModal').modal();
+  </script>
+  {% endif %}
+
+</body>
 </html>
