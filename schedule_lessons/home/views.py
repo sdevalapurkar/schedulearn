@@ -58,18 +58,18 @@ def login_view(request):
             valid_combination = user.check_password(password) # is a boolean, true if valid login.
             if valid_combination:
                 login(request, user)
-                return redirct('dashboard')
+                return redirect('dashboard')
             else:
-                return render(request, 'index.html', {'email_error': 'Invalid email/password combination'})
-        except validate_email.ValidationError:
+                return render(request, 'index.html', {'login_error': 'Invalid email/password combination'})
+        except ValidationError:
             # it's a username.
             user = User.objects.get(username__iexact=username)
             valid_combination = user.check_password(password)
             if valid_combination:
                 login(request, user)
-
-
-
+                return redirect('dashboard')
+            else:
+                return render(request, 'index.html', {'login_error': 'Invalid username/password combination'})
 
     else:
         return render(request, "index.html")
