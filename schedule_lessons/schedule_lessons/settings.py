@@ -43,7 +43,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '243916091300-hf2tirt56sqv8mfid7poipac9rpie57c.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'OlHJPD_zb3UvsDRLvlCUBpd-' #Paste Secret Key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 

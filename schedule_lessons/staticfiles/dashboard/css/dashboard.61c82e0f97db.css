@@ -1,0 +1,22 @@
+@font-face {
+    font-family: LightFont;
+    src: url("../fonts/TheLightFont.e027c1173c04.otf");
+}
+@font-face {
+    font-family: MankSans;
+    src: url("../fonts/MankSans.213ae56e9885.ttf");
+}
+
+body {
+  background: url("../images/funky-lines.7c2eac8723aa.png");
+}
+
+nav, .nav-link {
+  background-color: #FEDC32;
+}
+
+.modal-title {
+  margin-left: 150px;
+    font-family: LightFont;
+    font-size: 35px;
+}
