@@ -94,4 +94,7 @@ def welcome(request):
             request.user.save()
         return redirect('dashboard')
     else:
-        return render(request, "welcome.html")
+        if request.user.profile.user_type:
+            return redirect('dashboard')
+        else:
+            return render(request, "welcome.html")
