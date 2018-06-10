@@ -34,7 +34,7 @@ nav {
 }
 
 #home {
-  background: url("../images/background.jpg") no-repeat 0% 50% fixed;
+  background: url("../images/background.2513d588bc6f.jpg") no-repeat 0% 50% fixed;
   display: table;
   height: 100%;
   position: relative;
@@ -83,7 +83,7 @@ footer {
 @media (max-width: 768px) {
 
   #home {
-    background: url("../images/background.jpg") no-repeat 0% 0% fixed;
+    background: url("../images/background.2513d588bc6f.jpg") no-repeat 0% 0% fixed;
     display: table;
     height: 100%;
     position: relative;
