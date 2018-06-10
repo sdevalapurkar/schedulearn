@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome | Schedulearn</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome, you have signed up!</h1>
+    <p class="lead">This is the last step. Are you a teacher or a student?</p>
+    <hr class="my-4">
+    <p class="lead">
+      <form action="/welcome/" method="POST">
+        {% csrf_token %}
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="teacher_or_student" id="teacher" value="teacher">
+          <label class="form-check-label" for="inlineRadio1">Teacher</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="teacher_or_student" id="student" value="student">
+          <label class="form-check-label" for="inlineRadio2">Student</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+    </p>
+  </div>
+
+</body>
+</html>

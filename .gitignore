@@ -1,3 +1,4 @@
 *.pyc
 __pycache__/*
 schedule_lessons/db.sqlite3
+misc/schedulearn-venv

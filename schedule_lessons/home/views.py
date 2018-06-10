@@ -2,64 +2,99 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login
-from .forms import MyRegistrationForm
-
-
-# Create your views here.
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 
 def load_home(request):
-    if request.method == 'GET':
-        form = MyRegistrationForm()
-        return render(request, 'index.html', {'form': form, 'signup_errors': []})
+    return render(request, 'index.html')
 
 def signup_view(request):
     if request.method == 'POST':
-        form = MyRegistrationForm(request.POST)
-        # Check if signup information is valid
-        if form.is_valid():
-            form.save() # If it is, save the user in our database.
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        firstName = request.POST.get('firstName')
+        lastName = request.POST.get('lastName')
+        passwordOne = request.POST.get('password1')
+        passwordTwo = request.POST.get('password2')
+        #User has send post request with information such as email, password
+        #etc and they want to sing up.
+        if passwordOne == passwordTwo:
+            # The user enterered the password correctly.
 
-            # Then authenticate this new user and log him in.
-            new_user = authenticate(username=username, password=raw_password)
+            try:
+                user = User.objects.get(username__iexact=username)
+                return render(request, 'index.html', {'username_error': 'Username is already in use',  'email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
+            except User.DoesNotExist:
+                try:
+                    user = User.objects.get(email__iexact=email)
+                    return render(request, 'index.html', {'email_error': 'Email is already in use','email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
+                except User.DoesNotExist:
+                    # If code gets here it means that email and username are not used and we can begin password validation.
+                    try:
+                        validate_password(passwordOne)
+                    except ValidationError as password_errors:
+                        return render(request, 'index.html', {'teacher_password_errors': password_errors,  'email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
+                        #password validated, ready to put user in database.
 
-            new_user.profile.user_type = form.cleaned_data.get('tutor_or_student')
-            new_user.profile.profile_pic = 'default/man.png'
-            # Log in new user and take them home
-            login(request, new_user)
-            return redirect('dashboard')
+                        user = User.objects.create_user(username, email=email, password=passwordOne)
+                        user.first_name = firstName
+                        user.last_name = lastName
+                        user.profile.profile_pic = 'default/man.png'
+                        user.save()
+                        login(request, user)
+                        return redirect('welcome')
         else:
-            return render(request, 'index.html', {'form': form, 'signup_errors': form.errors.items(), 'login_errors': ''})
+            return render(request, 'index.html', {'password_error': 'Passwords do not match.', 'email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
     else:
-        form = MyRegistrationForm()
-        return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': ''})
+        #User want to access homepage.
+        return render(request, "index.html")
 
 
 def login_view(request):
-    form = MyRegistrationForm()
     if request.method == 'POST':
-        username = request.POST['u']
-        password = request.POST['p']
-        caseSensitiveUsername = username
-
+        username = request.POST['username'] # can be username or email
+        password = request.POST['password']
+        #check if email first.
         try:
-            findUser = User._default_manager.get(username__iexact=username)
-        except User.DoesNotExist:
-            findUser = None
-
-        if findUser is not None:
-            caseSensitiveUsername = findUser
-
-
-        user = authenticate(username=caseSensitiveUsername, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard')
-        else:
-            login_error = "Invalid username/password combination. Please try again."
-            return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': login_error})
+            validate_email(username)
+            # it's a valid email.
+            user = User.objects.get(email__iexact=username) #searches the database if email exists, ignores case
+            valid_combination = user.check_password(password) # is a boolean, true if valid login.
+            if valid_combination:
+                login(request, user)
+                return redirect('dashboard')
+            else:
+                return render(request, 'index.html', {'login_error': 'Invalid email/password combination'})
+        except ValidationError:
+            # it's a username.
+            user = User.objects.get(username__iexact=username)
+            valid_combination = user.check_password(password)
+            if valid_combination:
+                login(request, user)
+                return redirect('dashboard')
+            else:
+                return render(request, 'index.html', {'login_error': 'Invalid username/password combination'})
 
     else:
-        return render(request, "index.html", {"form": form, 'signup_errors': [], 'login_error': ''})
+        return render(request, "index.html")
+
+@login_required
+def welcome(request):
+    if request.method == 'POST':
+        print(request.POST.get('teacher_or_student'))
+        if request.POST.get('teacher_or_student') == 'teacher':
+            request.user.profile.user_type = 'tutor'
+            request.user.profile.profile_pic = 'default/man.png'
+            request.user.save()
+        else:
+            request.user.profile.user_type = 'client'
+            request.user.profile.profile_pic = 'default/man.png'
+            request.user.save()
+        return redirect('dashboard')
+    else:
+        if request.user.profile.user_type:
+            return redirect('dashboard')
+        else:
+            return render(request, "welcome.html")

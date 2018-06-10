@@ -25,14 +25,7 @@ from django.views.static import serve
 
 urlpatterns = [
     path('', include('home.urls'), name='home'),
-    path('dashboard/', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls'), name='dashboard'),
     path('logout/', logout, name='logout'),
     path('admin/', admin.site.urls)
-]
-
-if settings.DEBUG:
-    urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    ]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Needed for media folder to upload profile pictures.
