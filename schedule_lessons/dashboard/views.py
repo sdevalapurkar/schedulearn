@@ -203,15 +203,12 @@ def scheduler(request):
 
 
 def my_profile(request):
-    try:
-        profile = request.user.profile
-    except UserProfile.DoesNotExist:
-        profile = UserProfile(user=request.user)
 
     if request.method == 'GET':
         profile_form = ProfileForm()
         name_form = NameForm()
     elif request.method == 'POST':
+        profile = request.user.profile
         name_form = NameForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=profile)
         if name_form.is_valid() and profile_form.is_valid():
