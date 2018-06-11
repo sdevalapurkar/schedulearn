@@ -38,13 +38,14 @@ def signup_view(request):
                         return render(request, 'index.html', {'teacher_password_errors': password_errors,  'email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
                         #password validated, ready to put user in database.
 
-                        user = User.objects.create_user(username, email=email, password=passwordOne)
-                        user.first_name = firstName
-                        user.last_name = lastName
-                        user.profile.profile_pic = 'default/man.png'
-                        user.save()
-                        login(request, user)
-                        return redirect('welcome')
+                    user = User.objects.create_user(username, email=email, password=passwordOne)
+                    user.first_name = firstName
+                    user.last_name = lastName
+                    user.profile.profile_pic = 'default/man.png'
+                    print(user)
+                    user.save()
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('welcome')
         else:
             return render(request, 'index.html', {'password_error': 'Passwords do not match.', 'email': email, 'username': username, 'firstName':firstName, 'lastName':lastName})
     else:
@@ -63,7 +64,7 @@ def login_view(request):
             user = User.objects.get(email__iexact=username) #searches the database if email exists, ignores case
             valid_combination = user.check_password(password) # is a boolean, true if valid login.
             if valid_combination:
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('dashboard')
             else:
                 return render(request, 'index.html', {'login_error': 'Invalid email/password combination'})
@@ -72,7 +73,7 @@ def login_view(request):
             user = User.objects.get(username__iexact=username)
             valid_combination = user.check_password(password)
             if valid_combination:
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('dashboard')
             else:
                 return render(request, 'index.html', {'login_error': 'Invalid username/password combination'})
