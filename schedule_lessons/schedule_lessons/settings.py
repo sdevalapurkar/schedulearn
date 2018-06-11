@@ -146,6 +146,6 @@ if 'DATABASE_URL' in os.environ:
     DATABASES['default'].update(db_from_env)
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
