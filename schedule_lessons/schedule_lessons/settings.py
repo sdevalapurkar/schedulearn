@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from . import secret_settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -27,26 +26,16 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_HOST = secret_settings.email_host
-EMAIL_HOST_USER = secret_settings.email_host_user
-EMAIL_HOST_PASSWORD = secret_settings.email_host_pass
-EMAIL_PORT = secret_settings.email_port
-EMAIL_USE_TLS = secret_settings.email_use_tls
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret_settings.secret_key
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '243916091300-hf2tirt56sqv8mfid7poipac9rpie57c.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'OlHJPD_zb3UvsDRLvlCUBpd-' #Paste Secret Key
+SECRET_KEY = '&tm9%utcwp=rzanx9%jxn27gnck^4#65316g&6fei94==dml*6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -61,13 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
 ]
-
-AUTHENTICATION_BACKENDS = (
- 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
- 'social_core.backends.google.GoogleOpenId',  # for Google authentication
- 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
- 'django.contrib.auth.backends.ModelBackend',
-)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,3 +144,8 @@ if 'DATABASE_URL' in os.environ:
     import dj_database_url
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
