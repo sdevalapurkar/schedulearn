@@ -1,10 +1,10 @@
 @font-face {
-    font-family: LightFont;
-    src: url("../fonts/TheLightFont.otf");
+    font-family: Adam;
+    src: url("../fonts/adam-cg-pro.regular.otf");
 }
 @font-face {
     font-family: MankSans;
-    src: url("../fonts/MankSans.ttf");
+    src: url("../fonts/AvenirNext-Regular.ttf");
 }
 
 body {
@@ -20,9 +20,13 @@ nav {
 }
 
 h3 {
-    font-family: LightFont;
+    font-family: MankSans;
     font-size: 30px;
     text-align: center;
+    text-decoration: underline;
+
+
+}
 }
 
 #editAvailabilityButton {
@@ -37,7 +41,7 @@ h3 {
 }
 
 .modal-title {
-    font-family: LightFont;
+    font-family: MankSans;
     font-size: 35px;
     text-align: center;
 }
@@ -73,6 +77,10 @@ h3 {
   font-size: 0.75em;
 }
 
+#agendaTable{
+  margin-bottom: 150px;
+}
+
 /* Times */
 .agenda .agenda-time {
     width: 180px;
@@ -94,12 +102,14 @@ table, td, th {
 }
 
 table {
+
     overflow-y: auto;
     font-family: MankSans;
     border-collapse: collapse;
     border: 2px solid black;
     width: 100%;
-    margin: 0 auto;
+    margin: 0px auto 1000px auto;
+
 }
 
 th, td {
@@ -109,14 +119,14 @@ th, td {
 }
 
 th {
-    background-color: #B0E0E6;
+    background-color: #FEDC32;
     color: black;
-    font-family: LightFont;
+    font-family: MankSans;
     font-size: 18px;
 }
 
 tr:nth-child(even) {
-    background-color: #f8f9f9;
+    background-color: #FEDC32;
 }
 
 @media (max-width: 991.98px) {
