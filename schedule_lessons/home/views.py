@@ -61,7 +61,10 @@ def login_view(request):
         try:
             validate_email(username)
             # it's a valid email.
-            user = User.objects.get(email__iexact=username) #searches the database if email exists, ignores case
+            try:
+                user = User.objects.get(email__iexact=username) #searches the database if email exists, ignores case
+            except:
+                return render(request, 'index.html', {'login_error': 'Invalid username/password combination'})
             valid_combination = user.check_password(password) # is a boolean, true if valid login.
             if valid_combination:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
@@ -70,7 +73,10 @@ def login_view(request):
                 return render(request, 'index.html', {'login_error': 'Invalid email/password combination'})
         except ValidationError:
             # it's a username.
-            user = User.objects.get(username__iexact=username)
+            try:
+                user = User.objects.get(username__iexact=username)
+            except User.DoesNotExist:
+                return render(request, 'index.html', {'login_error': 'Invalid username/password combination'})
             valid_combination = user.check_password(password)
             if valid_combination:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
