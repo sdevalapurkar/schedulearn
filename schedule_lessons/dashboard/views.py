@@ -25,12 +25,12 @@ def add_tutor(request):
         tutor_id = request.POST.get('tutor_id')
         try:
             try:
-                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(email=tutor_id))
                 return HttpResponse(status=200)
 
             except Exception as e:
                 print(str(e))
-                new_rel = Relationships(client=request.user, tutor=User.objects.get(profile__id=tutor_id))
+                new_rel = Relationships(client=request.user, tutor=User.objects.get(email=tutor_id))
                 new_rel.save()
                 return HttpResponse(status=200)
         except Exception as e:
