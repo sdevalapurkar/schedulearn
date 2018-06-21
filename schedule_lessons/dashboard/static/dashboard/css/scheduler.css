@@ -24,9 +24,6 @@ h3 {
     font-size: 30px;
     text-align: center;
     text-decoration: underline;
-
-
-}
 }
 
 #editAvailabilityButton {
@@ -34,7 +31,6 @@ h3 {
   color: white;
   margin-right: 10px;
 }
-
 
 .modal-title {
   margin-left: 150px;
@@ -77,19 +73,13 @@ h3 {
   font-size: 0.75em;
 }
 
-#agendaTable{
+#agendaTable {
   margin-bottom: 150px;
 }
 
 /* Times */
 .agenda .agenda-time {
     width: 180px;
-}
-
-.options-button {
-    margin-right: 20px;
-    float: left;
-    margin-bottom: 20px;
 }
 
 td, th {
@@ -102,7 +92,6 @@ table, td, th {
 }
 
 table {
-
     overflow-y: auto;
     font-family: MankSans;
     border-collapse: collapse;
