@@ -14,7 +14,7 @@
     <p class="lead">This is the last step. Are you a teacher or a student?</p>
     <hr class="my-4">
     <p class="lead">
-      <form action="/welcome/" method="POST">
+      <form action="/welcome_user_type/" method="POST">
         {% csrf_token %}
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="teacher_or_student" id="teacher" value="teacher">
