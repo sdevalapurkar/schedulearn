@@ -136,7 +136,8 @@
               </div>
 
               <p><strong>-- OR --</strong></p>
-              <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}?next=/welcome/">Sign Up with Google</a></button>
+              <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Sign Up with Google</a></button>
+              <ul class="errorlist">{{ sign_up_google_email_error }}</ul>
 
 
             </div>
