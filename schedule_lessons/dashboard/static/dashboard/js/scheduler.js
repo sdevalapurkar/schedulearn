@@ -97,7 +97,7 @@ $(document).ready(function () {
         let saveButton = $(this).find('#addTutorButton');
         saveButton.unbind().click(function () {
             let addedTutor = {};
-            addedTutor.tutor_id = $('#tutorID').val();
+            addedTutor.tutor_id = $('#teacherEmail').val();
 
             $('#addTutorModal').modal('toggle');
 
