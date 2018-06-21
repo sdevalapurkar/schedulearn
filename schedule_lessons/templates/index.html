@@ -191,15 +191,9 @@
     </div>
   </footer>
 
-  {% if student_username_error or student_email_error or student_password_error or student_name_error %}
+  {% if username_error or email_error or password_error or name_error %}
   <script type="text/javascript">
-  $('#signUpStudentModal').modal();
-  </script>
-  {% endif %}
-
-  {% if teacher_username_error or teacher_email_error or teacher_password_error or teacher_name_error %}
-  <script type="text/javascript">
-  $('#signUpTeacherModal').modal();
+  $('#signUpModal').modal();
   </script>
   {% endif %}
 
