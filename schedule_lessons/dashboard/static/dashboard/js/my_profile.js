@@ -14,6 +14,10 @@ $(document).ready(function () {
     window.open('/dashboard/scheduler', '_self');
   });
 
+  $('#myProfile').click(function() {
+    window.open('/dashboard/my_profile', '_self');
+  });
+
   $('#copy').click(function() {
     var tutor_id = $("#ID");
     tutor_id.select();
@@ -77,6 +81,10 @@ $(document).ready(function () {
 
   $(".text").on("click", function() {
     $("#id_profile_pic").click();
+  });
+
+  $('#edit_profile').click(function() {
+    window.open('/dashboard/edit_profile', '_self');
   });
 
 
