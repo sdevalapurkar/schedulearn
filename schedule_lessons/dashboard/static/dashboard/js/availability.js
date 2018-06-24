@@ -65,7 +65,7 @@ $(document).ready(function () {
     $.get('/dashboard/user_type', function (data) {
         let userType = data.user_type;
         tutor = data.id;
-        if (userType === 'client') {
+        if (userType === 'student') {
             if (document.getElementById("editAvailability")) {
                 document.getElementById("editAvailability").style.display = "none";
             }
