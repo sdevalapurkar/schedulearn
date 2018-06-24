@@ -5,7 +5,6 @@ from django.contrib.auth import login
 # this checks if there is already a user with the gmail address that the user is trying to sign up with
 def check_duplicate_email(request, backend, user, response, *args, **kwargs):
     email = response['emails'][0]['value']
-    print("Does duplicate user with email exist? ", User.objects.filter(email=email).exists())
     if User.objects.filter(email=email).exists():
         user = User.objects.get(email=email)
         contains_social_authentication = user.social_auth.filter(provider='google-oauth2')

@@ -29,12 +29,10 @@ def add_tutor(request):
                 return HttpResponse(status=200)
 
             except Exception as e:
-                print(str(e))
                 new_rel = Relationships(client=request.user, tutor=User.objects.get(email=tutor_id))
                 new_rel.save()
                 return HttpResponse(status=200)
         except Exception as e:
-            print (str(e))
             return HttpResponse(status=404)
     return HttpResponse(status=404)
 
@@ -106,7 +104,6 @@ def set_event(request):
 
             return HttpResponse(status=200)
         except Exception as e:
-            print (str(e))
             return HttpResponse(status=404)
     return HttpResponse(status=404)
 
@@ -132,7 +129,7 @@ def set_availability(request):
             tutor.save()
             return HttpResponse(status=200)
         except Exception as e:
-            print(str(e))
+            pass
 
     return HttpResponse(status=404)
 
@@ -153,7 +150,7 @@ def edit_availability(request):
             return HttpResponse(status=200)
 
         except Exception as e:
-            print (str(e))
+            pass
 
     return HttpResponse(status=404)
 
@@ -196,7 +193,7 @@ def scheduler(request):
                 else:
                     event_list.append(data)
             except Exception as e:
-                print(str(e))
+                pass
         return render(request, 'scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
@@ -216,7 +213,7 @@ def my_profile(request):
             request.user.last_name = name_form.cleaned_data['last_name']
             request.user.save()
         else:
-            print("Errors:\n", name_form.errors, profile_form.errors)
+            pass
 
     return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
 
@@ -242,7 +239,7 @@ def edit_profile_pic(request):
             profile.save()
             return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
         else:
-            print("Errors:\n", name_form.errors, profile_form.errors)
+            pass
 
 
 def user_type(request):

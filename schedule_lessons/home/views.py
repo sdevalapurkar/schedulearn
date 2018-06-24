@@ -42,7 +42,6 @@ def signup_view(request):
                     user.first_name = firstName
                     user.last_name = lastName
                     user.profile.profile_pic = 'default/man.png'
-                    print(user)
                     user.save()
                     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('welcome')
@@ -96,7 +95,6 @@ def login_view(request):
 @login_required
 def welcome(request):
     if request.method == 'POST':
-        print(request.POST.get('teacher_or_student'))
         if request.POST.get('teacher_or_student') == 'teacher':
             request.user.profile.user_type = 'tutor'
             request.user.profile.profile_pic = 'default/man.png'
