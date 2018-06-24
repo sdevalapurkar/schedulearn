@@ -3,7 +3,7 @@ import json
 import datetime
 from django.http import HttpResponse
 from .forms import ProfileForm, NameForm
-from .models import Relationships, Events
+from .models import Relationship, Event
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -21,11 +21,11 @@ def add_tutor(request):
         tutor_id = request.POST.get('tutor_id')
         try:
             try:
-                existing_rel = Relationships.objects.get(student=request.user, tutor=User.objects.get(email=tutor_id))
+                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_id))
                 return HttpResponse(status=200)
 
             except Exception as e:
-                new_rel = Relationships(student=request.user, tutor=User.objects.get(email=tutor_id))
+                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_id))
                 new_rel.save()
                 return HttpResponse(status=200)
         except Exception as e:
@@ -33,12 +33,12 @@ def add_tutor(request):
     return HttpResponse(status=404)
 
 
-# Return list of tutors that have relationships with the student
+# Return list of tutors that have Relationship with the student
 @login_required
 def get_tutors(request):
     if request.method == 'GET':
         response = []
-        students_tutors = Relationships.objects.filter(student=request.user)
+        students_tutors = Relationship.objects.filter(student=request.user)
         if request.user.profile.user_type == 'student':
             for tutor in students_tutors:
                 response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
@@ -54,7 +54,7 @@ def get_events(request):
     if request.method == 'GET':
         event_list = []
 
-        events = Events.objects.filter(student=request.user)
+        events = Event.objects.filter(student=request.user)
 
         for event in events:
             event_list.append({
@@ -87,7 +87,7 @@ def set_event(request):
             location = data.get('lessonLocation')
             tutor = User.objects.get(profile__id=data.get('tutorID'))
 
-            event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
+            event = Event(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
             event.save()
 
             send_mail(
@@ -157,9 +157,9 @@ def scheduler(request):
         pending_event_list = []
         event_list = []
         if user_type == 'student':
-            events = Events.objects.filter(student=request.user)
+            events = Event.objects.filter(student=request.user)
         else:
-            events = Events.objects.filter(tutor=request.user)
+            events = Event.objects.filter(tutor=request.user)
         for event in events:
             try:
                 data = {
@@ -246,7 +246,7 @@ def user_type(request):
 def confirm_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')
-        event = Events.objects.get(id=event_id)
+        event = Event.objects.get(id=event_id)
         event.pending = False
         event.save()
         return HttpResponse(status=200)
@@ -256,6 +256,6 @@ def confirm_lesson(request):
 def decline_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')
-        Events.objects.get(id=event_id).delete()
+        Event.objects.get(id=event_id).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=404)
