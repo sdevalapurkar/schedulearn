@@ -12,11 +12,7 @@ from django.core.mail import send_mail
 # Create your views here.
 @login_required
 def home(request):
-    if request.method == 'GET':
-        return render(request, 'dashboard.html', {})
-
-    return HttpResponse(status=404)
-
+    return render(request, 'dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard.html
 
 # Create a relationship between the client and a tutor
 @login_required
