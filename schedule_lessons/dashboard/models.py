@@ -11,7 +11,7 @@ class Event(models.Model):
     location = models.CharField(max_length=50, blank=True, null=True)
 
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
 
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -25,4 +25,4 @@ class Event(models.Model):
 
 class Relationship(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user_rel')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
