@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Relationships, Events
+from .models import Relationship, Event
 
 # Register your models here.
 
-admin.site.register(Events)
+admin.site.register(Event)
 
-admin.site.register(Relationships)
+admin.site.register(Relationship)
