@@ -26,3 +26,6 @@ class Event(models.Model):
 class Relationship(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
+
+    def __str__(self):
+        return ("Tutor: " + tutor + " and Student: " + student)
