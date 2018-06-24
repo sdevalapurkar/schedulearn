@@ -2,8 +2,6 @@ let tutorID = undefined;
 let testUrl = undefined;
 let tutor = undefined;
 
-
-
 $(document).ready(function () {
 
     $('#startingTimeEntry').timeEntry().change(function() {
