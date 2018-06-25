@@ -3,7 +3,7 @@ import json
 import datetime
 from django.http import HttpResponse
 from .forms import ProfileForm, NameForm
-from .models import Relationships, Events
+from .models import Relationship, Event
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -12,24 +12,20 @@ from django.core.mail import send_mail
 # Create your views here.
 @login_required
 def home(request):
-    if request.method == 'GET':
-        return render(request, 'dashboard.html', {})
+    return render(request, 'dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard.html
 
-    return HttpResponse(status=404)
-
-
-# Create a relationship between the client and a tutor
+# Create a relationship between the student and a tutor
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
         tutor_id = request.POST.get('tutor_id')
         try:
             try:
-                existing_rel = Relationships.objects.get(client=request.user, tutor=User.objects.get(email=tutor_id))
+                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_id))
                 return HttpResponse(status=200)
 
             except Exception as e:
-                new_rel = Relationships(client=request.user, tutor=User.objects.get(email=tutor_id))
+                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_id))
                 new_rel.save()
                 return HttpResponse(status=200)
         except Exception as e:
@@ -37,18 +33,18 @@ def add_tutor(request):
     return HttpResponse(status=404)
 
 
-# Return list of tutors that have relationships with the client
+# Return list of tutors that have Relationship with the student
 @login_required
 def get_tutors(request):
     if request.method == 'GET':
         response = []
-        clients_tutors = Relationships.objects.filter(client=request.user)
-        if request.user.profile.user_type == 'client':
-            for tutor in clients_tutors:
+        students_tutors = Relationship.objects.filter(student=request.user)
+        if request.user.profile.user_type == 'student':
+            for tutor in students_tutors:
                 response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
         else:
-            for tutor in clients_tutors:
-                response.append([tutor.client.first_name, tutor.client.last_name, tutor.client.profile.id, tutor.tutor.email])
+            for tutor in students_tutors:
+                response.append([tutor.student.first_name, tutor.student.last_name, tutor.student.profile.id, tutor.tutor.email])
 
         return JsonResponse(response, safe=False)
 
@@ -58,7 +54,7 @@ def get_events(request):
     if request.method == 'GET':
         event_list = []
 
-        events = Events.objects.filter(client=request.user)
+        events = Event.objects.filter(student=request.user)
 
         for event in events:
             event_list.append({
@@ -66,9 +62,9 @@ def get_events(request):
                 'tutor_name': event.tutor.get_full_name(),
                 'tutor_id': event.tutor.profile.id,
                 'tutor_username': event.tutor.username,
-                'client_name': event.client.get_full_name(),
-                'client_id': event.client.profile.id,
-                'client_username': event.client.username,
+                'student_name': event.student.get_full_name(),
+                'student_id': event.student.profile.id,
+                'student_username': event.student.username,
                 'start_time': event.start_time,
                 'end_time': event.end_time,
                 'description': event.description
@@ -91,13 +87,13 @@ def set_event(request):
             location = data.get('lessonLocation')
             tutor = User.objects.get(profile__id=data.get('tutorID'))
 
-            event = Events(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, client=request.user)
+            event = Event(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
             event.save()
 
             send_mail(
                 'Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
-                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n' + 'Lesson Name: '  + str(name) + '\nLesson Description: ' + str(description) + '\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\nLesson Location: ' + location,
-                'lesson_scheduler@schedulearn.com',
+                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
+                'scheduler.notify@schedulearn.com',
                 [tutor.email],
                 fail_silently=False,
             )
@@ -105,7 +101,8 @@ def set_event(request):
             return HttpResponse(status=200)
         except Exception as e:
             return HttpResponse(status=404)
-    return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=404)
 
 
 def get_availability(request, tutor_id):
@@ -160,10 +157,10 @@ def scheduler(request):
 
         pending_event_list = []
         event_list = []
-        if user_type == 'client':
-            events = Events.objects.filter(client=request.user)
+        if user_type == 'student':
+            events = Event.objects.filter(student=request.user)
         else:
-            events = Events.objects.filter(tutor=request.user)
+            events = Event.objects.filter(tutor=request.user)
         for event in events:
             try:
                 data = {
@@ -173,9 +170,9 @@ def scheduler(request):
                     'tutor_name': event.tutor.get_full_name(),
                     'tutor_id': event.tutor.profile.id,
                     'tutor_username': event.tutor.username,
-                    'client_name': event.client.get_full_name(),
-                    'client_id': event.client.profile.id,
-                    'client_username': event.client.username,
+                    'student_name': event.student.get_full_name(),
+                    'student_id': event.student.profile.id,
+                    'student_username': event.student.username,
                     'start_date': event.start_time,
                     'end_date': event.end_time,
                     'start_shortdate': event.start_time.strftime('%B, %Y'),
@@ -250,7 +247,7 @@ def user_type(request):
 def confirm_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')
-        event = Events.objects.get(id=event_id)
+        event = Event.objects.get(id=event_id)
         event.pending = False
         event.save()
         return HttpResponse(status=200)
@@ -260,6 +257,6 @@ def confirm_lesson(request):
 def decline_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')
-        Events.objects.get(id=event_id).delete()
+        Event.objects.get(id=event_id).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=404)
