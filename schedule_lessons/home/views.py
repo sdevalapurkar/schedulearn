@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 
 def load_home(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {request: 'request'})
 
 def signup_view(request):
     if request.method == 'POST':
@@ -100,7 +100,7 @@ def welcome(request):
             request.user.profile.profile_pic = 'default/man.png'
             request.user.save()
         else:
-            request.user.profile.user_type = 'client'
+            request.user.profile.user_type = 'student'
             request.user.profile.profile_pic = 'default/man.png'
             request.user.save()
         return redirect('dashboard')

@@ -2,8 +2,6 @@ let tutorID = undefined;
 let testUrl = undefined;
 let tutor = undefined;
 
-
-
 $(document).ready(function () {
 
     $('#startingTimeEntry').timeEntry().change(function() {
@@ -65,7 +63,7 @@ $(document).ready(function () {
     $.get('/dashboard/user_type', function (data) {
         let userType = data.user_type;
         tutor = data.id;
-        if (userType === 'client') {
+        if (userType === 'student') {
             if (document.getElementById("editAvailability")) {
                 document.getElementById("editAvailability").style.display = "none";
             }
@@ -114,7 +112,7 @@ $(document).ready(function () {
                 url: '/dashboard/set_event',
                 data: scheduleJSON,
                 success: function () {
-                    window.open('/dashboard', "_self");
+                    window.open('/dashboard/scheduler', "_self");
                 }
             });
         });
