@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 
 def load_home(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {request: 'request'})
 
 def signup_view(request):
     if request.method == 'POST':
