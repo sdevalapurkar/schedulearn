@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Events(models.Model):
+class Event(models.Model):
     id = models.AutoField(primary_key=True)
 
     name = models.CharField(max_length=32, blank=True, null=True)
@@ -11,7 +11,7 @@ class Events(models.Model):
     location = models.CharField(max_length=50, blank=True, null=True)
 
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
 
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -23,6 +23,9 @@ class Events(models.Model):
         return self.name
 
 
-class Relationships(models.Model):
+class Relationship(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_user_rel')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
+
+    def __str__(self):
+        return ("Tutor: " + str(self.tutor) + " and Student: " + str(self.student))
