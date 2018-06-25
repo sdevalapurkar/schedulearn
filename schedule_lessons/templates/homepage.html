@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Home | Schedulearn</title>
+  <meta name="description" content="Schedulearn is a platform for tutors and students to stay organized in scheduling lessons with each other through ease.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'home/css/homepage.css' %}">
+</head>
+<body>
+
+  <!--navbar start -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-home" href="#"><i class="fas fa-home"></i> HOME<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="btn login-btn" href="#">LOGIN</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- navbar end -->
+
+  <div class="main-background">
+    <div class="main-content">
+      <p class="main_subtitle">SCHEDULEARN</p>
+      <p class="main_title">GET STARTED</p><br>
+      <a class="btn signup-btn" href="#">SIGN UP NOW</a><br>
+      <a class="btn learn-more-btn" href="#learn-more-background">LEARN MORE <span class="spaces">.</span><i class="fas fa-chevron-down"></i></a>
+    </div>
+  </div>
+
+  <div id="learn-more-background">
+    <div class="container-fluid">
+      <!-- First Row -->
+      <div class="row first_row">
+        <div class="text_col col-xl">
+          <h1 class="title_col">SCHEDULE <span class="highlight">LESSONS</span></h1>
+          <p class="paragraph_col">SCHEDULE LESSONS WITH YOUR TEACHERS OR STUDENTS WITH A SET TIME AND LOCATION.</p>
+        </div>
+        <div class="col-xl pic_col">
+          <img class="schedule_picture" src="{% static 'home/images/learn-more-pic-1.png' %}" alt="Schedulearn's Scheduling System">
+        </div>
+      </div>
+      <!-- First Row End-->
+      <!-- Second Row -->
+      <div class="row second_row">
+        <div class="col-xl pic_col">
+          <img class="classroom_picture" src="{% static 'home/images/manage_classrooms.jpg' %}" alt="Schedulearn's Scheduling System">
+        </div>
+        <div class="text_col col-xl">
+          <h1 class="title_col">MANAGE YOUR OWN <span class="highlight">CLASSROOMS</span></h1>
+          <p class="paragraph_col">ORGANIZE GROUP STUDIES, RECIEVE ASSIGNMENTS, HAVE ACCESS TO A CHATROOM, SHARE NOTES, AND SO MUCH MORE. SCHEDULEARN CLASSROOMS HAS IT ALL.</p>
+        </div>
+      </div>
+      <!-- Second Row End -->
+    </div>
+  </div>
+  <div class="banner">
+    <div class="container">
+      <p class="banner-title">JOIN SCHEDULEARN NOW AND REVOLUTIONIZE YOUR LEARNING EXPERIENCE.</p>
+      <p class="banner-subtitle">SCHEDULEARN – YOUR ONLINE CLASSROOM</p>
+      <div class="banner-signup-container">
+        <a class="btn banner-signup-btn" href="#">SIGN UP NOW</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-title">CONTACT US</p>
+      <div class="links">
+        <a class="link" href="https://github.com/sdevalapurkar/schedulearn"><i class="fab fa-github"></i></a>
+        <a class="link" href="#"><i class="far fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'home/js/homepage.js' %}"></script>
+
+</body>
+</html>
