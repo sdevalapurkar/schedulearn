@@ -2,10 +2,6 @@ var img_url;
 
 $(document).ready(function () {
 
-  $('#logo').click(function() {
-    window.open('/dashboard/', '_self');
-  });
-
   $('#dashboard').click(function() {
     window.open('/dashboard/', '_self');
   });
@@ -23,6 +19,8 @@ $(document).ready(function () {
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+  /* ALL CODE BELOW RELATED TO CROPPING PICTURE */
 
   var cropped = $("#crop_picture").croppie({
     viewport: {
@@ -78,6 +76,8 @@ $(document).ready(function () {
   $(".text").on("click", function() {
     $("#id_profile_pic").click();
   });
+
+    /* ALL CODE ABOVE RELATED TO CROPPING PICTURE */
 
 
   $('#id_first_name').addClass("form-control");
