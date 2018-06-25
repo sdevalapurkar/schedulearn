@@ -92,8 +92,8 @@ def set_event(request):
 
             send_mail(
                 'Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
-                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n' + 'Lesson Name: '  + str(name) + '\nLesson Description: ' + str(description) + '\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\nLesson Location: ' + location,
-                'lesson_scheduler@schedulearn.com',
+                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
+                'scheduler.notify@schedulearn.com',
                 [tutor.email],
                 fail_silently=False,
             )
@@ -101,7 +101,8 @@ def set_event(request):
             return HttpResponse(status=200)
         except Exception as e:
             return HttpResponse(status=404)
-    return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=404)
 
 
 def get_availability(request, tutor_id):

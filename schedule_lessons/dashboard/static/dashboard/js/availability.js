@@ -112,7 +112,7 @@ $(document).ready(function () {
                 url: '/dashboard/set_event',
                 data: scheduleJSON,
                 success: function () {
-                    window.open('/dashboard', "_self");
+                    window.open('/dashboard/scheduler', "_self");
                 }
             });
         });
