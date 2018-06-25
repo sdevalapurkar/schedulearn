@@ -68,7 +68,11 @@
               <div class="form-group">
                 <input name="password" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 <p><strong>-- OR --</strong></p>
-                <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Log In with Google</a></button>
+                {% if request.user.is_anonymous %}
+                  <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Log In with Google</a></button>
+                {% else %}
+                  <button type="button" name="google-signup"><a href="{% url 'dashboard' %}">Log In with Google</a></button>
+                {% endif %}
                 <small id="signUpHelp" class="form-text text-muted">Don't have an account yet? Sign Up as a
                   <a href="" id="signUpTeacher" data-toggle="modal" data-target="#signUpTeacherModal">teacher</a> or
                   <a href="" id="signUpStudent" data-toggle="modal" data-target="#signUpStudentModal">student</a>
@@ -136,7 +140,11 @@
               </div>
 
               <p><strong>-- OR --</strong></p>
-              <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Sign Up with Google</a></button>
+              {% if request.user.is_anonymous %}
+                <button type="button" name="google-signup"><a href="{% url 'social:begin' 'google-oauth2' %}">Sign Up with Google</a></button>
+              {% else %}
+                <button type="button" name="google-signup"><a href="{% url 'dashboard' %}">Sign Up with Google</a></button>
+              {% endif %}
               <ul class="errorlist">{{ sign_up_google_email_error }}</ul>
 
 
