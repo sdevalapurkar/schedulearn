@@ -28,4 +28,4 @@ class Relationship(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
 
     def __str__(self):
-        return ("Tutor: " + tutor + " and Student: " + student)
+        return ("Tutor: " + str(self.tutor) + " and Student: " + str(self.student))
