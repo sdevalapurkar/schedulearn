@@ -288,3 +288,21 @@ def decline_lesson(request):
         Event.objects.get(id=event_id).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=404)
+
+def edit_profile(request):
+    if request.method == 'GET':
+        profile_form = ProfileForm()
+        name_form = NameForm()
+    elif request.method == 'POST':
+        profile = request.user.profile
+        name_form = NameForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=profile)
+        if name_form.is_valid() and profile_form.is_valid():
+            request.user.first_name = name_form.cleaned_data['first_name']
+            request.user.last_name = name_form.cleaned_data['last_name']
+            request.user.save()
+            return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+        else:
+            return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+
+    return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})

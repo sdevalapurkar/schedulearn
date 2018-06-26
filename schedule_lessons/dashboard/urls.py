@@ -13,6 +13,7 @@ urlpatterns = [
     path('display_profile/<id>', views.display_profile, name='display_profile'),
     path('my_profile', views.my_profile, name='my_profile'),
     path('my_profile/edit_profile_pic/', views.edit_profile_pic, name='edit_profile_pic'),
+    path('edit_profile', views.edit_profile, name='edit_profile'),
     path('user_type', views.user_type, name='user_type'),
     path('scheduler/add_tutor/', views.add_tutor, name='add_tutor'),
     path('confirm_lesson', views.confirm_lesson, name='confirm_lesson'),
