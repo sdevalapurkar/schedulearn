@@ -216,8 +216,9 @@ def scheduler(request):
 
     return HttpResponse(status=404)
 
-def display_profile(request, id):
-    
+#def display_profile(request, id):
+#    if request.method == 'GET':
+
 
 
 @login_required
