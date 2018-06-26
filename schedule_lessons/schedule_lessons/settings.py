@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
+    'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,7 +125,7 @@ SOCIAL_AUTH_PIPELINE = (
     # there's any collision.
     'social_core.pipeline.user.get_username',
 
-    'home.pipeline.check_duplicate_email',
+    'accounts.pipeline.check_duplicate_email',
 
     # Create a user account if we haven't found one yet.
     'social_core.pipeline.user.create_user',
@@ -139,7 +140,7 @@ SOCIAL_AUTH_PIPELINE = (
     # Update the user record with any changed info from the auth service.
     'social_core.pipeline.user.user_details',
 
-    'home.pipeline.load_welcome'
+    'accounts.pipeline.load_welcome'
 )
 
 

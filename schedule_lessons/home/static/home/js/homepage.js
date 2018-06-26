@@ -1,5 +1,3 @@
-/* Added a comment*/
-
 $(document).ready(function() {
 
 	$('.learn-more-btn').click(function() {
@@ -10,4 +8,19 @@ $(document).ready(function() {
 			scrollTop: $(link).offset().top}, 600);
 		return false;
 	});
+
+	$('.login-btn').click(function(){
+			window.open('/accounts/login', "_self");
+	});
+
+	$('.signup-btn').click(function(){
+			window.open('/accounts/signup', "_self");
+	});
+
+	$('.banner-signup-btn').click(function(){
+			window.open('/accounts/signup', "_self");
+	});
+
+
+
 });
