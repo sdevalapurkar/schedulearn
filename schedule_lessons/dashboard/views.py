@@ -223,22 +223,8 @@ def scheduler(request):
 
 @login_required
 def my_profile(request):
+    return render(request, 'my_profile.html', {'user': request.user})
 
-    if request.method == 'GET':
-        profile_form = ProfileForm()
-        name_form = NameForm()
-    elif request.method == 'POST':
-        profile = request.user.profile
-        name_form = NameForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=profile)
-        if name_form.is_valid() and profile_form.is_valid():
-            request.user.first_name = name_form.cleaned_data['first_name']
-            request.user.last_name = name_form.cleaned_data['last_name']
-            request.user.save()
-        else:
-            pass
-
-    return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
 
 @login_required
 def edit_profile_pic(request):

@@ -17,131 +17,81 @@
 </head>
 <body>
 
-  <!--  <nav class="navbar navbar-expand-lg navbar-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
--->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <!-- When viewing on mobile, this will show up as the hamburger menu -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
-      </li>
-      <li class="nav-item active">
-        <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
-  <div id="crop-modal-dialog" class="modal-dialog modal-lg">
-    <div id="crop-modal-content" class="modal-content">
-      <div id="crop-modal-body" class="modal-body">
-        <img id="crop_picture" src="" alt="Your profile picture">
-      </div>
-      <div style="border-top:0px" class="modal-footer">
-        <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
-        <button id="cancelCrop" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
+        </li>
+        <li class="nav-item active">
+          <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
+        </li>
+      </ul>
     </div>
-  </div>
-</div>
+  </nav>
 
 
 
-    <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div style="border-top: 0px solid black" class="modal-footer">
-                    <a href="/accounts/logout/"><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i>  Sign Out</button></a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+  <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="picture-container">
-    <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
-    <div class="middle">
-      <div class="text"><i class="fas fa-camera-retro"></i>
+        <div style="border-top: 0px solid black" class="modal-footer">
+          <a href="/accounts/logout/"><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i>  Sign Out</button></a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="form-group">
-    {{ profile_form.profile_pic }}
+  <div class="container">
+
+    <div class="picture-container">
+      <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+    </div>
+
+
     {% if user.last_name %}
     <h1>{{ user.first_name }} {{ user.last_name }}'s Profile</h1>
     {% else %}
     <h1>{{ user.first_name }}'s Profile</h1>
     {% endif %}
-  </div>
 
-  <p class="title">{{ user.profile.user_type }}</p>
-  <p class="title">{{ user.email }}</p>
 
-  <div class="form-group">
-    <div id="inline">
+    <p class="title">{{ user.profile.user_type }}</p>
+    <p class="title">{{ user.email }}</p>
+
+    <div class="availability-id">
       <input type="text" class="form-control" id="ID" value="{{ user.profile.id }}" disabled </input>
       <button id="copy" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Copy your ID" class="center">
         <i class="far fa-clipboard"></i>
       </button>
     </div>
+
   </div>
 
-</div>
+  <div class="edit_profile_bar">
+    <hr>
+    <button id="edit_profile" extra="profileSave" type="submit" class="btn btn-primary">Edit Profile</button>
+  </div>
 
-
-
-<style>
-.cr-boundary {
-  height: 100%;
-  margin:auto;
-  class="center"
-}
-</style>
-
-<script type="text/javascript">
-$('#id_first_name').val("{{ user.first_name }}");
-$('#id_last_name').val("{{ user.last_name }}");
-</script>
 </body>
-<div style="clear: both;"></div>
-
-<div class "extra">
-  <br/><br/>
-  <br/><br/>
-  <br/><br/>
-  <hr>
-  <button id="edit_profile" extra="profileSave" type="submit" class="btn btn-primary" style="margin-left: 1000px">Edit Profile</button>
-
-</div>
-
 </html>
