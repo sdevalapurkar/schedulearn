@@ -11,23 +11,29 @@ from django.core.mail import send_mail
 
 # Create your views here.
 @login_required
-def home(request):
+def dashboard(request):
     return render(request, 'dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
 def add_tutor(request):
+    print("working")
     if request.method == 'POST':
-        tutor_id = request.POST.get('tutor_id')
+        print("post")
+        tutor_email = request.POST.get('tutor_email')
+        print(tutor_email)
         try:
             try:
-                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_id))
+                # checks where there is already such an existing relationship.
+                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_email))
                 return HttpResponse(status=200)
 
             except Exception as e:
-                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_id))
+                # if it doesn't a new one is created.
+                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_email))
                 new_rel.save()
                 return HttpResponse(status=200)
+        # if the above code isn't successfully executed. An error 404 is sent back.
         except Exception as e:
             return HttpResponse(status=404)
     return HttpResponse(status=404)
