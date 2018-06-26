@@ -14,17 +14,17 @@
     <script src="{% static 'accounts/js/sign_up.js' %}"></script>
   </head>
   <body>
-    <div class="all-div">
+
       <div class="div-left"></div>
 
-      <div class="div-right">
-        <div class="login">
-          <div class="already-account">Already have an account?</div>
-          <a class="login-btn" href="#">LOGIN</a>
-        </div>
+      <div class="login">
+        <div class="already-account-text">Already have an account?</div>
+        <a class="login-btn" href="#">LOGIN</a>
+      </div>
+
+      <div class="form-right">
         <div class="form">
           <h3 class="get-started"><span class="static-text">Get started and stay </span><span class="changing-text">connected.</span></h3>
-
           <form class="sign-up-info" action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
             <label class="form-label" for="user_email">Email Address</label>
@@ -55,8 +55,6 @@
 
         </div>
       </div>
-    </div>
-
 
     <style>
     {% if password_errors or unmatching_password_error %}

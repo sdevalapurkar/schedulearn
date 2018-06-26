@@ -33,15 +33,27 @@ body {
   text-align: center;
 }
 
-.div-right {
-  position: relative;
+.form-right {
+  /* USED TO CENTER FORM VERTICALLY */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* END USED TO CENTER FORM VERTICALLY */
   float: right;
   width: 60%;
   height: 100vh;
   background-color: #F4F4F4;
 }
 
-.already-account {
+.sign-up {
+  position: absolute;
+  width: 100%;
+  right: 2%;
+  text-align: right;
+  margin-top: 3%;
+}
+
+.already-account-text {
   display: inline-block;
   margin-right: 0.3%;
 }
@@ -53,7 +65,7 @@ body {
   background-color: #F4F4F4;
   font-size: 100%;
     color: #4A4A4A;
-    padding: 0.5% 3.4%;;
+    padding: 0.5% 2%;
     border: 1px solid #4A4A4A;
     border-radius:50px;
 }
@@ -65,26 +77,13 @@ body {
   text-decoration: none;
 }
 
-
-.login {
-  position: absolute;
-  width: 100%;
-  text-align: right;
-  margin-top: 3%;
-  padding-right: 4%;
-  margin-bottom: 3%;
-}
-
 .get-started {
   font-family: bariol;
 }
 
 .form {
   width: 100%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
+  margin: 15% auto;
   padding-left: 15%;
   padding-right: 15%;
 }
@@ -136,9 +135,9 @@ body {
   left: -9999px;
 }
 
-.continue-btn {
+.login-btn {
   font-family: anson;
-  padding: 7px 25px;
+  padding: 1% 7%;
   display: inline-block;
   margin-top: 3%;
   background-color: #E54F52;
@@ -147,7 +146,7 @@ body {
     border-radius:50px;
 }
 
-.continue-btn:hover {
+.login-btn:hover {
   background-color: #D14F52;
   border-color: #D14F52;
   color: #E6E6E6;
@@ -203,309 +202,45 @@ body {
   text-align: center;
 }
 
-
-/* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+
   .div-left {
     display: none;
   }
 
-  .div-right {
-    position: relative;
-    float: right;
+  .form-right {
+    float: none;
     width: 100%;
-    height: 100vh;
+    height: 145vh;
     background-color: #F4F4F4;
-  }
-
-  .already-account {
-    font-size: 80%;
-    font-family: bariol;
-    display: inline-block;
-    margin-right: 0.3%;
-  }
-
-  .signup-btn {
-    display: inline-block;
-    margin-left: 2px;
-    font-family: bariol;
-    background-color: #F4F4F4;
-    font-size: 80%;
-      color: #4A4A4A;
-      padding: 0.5% 3.4%;;
-      border: 1px solid #4A4A4A;
-      border-radius:50px;
-  }
-
-  .get-started {
-    font-family: bariol;
-    font-size: 150%;
-  }
-
-  .form {
-    padding-top: 50%;
-    padding-bottom: 20%;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
-    padding-left: 15%;
-    padding-right: 15%;
-  }
-
-  .form-label {
-    font-size: 100%;
-    font-family: anson;
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  .forgot-password {
-    font-size: 100%;
-    font-family: anson;
-    float: right;
-  }
-
-  .form-input {
-    font-size: 80%;
-    font-family: avenir-next;
-    display: block;
-    width: 100%;
-    padding-left: 2%;
-    padding-top: 1.4%;
-    padding-bottom: 1.4%;
-    border-radius: 4px;
-    border: 1px solid #8D8D8D;
-  }
-
-  .continue-btn {
-    font-size: 100%;
-    font-family: anson;
-    padding: 2% 7%;
-    display: inline-block;
-    margin-top: 3%;
-    background-color: #E54F52;
-    color: #F4F4F4;
-    border-radius:50px;
-  }
-
-  .or {
-    margin-bottom: 3%;
-    margin-top: 3%;
-    font-size: 120%;
-   overflow: hidden;
-   text-align: center;
-  }
-
-  .google-btn {
-    background: white;
-    font-size: 100%;
-    display: inline-block;
-    border: 1.5px solid #4A4A4A;
-    padding: 3%;
-    border-radius: 3px;
-    color: #4A4A4A;
   }
 
 }
 
-/* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
   .div-left {
     display: none;
   }
 
-  .div-right {
-    position: relative;
-    float: right;
+  .form-right {
+    float: none;
     width: 100%;
-    height: 100vh;
+    height: 125vh;
     background-color: #F4F4F4;
   }
-
-  .already-account {
-    font-size: 100%;
-    font-family: bariol;
-    display: inline-block;
-    margin-right: 0.3%;
-  }
-
-  .signup-btn {
-    display: inline-block;
-    margin-left: 2px;
-    font-family: bariol;
-    background-color: #F4F4F4;
-    font-size: 100%;
-      color: #4A4A4A;
-      padding: 0.5% 3.4%;;
-      border: 1px solid #4A4A4A;
-      border-radius:50px;
-  }
-
-  .get-started {
-    font-family: bariol;
-    font-size: 150%;
-  }
-
-  .form {
-    padding-top: 50%;
-    padding-bottom: 20%;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
-    padding-left: 15%;
-    padding-right: 15%;
-  }
-
-  .form-label {
-    font-size: 100%;
-    font-family: anson;
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  .forgot-password {
-    font-size: 100%;
-    font-family: anson;
-    float: right;
-  }
-
-  .form-input {
-    font-size: 90%;
-    font-family: avenir-next;
-    display: block;
-    width: 100%;
-    padding-left: 2%;
-    padding-top: 1.4%;
-    padding-bottom: 1.4%;
-    border-radius: 4px;
-    border: 1px solid #8D8D8D;
-  }
-
-  .continue-btn {
-    font-size: 120%;
-    font-family: anson;
-    padding: 2% 7%;
-    display: inline-block;
-    margin-top: 3%;
-    background-color: #E54F52;
-    color: #F4F4F4;
-    border-radius:50px;
-  }
-
-  .or {
-    margin-bottom: 3%;
-    margin-top: 3%;
-    font-size: 150%;
-   overflow: hidden;
-   text-align: center;
-  }
-
-  .google-btn {
-    background: white;
-    font-size: 120%;
-    display: inline-block;
-    border: 1.5px solid #4A4A4A;
-    padding: 3%;
-    border-radius: 3px;
-    color: #4A4A4A;
-  }
-
 }
 
-/* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+
   .div-left {
     display: none;
   }
 
-  .div-right {
-    position: relative;
-    float: right;
+  .form-right {
+    float: none;
     width: 100%;
     height: 100vh;
     background-color: #F4F4F4;
-  }
-
-  .already-account {
-    font-size: 100%;
-    font-family: bariol;
-    display: inline-block;
-    margin-right: 0.3%;
-  }
-
-  .signup-btn {
-    display: inline-block;
-    margin-left: 2px;
-    font-family: bariol;
-    background-color: #F4F4F4;
-    font-size: 100%;
-      color: #4A4A4A;
-      padding: 0.5% 3.4%;;
-      border: 1px solid #4A4A4A;
-      border-radius:50px;
-  }
-
-  .get-started {
-    font-family: bariol;
-    font-size: 200%;
-  }
-
-  .form-label {
-    font-size: 150%;
-    font-family: anson;
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  .forgot-password {
-    font-size: 150%;
-    font-family: anson;
-    float: right;
-  }
-
-  .form-input {
-    font-size: 120%;
-    font-family: avenir-next;
-    display: block;
-    width: 100%;
-    padding-left: 2%;
-    padding-top: 1.4%;
-    padding-bottom: 1.4%;
-    border-radius: 4px;
-    border: 1px solid #8D8D8D;
-  }
-
-  .continue-btn {
-    font-size: 180%;
-    font-family: anson;
-    padding: 2% 7%;
-    display: inline-block;
-    margin-top: 3%;
-    background-color: #E54F52;
-    color: #F4F4F4;
-    border-radius:50px;
-  }
-
-  .or {
-    margin-bottom: 3%;
-    margin-top: 3%;
-    font-size: 200%;
-   overflow: hidden;
-   text-align: center;
-  }
-
-  .google-btn {
-    background: white;
-    font-size: 180%;
-    display: inline-block;
-    border: 1.5px solid #4A4A4A;
-    padding: 3%;
-    border-radius: 3px;
-    color: #4A4A4A;
   }
 
 }
