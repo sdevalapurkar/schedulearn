@@ -5,10 +5,26 @@
 
 body {
   background: url("../images/funky-lines.png");
+  background-color: #F4F4F4;
 }
 
-nav, .nav-link{
+/*nav, .nav-link{
   background-color: #FEDC32;
+}*/
+
+nav {
+  background-color: #4A4A4A;
+}
+
+.nav-home {
+  color: white;
+  font-family: avenir-next;
+  font-size: 130%;
+}
+
+.nav-home:hover {
+  text-decoration: none;
+  color: #E54F52;
 }
 
 .container {
@@ -17,6 +33,7 @@ nav, .nav-link{
 
 h1 {
     text-align: center;
+
 }
 
 .picture-container {
@@ -34,11 +51,14 @@ h1 {
 
 #crop-modal-dialog, #crop-modal-content {
   height: inherit;
+
 }
 
 #crop-modal-body {
   height:74%;
   margin-bottom:4%;
+
+
 }
 
 .middle {
@@ -66,6 +86,9 @@ h1 {
   color: white;
   font-size: 32px;
   padding: 0 15px;
+  text-align: center;
+
+
 }
 
 #profilePicture {
@@ -87,25 +110,65 @@ h1 {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+
+    float: left;
+
 }
 
 #ID {
   width: 400px;
+  text-align: center;
+  margin-left: 350px;
+  float: left;
+}
+
+.title {
+    color: grey;
+    font-size: 22px;
+    text-align: center;
+
 }
 
 #profileSave {
   margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .modal-title {
-  margin-left: 150px;
+  margin-left: auto;
     font-family: LightFont;
     font-size: 35px;
+
+
+
+#form-group {
+  text-align: center;
+
+}
+
+.extra{
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ID {
+  float: left;
+
+}
+}
+.extra{
+  margin-right: 300px;
 }
 
 
 @media (max-width: 991.98px) {
   #availability {
     margin-bottom: 10px;
+    margin-left: 400px;
+    margin-right: 400px;
+
+
   }
 }

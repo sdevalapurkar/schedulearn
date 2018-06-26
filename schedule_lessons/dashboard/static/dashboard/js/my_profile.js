@@ -10,6 +10,10 @@ $(document).ready(function () {
     window.open('/dashboard/scheduler', '_self');
   });
 
+  $('#myProfile').click(function() {
+    window.open('/dashboard/my_profile', '_self');
+  });
+
   $('#copy').click(function() {
     var tutor_id = $("#ID");
     tutor_id.select();
@@ -77,7 +81,9 @@ $(document).ready(function () {
     $("#id_profile_pic").click();
   });
 
-    /* ALL CODE ABOVE RELATED TO CROPPING PICTURE */
+  $('#edit_profile').click(function() {
+    window.open('/dashboard/edit_profile', '_self');
+  });
 
 
   $('#id_first_name').addClass("form-control");
