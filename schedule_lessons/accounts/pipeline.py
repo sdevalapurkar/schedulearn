@@ -11,14 +11,16 @@ def check_duplicate_email(request, backend, user, response, *args, **kwargs):
         if contains_social_authentication:
             return
         else:
-            return render(request, 'index.html', {'sign_up_google_email_error': 'Email is already in use, sign in manually or use another google account'})
+            return render(request, 'sign_up.html', {'sign_up_google_email_error': 'Email is already in use, sign in manually or use another google account'})
 
     return
 
 def load_welcome(request, backend, user, response, *args, **kwargs):
     if not user.profile.user_type:
+        user.profile.profile_pic = 'default/man.png'
+        user.save()
         login(request, user, backend='social_core.backends.google.GoogleOAuth2')
-        return render(request, 'welcome.html')
+        return redirect('personalize')
     else:
         return
     return
