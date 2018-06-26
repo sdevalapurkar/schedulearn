@@ -1,8 +1,4 @@
-let tutorID = undefined;
-let testUrl = undefined;
 let tutor = undefined;
-
-
 
 $(document).ready(function () {
 
@@ -38,8 +34,6 @@ $(document).ready(function () {
     });
 
     let url = window.location.pathname;
-    testUrl = url.replace('/dashboard/', '');
-    tutorID = url.replace('/dashboard/availability/', '');
 
     $.get('/dashboard/user_type', function (data) {
         let userType = data.user_type;
@@ -101,11 +95,6 @@ $(document).ready(function () {
             });
         });
     });
-
-
-    if (testUrl === '') {
-        displayTutors();
-    }
 
     function displayTutors() {
       $.get('get_tutors', function (data) {
