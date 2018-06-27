@@ -39,6 +39,8 @@ body {
   flex-direction: column;
   justify-content: center;
   /* END USED TO CENTER FORM VERTICALLY */
+  padding-top: 25%;
+  padding-bottom: 25%;
   float: right;
   width: 60%;
   height: 100vh;
@@ -46,6 +48,7 @@ body {
 }
 
 .login {
+  font-family: bariol;
   position: absolute;
   width: 100%;
   right: 2%;
@@ -61,7 +64,6 @@ body {
 .login-btn {
   display: inline-block;
   margin-left: 2px;
-  font-family: sans-serif;
   background-color: #F4F4F4;
   font-size: 100%;
     color: #4A4A4A;
@@ -173,8 +175,10 @@ body {
 }
 
 .google-btn {
+  width: 300px;
+  font-family: anson;
   background: white;
-  font-size: 100%;
+  font-size: 140%;
   display: inline-block;
   border: 1.5px solid #4A4A4A;
   padding: 3%;
@@ -192,42 +196,20 @@ body {
   text-align: center;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 991.98px) {
 
   .div-left {
     display: none;
   }
 
   .form-right {
-    float: none;
-    width: 100%;
-    height: 145vh;
-    background-color: #F4F4F4;
-  }
-
-}
-
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .div-left {
-    display: none;
-  }
-
-  .form-right {
-    float: none;
-    width: 100%;
-    height: 125vh;
-    background-color: #F4F4F4;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-
-  .div-left {
-    display: none;
-  }
-
-  .form-right {
-    float: none;
+    /* USED TO CENTER FORM VERTICALLY */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* END USED TO CENTER FORM VERTICALLY */
+    padding-top: 60%;
+    padding-bottom: 60%;
     width: 100%;
     height: 100vh;
     background-color: #F4F4F4;
