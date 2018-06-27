@@ -119,7 +119,7 @@ def forget_password(request):
                 password=local_settings.EMAIL_HOST_PASSWORD,
                 use_tls=True,
             ) as connection:
-                EmailMessage("Reset Your Password - Schedulearn",
+                EmailMessage("Schedulearn - Reset Your Password",
                              "Go to the following link to reset your password:\n\n" + url + "\n\nIf you didn't request for this password reset, then just ignore this email.",
                              local_settings.FORGET_PASSWORD_EMAIL,
                              [user_email],
