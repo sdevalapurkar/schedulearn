@@ -9,7 +9,7 @@ from django.core.files.base import ContentFile
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
 from schedule_lessons.local_settings import EMAIL_HOST, EMAIL_PORT
-from schedule_lessons import local_settings
+from schedule_lessons.local_settings import *
 
 def signup_view(request):
     if request.method == 'POST':
@@ -40,6 +40,20 @@ def signup_view(request):
                     user.last_name = fullName[-1]
 
                 user.profile.profile_pic = 'default/man.png'
+                id = user.profile.id
+                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                with get_connection(
+                    host=EMAIL_HOST,
+                    port=EMAIL_PORT,
+                    username=VERIFY_USER_EMAIL,
+                    password=EMAIL_HOST_PASSWORD,
+                    use_tls=True,
+                ) as connection:
+                    EmailMessage("Schedulearn - Verify Your Email Address",
+                                 "Click on the following link to verify your email address\n\n" + url,
+                                 VERIFY_USER_EMAIL,
+                                 [user.email],
+                                 connection=connection).send()
                 user.save()
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('personalize')
@@ -115,8 +129,8 @@ def forget_password(request):
             with get_connection(
                 host=EMAIL_HOST,
                 port=EMAIL_PORT,
-                username=local_settings.FORGET_PASSWORD_EMAIL,
-                password=local_settings.EMAIL_HOST_PASSWORD,
+                username=FORGET_PASSWORD_EMAIL,
+                password=EMAIL_HOST_PASSWORD,
                 use_tls=True,
             ) as connection:
                 EmailMessage("Schedulearn - Reset Your Password",
@@ -148,3 +162,13 @@ def reset_password(request, id):
         else:
             return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
     return render(request, 'reset_password.html')
+
+
+def verify_email(request, id):
+    try:
+        user = User.objects.get(profile__id=id)
+    except:
+        return render(request, 'verify_email.html', {'status': 'This user does not exist.'})
+    user.profile.email_verified = True
+    user.save()
+    return render(request, 'verify_email.html', {'status': 'Your email address has been verified!'})
