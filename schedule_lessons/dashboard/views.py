@@ -111,8 +111,8 @@ def set_event(request):
             with get_connection(
                 host=EMAIL_HOST,
                 port=EMAIL_PORT,
-                username=local_settings.SCHEDULER_NOTIFY_EMAIL,
-                password=local_settings.EMAIL_HOST_PASSWORD,
+                username=SCHEDULER_NOTIFY_EMAIL,
+                password=EMAIL_HOST_PASSWORD,
                 use_tls=True,
             ) as connection:
                 EmailMessage('Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
