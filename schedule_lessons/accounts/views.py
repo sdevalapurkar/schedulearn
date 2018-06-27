@@ -72,7 +72,8 @@ def login_view(request):
             return render(request, 'sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
 
     else:
-        if request.GET['reset']:
+        reset = request.GET.get('reset', False)
+        if reset:
             return render(request, "sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
         else:
             return render(request, "sign_in.html")
