@@ -8,5 +8,8 @@ urlpatterns = [
     path('personalize/', views.personalize_view, name='personalize'),
     path('login/', views.login_view, name='login'),
     path('logout/', logout, name='logout'),
+    path('forget_password', views.forget_password, name='forget_password'),
+    path('reset_password/<id>', views.reset_password, name='reset_password'),
+    path('verify_email/<id>', views.verify_email, name='verify_email'),
     path('auth/', include('social_django.urls', namespace='social')),
 ]
