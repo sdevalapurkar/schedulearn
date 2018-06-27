@@ -13,6 +13,8 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to="profile_pics", blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     availability = models.CharField(max_length=1000, blank=True, null=True, default='{}')
+    email_verified = models.BooleanField(default=False)
+    has_signed_up = models.BooleanField(default=False) # this is useful for google sign ups
 
     def __str__(self):
         return str(self.user)
