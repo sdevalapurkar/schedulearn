@@ -1,7 +1,8 @@
 /*
 
 Colors:
-Red Primary Color: #D14F52
+Primary Light Red Color: #E54F52;
+Primary Dark Red Primary Color: #D14F52
 Black Secondary Color: #4A4A4A
 Offwhite Background Color: #F4F4F4
 
@@ -62,11 +63,11 @@ nav {
 }
 
 .login-btn {
+  width: 130px;
   font-family: avenir-next-medium;
   background-color: #F4F4F4;
   font-size: 130%;
     color: #E54F52;
-    padding: 5% 30px;
     border: 2px solid #E54F52;
     border-radius:50px;
 }
@@ -81,7 +82,7 @@ nav {
   background-repeat: no-repeat;
   background-origin: center;
   background-attachment: fixed;
-  background-position: 10% 10%;
+  background-position: center;
   /*background: url("main-background.jpg") no-repeat center center fixed;*/
   display: table;
   height: 100%;
@@ -99,7 +100,7 @@ nav {
 .main_subtitle {
   font-family: DINCondensed-Bold;
   font-weight: lighter;
-  font-size: 50px;
+  font-size: 250%;
   letter-spacing: 12.24px;
   text-align: center;
   margin-bottom: -1%;
@@ -117,13 +118,13 @@ nav {
 
 .signup-btn {
   font-family: avenir-next-medium;
+  width: 235px;
   background-color: #E54F52;
-  font-size: 130%;
+  font-size: 140%;
     color: white;
-    padding: 10px 30px;
     border: 2px solid #E54F52;
     border-radius:50px;
-    margin-bottom: 1%;
+    margin-bottom: 0.7%;
 }
 
 .spaces {
@@ -131,8 +132,8 @@ nav {
 }
 
 .signup-btn:hover {
-  background-color: #E54F52;
-  border-color: #E54F52;
+  background-color: #D14F52;
+  border-color: #D14F52;
   color: white;
 }
 
@@ -141,7 +142,6 @@ nav {
   background-color: white;
   font-size: 130%;
     color: black;
-    padding: 5px 15px 5px 12px;
     border: 2px solid black;
 }
 
@@ -180,7 +180,7 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 .title_col {
   font-family: DINCondensed-Bold;
   /* SCHEDULE LESSONS: */
-  font-size: 3vw;
+  font-size: 270%;
   color: #626262;
   letter-spacing: 4px;
   text-align: center;
@@ -197,7 +197,7 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 
 .paragraph_col {
   font-family: rounded-elegance;
-  font-size: 1.5vw;
+  font-size: 120%;
 }
 
 .second_row {
@@ -215,7 +215,7 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
   padding-top: 10%;
   width: 100%;
   font-family: adam-cg-pro;
-  font-size: 3.1vw;
+  font-size: 230%;
   text-align: center;
   line-height: 200%;
   color: white;
@@ -226,7 +226,7 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
   letter-spacing: 12.24px;
   text-align: center;
   font-family: DINCondensed-Bold;
-  font-size: 2.6vw;
+  font-size: 180%;
   margin-top: 2%;
   margin-bottom: 4%;
 }
@@ -266,7 +266,7 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 
 .footer-title {
   font-family: adam-cg-pro;
-  font-size: 45px;
+  font-size: 250%;
   text-align: center;
   color: white;
   padding-top: 3%;
@@ -278,537 +278,10 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 
 .link {
   padding: 1%;
-  font-size: 50px;
+  font-size: 300%;
   color: white;
 }
 
 .link:hover {
   color: #E54F52;
-}
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
-  .main-background {
-    background-image: url("../images/main-background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: 41% 0%;
-    /*background: url("main-background.jpg") no-repeat center center fixed;*/
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
-
-  .main_subtitle {
-    font-family: DINCondensed-Bold;
-    font-weight: lighter;
-    font-size: 35px;
-    letter-spacing: 12.24px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .main_title {
-    padding: 0;
-    border-top: 2px solid #E54F52;
-    display: inline-block;
-    font-family: adam-cg-pro;
-    font-size: 70px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .signup-btn {
-    font-family: avenir-next-medium;
-    background-color: #E54F52;
-    font-size: 30px;
-      color: white;
-      padding: 10px 30px;
-      border: 2px solid #E54F52;
-      border-radius:50px;
-      margin-bottom: 1%;
-  }
-
-  .learn-more-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 25px;
-      color: black;
-      padding: 5px 15px 5px 12px;
-      border: 2px solid black;
-  }
-
-  #learn-more-background {
-    background: url("../images/learn-more-background.png") no-repeat center center;
-    background-position: -340px -303px;
-    background-size: cover;
-    height: auto;
-  }
-
-  .title_col {
-    font-family: DINCondensed-Bold;
-    /* SCHEDULE LESSONS: */
-    font-size: 13vw;
-    color: #626262;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-top: 15%;
-  }
-
-  .paragraph_col {
-    font-family: rounded-elegance;
-    font-size: 5vw;
-  }
-
-  .banner-title {
-    margin: 0 auto;
-    padding-top: 10%;
-    width: 100%;
-    font-family: adam-cg-pro;
-    font-size: 7vw;
-    text-align: center;
-    line-height: 200%;
-    color: white;
-  }
-
-  .banner-subtitle {
-    font-family: DINCondensed-Bold;
-    letter-spacing: 12.24px;
-    text-align: center;
-    font-family: DINCondensed-Bold;
-    font-size: 6.5vw;
-    margin-top: 2%;
-    margin-bottom: 4%;
-  }
-
-  .banner-signup-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 5.5vw;
-      color: black;
-      padding: 10px 30px;
-      border: 2px solid white;
-      border-radius:50px;
-      margin-bottom: 10%;
-      box-shadow: 8px 11px 30px 1px #4A4A4A;
-  }
-
-  .footer {
-    background-color: #4A4A4A;
-    height: auto;
-  }
-
-  .footer-title {
-    font-family: adam-cg-pro;
-    font-size: 25px;
-    text-align: center;
-    color: white;
-    padding-top: 3%;
-  }
-
-  .links {
-    text-align: center;
-    padding-bottom: 5%;
-  }
-
-  .link {
-    padding: 1%;
-    font-size: 27px;
-    color: white;
-  }
-
-
-}
-
-/* Small devices (landscape phones, less than 768px) */
-@media (min-width: 576px) and (max-width: 767.98px)  {
-
-  .navbar-collapse {
-    margin-top: 20px;
-  }
-
-  .navbar-toggler-icon {
-    font-size: 3vw;
-  }
-
-  .main-background {
-    background-image: url("../images/main-background.jpg");
-    background-repeat: no-repeat;
-    background-origin: center;
-    background-attachment: fixed;
-    background-position: 41% 0%;
-    /*background: url("main-background.jpg") no-repeat center center fixed;*/
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
-
-  .main-content {
-    display: table-cell;
-    text-align: center;
-    padding-bottom: 15%;
-  }
-
-  .main_subtitle {
-    font-family: DINCondensed-Bold;
-    font-weight: lighter;
-    font-size: 5vw;
-    letter-spacing: 12.24px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .main_title {
-    padding: 0;
-    border-top: 2px solid #E54F52;
-    display: inline-block;
-    font-family: adam-cg-pro;
-    font-size: 7vw;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .signup-btn {
-    font-family: avenir-next-medium;
-    background-color: #E54F52;
-    font-size: 3vw;
-      color: white;
-      padding: 10px 30px;
-      border: 2px solid #E54F52;
-      border-radius:50px;
-      margin-bottom: 1%;
-  }
-
-  .learn-more-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 3vw;
-      color: black;
-      padding: 5px 15px 5px 12px;
-      border: 2px solid black;
-  }
-
-
-  #learn-more-background {
-    background: url("../images/learn-more-background.png") no-repeat center center;
-    background-position: -360px -303px;
-    background-size: cover;
-    height: auto;
-  }
-
-  .title_col {
-    font-family: DINCondensed-Bold;
-    /* SCHEDULE LESSONS: */
-    font-size: 13vw;
-    color: #626262;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-top: 15%;
-  }
-
-  .paragraph_col {
-    font-family: rounded-elegance;
-    font-size: 5vw;
-  }
-
-  .banner-title {
-    margin: 0 auto;
-    padding-top: 10%;
-    width: 100%;
-    font-family: adam-cg-pro;
-    font-size: 7vw;
-    text-align: center;
-    line-height: 200%;
-    color: white;
-  }
-
-  .banner-subtitle {
-    font-family: DINCondensed-Bold;
-    letter-spacing: 12.24px;
-    text-align: center;
-    font-family: DINCondensed-Bold;
-    font-size: 6.5vw;
-    margin-top: 2%;
-    margin-bottom: 4%;
-  }
-
-  .banner-signup-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 5.5vw;
-      color: black;
-      padding: 10px 30px;
-      border: 2px solid white;
-      border-radius:50px;
-      margin-bottom: 10%;
-      box-shadow: 8px 11px 30px 1px #4A4A4A;
-  }
-
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .navbar-collapse {
-    margin-top: 20px;
-  }
-
-  .navbar-toggler-icon {
-    font-size: 40px;
-  }
-
-  .main-background {
-    background-image: url("../images/main-background.jpg");
-    background-repeat: no-repeat;
-    background-origin: center;
-    background-attachment: fixed;
-    background-position: 41% 0%;
-    /*background: url("main-background.jpg") no-repeat center center fixed;*/
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
-
-  .main-content {
-    display: table-cell;
-    text-align: center;
-    padding-bottom: 15%;
-  }
-
-  .main_subtitle {
-    font-family: DINCondensed-Bold;
-    font-weight: lighter;
-    font-size: 75px;
-    letter-spacing: 12.24px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .main_title {
-    padding: 0;
-    border-top: 2px solid #E54F52;
-    display: inline-block;
-    font-family: adam-cg-pro;
-    font-size: 96px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .signup-btn {
-    font-family: avenir-next-medium;
-    background-color: #E54F52;
-    font-size: 40px;
-      color: white;
-      padding: 10px 30px;
-      border: 2px solid #E54F52;
-      border-radius:50px;
-      margin-bottom: 1%;
-  }
-
-  .learn-more-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 35px;
-      color: black;
-      padding: 5px 15px 5px 12px;
-      border: 2px solid black;
-  }
-
-
-  #learn-more-background {
-    background: url("../images/learn-more-background.png") no-repeat center center;
-    background-position: -360px -303px;
-    background-size: cover;
-    height: auto;
-  }
-
-  .title_col {
-    font-family: DINCondensed-Bold;
-    /* SCHEDULE LESSONS: */
-    font-size: 13vw;
-    color: #626262;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-top: 15%;
-  }
-
-  .paragraph_col {
-    font-family: rounded-elegance;
-    font-size: 5vw;
-  }
-
-  .banner {
-    width: 100%;
-    height: auto;
-    background-color: #E54F52;
-  }
-
-  .banner-title {
-    margin: 0 auto;
-    padding-top: 10%;
-    width: 100%;
-    font-family: adam-cg-pro;
-    font-size: 7vw;
-    text-align: center;
-    line-height: 200%;
-    color: white;
-  }
-
-  .banner-subtitle {
-    font-family: DINCondensed-Bold;
-    letter-spacing: 12.24px;
-    text-align: center;
-    font-family: DINCondensed-Bold;
-    font-size: 6.5vw;
-    margin-top: 2%;
-    margin-bottom: 4%;
-  }
-
-
-  .banner-signup-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 5.5vw;
-      color: black;
-      padding: 10px 30px;
-      border: 2px solid white;
-      border-radius:50px;
-      box-shadow: 8px 11px 30px 1px #4A4A4A;
-      margin-bottom: 10%;
-  }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-
-  .main-background {
-    background-image: url("../images/main-background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: 56% 0%;
-    /*background: url("main-background.jpg") no-repeat center center fixed;*/
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
-
-  .main-content {
-    display: table-cell;
-    text-align: center;
-    padding-bottom: 5%;
-  }
-
-  .main_subtitle {
-    font-family: DINCondensed-Bold;
-    font-weight: lighter;
-    font-size: 45px;
-    letter-spacing: 12.24px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .main_title {
-    padding: 0;
-    border-top: 2px solid #E54F52;
-    display: inline-block;
-    font-family: adam-cg-pro;
-    font-size: 66px;
-    text-align: center;
-    margin-bottom: -1%;
-  }
-
-  .signup-btn {
-    font-family: avenir-next-medium;
-    background-color: #E54F52;
-    font-size: 30px;
-      color: white;
-      padding: 10px 30px;
-      border: 2px solid #E54F52;
-      border-radius:50px;
-      margin-bottom: 1%;
-  }
-
-  .learn-more-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 25px;
-      color: black;
-      padding: 5px 15px 5px 12px;
-      border: 2px solid black;
-  }
-
-
-  #learn-more-background {
-    background: url("../images/learn-more-background.png") no-repeat center center;
-    background-position: -200px -335px;
-    background-size: cover;
-    height: auto;
-  }
-
-  .title_col {
-    font-family: DINCondensed-Bold;
-    /* SCHEDULE LESSONS: */
-    font-size: 6vw;
-    color: #626262;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-top: 15%;
-  }
-
-  .paragraph_col {
-    font-family: rounded-elegance;
-    font-size: 2vw;
-  }
-
-  .banner {
-    width: 100%;
-    height: auto;
-    background-color: #E54F52;
-  }
-
-  .banner-title {
-    margin: 0 auto;
-    padding-top: 10%;
-    width: 100%;
-    font-family: adam-cg-pro;
-    font-size: 4vw;
-    text-align: center;
-    line-height: 200%;
-    color: white;
-  }
-
-  .banner-subtitle {
-    font-family: DINCondensed-Bold;
-    letter-spacing: 12.24px;
-    text-align: center;
-    font-family: DINCondensed-Bold;
-    font-size: 3vw;
-    margin-top: 2%;
-    margin-bottom: 4%;
-  }
-
-
-  .banner-signup-btn {
-    font-family: avenir-next-medium;
-    background-color: white;
-    font-size: 2.5vw;
-      color: black;
-      padding: 10px 30px;
-      border: 2px solid white;
-      border-radius:50px;
-      box-shadow: 8px 11px 30px 1px #4A4A4A;
-      margin-bottom: 10%;
-  }
-
-
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
 }
