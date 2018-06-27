@@ -1,8 +1,4 @@
-let tutorID = undefined;
-let testUrl = undefined;
 let tutor = undefined;
-
-
 
 $(document).ready(function () {
 
@@ -34,23 +30,10 @@ $(document).ready(function () {
     });
 
     $('#myTutors').click(function (event) {
-        $.get('get_tutors', function (data) {
-            if (data.length < 200) {
-                $('#tutors-table').empty();
-                var content = "<table>";
-                content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
-                for (i = 0; i < data.length; i++) {
-                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
-                }
-                content += "</table>";
-                $('#tutors-table').append(content);
-            }
-        });
+        displayTutors();
     });
 
     let url = window.location.pathname;
-    testUrl = url.replace('/dashboard/', '');
-    tutorID = url.replace('/dashboard/availability/', '');
 
     $.get('/dashboard/user_type', function (data) {
         let userType = data.user_type;
@@ -97,31 +80,35 @@ $(document).ready(function () {
         let saveButton = $(this).find('#addTutorButton');
         saveButton.unbind().click(function () {
             let addedTutor = {};
-            addedTutor.tutor_id = $('#teacherEmail').val();
+            addedTutor.tutor_email = $('#teacherEmail').val(); // Grab value from input field
 
-            $('#addTutorModal').modal('toggle');
+            $('#addTutorModal').modal('hide'); // Close the "add tutor" modal
 
             $.ajax({
                 type: 'POST',
-                url: '/dashboard/add_tutor',
-                data: addedTutor
+                url: '/dashboard/scheduler/add_tutor/',
+                data: addedTutor,
+                success: function(data) {
+                  $('#myTutorsModal').modal('show'); // Opens the "my tutors" modal.
+                  displayTutors();
+                },
             });
         });
     });
 
-
-    if (testUrl === '') {
-        $.get('get_tutors', function (data) {
-            if (data.length < 200) {
-                var content = "<table>";
-                content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
-                for (i = 0; i < data.length; i++) {
-                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
-                }
-                content += "</table>";
-                $('#tutors-table').append(content);
-            }
-        });
+    function displayTutors() {
+      $.get('get_tutors', function (data) {
+          if (data.length < 200) {
+              $('#tutors-table').empty();
+              var content = "<table>";
+              content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
+              for (i = 0; i < data.length; i++) {
+                  content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
+              }
+              content += "</table>";
+              $('#tutors-table').append(content);
+          }
+      });
     }
 });
 
