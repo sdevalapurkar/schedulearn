@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 import base64
 from django.core.files.base import ContentFile
+from django.core.mail import get_connection, send_mail
+from django.core.mail.message import EmailMessage
+from schedule_lessons.local_settings import *
 
 def signup_view(request):
     if request.method == 'POST':
@@ -36,6 +39,21 @@ def signup_view(request):
                     user.last_name = fullName[-1]
 
                 user.profile.profile_pic = 'default/man.png'
+                id = user.profile.id
+                user.profile.has_signed_up = True
+                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                with get_connection(
+                    host=EMAIL_HOST,
+                    port=EMAIL_PORT,
+                    username=VERIFY_USER_EMAIL,
+                    password=EMAIL_HOST_PASSWORD,
+                    use_tls=True,
+                ) as connection:
+                    EmailMessage("Schedulearn - Verify Your Email Address",
+                                 "Click on the following link to verify your email address\n\n" + url,
+                                 VERIFY_USER_EMAIL,
+                                 [user.email],
+                                 connection=connection).send()
                 user.save()
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('personalize')
@@ -68,7 +86,12 @@ def login_view(request):
             return render(request, 'sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
 
     else:
-        return render(request, "sign_in.html")
+        reset = request.GET.get('reset', False)
+        if reset:
+            return render(request, "sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
+        else:
+            return render(request, "sign_in.html")
+
 
 @login_required
 def personalize_view(request):
@@ -92,3 +115,60 @@ def personalize_view(request):
             return redirect('dashboard')
         else:
             return render(request, "personalize.html", {'user': request.user})
+
+def forget_password(request):
+    if request.method == 'POST':
+        user_email = request.POST['user_email']
+        try:
+            user = User.objects.get(email__iexact=user_email)
+            id = user.profile.id
+            # building the reset password url
+            url = request.build_absolute_uri('/') + "accounts/reset_password/" + str(id)
+            # example url: http://127.0.0.1:8000/accounts/reset_password/94c662bf-3542-4090-b776-29bebb1112f5
+
+            with get_connection(
+                host=EMAIL_HOST,
+                port=EMAIL_PORT,
+                username=FORGET_PASSWORD_EMAIL,
+                password=EMAIL_HOST_PASSWORD,
+                use_tls=True,
+            ) as connection:
+                EmailMessage("Schedulearn - Reset Your Password",
+                             "Go to the following link to reset your password:\n\n" + url + "\n\nIf you didn't request for this password reset, then just ignore this email.",
+                             local_settings.FORGET_PASSWORD_EMAIL,
+                             [user_email],
+                             connection=connection).send()
+        except Exception as e:
+            return render(request, 'forget_password.html', {'email_error': "A user with this email doesn't exist.", 'user_email': user_email})
+        return render(request, 'forget_password.html', {'check_email':'Check your email for the reset link.', 'user_email': user_email})
+    else:
+        return render(request, 'forget_password.html')
+
+def reset_password(request, id):
+    if request.method == 'POST':
+        password1 = request.POST['user_password1']
+        password2 = request.POST['user_password2']
+        if password1 == password2:
+            try:
+                validate_password(password1)
+            except ValidationError as password_errors:
+                return(request, 'reset_password.html', {'weak_password_errors': password_errors, 'user_password1': password1, 'user_password2': password2})
+            user = User.objects.get(profile__id=id)
+            user.set_password(password1)
+            user.save()
+            response = redirect('login')
+            response['Location'] += '?reset=true'
+            return response
+        else:
+            return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
+    return render(request, 'reset_password.html')
+
+
+def verify_email(request, id):
+    try:
+        user = User.objects.get(profile__id=id)
+    except:
+        return render(request, 'verify_email.html', {'status': 'This user does not exist.'})
+    user.profile.email_verified = True
+    user.save()
+    return render(request, 'verify_email.html', {'status': 'Your email address has been verified!'})
