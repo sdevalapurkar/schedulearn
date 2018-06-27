@@ -25,6 +25,7 @@
 
     <div class="form">
       <h3 class="get-started">Enter your details below.</h3>
+      <p class="confirm-list">{{ reset_password }}</p>
       <form class="login-info" action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         <div class="label-container">
