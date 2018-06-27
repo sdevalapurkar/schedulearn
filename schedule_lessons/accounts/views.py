@@ -72,7 +72,11 @@ def login_view(request):
             return render(request, 'sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
 
     else:
-        return render(request, "sign_in.html")
+        if request.GET['reset']:
+            return render(request, "sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
+        else:
+            return render(request, "sign_in.html")
+
 
 @login_required
 def personalize_view(request):
@@ -137,7 +141,9 @@ def reset_password(request, id):
             user = User.objects.get(profile__id=id)
             user.set_password(password1)
             user.save()
-            return redirect('login')
+            response = redirect('login')
+            response['Location'] += '?reset=true'
+            return response
         else:
             return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
     return render(request, 'reset_password.html')
