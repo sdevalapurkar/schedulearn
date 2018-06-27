@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 import base64
 from django.core.files.base import ContentFile
+from schedule_lessons import local_settings
 
 # Create your views here.
 @login_required
@@ -107,13 +108,18 @@ def set_event(request):
             event = Event(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
             event.save()
 
-            send_mail(
-                'Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
-                'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
-                'scheduler.notify@schedulearn.com',
-                [tutor.email],
-                fail_silently=False,
-            )
+            with get_connection(
+                host=EMAIL_HOST,
+                port=EMAIL_PORT,
+                username=local_settings.SCHEDULER_NOTIFY_EMAIL,
+                password=local_settings.EMAIL_HOST_PASSWORD,
+                use_tls=True,
+            ) as connection:
+                EmailMessage('Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
+                             'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
+                             local_settings.SCHEDULER_NOTIFY_EMAIL,
+                             [tutor.email],
+                             connection=connection).send()
 
             return HttpResponse(status=200)
         except Exception as e:
