@@ -79,9 +79,7 @@ def personalize_view(request):
              ext = format.split('/')[-1]
              cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
              request.user.profile.profile_pic = cropped_img
-        print(request.POST)
         if 'user-type' in request.POST:
-            print(request.POST['user-type'])
             if request.POST['user-type'] == 'tutor':
                 request.user.profile.user_type = 'tutor'
             else:
