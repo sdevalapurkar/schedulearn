@@ -1,7 +1,8 @@
 /*
 
 Colors:
-Red Primary Color: #D14F52
+Primary Light Red Color: #E54F52;
+Primary Dark Red Primary Color: #D14F52
 Black Secondary Color: #4A4A4A
 Offwhite Background Color: #F4F4F4
 
@@ -131,8 +132,8 @@ nav {
 }
 
 .signup-btn:hover {
-  background-color: #E54F52;
-  border-color: #E54F52;
+  background-color: #D14F52;
+  border-color: #D14F52;
   color: white;
 }
 
