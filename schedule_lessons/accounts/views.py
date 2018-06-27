@@ -9,6 +9,7 @@ from django.core.files.base import ContentFile
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
 from schedule_lessons.local_settings import EMAIL_HOST, EMAIL_PORT
+from schedule_lessons import local_settings
 
 def signup_view(request):
     if request.method == 'POST':
@@ -100,12 +101,8 @@ def forget_password(request):
     if request.method == 'POST':
         user_email = request.POST['user_email']
         try:
-            print(user_email)
             user = User.objects.get(email__iexact=user_email)
-            print(user)
             id = user.profile.id
-            print(id)
-            my_email = 'admin@schedulearn.com'
             # building the reset password url
             url = request.build_absolute_uri('/') + "accounts/reset_password/" + str(id)
             # example url: http://127.0.0.1:8000/accounts/reset_password/94c662bf-3542-4090-b776-29bebb1112f5
@@ -113,13 +110,13 @@ def forget_password(request):
             with get_connection(
                 host=EMAIL_HOST,
                 port=EMAIL_PORT,
-                username=my_email,
-                password='Schedulearn2018',
+                username=local_settings.FORGET_PASSWORD_EMAIL,
+                password=local_settings.EMAIL_HOST_PASSWORD,
                 use_tls=True,
             ) as connection:
                 EmailMessage("Reset Your Password - Schedulearn",
                              "Go to the following link to reset your password:\n\n" + url + "\n\nIf you didn't request for this password reset, then just ignore this email.",
-                             my_email,
+                             local_settings.FORGET_PASSWORD_EMAIL,
                              [user_email],
                              connection=connection).send()
         except Exception as e:
@@ -142,5 +139,5 @@ def reset_password(request, id):
             user.save()
             return redirect('login')
         else:
-            return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})    
+            return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
     return render(request, 'reset_password.html')
