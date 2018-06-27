@@ -8,7 +8,6 @@ import base64
 from django.core.files.base import ContentFile
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
-from schedule_lessons.local_settings import EMAIL_HOST, EMAIL_PORT
 from schedule_lessons.local_settings import *
 
 def signup_view(request):
@@ -41,6 +40,7 @@ def signup_view(request):
 
                 user.profile.profile_pic = 'default/man.png'
                 id = user.profile.id
+                user.profile.has_signed_up = True
                 url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
                 with get_connection(
                     host=EMAIL_HOST,
