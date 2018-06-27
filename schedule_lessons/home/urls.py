@@ -4,9 +4,4 @@ from . import views
 
 urlpatterns = [
     path('', views.load_home, name='home'),
-    path('login/', views.login_view, name='login'),
-    path('signup/', views.signup_view, name='signup'),
-    path('auth/', include('social_django.urls', namespace='social')),
-    path('welcome/', views.welcome, name='welcome'),
-
 ]
