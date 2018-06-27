@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+import base64
+from django.core.files.base import ContentFile
 
 # Create your views here.
 @login_required
@@ -220,35 +222,36 @@ def scheduler(request):
 #    if request.method == 'GET':
 
 
-
+# viewing MY profile will be different than viewing somebody else's profile, hence
+# a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
     return render(request, 'my_profile.html', {'user': request.user})
 
-
 @login_required
-def edit_profile_pic(request):
-    try:
-        profile = request.user.profile
-    except UserProfile.DoesNotExist:
-        profile = UserProfile(user=request.user)
+def edit_profile(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=profile)
-        name_form = NameForm()
-        if profile_form.is_valid():
-            if 'profile_pic' in request.POST:
-                 cropped_img = request.POST['profile_pic']
-
-            import base64
-            from django.core.files.base import ContentFile
-            format, imgstr = cropped_img.split(';base64,')
-            ext = format.split('/')[-1]
-            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-            profile.profile_pic = cropped_img
-            profile.save()
-            return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+        print("Got here")
+        if 'profile_pic' in request.POST:
+             cropped_img = request.POST['profile_pic']
+             format, imgstr = cropped_img.split(';base64,')
+             ext = format.split('/')[-1]
+             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+             request.user.profile.profile_pic = cropped_img
+             request.user.save()
+             return HttpResponse(status=200)
         else:
-            pass
+            name_form = NameForm(request.POST, instance=request.user)
+            if name_form.is_valid():
+                request.user.first_name = name_form.cleaned_data['first_name']
+                request.user.last_name = name_form.cleaned_data['last_name']
+                request.user.save()
+            return render(request, 'my_profile.html', {'user': request.user})
+    else:
+        profile_form = ProfileForm()
+        name_form = NameForm()
+        return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+
 
 # will return the user_type for the current user.
 @login_required
@@ -275,21 +278,3 @@ def decline_lesson(request):
         Event.objects.get(id=event_id).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=404)
-
-def edit_profile(request):
-    if request.method == 'GET':
-        profile_form = ProfileForm()
-        name_form = NameForm()
-    elif request.method == 'POST':
-        profile = request.user.profile
-        name_form = NameForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=profile)
-        if name_form.is_valid() and profile_form.is_valid():
-            request.user.first_name = name_form.cleaned_data['first_name']
-            request.user.last_name = name_form.cleaned_data['last_name']
-            request.user.save()
-            return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
-        else:
-            return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
-
-    return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
