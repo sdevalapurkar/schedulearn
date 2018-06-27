@@ -805,11 +805,4 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
       box-shadow: 8px 11px 30px 1px #4A4A4A;
       margin-bottom: 10%;
   }
-
-
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
 }
