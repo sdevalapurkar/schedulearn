@@ -5,7 +5,7 @@
 
 body {
   background: url("../images/funky-lines.png");
-  height: 100%;
+  background-color: #F4F4F4;
 }
 
 nav {
@@ -18,17 +18,59 @@ nav {
 }
 
 .picture-container {
-    text-align: center;
     margin: 0 auto;
-    width: 300px;
+    width: 200px;
     height: 200px;
     overflow: hidden;
+    position: relative;
 }
 
+.bd-crop-picture-modal-lg {
+  height:95%;
+}
+
+#crop-modal-dialog, #crop-modal-content {
+  height: inherit;
+}
+
+#crop-modal-body {
+  height:74%;
+  margin-bottom:4%;
+}
+
+.middle {
+  cursor: pointer;
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.picture-container:hover .image {
+  opacity: 0.3;
+}
+
+.picture-container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 32px;
+  padding: 0 15px;
+  text-align: center;
+}
 
 #profilePicture {
+  transition: .5s ease;
   backface-visibility: hidden;
   display: block;
+  opacity: 1;
   margin: 0 auto;
   border-radius: 50%;
   height: 200px;
@@ -42,7 +84,7 @@ nav {
   border: none;
   cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
   float: left;
 }
 
@@ -52,28 +94,14 @@ nav {
   float: left;
 }
 
-.title {
-    color: grey;
-    font-size: 22px;
+.modal-title {
+  margin-left: auto;
+  font-family: LightFont;
+  font-size: 35px;
 }
 
 .availability-id {
-  display: inline-block;
-  height: 50px;
+  display: table;
   margin: 0 auto;
-}
-
-.modal-title {
-  margin-left: auto;
-    font-family: LightFont;
-    font-size: 35px;
-}
-
-.extra {
-  margin-bottom: 10%;
-}
-
-#edit_profile {
-  float: right;
-  margin-right: 25%;
+  height: 40px;
 }

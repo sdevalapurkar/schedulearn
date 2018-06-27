@@ -8,47 +8,61 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+import base64
+from django.core.files.base import ContentFile
 
 # Create your views here.
 @login_required
-def home(request):
+def dashboard(request):
     return render(request, 'dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
 def add_tutor(request):
+    print("working")
     if request.method == 'POST':
-        tutor_id = request.POST.get('tutor_id')
+        print("post")
+        tutor_email = request.POST.get('tutor_email')
+        print(tutor_email)
         try:
             try:
-                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_id))
+                # checks where there is already such an existing relationship.
+                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_email))
                 return HttpResponse(status=200)
 
             except Exception as e:
-                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_id))
+                # if it doesn't a new one is created.
+                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_email))
                 new_rel.save()
                 return HttpResponse(status=200)
+        # if the above code isn't successfully executed. An error 404 is sent back.
         except Exception as e:
             return HttpResponse(status=404)
     return HttpResponse(status=404)
 
 
-# Return list of tutors that have Relationship with the student
+# Return list of tutors that have Relationship with the student that is asking
+# for the list of tutors.
 @login_required
 def get_tutors(request):
     if request.method == 'GET':
         response = []
+        # below code will return a list of relationshion objects containing the
+        # name of student and tutor
         students_tutors = Relationship.objects.filter(student=request.user)
         if request.user.profile.user_type == 'student':
             for tutor in students_tutors:
                 response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
         else:
+            # this part of the code will never be executed right now because
+            # a tutor is not able to look at his students, but because of future
+            # implementation it is left in.
             for tutor in students_tutors:
                 response.append([tutor.student.first_name, tutor.student.last_name, tutor.student.profile.id, tutor.tutor.email])
 
         return JsonResponse(response, safe=False)
 
-
+# simply returns a Json object containing the list of events for the request user.
 @login_required
 def get_events(request):
     if request.method == 'GET':
@@ -73,6 +87,9 @@ def get_events(request):
     return HttpResponse(status=404)
 
 
+# used to set an event for a student. Later implementation will require another
+# method like this for tutors to set events, or it can be done in this method
+# using if-else to check for user_type of requesting user.
 @login_required
 def set_event(request):
     if request.method == 'POST':
@@ -104,7 +121,8 @@ def set_event(request):
     else:
         return HttpResponse(status=404)
 
-
+# renders the availability page for a tutor. login_required decorator is not
+# used so public can see availability too.
 def get_availability(request, tutor_id):
     if request.method == 'GET':
         tutor = User.objects.get(profile__id=tutor_id)
@@ -117,6 +135,7 @@ def get_availability(request, tutor_id):
         return render(request, 'availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
+# I don't think this method is even being used? Further inspection necessary.
 def set_availability(request):
     if request.method == 'POST':
         data = request.body
@@ -130,7 +149,8 @@ def set_availability(request):
 
     return HttpResponse(status=404)
 
-
+# allows to edit availability for tutor.
+@login_required
 def edit_availability(request):
     if request.method == 'POST':
         data = request.POST
@@ -151,6 +171,9 @@ def edit_availability(request):
 
     return HttpResponse(status=404)
 
+
+# returns scheduler information for scheduler tab for the user.
+@login_required
 def scheduler(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
@@ -195,55 +218,49 @@ def scheduler(request):
 
     return HttpResponse(status=404)
 
+#def display_profile(request, id):
+#    if request.method == 'GET':
 
+
+# viewing MY profile will be different than viewing somebody else's profile, hence
+# a new view template and url will be set up for the feature of viewing someone else's profile.
+@login_required
 def my_profile(request):
+    return render(request, 'my_profile.html', {'user': request.user})
 
-    if request.method == 'GET':
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        print("Got here")
+        if 'profile_pic' in request.POST:
+             cropped_img = request.POST['profile_pic']
+             format, imgstr = cropped_img.split(';base64,')
+             ext = format.split('/')[-1]
+             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+             request.user.profile.profile_pic = cropped_img
+             request.user.save()
+             return HttpResponse(status=200)
+        else:
+            name_form = NameForm(request.POST, instance=request.user)
+            if name_form.is_valid():
+                request.user.first_name = name_form.cleaned_data['first_name']
+                request.user.last_name = name_form.cleaned_data['last_name']
+                request.user.save()
+            return render(request, 'my_profile.html', {'user': request.user})
+    else:
         profile_form = ProfileForm()
         name_form = NameForm()
-    elif request.method == 'POST':
-        profile = request.user.profile
-        name_form = NameForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=profile)
-        if name_form.is_valid() and profile_form.is_valid():
-            request.user.first_name = name_form.cleaned_data['first_name']
-            request.user.last_name = name_form.cleaned_data['last_name']
-            request.user.save()
-        else:
-            pass
-
-    return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+        return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
 
 
-def edit_profile_pic(request):
-    try:
-        profile = request.user.profile
-    except UserProfile.DoesNotExist:
-        profile = UserProfile(user=request.user)
-    if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=profile)
-        name_form = NameForm()
-        if profile_form.is_valid():
-            if 'profile_pic' in request.POST:
-                 cropped_img = request.POST['profile_pic']
-
-            import base64
-            from django.core.files.base import ContentFile
-            format, imgstr = cropped_img.split(';base64,')
-            ext = format.split('/')[-1]
-            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-            profile.profile_pic = cropped_img
-            profile.save()
-            return render(request, 'my_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
-        else:
-            pass
-
-
+# will return the user_type for the current user.
+@login_required
 def user_type(request):
     if request.method == 'GET':
         return JsonResponse({'user_type': request.user.profile.user_type, 'id': request.user.profile.id})
     return HttpResponse(status=404)
 
+@login_required
 def confirm_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')
@@ -254,6 +271,7 @@ def confirm_lesson(request):
     return HttpResponse(status=404)
 
 
+@login_required
 def decline_lesson(request):
     if request.method == 'POST':
         event_id = request.POST.get('id')

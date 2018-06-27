@@ -1,0 +1,229 @@
+/*
+
+Colors:
+Red Primary Color: #D14F52
+Black Secondary Color: #4A4A4A
+Offwhite Background Color: #F4F4F4
+
+Title: adam-cg-pro
+Subtitle: DINCondensed-Bold
+nav-links/buttons: avenir-next
+
+*/
+
+@font-face {
+  font-family: bariol;
+  src: url("../fonts/Bariol_Regular.otf");
+}
+
+@font-face {
+  font-family: anson;
+  src: url("../fonts/Anson-Regular.otf");
+}
+
+@font-face {
+  font-family: adam-cg-pro;
+  src: url("../fonts/adam-cg-pro.regular.otf");
+}
+
+html {
+  background-color: #F4F4F4;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.div-left {
+  background-position: center;
+  background-image: url("../images/div-left.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  width: 40%;
+  height: 100vh;
+}
+
+.div-right {
+  /* USED TO CENTER FORM VERTICALLY */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* END USED TO CENTER FORM VERTICALLY */
+  text-align: center;
+  float: right;
+  width: 60%;
+  height: 100vh;
+  background-color: #F4F4F4;
+}
+
+/* cropping modal styling
+Note: If we use another modal in the HTML then modifications to this code
+will be necessary. */
+.bd-crop-picture-modal-lg {
+  height:95%;
+}
+
+.modal-dialog, .modal-content {
+  height: inherit;
+}
+
+.modal-body {
+  height:74%;
+  margin-bottom:4%;
+}
+
+/* END cropping modal styling */
+
+.form {
+  margin: 0 auto;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.get-started {
+  font-family: bariol;
+  font-size: 240%;
+  margin-bottom: 10%;
+}
+
+.static-text {
+  color: #4A4A4A;
+}
+
+.changing-text {
+  color: #D14F52;
+}
+
+.form-label {
+  font-size: 135%;
+  color: #4A4A4A;
+  font-family: adam-cg-pro;
+  display: block;
+}
+
+/* Profile Picture Styling */
+.picture-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10%;
+    width: 160px;
+    position: relative;
+}
+
+.picture {
+  background-size: cover;
+  /* #4A4A4A #D14F52; */
+  border: 2.4px solid #D14F52;
+  border-radius: 50%;
+  height: 160px;
+  width: 160px;
+}
+
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #D14F52;
+  width: 35%;
+  height: 35%;
+  cursor: pointer;
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  /* Used for compatibility with other browsers */
+  -ms-transform: translate(-50%, -50%);
+  /* End Used for compatibility with other browsers */
+}
+
+.camera-icon {
+  color: white;
+  font-size: 150%;
+}
+
+.picture-container:hover .camera-container {
+  opacity: 1;
+}
+
+/* END Profile Picture Styling */
+
+.teacher-input {
+
+  display: inline-block;
+  margin-left: 5%;
+  font-family: bariol;
+}
+
+.student-input {
+  display: inline-block;
+  margin-right: 5%;
+  font-family: bariol;
+}
+
+.user-type-label {
+  font-size: 130%;
+}
+
+.continue-btn {
+  font-family: anson;
+  padding: 7px 25px;
+  display: inline-block;
+  margin-top: 6%;
+  background-color: #E54F52;
+  font-size: 130%;
+    color: #F4F4F4;
+    border-radius:50px;
+}
+
+.continue-btn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+
+  .get-started {
+    font-size: 200%;
+  }
+
+  .div-left {
+    display: none;
+  }
+
+  .div-right {
+    padding: 75% 0;
+    float: none;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F4F4F4;
+  }
+}
+
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .div-left {
+    display: none;
+  }
+
+  .div-right {
+    padding: 50% 0;
+    float: none;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F4F4F4;
+  }
+}
