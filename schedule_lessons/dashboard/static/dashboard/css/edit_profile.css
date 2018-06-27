@@ -12,30 +12,14 @@ nav {
   background-color: #4A4A4A;
 }
 
-.nav-home {
-  color: white;
-  font-family: avenir-next;
-  font-size: 130%;
-}
-
-.nav-home:hover {
-  text-decoration: none;
-  color: #E54F52;
-}
-
 .container {
   margin-top: 1%;
-}
-
-h1 {
-    text-align: center;
-
+  text-align: center;
 }
 
 .picture-container {
-    text-align: center;
     margin: 0 auto;
-    width: 300px;
+    width: 200px;
     height: 200px;
     overflow: hidden;
     position: relative;
@@ -80,8 +64,6 @@ h1 {
   font-size: 32px;
   padding: 0 15px;
   text-align: center;
-
-
 }
 
 #profilePicture {
@@ -98,67 +80,28 @@ h1 {
 #copy {
   font-size: 25px;
   background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-
-    float: left;
-
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  float: left;
 }
 
 #ID {
   width: 400px;
   text-align: center;
-  margin-left: 350px;
   float: left;
-}
-
-.title {
-    color: grey;
-    font-size: 22px;
-    text-align: center;
-
-}
-
-#profileSave {
-  margin-bottom: 50px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .modal-title {
   margin-left: auto;
-    font-family: LightFont;
-    font-size: 35px;
+  font-family: LightFont;
+  font-size: 35px;
 }
 
-#form-group {
-  text-align: center;
-
-}
-
-.extra{
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ID {
-  float: left;
-
-}
-}
-.extra{
-  margin-right: 300px;
-}
-
-
-@media (max-width: 991.98px) {
-  #availability {
-    margin-bottom: 10px;
-    margin-left: 400px;
-    margin-right: 400px;
-  }
+.availability-id {
+  display: table;
+  margin: 0 auto;
+  height: 40px;
 }
