@@ -130,6 +130,13 @@ body {
   margin-bottom: 0;
 }
 
+.confirm-list {
+  font-family: avenir-next;
+  color: green;
+  margin-top: 0.6%;
+  margin-bottom: 0;
+}
+
 .submit {
   position: absolute;
   left: -9999px;
