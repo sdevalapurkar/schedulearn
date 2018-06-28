@@ -1,6 +1,11 @@
 @font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
 @font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
 @font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
+
 
 
 body {
@@ -76,6 +81,13 @@ nav {
 #edit_profile {
   float: right;
   margin-right: 5%;
+}
+
+.confirm-list {
+  font-family: avenir-next;
+  color: green;
+  margin-top: 0.6%;
+  margin-bottom: 0;
 }
 
 @media (max-width: 400px) {

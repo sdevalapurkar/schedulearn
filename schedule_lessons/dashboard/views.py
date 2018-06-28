@@ -2,15 +2,16 @@ from django.shortcuts import render, redirect
 import json
 import datetime
 from django.http import HttpResponse
-from .forms import ProfileForm, NameForm
 from .models import Relationship, Event
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.core.mail import get_connection, send_mail
+from django.core.mail.message import EmailMessage
+
 import base64
 from django.core.files.base import ContentFile
-from schedule_lessons import local_settings
+from schedule_lessons.local_settings import *
 
 # Create your views here.
 @login_required
@@ -235,12 +236,15 @@ def public_profile(request, id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    return render(request, 'my_profile.html', {'user': request.user})
+    reset_email = request.GET.get('reset_email', False)
+    if reset_email:
+        return render(request, 'my_profile.html', {'user': request.user, 'changed_email': True})
+    else:
+        return render(request, 'my_profile.html', {'user': request.user})
 
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        print("Got here")
         if 'profile_pic' in request.POST:
              cropped_img = request.POST['profile_pic']
              format, imgstr = cropped_img.split(';base64,')
@@ -250,16 +254,37 @@ def edit_profile(request):
              request.user.save()
              return HttpResponse(status=200)
         else:
-            name_form = NameForm(request.POST, instance=request.user)
-            if name_form.is_valid():
-                request.user.first_name = name_form.cleaned_data['first_name']
-                request.user.last_name = name_form.cleaned_data['last_name']
+            request.user.first_name = request.POST['firstName'] # save first name
+            request.user.last_name = request.POST['lastName'] # save last name
+            # then handle email
+            email = request.POST['email']
+            if not email == request.user.email: # if the emails are not same that means the user changed emails
+                # send a mail
+                request.user.email = email
+                request.user.profile.email_verified = False
+                id = request.user.profile.id
+                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                with get_connection(
+                    host=EMAIL_HOST,
+                    port=EMAIL_PORT,
+                    username=VERIFY_USER_EMAIL,
+                    password=EMAIL_HOST_PASSWORD,
+                    use_tls=True,
+                ) as connection:
+                    EmailMessage("Schedulearn - Verify Your Email Address",
+                                 "Click on the following link to verify your email address\n\n" + url,
+                                 VERIFY_USER_EMAIL,
+                                 [email],
+                                 connection=connection).send()
                 request.user.save()
-            return render(request, 'my_profile.html', {'user': request.user})
+                response = redirect('my_profile')
+                response['Location'] += '?reset_email=True'
+                return response
+
+            request.user.save()
+            return redirect('my_profile')
     else:
-        profile_form = ProfileForm()
-        name_form = NameForm()
-        return render(request, 'edit_profile.html', {'user': request.user, 'profile_form': profile_form, 'name_form': name_form})
+        return render(request, 'edit_profile.html', {'user': request.user})
 
 
 # will return the user_type for the current user.
