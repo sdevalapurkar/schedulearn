@@ -27,18 +27,27 @@ OR if you would like to clone from a specific branch, then the following command
 $ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedule-my-lessons.git
 ```
 
-3- Navigate inside our repo:
+3- This app has lots of requirements, you can install them by:
+
+  First, navigating inside our directory:
+  ```
+  $ cd schedulearn
+  ```
+  Lastly, using pip3 to install the requirements:
+  ```
+  $ pip3 install -r requirements.txt
+  ```
+ 
+4- Navigate inside our project:
 
 ```
-$ cd schedule-my-lessons
 $ cd schedule_lessons
 ```
 
 4- Now you want to run our app locally on your computer, you can do this using the following command:
-NOTE: This part might give you an error as you need to install django for this work. If you get an error, we recommend you make a virtual environment and install django in that virtual enviornment, and THEN run this command (For more info, check out the following video: https://www.youtube.com/watch?v=c2zTxSqHTc8)
-
+NOTE: This project is using python3.
 ```
-$ python manage.py runserver
+$ python3 manage.py runserver
 ```
 
 After running that command, you should get the following output: 
@@ -59,9 +68,9 @@ NOTE: You can make changes to the code while the server is running and the new c
 
 ## Authors
 
-* [Lee Zeitz](https://github.com/LeeZeitz)
-* [Shreyas Devalapurkar](https://github.com/sdevalapurkar)
 * [Ahmed Siddiqui](https://github.com/JeSuisAhmedN)
+* [Shreyas Devalapurkar](https://github.com/sdevalapurkar)
+* [Lee Zeitz](https://github.com/LeeZeitz)
 * [John Schriemer](https://github.com/jschriem)
 * [David Schriemer](https://github.com/CodemanDave)
 
