@@ -69,15 +69,6 @@ nav {
     font-size: 35px;
 }
 
-.extra {
-  margin-bottom: 10%;
-}
-
-#edit_profile {
-  float: right;
-  margin-right: 5%;
-}
-
 @media (max-width: 400px) {
   #ID {
     width: 250px;
