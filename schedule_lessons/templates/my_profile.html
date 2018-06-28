@@ -63,6 +63,9 @@
   </div>
 
   <div class="container">
+    {% if changed_email %}
+      <p class="confirm-list">Your email has successfully been changed. An email has been sent out to your new email address, please verify your email.</p>
+    {% endif %}
 
     <div class="picture-container">
       <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
