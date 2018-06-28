@@ -68,3 +68,11 @@ nav {
     font-family: LightFont;
     font-size: 35px;
 }
+
+@media (max-width: 400px) {
+  #ID {
+    width: 250px;
+    text-align: center;
+    float: left;
+  }
+}
