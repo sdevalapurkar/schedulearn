@@ -227,7 +227,7 @@ def scheduler(request):
 def public_profile(request, id):
     try:
         user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        return render(request, 'public_profile.html', {'user': user})
+        return render(request, 'public_profile.html', {'user': user, 'host': request.user})
     except:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
