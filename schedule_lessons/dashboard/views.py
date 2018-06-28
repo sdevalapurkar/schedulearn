@@ -224,9 +224,12 @@ def scheduler(request):
 
     return HttpResponse(status=404)
 
-#def display_profile(request, id):
-#    if request.method == 'GET':
-
+def public_profile(request, id):
+    try:
+        user = User.objects.get(profile__id=id) # get the user to which the profile belongs
+        return render(request, 'public_profile.html', {'user': user, 'host': request.user})
+    except:
+        return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
 # a new view template and url will be set up for the feature of viewing someone else's profile.
