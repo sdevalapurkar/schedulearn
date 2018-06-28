@@ -14,7 +14,7 @@ def check_duplicate_email(request, backend, user, response, *args, **kwargs):
         if contains_social_authentication:
             return
         else:
-            return render(request, 'sign_up.html', {'sign_up_google_email_error': 'Email is already in use, sign in manually or use another google account'})
+            return render(request, 'accounts/sign_up.html', {'sign_up_google_email_error': 'Email is already in use, sign in manually or use another google account'})
 
     return
 

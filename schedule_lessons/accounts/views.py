@@ -22,13 +22,13 @@ def signup_view(request):
             # The user enterered the password correctly.
             try:
                 user = User.objects.get(email__iexact=email)
-                return render(request, 'sign_up.html', {'email_error': 'Email is already in use.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+                return render(request, 'accounts/sign_up.html', {'email_error': 'Email is already in use.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
             except User.DoesNotExist:
                 # If code gets here it means that email is not used and we can begin password validation.
                 try:
                     validate_password(passwordOne)
                 except ValidationError as password_errors:
-                    return render(request, 'sign_up.html', {'password_errors': password_errors,  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+                    return render(request, 'accounts/sign_up.html', {'password_errors': password_errors,  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
                     #password validated, ready to put user in database.
 
                 user = User.objects.create_user(email, email=email, password=passwordOne)
@@ -59,10 +59,10 @@ def signup_view(request):
                 return redirect('personalize')
 
         else:
-            return render(request, 'sign_up.html', {'unmatching_password_error': 'Passwords do not match.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+            return render(request, 'accounts/sign_up.html', {'unmatching_password_error': 'Passwords do not match.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
     else:
         #User want to access homepage.
-        return render(request, "sign_up.html")
+        return render(request, "accounts/sign_up.html")
 
 
 def login_view(request):
@@ -73,7 +73,7 @@ def login_view(request):
         try:
             user = User.objects.get(email__iexact=email) #searches the database if email exists, ignores case
         except User.DoesNotExist:
-            return render(request, 'sign_in.html', {'sign_in_error': 'Invalid username/password combination'})
+            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid username/password combination'})
 
         valid_combination = user.check_password(password) # is a boolean, true if valid login.
         if valid_combination:
@@ -83,14 +83,14 @@ def login_view(request):
             else:
                 return redirect('dashboard')
         else:
-            return render(request, 'sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
+            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
 
     else:
         reset = request.GET.get('reset', False)
         if reset:
-            return render(request, "sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
+            return render(request, "accounts/sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
         else:
-            return render(request, "sign_in.html")
+            return render(request, "accounts/sign_in.html")
 
 
 @login_required
@@ -114,7 +114,7 @@ def personalize_view(request):
         if request.user.profile.user_type:
             return redirect('dashboard')
         else:
-            return render(request, "personalize.html", {'user': request.user})
+            return render(request, "accounts/personalize.html", {'user': request.user})
 
 def forget_password(request):
     if request.method == 'POST':
@@ -139,10 +139,10 @@ def forget_password(request):
                              [user_email],
                              connection=connection).send()
         except Exception as e:
-            return render(request, 'forget_password.html', {'email_error': "A user with this email doesn't exist.", 'user_email': user_email})
-        return render(request, 'forget_password.html', {'check_email':'Check your email for the reset link.', 'user_email': user_email})
+            return render(request, 'accounts/forget_password.html', {'email_error': "A user with this email doesn't exist.", 'user_email': user_email})
+        return render(request, 'accounts/forget_password.html', {'check_email':'Check your email for the reset link.', 'user_email': user_email})
     else:
-        return render(request, 'forget_password.html')
+        return render(request, 'accounts/forget_password.html')
 
 def reset_password(request, id):
     if request.method == 'POST':
@@ -152,7 +152,7 @@ def reset_password(request, id):
             try:
                 validate_password(password1)
             except ValidationError as password_errors:
-                return(request, 'reset_password.html', {'weak_password_errors': password_errors, 'user_password1': password1, 'user_password2': password2})
+                return(request, 'accounts/reset_password.html', {'weak_password_errors': password_errors, 'user_password1': password1, 'user_password2': password2})
             user = User.objects.get(profile__id=id)
             user.set_password(password1)
             user.save()
@@ -160,15 +160,15 @@ def reset_password(request, id):
             response['Location'] += '?reset=true'
             return response
         else:
-            return render(request, 'reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
-    return render(request, 'reset_password.html')
+            return render(request, 'accounts/reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
+    return render(request, 'accounts/reset_password.html')
 
 
 def verify_email(request, id):
     try:
         user = User.objects.get(profile__id=id)
     except:
-        return render(request, 'verify_email.html', {'status': 'This user does not exist.'})
+        return render(request, 'accounts/verify_email.html', {'status': 'This user does not exist.'})
     user.profile.email_verified = True
     user.save()
-    return render(request, 'verify_email.html', {'status': 'Your email address has been verified!'})
+    return render(request, 'accounts/verify_email.html', {'status': 'Your email address has been verified!'})
