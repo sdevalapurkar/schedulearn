@@ -16,12 +16,11 @@ from schedule_lessons.local_settings import *
 # Create your views here.
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard.html
+    return render(request, 'dashboard/dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
 def add_tutor(request):
-    print("working")
     if request.method == 'POST':
         print("post")
         tutor_email = request.POST.get('tutor_email')
@@ -139,7 +138,7 @@ def get_availability(request, tutor_id):
         if availability == {} or availability == '{}':
             availability = None
 
-        return render(request, 'availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
+        return render(request, 'dashboard/availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
     return HttpResponse(status=404)
 
 # I don't think this method is even being used? Further inspection necessary.
@@ -221,14 +220,14 @@ def scheduler(request):
                     event_list.append(data)
             except Exception as e:
                 pass
-        return render(request, 'scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'dashboard/scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
 
 def public_profile(request, id):
     try:
         user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        return render(request, 'public_profile.html', {'user': user, 'host': request.user})
+        return render(request, 'dashboard/public_profile.html', {'user': user, 'host': request.user})
     except:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
@@ -238,9 +237,9 @@ def public_profile(request, id):
 def my_profile(request):
     reset_email = request.GET.get('reset_email', False)
     if reset_email:
-        return render(request, 'my_profile.html', {'user': request.user, 'changed_email': True})
+        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'changed_email': True})
     else:
-        return render(request, 'my_profile.html', {'user': request.user})
+        return render(request, 'dashboard/my_profile.html', {'user': request.user})
 
 @login_required
 def edit_profile(request):
@@ -284,7 +283,7 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        return render(request, 'edit_profile.html', {'user': request.user})
+        return render(request, 'dashboard/edit_profile.html', {'user': request.user})
 
 
 # will return the user_type for the current user.

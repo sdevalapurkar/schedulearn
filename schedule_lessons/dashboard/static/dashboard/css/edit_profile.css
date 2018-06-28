@@ -1,6 +1,10 @@
 @font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
 @font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
 @font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
 
 
 body {
