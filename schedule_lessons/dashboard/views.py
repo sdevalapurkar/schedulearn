@@ -22,9 +22,7 @@ def dashboard(request):
 @login_required
 def add_tutor(request):
     if request.method == 'POST':
-        print("post")
         tutor_email = request.POST.get('tutor_email')
-        print(tutor_email)
         try:
             try:
                 # checks where there is already such an existing relationship.
