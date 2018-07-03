@@ -51,17 +51,17 @@ nav {
   background-color: #4A4A4A;
 }
 
-.nav-home {
+.nav-link {
   color: white;
   font-family: avenir-next;
   font-size: 130%;
 }
 
-.nav-home:hover {
+.nav-link:hover {
   text-decoration: none;
   color: #E54F52;
 }
-
+/*
 .login-btn {
   width: 130px;
   font-family: avenir-next-medium;
@@ -72,10 +72,12 @@ nav {
     border-radius:50px;
 }
 
+
 .login-btn:hover {
   background-color: #E54F52;
   color: white;
 }
+*/
 
 .main-background {
   background-image: url("../images/main-background.jpg");

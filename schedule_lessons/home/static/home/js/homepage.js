@@ -9,18 +9,4 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$('.login-btn').click(function(){
-			window.open('/accounts/login', "_self");
-	});
-
-	$('.signup-btn').click(function(){
-			window.open('/accounts/signup', "_self");
-	});
-
-	$('.banner-signup-btn').click(function(){
-			window.open('/accounts/signup', "_self");
-	});
-
-
-
 });
