@@ -73,7 +73,7 @@ def login_view(request):
         try:
             user = User.objects.get(email__iexact=email) #searches the database if email exists, ignores case
         except User.DoesNotExist:
-            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid username/password combination'})
+            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid username/password combination', 'email': email, 'password': password})
 
         valid_combination = user.check_password(password) # is a boolean, true if valid login.
         if valid_combination:
@@ -83,7 +83,7 @@ def login_view(request):
             else:
                 return redirect('dashboard')
         else:
-            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination'})
+            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination', 'email': email, 'password': password})
 
     else:
         reset = request.GET.get('reset', False)
