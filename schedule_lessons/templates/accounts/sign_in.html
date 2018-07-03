@@ -31,12 +31,12 @@
         <div class="label-container">
           <label class="form-label" for="user_email">Email Address</label>
         </div>
-        <input class="form-input" type="email" name="user_email" placeholder="jamie_ferguson@example.com">
+        <input class="form-input" type="email" name="user_email" placeholder="jamie_ferguson@example.com" value="{{ email }}">
         <div class="label-container">
           <label class="form-label" for="user_password">Password</label>
           <a class="forgot-password" href="{% url 'forget_password' %}">Forgot Password?</a>
         </div>
-        <input class="form-input" type="password" name="user_password" placeholder="7+ Characters">
+        <input class="form-input" type="password" name="user_password" placeholder="7+ Characters" value="{{ password }}">
         <p class="error-list">{{ sign_in_error }}</p>
         <input class="submit" type="submit">
         <div class="center">
