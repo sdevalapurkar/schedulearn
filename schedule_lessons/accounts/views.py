@@ -135,7 +135,7 @@ def forget_password(request):
             ) as connection:
                 EmailMessage("Schedulearn - Reset Your Password",
                              "Go to the following link to reset your password:\n\n" + url + "\n\nIf you didn't request for this password reset, then just ignore this email.",
-                             local_settings.FORGET_PASSWORD_EMAIL,
+                             FORGET_PASSWORD_EMAIL,
                              [user_email],
                              connection=connection).send()
         except Exception as e:
