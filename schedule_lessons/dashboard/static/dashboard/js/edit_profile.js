@@ -34,7 +34,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#id_profile_pic").change(function () {
+  $("#input_pfp").change(function () {
     $(".bd-crop-picture-modal-lg").modal();
     if (this.files && this.files[0]) {
         var reader = new FileReader();
@@ -73,12 +73,8 @@ $(document).ready(function () {
               })
   });
 
-  $("#cancelCrop").on("click", function () {
-    location.reload();
-  });
-
   $(".text").on("click", function() {
-    $("#id_profile_pic").click();
+    $("#input_pfp").click();
   });
 
   $('#edit_profile').click(function() {
@@ -88,8 +84,8 @@ $(document).ready(function () {
 
   $('#id_first_name').addClass("form-control");
   $('#id_last_name').addClass("form-control");
-  $('#id_profile_pic').addClass("form-control-file");
-  $('#id_profile_pic').attr('hidden', 'hidden');
+  $('#input_pfp').addClass("form-control-file");
+  $('#input_pfp').attr('hidden', 'hidden');
 
 });
 
