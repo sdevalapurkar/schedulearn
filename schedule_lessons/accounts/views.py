@@ -62,7 +62,12 @@ def signup_view(request):
             return render(request, 'accounts/sign_up.html', {'unmatching_password_error': 'Passwords do not match.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
     else:
         #User want to access homepage.
-        return render(request, "accounts/sign_up.html")
+        if request.user.is_anonymous:
+            # if the user is not logged in, just send him to the sign up page.
+            return render(request, "accounts/sign_up.html")
+        else:
+            # user is already signed in. so take him to the dashboard page.
+            return redirect('dashboard')
 
 
 def login_view(request):
@@ -90,7 +95,12 @@ def login_view(request):
         if reset:
             return render(request, "accounts/sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
         else:
-            return render(request, "accounts/sign_in.html")
+            if request.user.is_anonymous:
+                # if the user is not logged in, just send him to the sign up page.
+                return render(request, "accounts/sign_in.html")
+            else:
+                # user is already signed in. so take him to the dashboard page.
+                return redirect('dashboard')
 
 
 @login_required
