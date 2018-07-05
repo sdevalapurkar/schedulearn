@@ -77,16 +77,6 @@ $(document).ready(function () {
     $("#input_pfp").click();
   });
 
-  $('#edit_profile').click(function() {
-    window.open('/dashboard/edit_profile', '_self');
-  });
-
-
-  $('#id_first_name').addClass("form-control");
-  $('#id_last_name').addClass("form-control");
-  $('#input_pfp').addClass("form-control-file");
-  $('#input_pfp').attr('hidden', 'hidden');
-
 });
 
 function getCookie(name) {
