@@ -19,42 +19,6 @@ $(document).ready(function () {
         $(".dropdown-title").html($(this).text()+'<span class="caret"></span>');
 
     });
-    $('.sauce-confirm').click(function (event) {
-        $.ajax({
-            type: 'POST',
-            url: '/dashboard/confirm_lesson',
-            data: {'id': event.currentTarget.id},
-            success: function () {
-                location.reload();
-            }
-        });
-    });
-
-    $('.sauce-decline').click(function (event) {
-        $.ajax({
-            type: 'POST',
-            url: '/dashboard/decline_lesson',
-            data: {'id': event.currentTarget.id},
-            success: function () {
-                location.reload();
-            }
-        });
-    });
-
-    $('#myTutors').click(function (event) {
-        $.get('get_tutors', function (data) {
-            if (data.length < 200) {
-                $('#tutors-table').empty();
-                var content = "<table>";
-                content += '<th>' + 'First Name' + '</th>'+'<th>' + 'Last Name' + '</th>'+'<th>' + 'Check Availability' + '</th>';
-                for (i = 0; i < data.length; i++) {
-                    content += '<tr>' +'<td>' + data[i][0] + '</td>'+'<td>' + data[i][1] + '</td>' +'<td>' + '<a href='+ '/dashboard/availability/' + data[i][2] + '>' + '<p>' + 'Show Open Time Slots' + '</p>' + '</a>' + '</td>' + '</tr>';
-                }
-                content += "</table>";
-                $('#tutors-table').append(content);
-            }
-        });
-    });
 
     let url = window.location.pathname;
     testUrl = url.replace('/dashboard/', '');
@@ -122,60 +86,49 @@ $(document).ready(function () {
         window.open('/dashboard/scheduler', "_self");
     });
 
-    $('#myProfile').click(function(){
-        window.open('/dashboard/my_profile', "_self");
-    });
-
     $('#editAvailabilityButton').click(function(){
         window.open('/dashboard/availability/' + tutor, "_self");
     });
 
-    $('#addTutorModal').on('show.bs.modal', function (event) {
-        let saveButton = $(this).find('#addTutorButton');
-        saveButton.unbind().click(function () {
-            let addedTutor = {};
-            addedTutor.tutor_id = $('#tutorID').val();
+    $('#saveAvailability').on('click', function() {
+      let availabilityJSON = {};
+      let key = $('#day')[0].innerText;
+      if (key === "Select a day ") {
+        document.getElementById("day-error").innerHTML = "Please choose a valid day";
+        console.dir($("#day-error"));
+      } else {
 
-            $('#addTutorModal').modal('toggle');
+        let times1 = '' + $('#startingTimeEntry').val() + '';
+        let times2 = '' + $('#endingTimeEntry').val() + '';
 
-            $.ajax({
-                type: 'POST',
-                url: '/dashboard/add_tutor',
-                data: addedTutor
-            });
+        availabilityJSON[key] = times1 + ' to ' + times2;
+        console.log(availabilityJSON);
+
+        var content = $('#availabilityTable');
+        for (var i = 0; i < 1; i++) {
+            content += '<tr>' +'<td>' + (key) + '</td>'+'<td>' + (times1) + ' to ' + (times2) + '</td>' + '</tr>';
+            content += $('#availabilityTable');
+        }
+
+        $('#availabilityTable').append(content);
+
+        document.getElementById("day").innerHTML = "Select a day <span class='caret'></span>";
+        document.getElementById("day-error").innerHTML = "";
+        $('#editAvailabilityModal').modal('toggle');
+        sortTable($('#availabilityTable'),'asc');
+
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/edit_availability',
+            data: availabilityJSON
         });
+
+      }
     });
 
-    $('#editAvailabilityModal').on('show.bs.modal', function (event) {
-        let saveButton = $(this).find('#saveAvailability');
-        saveButton.unbind().click(function () {
-            let availabilityJSON = {};
-            let key = $('#day')[0].innerText;
-            let day = '' + $('#day') + '';
-            let times1 = '' + $('#startingTimeEntry').val() + '';
-            let times2 = '' + $('#endingTimeEntry').val() + '';
-
-            availabilityJSON[key] = times1 + ' to ' + times2;
-
-            var content = $('#availabilityTable');
-            for (var i = 0; i < 1; i++) {
-                content += '<tr>' +'<td>' + (key) + '</td>'+'<td>' + (times1) + ' to ' + (times2) + '</td>' + '</tr>';
-                content += $('#availabilityTable');
-            }
-
-            $('#availabilityTable').append(content);
-
-            $('#day').val('');
-            $('#availableTimes').val('');
-            $('#editAvailabilityModal').modal('toggle');
-            sortTable($('#availabilityTable'),'asc');
-
-            $.ajax({
-                type: 'POST',
-                url: '/dashboard/edit_availability',
-                data: availabilityJSON
-            });
-        });
+    $('#cancelAvailability').on('click', function() {
+      document.getElementById("day").innerHTML = "Select a day <span class='caret'></span>";
+      document.getElementById("day-error").innerHTML = '';
     });
 
     if (testUrl === '') {
