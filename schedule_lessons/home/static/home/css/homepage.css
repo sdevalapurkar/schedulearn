@@ -61,23 +61,6 @@ nav {
   text-decoration: none;
   color: #E54F52;
 }
-/*
-.login-btn {
-  width: 130px;
-  font-family: avenir-next-medium;
-  background-color: #F4F4F4;
-  font-size: 130%;
-    color: #E54F52;
-    border: 2px solid #E54F52;
-    border-radius:50px;
-}
-
-
-.login-btn:hover {
-  background-color: #E54F52;
-  color: white;
-}
-*/
 
 .main-background {
   background-image: url("../images/main-background.jpg");
@@ -85,7 +68,6 @@ nav {
   background-origin: center;
   background-attachment: fixed;
   background-position: center;
-  /*background: url("main-background.jpg") no-repeat center center fixed;*/
   display: table;
   height: 100%;
   position: relative;
@@ -181,7 +163,6 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 
 .title_col {
   font-family: DINCondensed-Bold;
-  /* SCHEDULE LESSONS: */
   font-size: 270%;
   color: #626262;
   letter-spacing: 4px;
