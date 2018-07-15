@@ -16,7 +16,7 @@ from schedule_lessons.local_settings import *
 # Create your views here.
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
+    return render(request, 'dashboard/agenda.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
