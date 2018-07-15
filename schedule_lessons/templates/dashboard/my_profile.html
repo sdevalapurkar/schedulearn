@@ -27,7 +27,7 @@
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'scheduler' %}">AGENDA</a>
         </li>
         <li class="nav-item">
@@ -35,7 +35,7 @@
         </li>
       </ul>
       <div class="navbar-nav ml-auto">
-        <div id="profile-name" class="nav-item">
+        <div id="profile-name" class="nav-item active">
           <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
         </div>
         <div id="pfp-container" class="nav-item dropdown">
@@ -51,8 +51,8 @@
 
   <div class="collapse navbar-collapse w-50 alignRight p-3 position-fixed rounded" id="navbarContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">AGENDA<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'scheduler' %}">AGENDA</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">TUTORS</a>
