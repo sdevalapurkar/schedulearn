@@ -34,7 +34,6 @@ $(document).ready(function () {
 								format: 'jpeg',
 								size: {width: 200, height: 200}
 							}).then(function (resp) {
-                console.log(csrftoken)
                 $.ajax({
                   type: 'POST',
                   url: '/accounts/personalize/',

@@ -95,14 +95,12 @@ $(document).ready(function () {
       let key = $('#day')[0].innerText;
       if (key === "Select a day ") {
         document.getElementById("day-error").innerHTML = "Please choose a valid day";
-        console.dir($("#day-error"));
       } else {
 
         let times1 = '' + $('#startingTimeEntry').val() + '';
         let times2 = '' + $('#endingTimeEntry').val() + '';
 
         availabilityJSON[key] = times1 + ' to ' + times2;
-        console.log(availabilityJSON);
 
         var content = $('#availabilityTable');
         for (var i = 0; i < 1; i++) {
