@@ -132,7 +132,7 @@ nav {
 .main-information {
   width: 100%;
   display: inline-flex;
-  height: 80px;
+  height: 130px;
 }
 
 .date {
@@ -144,6 +144,7 @@ nav {
 }
 
 .date-day {
+  padding-top: 25px;
   font-size: 300%;
   margin-bottom: -25%;
   margin-top: -11%;
@@ -165,7 +166,7 @@ nav {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
-  font-size: 145%;
+  font-size: 200%;
   margin-bottom: 0;
 }
 
@@ -183,19 +184,13 @@ nav {
 }
 
 .extended-field {
-  text-align: center;
-  padding-top: 4px;
-  padding-left: 1.4%;
-  color: white;
+  text-align: left;
+  margin-bottom: 0;
+  color: #4F4F4F;
   font-family: adam-cg-pro;
   font-weight: lighter;
   font-size: 100%;
   display: block;
-}
-
-.extended-field:nth-child(2) {
-  color: #4F4F4F;
-  background-color: white;
 }
 
 .extended-detail {

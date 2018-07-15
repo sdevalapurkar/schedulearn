@@ -17,33 +17,65 @@
 </head>
 <body>
 
+  <!-- navbar start -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-brand">SCHEDULEARN</span>
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
-        </li>
         <li class="nav-item active">
-          <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'scheduler' %}">AGENDA</a>
         </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
+          <a class="nav-link" href="#">TUTORS</a>
         </li>
       </ul>
+      <div class="navbar-nav ml-auto">
+        <div id="profile-name" class="nav-item">
+          <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+        </div>
+        <div id="pfp-container" class="nav-item dropdown">
+          <div id="profile-picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </div>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <button type="button" class="btn btn-danger">Sign Out</button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
+  <div class="collapse navbar-collapse w-50 alignRight p-3 position-fixed rounded" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">AGENDA<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">TUTORS</a>
+      </li>
+    </ul>
+    <div class="navbar-nav ml-auto">
+      <div id="profile-name" class="nav-item">
+        <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+      </div>
+      <div id="pfp-container" class="nav-item dropdown">
+        <div id="profile-picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </div>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+          <button type="button" class="btn btn-danger">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <nav class="extended-navbar">
+    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
+  </nav>
+  <!-- navbar end -->
 
   <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -71,15 +103,13 @@
       <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
     </div>
 
-
     {% if user.last_name %}
-    <h1>{{ user.first_name }} {{ user.last_name }}'s Profile</h1>
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
     {% else %}
-    <h1>{{ user.first_name }}'s Profile</h1>
+    <h1>{{ user.first_name }}</h1>
     {% endif %}
 
-
-    <p class="title">{{ user.profile.user_type }}</p>
+    <p class="title user-type">{{ user.profile.user_type }}</p>
     <p class="title">{{ user.email }}</p>
 
     <div class="availability-id">
@@ -88,13 +118,13 @@
         <i class="far fa-clipboard"></i>
       </button>
     </div>
-
   </div>
 
-  <div class="edit_profile_bar">
-    <hr>
-    <button id="edit_profile" extra="profileSave" type="submit" class="btn btn-primary">Edit Profile</button>
-  </div>
+  <style>
+  #profile-picture {
+    background-image: url('/media/{{ user.profile.profile_pic }}');
+  }
+  </style>
 
 </body>
 </html>

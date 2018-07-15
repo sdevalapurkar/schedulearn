@@ -94,15 +94,10 @@
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ scheduled_event.name }}</h4>
-          <p class="lesson-description">{{ scheduled_event.description }}</p>
+          <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_event.location }}</span></p>
+          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_event.start_time }} - {{ scheduled_event.end_time }}</span></p>
+          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_event.tutor_name }}</span></p>
         </div>
-      </div>
-
-      <div class="extended-information">
-        <div class="extended-field">LOCATION: <span class="extended-detail">{{ scheduled_event.location }}</span></div>
-        <div class="extended-field"><b>FROM:</b> <span class="extended-detail">{{ scheduled_event.start_time }} - {{ scheduled_event.end_time }}</span></div>
-        <div class="extended-field"><b>TUTOR:</b> <span class="extended-detail">{{ scheduled_event.tutor_name }}</span></div>
-        <div class="extended-field"><a class="btn-sm signup-btn" href="#">Cancel</a></div>
       </div>
     </div>
     {% endfor %}
@@ -121,15 +116,10 @@
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ pending_event.name }}</h4>
-          <p class="lesson-description">{{ pending_event.description }}</p>
+          <p class="extended-field">Location: <span class="extended-detail">{{ pending_event.location }}</span></p>
+          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_event.start_time }} - {{ pending_event.end_time }}</span></p>
+          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_event.tutor_name }}</span></p>
         </div>
-      </div>
-
-      <div class="extended-information">
-        <div class="extended-field">LOCATION: <span class="extended-detail">{{ pending_event.location }}</span></div>
-        <div class="extended-field"><b>FROM:</b> <span class="extended-detail">{{ pending_event.start_time }} - {{ pending_event.end_time }}</span></div>
-        <div class="extended-field"><b>TUTOR:</b> <span class="extended-detail">{{ pending_event.tutor_name }}</span></div>
-        <div class="extended-field"><a class="btn-sm signup-btn" href="#">Cancel</a></div>
       </div>
     </div>
     {% endfor %}
