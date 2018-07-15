@@ -14,9 +14,9 @@ from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
 # Create your views here.
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard/agenda.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
+#@login_required
+#def dashboard(request):
+#    return render(request, 'dashboard/agenda.html', {'user': request.user}) # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
@@ -202,7 +202,7 @@ def scheduler(request):
                     'student_username': event.student.username,
                     'start_date': event.start_time,
                     'end_date': event.end_time,
-                    'start_shortdate': event.start_time.strftime('%B, %Y'),
+                    'start_shortdate': event.start_time.strftime('%B'),
                     'start_week_day': event.start_time.strftime('%A'),
                     'start_month_day': event.start_time.strftime('%d'),
                     'start_time': event.start_time.strftime('%I:%M %p'),
@@ -218,7 +218,7 @@ def scheduler(request):
                     event_list.append(data)
             except Exception as e:
                 pass
-        return render(request, 'dashboard/scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'dashboard/agenda.html', {'user': request.user, 'events': event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
 

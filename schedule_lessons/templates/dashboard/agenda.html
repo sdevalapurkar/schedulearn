@@ -16,7 +16,8 @@
   <!-- END FontAwesome CDN -->
   <!-- My Styling and Script -->
   <link rel="stylesheet" href="{% static 'dashboard/css/agenda.css' %}">
-  <script src="agenda.js"></script>
+  <script src="{% static 'dashboard/js/agenda.js'%}"></script>
+  <link rel="shortcut icon" href="#">
   <!-- END My Styling and Script -->
 </head>
 <body>
@@ -40,7 +41,7 @@
       </ul>
       <div class="navbar-nav ml-auto">
         <div id="profile-name" class="nav-item">
-          <a class="nav-link" href="#">Ahmed Siddiqui</a>
+          <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
         </div>
         <div id="pfp-container" class="nav-item dropdown">
           <div id="profile-picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,7 +52,6 @@
         </div>
       </div>
     </div>
-
   </nav>
 
   <div class="collapse navbar-collapse w-50 alignRight p-3 position-fixed rounded" id="navbarContent">
@@ -65,7 +65,7 @@
     </ul>
     <div class="navbar-nav ml-auto">
       <div id="profile-name" class="nav-item">
-        <a class="nav-link" href="#">Ahmed Siddiqui</a>
+        <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
       </div>
       <div id="pfp-container" class="nav-item dropdown">
         <div id="profile-picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,48 +83,64 @@
   <!-- navbar end -->
 
   <div class="main">
+    {% if events %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
+    {% for scheduled_event in events %}
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">13</span>
-          <span class="date-month">June</span>
+          <span class="date-day">{{ scheduled_event.start_month_day }}</span>
+          <span class="date-month">{{ scheduled_event.start_shortdate }}</span>
         </div>
         <div class="title-and-description">
-          <h4 class="lesson-title">JAVA OBJECT ORIENTED PROGRAMMING</h4>
-          <p class="lesson-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-        </div>
-      </div>
-
-
-      <div class="extended-information">
-        <div class="extended-field">LOCATION: <span class="extended-detail">ECS 2nd Floor Lab</span></div>
-        <div class="extended-field">FROM: <span class="extended-detail">2:00 PM - 4:00 PM</span></div>
-        <div class="extended-field">TUTOR: <span class="extended-detail">Ahm Sidder</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="main-pending">
-    <h2 class="group-pending-title">PENDING LESSONS</h2>
-    <div class="lesson">
-      <div class="main-information">
-        <div class="date">
-          <span class="date-day">17</span>
-          <span class="date-month">June</span>
-        </div>
-        <div class="title-and-description">
-          <h4 class="lesson-title">VIOLIN</h4>
-          <p class="lesson-description">Elaine blath, Feainnewedd, Dearme aen a'caelme tedd, Eigean evelienn deireadh, Que'n esse, va en esseath, Feainnewedd, elaine blath</p>
+          <h4 class="lesson-title">{{ scheduled_event.name }}</h4>
+          <p class="lesson-description">{{ scheduled_event.description }}</p>
         </div>
       </div>
 
       <div class="extended-information">
-        <div class="extended-field">LOCATION: <span class="extended-detail">ECS 7nd floor</span></div>
-        <div class="extended-field"><b>FROM:</b> <span class="extended-detail">2:00 PM - 4:00 PM</span></div>
-        <div class="extended-field"><b>TUTOR:</b> <span class="extended-detail">Ahmed Develapurkar</span></div>
+        <div class="extended-field">LOCATION: <span class="extended-detail">{{ scheduled_event.location }}</span></div>
+        <div class="extended-field"><b>FROM:</b> <span class="extended-detail">{{ scheduled_event.start_time }} - {{ scheduled_event.end_time }}</span></div>
+        <div class="extended-field"><b>TUTOR:</b> <span class="extended-detail">{{ scheduled_event.tutor_name }}</span></div>
         <div class="extended-field"><a class="btn-sm signup-btn" href="#">Cancel</a></div>
       </div>
     </div>
+    {% endfor %}
+    {% endif %}
   </div>
+  <div class="main-pending">
+    {% if pending_events %}
+    <h2 class="group-title">PENDING LESSONS</h2>
+
+    {% for pending_event in pending_events %}
+    <div class="lesson">
+      <div class="main-information">
+        <div class="date">
+          <span class="date-day">{{ pending_event.start_month_day }}</span>
+          <span class="date-month">{{ pending_event.start_shortdate }}</span>
+        </div>
+        <div class="title-and-description">
+          <h4 class="lesson-title">{{ pending_event.name }}</h4>
+          <p class="lesson-description">{{ pending_event.description }}</p>
+        </div>
+      </div>
+
+      <div class="extended-information">
+        <div class="extended-field">LOCATION: <span class="extended-detail">{{ pending_event.location }}</span></div>
+        <div class="extended-field"><b>FROM:</b> <span class="extended-detail">{{ pending_event.start_time }} - {{ pending_event.end_time }}</span></div>
+        <div class="extended-field"><b>TUTOR:</b> <span class="extended-detail">{{ pending_event.tutor_name }}</span></div>
+        <div class="extended-field"><a class="btn-sm signup-btn" href="#">Cancel</a></div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  <style>
+  #profile-picture {
+    background-image: url('/media/{{ user.profile.profile_pic }}');
+  }
+  </style>
+
 </body>
 </html>
