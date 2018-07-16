@@ -33,7 +33,7 @@ LOGOUT_REDIRECT_URL = '/'
 SECRET_KEY = '&tm9%utcwp=rzanx9%jxn27gnck^4#65316g&6fei94==dml*6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
