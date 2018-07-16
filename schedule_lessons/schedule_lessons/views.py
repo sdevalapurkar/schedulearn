@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 # TODO: Create a method that will return the 404 html page with 2 paramters:
 # request and exception. You can return the html page using the render method,
