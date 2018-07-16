@@ -21,9 +21,14 @@ from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
-from . import views
 
-handler404 = views.load_404
+# TODO: Import views.py from the same working directory as this file.
+# The above is necessary to get the method that youre going to make in views.py
+
+# TODO: In order to make sure your error404 method is executed when someone goes
+# to a page that they're not supposed to, you need to create a variable called
+# error404 and make it equal to your method in views.py
+
 urlpatterns = [
     path('', include('home.urls'), name='home'),
     path('accounts/', include('accounts.urls'), name='accounts'),
