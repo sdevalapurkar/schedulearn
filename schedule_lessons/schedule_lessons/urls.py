@@ -21,8 +21,9 @@ from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
+from . import views
 
-
+handler404 = views.load_404
 urlpatterns = [
     path('', include('home.urls'), name='home'),
     path('accounts/', include('accounts.urls'), name='accounts'),
