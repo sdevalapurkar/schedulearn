@@ -12,11 +12,6 @@ import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
-# Create your views here.
-#@login_required
-#def dashboard(request):
-#    return render(request, 'dashboard/agenda.html', {'user': request.user}) # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
-
 # Create a relationship between the student and a tutor
 @login_required
 def add_tutor(request):
