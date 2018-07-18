@@ -9,7 +9,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
-html, body {
+html body {
   height: 100%;
   background-color: #F4F4F4;
 }
