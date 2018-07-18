@@ -8,15 +8,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
-
 import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
 # Create your views here.
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard/dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
+#@login_required
+#def dashboard(request):
+#    return render(request, 'dashboard/agenda.html', {'user': request.user}) # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
 
 # Create a relationship between the student and a tutor
 @login_required
@@ -38,28 +37,6 @@ def add_tutor(request):
         except Exception as e:
             return HttpResponse(status=404)
     return HttpResponse(status=404)
-
-
-# Return list of tutors that have Relationship with the student that is asking
-# for the list of tutors.
-@login_required
-def get_tutors(request):
-    if request.method == 'GET':
-        response = []
-        # below code will return a list of relationshion objects containing the
-        # name of student and tutor
-        students_tutors = Relationship.objects.filter(student=request.user)
-        if request.user.profile.user_type == 'student':
-            for tutor in students_tutors:
-                response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
-        else:
-            # this part of the code will never be executed right now because
-            # a tutor is not able to look at his students, but because of future
-            # implementation it is left in.
-            for tutor in students_tutors:
-                response.append([tutor.student.first_name, tutor.student.last_name, tutor.student.profile.id, tutor.tutor.email])
-
-        return JsonResponse(response, safe=False)
 
 # simply returns a Json object containing the list of events for the request user.
 @login_required
@@ -178,7 +155,7 @@ def edit_availability(request):
 
 # returns scheduler information for scheduler tab for the user.
 @login_required
-def scheduler(request):
+def agenda(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
 
@@ -202,7 +179,7 @@ def scheduler(request):
                     'student_username': event.student.username,
                     'start_date': event.start_time,
                     'end_date': event.end_time,
-                    'start_shortdate': event.start_time.strftime('%B, %Y'),
+                    'start_shortdate': event.start_time.strftime('%B'),
                     'start_week_day': event.start_time.strftime('%A'),
                     'start_month_day': event.start_time.strftime('%d'),
                     'start_time': event.start_time.strftime('%I:%M %p'),
@@ -218,9 +195,18 @@ def scheduler(request):
                     event_list.append(data)
             except Exception as e:
                 pass
-        return render(request, 'dashboard/scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'dashboard/agenda.html', {'events': event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
+
+# will get executed when a student tries to go to the tutors page.
+# method will return a list of tutors that the student has added.
+def tutors(request):
+    tutors = []
+    relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+    for relationship in relationships:
+        tutors.append(relationship.tutor)
+    return render(request, 'dashboard/tutors.html', {'tutors': tutors})
 
 def public_profile(request, id):
     try:
