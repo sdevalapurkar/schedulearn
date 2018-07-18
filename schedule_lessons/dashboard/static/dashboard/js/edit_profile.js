@@ -79,7 +79,7 @@ $(document).ready(function () {
 
   $(".text").on("click", function() {
     $("#input_pfp").click();
-  });gi
+  });
 
 });
 
