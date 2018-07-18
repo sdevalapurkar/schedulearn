@@ -200,20 +200,37 @@ def tutors(request):
     tutors = []
     relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
     for relationship in relationships:
-        tutors.append(relationship.tutor)
+        url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.tutor.profile.id)
+        tutor_data = {
+            'first_name': relationship.tutor.first_name,
+            'last_name': relationship.tutor.last_name,
+            'email': relationship.tutor.email,
+            'profile_pic': relationship.tutor.profile.profile_pic,
+            'public_profile_url': url,
+        }
+        tutors.append(tutor_data)
     return render(request, 'dashboard/tutors.html', {'tutors': tutors})
 
 def students(request):
     students = []
     relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
     for relationship in relationships:
-        students.append(relationship.student)
+        url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.student.profile.id)
+        student_data = {
+            'first_name': relationship.student.first_name,
+            'last_name': relationship.student.last_name,
+            'email': relationship.student.email,
+            'profile_pic': relationship.student.profile.profile_pic,
+            'public_profile_url': url,
+        }
+        students.append(student_data)
     return render(request, 'dashboard/students.html', {'students': students})
 
 def public_profile(request, id):
+    print(request.user)
     try:
         user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        return render(request, 'dashboard/public_profile.html', {'user': user, 'host': request.user})
+        return render(request, 'dashboard/public_profile.html', {'profile_user': user, 'host': request.user})
     except:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
