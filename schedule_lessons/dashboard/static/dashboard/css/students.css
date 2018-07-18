@@ -8,6 +8,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: BebasNeueRegular; src: url("../fonts/BebasNeue-Regular.ttf");}
 
 html, body {
   height: 100%;
@@ -116,23 +117,18 @@ html, body {
   margin-right: 4px;
 }
 
-#mainScheduled {
+#main {
   text-align: center;
 }
 
-#mainPending {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-.group-title {
+#mainTitle {
   font-size: 220%;
   font-family: adam-cg-pro;
   margin: 40px auto;
 }
 
-.lesson {
-  width: 70%;
+.student {
+  width: 50%;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
 }
@@ -140,42 +136,45 @@ html, body {
 .main-information {
   width: 100%;
   display: inline-flex;
-  height: 130px;
+  height: 70px;
 }
 
-.date {
-  min-width: 80px;
+.student-pfp-container {
   height: 100%;
   background-color: #D14F52;
-  font-family: code-bold;
-  color: #F4F4F4;
+  width: 78px;
 }
 
-.date-day {
-  padding-top: 25px;
-  font-size: 300%;
-  margin-bottom: -25%;
-  margin-top: -11%;
-  display: block;
+.student-pfp {
+  height: 100%;
+  border-radius: 50%;
 }
 
-.date-month {
-  display: block;
-  font-size: 150%;
-}
-
-.title-and-description {
+.student-main-info {
+  height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.lesson-title {
+.student-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
   font-size: 200%;
   margin-bottom: 0;
+  color: #4a4a4a;
+}
+
+.student-link:hover {
+  text-decoration: none;
+}
+
+.lesson-description {
+  text-align: left;
+  font-family: avenir-next-regular;
+  font-weight: 100;
+  font-size: 90%;
 }
 
 .extended-information {
@@ -197,7 +196,6 @@ html, body {
 .extended-detail {
   font-family: avenir-next-regular;
 }
-
 /*
 .signup-btn {
   display: none;
@@ -212,3 +210,7 @@ html, body {
   margin-bottom: 1%;
 }
 */
+
+.nav-item .active {
+  color: white;
+}
