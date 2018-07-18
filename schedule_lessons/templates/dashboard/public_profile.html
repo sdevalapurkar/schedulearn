@@ -17,62 +17,75 @@
 </head>
 <body>
 
+  <!-- navbar start -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-brand">SCHEDULEARN</span>
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      {% if host.is_authenticated %}
+    <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
         <li class="nav-item">
-          <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
-        </li>
-        <li class="nav-item">
-          <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile</a>
+          {% if user.profile.user_type == 'tutor' %}
+          <a class="nav-link" href="{% url 'students' %}">MY STUDENTS</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS</a>
+          {% endif %}
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
-        </li>
-      </ul>
-      {% else %}
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a id="sign-in" class="btn btn-danger" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>  Sign In</a>
-        </li>
-      </ul>
-      {% endif %}
-
+      <div class="navbar-nav ml-auto" id="userProfileInfo">
+        <div id="userName" class="nav-item">
+          <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></a>
+        </div>
+        <div id="userPicContainer" class="nav-item dropdown">
+          <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </div>
+          <div class="dropdown-menu dropdown-menu-right sign-out-dropdown" aria-labelledby="profile-picture">
+            <a href="{% url 'logout' %}">Sign Out</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
-
-
-  <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="collapse" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        {% if user.profile.user_type == 'tutor' %}
+        <a class="nav-link" href="{% url 'students' %}">MY STUDENTS</a>
+        {% else %}
+        <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS</a>
+        {% endif %}
+      </li>
+    </ul>
+    <div class="navbar-nav" id="userProfileInfo">
+      <div id="userName" class="nav-item">
+        <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+      </div>
+      <div id="userPicContainer" class="nav-item dropdown">
+        <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         </div>
-        <div style="border-top: 0px solid black" class="modal-footer">
-          <a href="/accounts/logout/"><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i>  Sign Out</button></a>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="dropdown-menu dropdown-menu-right sign-out-dropdown" aria-labelledby="profile-picture">
+          <a href="{% url 'logout' %}">Sign Out</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container">
+  <nav id="extendedNavbar">
+    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT A PROFILE</a>
+  </nav>
+  <!-- navbar end -->
 
+  <div class="container">
     <div class="picture-container">
       <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
     </div>
@@ -97,5 +110,12 @@
     </div>
 
   </div>
+
+  <style>
+  #userPic {
+    background-image: url('/media/{{ user.profile.profile_pic }}');
+  }
+  </style>
+
 </body>
 </html>
