@@ -1,32 +1,14 @@
 /*
-Navbar background color: #4A4A4A;
-Extended navbar bg color: #D14F52;
+Black (navbar) Color: #4A4A4A;
+Red (extended-navbar) Color: #D14F52;
+White (background) Color: #F4F4F4;
 */
 
-@font-face {
-  font-family: adam-cg-pro;
-  src: url("../fonts/adam-cg-pro.regular.otf");
-}
-
-@font-face {
-  font-family: code-bold;
-  src: url("../fonts/CODE-Bold.otf");
-}
-
-@font-face {
-  font-family: avenir-next-regular;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
-
-@font-face {
-  font-family: BebasNeueRegular;
-  src: url("../fonts/BebasNeue-Regular.ttf");
-}
-
-@font-face {
-  font-family: BrandonGrotesque-Regular;
-  src: url("../fonts/Brandon_reg.otf");
-}
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
+@font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
+@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: BebasNeueRegular; src: url("../fonts/BebasNeue-Regular.ttf");}
 
 html, body {
   height: 100%;
@@ -53,31 +35,27 @@ nav {
   padding-right: 15px;
 }
 
-.ml-auto {
+#userProfileInfo {
   display: inline;
 }
 
-#profile-name {
+#userName {
   float: left;
 }
 
-#pfp-container {
+#userPicContainer {
   float: right;
 }
 
-#profile-picture {
+#userPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#profile-picture:hover {
+#userPic:hover {
   cursor: pointer;
-}
-
-#openNavigation {
-  margin-right: 2%;
 }
 
 .navbar-expand-lg .navbar-nav .dropdown-menu {
@@ -88,7 +66,33 @@ nav {
   text-align: center;
 }
 
-.extended-navbar {
+#openNavigation {
+  margin-right: 2%;
+}
+
+#navbarContent {
+  top: 70px;
+  right: 10px;
+  background-color: #4F4F4F;
+  width: 50%;
+  padding: 1rem;
+  position: fixed;
+  border-radius: .25rem;
+}
+
+#navbarContent a {
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
+}
+#navbarContent a:hover {
+  color: rgba(255,255,255,.75);
+}
+
+#active {
+  color: white;
+}
+
+#extendedNavbar {
   background-color: #D14F52;
   box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
   font-family: BrandonGrotesque-Regular;
@@ -110,29 +114,17 @@ nav {
   margin-right: 4px;
 }
 
-.main {
+#main {
   text-align: center;
 }
 
-.main-pending {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-.group-title {
+#mainTitle {
   font-size: 220%;
   font-family: adam-cg-pro;
   margin: 40px auto;
 }
 
-.group-pending-title {
-  padding-top: 25px;
-  font-size: 220%;
-  font-family: adam-cg-pro;
-  margin: 32px auto;
-}
-
-.lesson {
+.tutor {
   width: 50%;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
@@ -144,34 +136,23 @@ nav {
   height: 70px;
 }
 
-.date {
+.tutor-pfp-container {
   height: 100%;
   background-color: #D14F52;
-  font-family: code-bold;
-  color: #F4F4F4;
 }
 
-.date-day {
-  padding-top: 25px;
-  font-size: 300%;
-  margin-bottom: -25%;
-  margin-top: -11%;
-  display: block;
+.tutor-pfp {
+  height: 100%;
 }
 
-.date-month {
-  display: block;
-  font-size: 150%;
-}
-
-.title-and-description {
+.tutor-main-info {
   height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.lesson-title {
+.tutor-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
@@ -180,7 +161,7 @@ nav {
   color: #4a4a4a;
 }
 
-#tutor-link:hover {
+.tutor-link:hover {
   text-decoration: none;
 }
 
@@ -210,7 +191,7 @@ nav {
 .extended-detail {
   font-family: avenir-next-regular;
 }
-
+/*
 .signup-btn {
   display: none;
   margin-top: 40px;
@@ -223,6 +204,7 @@ nav {
   border-radius: 25px;
   margin-bottom: 1%;
 }
+*/
 
 .alignRight {
   top: 70px;
