@@ -84,26 +84,25 @@
     <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT A PROFILE</a>
   </nav>
   <!-- navbar end -->
-
   <div class="container">
     <div class="picture-container">
-      <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+      <img id="profilePicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="Profile Picture">
     </div>
-    {% if user.last_name %}
-    <h1>{{ user.first_name }} {{ user.last_name }}'s Profile</h1>
+    {% if profile_user.last_name %}
+    <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Profile</h1>
     {% else %}
-    <h1>{{ user.first_name }}'s Profile</h1>
+    <h1>{{ profile_user.first_name }}'s Profile</h1>
     {% endif %}
 
-    {% if user.profile.user_type == 'tutor' %}
+    {% if profile_user.profile.user_type == 'tutor' %}
       <p class="title">Tutor</p>
     {% else %}
       <p class="title">Student</p>
     {% endif %}
-    <p class="title">{{ user.email }}</p>
+    <p class="title">{{ profile_user.email }}</p>
 
     <div class="availability-id">
-      <input type="text" class="form-control" id="ID" value="{{ user.profile.id }}" disabled </input>
+      <input type="text" class="form-control" id="ID" value="{{ profile_user.profile.id }}" disabled </input>
       <button id="copy" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Copy your ID" class="center">
         <i class="far fa-clipboard"></i>
       </button>
