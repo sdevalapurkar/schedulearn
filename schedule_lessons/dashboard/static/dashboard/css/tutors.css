@@ -15,7 +15,7 @@ html, body {
   background-color: #F4F4F4;
 }
 
-nav {
+.navbar {
   background-color: #4A4A4A;
 }
 
@@ -62,7 +62,7 @@ nav {
   position: absolute;
 }
 
-.dropdown-menu {
+.collapse .sign-out-dropdown {
   text-align: center;
 }
 
@@ -80,15 +80,16 @@ nav {
   border-radius: .25rem;
 }
 
-#navbarContent a {
+#navbarContent .nav-link {
   text-decoration: none;
   color: rgba(255,255,255,.5);
 }
-#navbarContent a:hover {
+
+#navbarContent .nav-link:hover {
   color: rgba(255,255,255,.75);
 }
 
-#active {
+#navbarContent #active {
   color: white;
 }
 
@@ -108,6 +109,8 @@ nav {
 
 .extended-button:hover {
   color: #F4F4F4;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .extended-icon {
@@ -139,10 +142,12 @@ nav {
 .tutor-pfp-container {
   height: 100%;
   background-color: #D14F52;
+  width: 78px;
 }
 
 .tutor-pfp {
   height: 100%;
+  border-radius: 50%;
 }
 
 .tutor-main-info {
@@ -162,7 +167,7 @@ nav {
 }
 
 .tutor-link:hover {
-  text-decoration: none;
+  color: black;
 }
 
 .lesson-description {

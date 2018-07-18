@@ -155,7 +155,7 @@ def agenda(request):
         user_type = request.user.profile.user_type
 
         pending_event_list = []
-        event_list = []
+        scheduled_event_list = []
         if user_type == 'student':
             events = Event.objects.filter(student=request.user)
         else:
@@ -187,10 +187,10 @@ def agenda(request):
                 if event.pending:
                     pending_event_list.append(data)
                 else:
-                    event_list.append(data)
+                    scheduled_event_list.append(data)
             except Exception as e:
                 pass
-        return render(request, 'dashboard/agenda.html', {'events': event_list, 'pending_events': pending_event_list})
+        return render(request, 'dashboard/agenda.html', {'scheduled_events': scheduled_event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
 
@@ -202,6 +202,13 @@ def tutors(request):
     for relationship in relationships:
         tutors.append(relationship.tutor)
     return render(request, 'dashboard/tutors.html', {'tutors': tutors})
+
+def students(request):
+    students = []
+    relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+    for relationship in relationships:
+        students.append(relationship.student)
+    return render(request, 'dashboard/students.html', {'students': students})
 
 def public_profile(request, id):
     try:

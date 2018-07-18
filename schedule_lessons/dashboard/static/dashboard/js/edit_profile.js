@@ -2,31 +2,9 @@ var img_url;
 
 $(document).ready(function () {
 
-  $('#dashboard').click(function() {
-    window.open('/dashboard/', '_self');
-  });
-
-  $('#scheduler').click(function() {
-    window.open('/dashboard/scheduler', '_self');
-  });
-
-  $('#myProfile').click(function() {
-    window.open('/dashboard/my_profile', '_self');
-  });
-
   $("#saveChanges").click(function() {
     $("#profileSave").click();
   });
-
-  $('#copy').click(function() {
-    var tutor_id = $("#ID");
-    tutor_id.select();
-    document.execCommand("copy");
-  });
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
 
   /* ALL CODE BELOW RELATED TO CROPPING PICTURE */
 
