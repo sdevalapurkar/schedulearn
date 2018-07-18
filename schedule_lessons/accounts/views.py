@@ -67,7 +67,7 @@ def signup_view(request):
             return render(request, "accounts/sign_up.html")
         else:
             # user is already signed in. so take him to the dashboard page.
-            return redirect('scheduler')
+            return redirect('agenda')
 
 
 def login_view(request):
@@ -86,7 +86,7 @@ def login_view(request):
             if not user.profile.user_type:
                 return redirect('personalize')
             else:
-                return redirect('scheduler')
+                return redirect('agenda')
         else:
             return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination', 'email': email, 'password': password})
 
@@ -99,8 +99,8 @@ def login_view(request):
                 # if the user is not logged in, just send him to the sign up page.
                 return render(request, "accounts/sign_in.html")
             else:
-                # user is already signed in. so take him to the scheduler page.
-                return redirect('scheduler')
+                # user is already signed in. so take him to the agenda page.
+                return redirect('agenda')
 
 
 @login_required
@@ -119,10 +119,10 @@ def personalize_view(request):
                 request.user.profile.user_type = 'student'
 
         request.user.save()
-        return redirect('scheduler')
+        return redirect('agenda')
     else:
         if request.user.profile.user_type:
-            return redirect('scheduler')
+            return redirect('agenda')
         else:
             return render(request, "accounts/personalize.html", {'user': request.user})
 

@@ -18,6 +18,11 @@ Extended navbar bg color: #D14F52;
   src: url("../fonts/AvenirNext-Regular.ttf");
 }
 
+@font-face {
+  font-family: BrandonGrotesque-Regular;
+  src: url("../fonts/Brandon_reg.otf");
+}
+
 html, body {
   height: 100%;
   background-color: #F4F4F4;
@@ -40,8 +45,7 @@ nav {
 }
 
 .mr-auto .nav-item {
-  font-size: 110%;
-  margin-right: 6%;
+  padding-right: 15px;
 }
 
 .ml-auto {

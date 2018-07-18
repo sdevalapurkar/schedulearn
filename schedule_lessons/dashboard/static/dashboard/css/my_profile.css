@@ -1,10 +1,8 @@
 @font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
 @font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
 @font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
 html body {
   height: 100%;
@@ -29,8 +27,7 @@ nav {
 }
 
 .mr-auto .nav-item {
-  font-size: 110%;
-  margin-right: 6%;
+  padding-right: 15px;
 }
 
 .ml-auto {
@@ -92,7 +89,7 @@ nav {
 
 .container {
   background-color: #F4F4F4;
-  margin-top: 1%;
+  margin-top: 5%;
   text-align: center;
 }
 

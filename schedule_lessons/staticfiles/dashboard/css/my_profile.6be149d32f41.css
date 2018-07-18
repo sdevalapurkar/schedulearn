@@ -1,0 +1,177 @@
+@font-face { font-family: LightFont; src: url("../fonts/TheLightFont.e027c1173c04.otf"); }
+@font-face { font-family: Feeding; src: url("../fonts/Feeding_a_Moment.04dc9ffd6194.otf"); }
+@font-face { font-family: Comforta; src: url("../fonts/Comfortaa-Regular.d350ce249a30.ttf"); }
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.1f1c6c5055bf.ttf");
+}
+
+html body {
+  height: 100%;
+  background-color: #F4F4F4;
+}
+
+
+nav {
+  background-color: #4A4A4A;
+}
+
+.navbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+.navbar .collapse {
+  font-family: AvenirNext-Medium;
+}
+
+.mr-auto .nav-item {
+  font-size: 110%;
+  margin-right: 6%;
+}
+
+.ml-auto {
+  display: inline;
+}
+
+#profile-name {
+  float: left;
+}
+
+#pfp-container {
+  float: right;
+}
+
+#profile-picture {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+#profile-picture:hover {
+  cursor: pointer;
+}
+
+#openNavigation {
+  margin-right: 2%;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.dropdown-menu {
+  text-align: center;
+}
+
+.extended-navbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #F4F4F4;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
+.container {
+  background-color: #F4F4F4;
+  margin-top: 5%;
+  text-align: center;
+}
+
+.picture-container {
+    text-align: center;
+    margin: 0 auto;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+}
+
+
+#profilePicture {
+  backface-visibility: hidden;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+}
+
+#copy {
+  font-size: 25px;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline:none;
+  float: left;
+}
+
+#ID {
+  width: 350px;
+  text-align: center;
+  float: left;
+}
+
+.title {
+    color: grey;
+    font-size: 22px;
+}
+
+.availability-id {
+  display: inline-block;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.modal-title {
+  margin-left: auto;
+  font-family: LightFont;
+  font-size: 35px;
+}
+
+.extra {
+  margin-bottom: 10%;
+}
+
+.user-type {
+  text-transform: uppercase;
+}
+
+#edit_profile {
+  float: right;
+  margin-right: 5%;
+}
+
+.confirm-list {
+  font-family: avenir-next;
+  color: green;
+  margin-top: 0.6%;
+  margin-bottom: 0;
+}
+
+@media (max-width: 400px) {
+  #ID {
+    width: 250px;
+    text-align: center;
+    float: left;
+  }
+}

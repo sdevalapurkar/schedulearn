@@ -1,101 +1,177 @@
 @font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
 @font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
 @font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
-
-
-body {
-  background: url("../images/funky-lines.png");
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.ttf");
 }
+
+html body {
+  height: 100%;
+  background-color: #F4F4F4;
+}
+
 
 nav {
-  background-color: #FEDC32;
+  background-color: #4A4A4A;
 }
 
-.nav-link {
-  background-color: #FEDC32;
+.navbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+.navbar .collapse {
+  font-family: AvenirNext-Medium;
+}
+
+.mr-auto .nav-item {
+  font-size: 110%;
+  margin-right: 6%;
 }
 
 .ml-auto {
-  margin-top: 10px;
+  display: inline;
 }
 
-#logo {
-  width: 70%;
+#profile-name {
+  float: left;
 }
 
-#availability {
-  width: 150px;
+#pfp-container {
+  float: right;
 }
 
-#editAvailabilityButton {
-  margin-right: 10px;
+#profile-picture {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+#profile-picture:hover {
+  cursor: pointer;
+}
+
+#openNavigation {
+  margin-right: 2%;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.dropdown-menu {
+  text-align: center;
+}
+
+.extended-navbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #F4F4F4;
+}
+
+.extended-icon {
+  margin-right: 4px;
 }
 
 .container {
-  margin-top: 1%;
-}
-
-h1 {
-    text-align: center;
-}
-
-#fullName {
-    text-align: center;
+  background-color: #F4F4F4;
+  margin-top: 5%;
+  text-align: center;
 }
 
 .picture-container {
+    text-align: center;
     margin: 0 auto;
     width: 300px;
-    height: 300px;
+    height: 200px;
     overflow: hidden;
-    position: relative;
 }
+
 
 #profilePicture {
-  margin-left: auto;
-  margin-right: auto;
-    position: absolute;
-    left: -1000%;
-    right: -1000%;
-    top: -1000%;
-    bottom: -1000%;
-    margin: auto;
-    width: 100%;
-}
-
-.text {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 13px;
+  backface-visibility: hidden;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
 }
 
 #copy {
   font-size: 25px;
   background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline:none;
+  float: left;
 }
 
 #ID {
-  width: 400px;
+  width: 350px;
+  text-align: center;
+  float: left;
 }
 
-#profileSave {
-  margin-bottom: 50px;
+.title {
+    color: grey;
+    font-size: 22px;
+}
+
+.availability-id {
+  display: inline-block;
+  height: 50px;
+  margin: 0 auto;
 }
 
 .modal-title {
-  margin-left: 150px;
-    font-family: LightFont;
-    font-size: 35px;
+  margin-left: auto;
+  font-family: LightFont;
+  font-size: 35px;
 }
 
+.extra {
+  margin-bottom: 10%;
+}
 
-@media (max-width: 991.98px) {
-  #availability {
-    margin-bottom: 10px;
+.user-type {
+  text-transform: uppercase;
+}
+
+#edit_profile {
+  float: right;
+  margin-right: 5%;
+}
+
+.confirm-list {
+  font-family: avenir-next;
+  color: green;
+  margin-top: 0.6%;
+  margin-bottom: 0;
+}
+
+@media (max-width: 400px) {
+  #ID {
+    width: 250px;
+    text-align: center;
+    float: left;
   }
 }
