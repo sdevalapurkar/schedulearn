@@ -89,10 +89,10 @@
     <div class="student">
       <div class="main-information">
         <div class="student-pfp-container">
-          <img class="student-pfp" src="/media/{{ student.profile.profile_pic }}"></img>
+          <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
         </div>
         <div class="student-main-info">
-          <a class="student-link" href=""><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+          <a class="student-link" href="{{ student.public_profile_url }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
           <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
         </div>
       </div>
