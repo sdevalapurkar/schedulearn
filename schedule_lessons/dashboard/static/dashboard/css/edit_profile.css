@@ -16,6 +16,80 @@ nav {
   background-color: #4A4A4A;
 }
 
+.navbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+.nav-item {
+  font-family: AvenirNext-Medium;
+}
+
+.mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+.ml-auto {
+  display: inline;
+}
+
+#profile-name {
+  float: left;
+}
+
+#pfp-container {
+  float: right;
+}
+
+#profile-picture {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+#profile-picture:hover {
+  cursor: pointer;
+}
+
+#openNavigation {
+  margin-right: 2%;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.dropdown-menu {
+  text-align: center;
+}
+
+.extended-navbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+#saveChanges {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+#saveChanges:hover {
+  color: #F4F4F4;
+  cursor: pointer;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
 .container {
   margin-top: 1%;
   text-align: center;
