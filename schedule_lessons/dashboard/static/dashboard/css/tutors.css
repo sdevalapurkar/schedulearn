@@ -45,7 +45,7 @@ nav {
   margin-right: 5%;
 }
 
-.navbar .collapse {
+.nav-item {
   font-family: AvenirNext-Medium;
 }
 
@@ -231,6 +231,13 @@ nav {
 }
 
 .alignRight a {
-  text-decoration: none !important;
-  color: white !important;
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
+}
+.alignRight a:hover {
+  color: rgba(255,255,255,.75);
+}
+
+.nav-item .active {
+  color: white;
 }

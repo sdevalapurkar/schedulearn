@@ -22,7 +22,7 @@ nav {
   margin-right: 5%;
 }
 
-.navbar .collapse {
+.nav-item {
   font-family: AvenirNext-Medium;
 }
 
@@ -30,7 +30,7 @@ nav {
   padding-right: 15px;
 }
 
-.ml-auto {
+.navbar-collapse .ml-auto {
   display: inline;
 }
 
@@ -58,7 +58,7 @@ nav {
 }
 
 .navbar-expand-lg .navbar-nav .dropdown-menu {
-  position: absolute;
+  text-align: center;
 }
 
 .dropdown-menu {
@@ -101,7 +101,6 @@ nav {
     overflow: hidden;
 }
 
-
 #profilePicture {
   backface-visibility: hidden;
   display: block;
@@ -131,12 +130,13 @@ nav {
 .title {
     color: grey;
     font-size: 22px;
+    margin-bottom: 0.8%;
 }
 
 .availability-id {
   display: inline-block;
   height: 50px;
-  margin: 0 auto;
+  margin: 0.2% auto;
 }
 
 .modal-title {
@@ -147,10 +147,6 @@ nav {
 
 .extra {
   margin-bottom: 10%;
-}
-
-.user-type {
-  text-transform: uppercase;
 }
 
 #edit_profile {
@@ -164,6 +160,26 @@ nav {
   margin-top: 0.6%;
   margin-bottom: 0;
 }
+
+.alignRight {
+  top: 70px;
+  right: 10px;
+  background-color: #4F4F4F;
+}
+
+.alignRight a {
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
+}
+.alignRight a:hover {
+  color: rgba(255,255,255,.75);
+}
+
+.nav-item .active {
+  color: white;
+}
+
+
 
 @media (max-width: 400px) {
   #ID {
