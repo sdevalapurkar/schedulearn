@@ -1,27 +1,13 @@
 /*
-Navbar background color: #4A4A4A;
-Extended navbar bg color: #D14F52;
+Black (navbar) Color: #4A4A4A;
+Red (extended-navbar) Color: #D14F52;
+White (background) Color: #F4F4F4;
 */
 
-@font-face {
-  font-family: adam-cg-pro;
-  src: url("../fonts/adam-cg-pro.regular.otf");
-}
-
-@font-face {
-  font-family: code-bold;
-  src: url("../fonts/CODE-Bold.otf");
-}
-
-@font-face {
-  font-family: avenir-next-regular;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
-
-@font-face {
-  font-family: BrandonGrotesque-Regular;
-  src: url("../fonts/Brandon_reg.otf");
-}
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
+@font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
+@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
 html, body {
   height: 100%;
@@ -48,31 +34,27 @@ nav {
   padding-right: 15px;
 }
 
-.ml-auto {
+#userProfileInfo {
   display: inline;
 }
 
-#profile-name {
+#userName {
   float: left;
 }
 
-#pfp-container {
+#userPicContainer {
   float: right;
 }
 
-#profile-picture {
+#userPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#profile-picture:hover {
+#userPic:hover {
   cursor: pointer;
-}
-
-#openNavigation {
-  margin-right: 2%;
 }
 
 .navbar-expand-lg .navbar-nav .dropdown-menu {
@@ -81,6 +63,32 @@ nav {
 
 .dropdown-menu {
   text-align: center;
+}
+
+#openNavigation {
+  margin-right: 2%;
+}
+
+#navbarContent {
+  top: 70px;
+  right: 10px;
+  background-color: #4F4F4F;
+  width: 50%;
+  padding: 1rem;
+  position: fixed;
+  border-radius: .25rem;
+}
+
+#navbarContent a {
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
+}
+#navbarContent a:hover {
+  color: rgba(255,255,255,.75);
+}
+
+#active {
+  color: white;
 }
 
 .extended-navbar {
@@ -105,11 +113,11 @@ nav {
   margin-right: 4px;
 }
 
-.main {
+#mainScheduled {
   text-align: center;
 }
 
-.main-pending {
+#mainPending {
   text-align: center;
   padding-bottom: 100px;
 }
@@ -118,13 +126,6 @@ nav {
   font-size: 220%;
   font-family: adam-cg-pro;
   margin: 40px auto;
-}
-
-.group-pending-title {
-  padding-top: 25px;
-  font-size: 220%;
-  font-family: adam-cg-pro;
-  margin: 32px auto;
 }
 
 .lesson {
@@ -174,13 +175,6 @@ nav {
   margin-bottom: 0;
 }
 
-.lesson-description {
-  text-align: left;
-  font-family: avenir-next-regular;
-  font-weight: 100;
-  font-size: 90%;
-}
-
 .extended-information {
   width: 100%;
   background-color: #4F4F4F;
@@ -201,6 +195,7 @@ nav {
   font-family: avenir-next-regular;
 }
 
+/*
 .signup-btn {
   display: none;
   margin-top: 40px;
@@ -213,21 +208,4 @@ nav {
   border-radius: 25px;
   margin-bottom: 1%;
 }
-
-.alignRight {
-  top: 70px;
-  right: 10px;
-  background-color: #4F4F4F;
-}
-
-.alignRight a {
-  text-decoration: none;
-  color: rgba(255,255,255,.5);
-}
-.alignRight a:hover {
-  color: rgba(255,255,255,.75);
-}
-
-.nav-item .active {
-  color: white;
-}
+*/
