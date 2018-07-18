@@ -9,8 +9,7 @@ html body {
   background-color: #F4F4F4;
 }
 
-
-nav {
+.navbar {
   background-color: #4A4A4A;
 }
 
@@ -30,42 +29,65 @@ nav {
   padding-right: 15px;
 }
 
-.navbar-collapse .ml-auto {
+#userProfileInfo {
   display: inline;
 }
 
-#profile-name {
+#userName {
   float: left;
 }
 
-#pfp-container {
+#userPicContainer {
   float: right;
 }
 
-#profile-picture {
+#userPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#profile-picture:hover {
+#userPic:hover {
   cursor: pointer;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.collapse .sign-out-dropdown {
+  text-align: center;
 }
 
 #openNavigation {
   margin-right: 2%;
 }
 
-.navbar-expand-lg .navbar-nav .dropdown-menu {
-  text-align: center;
+#navbarContent {
+  top: 70px;
+  right: 10px;
+  background-color: #4F4F4F;
+  width: 50%;
+  padding: 1rem;
+  position: fixed;
+  border-radius: .25rem;
 }
 
-.dropdown-menu {
-  text-align: center;
+#navbarContent .nav-link {
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
 }
 
-.extended-navbar {
+#navbarContent .nav-link:hover {
+  color: rgba(255,255,255,.75);
+}
+
+#navbarContent #active {
+  color: white;
+}
+
+#extendedNavbar {
   background-color: #D14F52;
   box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
   font-family: BrandonGrotesque-Regular;
@@ -81,6 +103,8 @@ nav {
 
 .extended-button:hover {
   color: #F4F4F4;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .extended-icon {
@@ -159,20 +183,6 @@ nav {
   color: green;
   margin-top: 0.6%;
   margin-bottom: 0;
-}
-
-.alignRight {
-  top: 70px;
-  right: 10px;
-  background-color: #4F4F4F;
-}
-
-.alignRight a {
-  text-decoration: none;
-  color: rgba(255,255,255,.5);
-}
-.alignRight a:hover {
-  color: rgba(255,255,255,.75);
 }
 
 .nav-item .active {
