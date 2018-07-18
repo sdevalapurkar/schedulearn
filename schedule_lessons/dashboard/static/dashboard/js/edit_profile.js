@@ -14,6 +14,10 @@ $(document).ready(function () {
     window.open('/dashboard/my_profile', '_self');
   });
 
+  $("#saveChanges").click(function() {
+    $("#profileSave").click();
+  });
+
   $('#copy').click(function() {
     var tutor_id = $("#ID");
     tutor_id.select();
