@@ -86,20 +86,21 @@ html body {
 }
 
 #searchInput {
-  padding-left: 10px;
+  padding-left: 15px;
   padding-right: 36px;
   height: 30px;
   margin-right: .5rem;
   text-align: left;
-  width: 230px;
+  width: 275px;
+  border-radius: 1.25rem;
 }
 
 #submitBtn {
   color: #737373;
   position: absolute;
-  right: 10px;
+  right: 20px;
   background-color: Transparent;
-  padding: 2px 10px;
+  padding: 0;
 }
 
 .error-list {
