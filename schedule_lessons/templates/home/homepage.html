@@ -12,6 +12,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'home/css/homepage.css' %}">
+  <script src="{% static 'home/js/homepage.js' %}"></script>
 </head>
 <body>
 
@@ -129,7 +130,6 @@
     </div>
   </footer>
 
-  <script src="{% static 'home/js/homepage.js' %}"></script>
   <style>
   #userPic {
     background-image: url('/media/{{ user.profile.profile_pic }}');

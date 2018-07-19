@@ -4,13 +4,13 @@
 <head>
   <title>Edit My Profile | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
   <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
@@ -57,11 +57,11 @@
   </nav>
   <!-- navbar end -->
 
-  <div class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
-    <div id="crop-modal-dialog" class="modal-dialog modal-lg">
-      <div id="crop-modal-content" class="modal-content">
-        <div id="crop-modal-body" class="modal-body">
-          <img id="crop_picture" src="" alt="Your profile picture">
+  <div id="cropPictureModal" class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
+    <div id="cropModalDialog" class="modal-dialog modal-lg">
+      <div id="cropModalContent" class="modal-content">
+        <div id="cropModalBody" class="modal-body">
+          <img id="cropPicture" src="" alt="Your profile picture">
         </div>
         <div style="border-top:0px" class="modal-footer">
           <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
@@ -78,14 +78,11 @@
         <div class="text"><i class="fas fa-camera-retro"></i></div>
       </div>
     </div>
-    {% if user.last_name %}
+
     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-    {% else %}
-    <h1>{{ user.first_name }}</h1>
-    {% endif %}
 
     <div class="form-group">
-      <input id="input_pfp" type="file" class="form-control-file" hidden>
+      <input id="inputPfp" type="file" class="form-control-file" hidden>
     </div>
     <hr>
     <form method="POST">
@@ -124,11 +121,5 @@
   }
 
   </style>
-  <script type="text/javascript">
-
-  $('#id_first_name').val("{{ user.first_name }}");
-  $('#id_last_name').val("{{ user.last_name }}");
-
-  </script>
 </body>
 </html>
