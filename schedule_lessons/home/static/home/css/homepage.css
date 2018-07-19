@@ -104,12 +104,20 @@ body {
 @media (max-width: 991.98px) {
   #navbarContent {
     top: 70px;
-    right: 10px;
+    left: 10px;
     background-color: #4F4F4F;
     width: 50%;
     padding: 1rem;
     position: fixed;
     border-radius: .25rem;
+  }
+
+  #loggedInNavbar .navbar-brand {
+    font-size: 180%;
+    font-family: AvenirNext-DemiBold;
+    padding-top: 0.15%;
+    padding-bottom: 0.15%;
+    margin-right: auto;
   }
 
   #navbarContent .nav-link {
