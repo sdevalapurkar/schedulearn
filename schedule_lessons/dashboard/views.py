@@ -229,7 +229,6 @@ def public_profile(request, id):
 
 
     except Exception as e:
-        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
