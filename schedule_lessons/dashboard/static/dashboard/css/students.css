@@ -170,12 +170,11 @@ html body {
 .student-pfp-container {
   height: 100%;
   background-color: #D14F52;
-  width: 78px;
 }
 
 .student-pfp {
   height: 100%;
-  border-radius: 50%;
+  border-right: 2px solid #4A4A4A;
 }
 
 .student-main-info {
