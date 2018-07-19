@@ -20,6 +20,7 @@ html {
 
 body {
   margin: 0;
+  height: 100%;
 }
 
 .div-left {
@@ -34,26 +35,27 @@ body {
 }
 
 .form-right {
-  /* USED TO CENTER FORM VERTICALLY */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* END USED TO CENTER FORM VERTICALLY */
-  padding-top: 20%;
-  padding-bottom: 20%;
+  padding-top: 12.5%;
   float: right;
   width: 60%;
-  height: 100vh;
+  height: 100%;
   background-color: #F4F4F4;
+}
+
+.form {
+  width: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+  z-index: 1;
 }
 
 .sign-up {
   font-family: bariol;
   position: absolute;
   width: 100%;
-  right: 2%;
+  right: 25px;
   text-align: right;
-  margin-top: 3%;
+  top: 25px;
 }
 
 .already-account-text {
@@ -81,13 +83,6 @@ body {
 
 .get-started {
   font-family: bariol;
-}
-
-.form {
-  width: 100%;
-  margin: 15% auto;
-  padding-left: 15%;
-  padding-right: 15%;
 }
 
 .static-text {
@@ -214,48 +209,16 @@ body {
 }
 
 @media (max-width: 575.98px) {
-  
-  .sign-up {
-    font-family: bariol;
-    width: 100%;
-    text-align: right;
-    margin-top: 3%;
-  }
 
   .div-left {
     display: none;
   }
 
-
-  .form {
-    width: 100%;
-    margin: 15% auto;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  .google-btn {
-    width: 220px;
-    font-family: anson;
-    background: white;
-    font-size: 140%;
-    display: inline-block;
-    border: 1.5px solid #4A4A4A;
-    padding: 3%;
-    border-radius: 3px;
-    color: #4A4A4A;
-  }
-
   .form-right {
-    /* USED TO CENTER FORM VERTICALLY */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* END USED TO CENTER FORM VERTICALLY */
-    padding-top: 80%;
+    padding-top: 35%;
     padding-bottom: 80%;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #F4F4F4;
   }
 
@@ -263,25 +226,13 @@ body {
 
 @media (min-width: 576px) and (max-width: 991.98px) {
 
-  .sign-up {
-    font-family: bariol;
-    width: 100%;
-    text-align: right;
-    margin-top: 3%;
-  }
-
   .div-left {
     display: none;
   }
 
   .form-right {
-    /* USED TO CENTER FORM VERTICALLY */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* END USED TO CENTER FORM VERTICALLY */
-    padding-top: 50%;
-    padding-bottom: 50%;
+    padding-top: 25%;
+    padding-bottom: 80%;
     width: 100%;
     height: 100vh;
     background-color: #F4F4F4;

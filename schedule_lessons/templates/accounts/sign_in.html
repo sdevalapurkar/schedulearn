@@ -16,13 +16,12 @@
 <body>
   <div class="div-left"></div>
 
-  <div class="sign-up">
-    <div class="already-account-text">Don't have an account yet?</div>
-    <a class="signup-btn" href="{% url 'signup' %}">SIGN UP</a>
-  </div>
-
   <div class="form-right">
 
+    <div class="sign-up">
+      <div class="already-account-text">Don't have an account yet?</div>
+      <a class="signup-btn" href="{% url 'signup' %}">SIGN UP</a>
+    </div>
     <div class="form">
       <h3 class="get-started">Enter your details below.</h3>
       <p class="confirm-list">{{ reset_password }}</p>
