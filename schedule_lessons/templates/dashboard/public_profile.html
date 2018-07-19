@@ -30,7 +30,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
           <a class="nav-link" href="{% url 'students' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
           {% else %}
@@ -54,10 +54,27 @@
   </nav>
   <nav id="extendedNavbar">
     {% if user.profile.user_type == 'tutor' %}
-    <a class="extended-button" href="{% url 'students' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO 'MY STUDENTS'</a>
+      <a class="extended-button" href="{% url 'students' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO 'MY STUDENTS'</a>
     {% else %}
-    <a class="extended-button" href="{% url 'tutors' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO 'MY TUTORS'</a>
+      <a class="extended-button" href="{% url 'tutors' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO 'MY TUTORS'</a>
     {% endif %}
+    {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type %}
+      {% if user.profile.user_type == 'tutor' %}
+        {% if rel_exists %}
+          <a id="removeStudentBtn" class="extended-button" href="{{ remove_student_url }}"><i class="fas fa-user-check extended-icon"></i>STUDENT ADDED</a>
+        {% else %}
+          <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
+        {% endif %}
+      {% else %}
+        {% if rel_exists %}
+          <a id="removeTutorBtn" class="extended-button" href="{{ remove_tutor_url }}"><i class="fas fa-user-check extended-icon"></i>TUTOR ADDED</a>
+        {% else %}
+          <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+
   </nav>
   <!-- End navbar for signed in users -->
   {% else %}
@@ -106,7 +123,6 @@
         <i class="far fa-clipboard"></i>
       </button>
     </div>
-
   </div>
 
   <style>
