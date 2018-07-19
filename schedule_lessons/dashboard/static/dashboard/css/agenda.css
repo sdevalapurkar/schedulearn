@@ -1,6 +1,7 @@
 /*
 Black (navbar) Color: #4A4A4A;
 Red (extended-navbar) Color: #D14F52;
+Light Red (search button) Color: #E54F52;
 White (background) Color: #F4F4F4;
 */
 
@@ -34,6 +35,12 @@ html body {
 
 #loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
+}
+
+#submitBtn {
+  background: Transparent;
+  border: 2px solid #E54F52;
+  color: #E54F52;
 }
 
 #userProfileInfo {
