@@ -10,20 +10,22 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
 
-  $("#removeStudentBtn").mouseover(function() {
-    $("#removeStudentBtn").html("<i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT");
+  $("#removeStudentBtn").on({
+    mouseenter: function () {
+      $("#removeStudentBtn").html("<i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT");
+    },
+    mouseleave: function () {
+      $("#removeStudentBtn").html("<i class='fas fa-user-check extended-icon'></i>STUDENT ADDED");
+    }
   });
 
-  $("#removeStudentBtn").mouseleave(function() {
-    $("#removeStudentBtn").html("<i class='fas fa-user-check extended-icon'></i>STUDENT ADDED");
-  });
-
-  $("#removeTutorBtn").mouseover(function() {
-    $("#removeTutorBtn").html("<i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR");
-  });
-
-  $("#removeTutorBtn").mouseleave(function() {
-    $("#removeTutorBtn").html("<i class='fas fa-user-check extended-icon'></i>TUTOR ADDED");
+  $("#removeTutorBtn").on({
+    mouseenter: function () {
+      $("#removeTutorBtn").html("<i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR");
+    },
+    mouseleave: function () {
+      $("#removeTutorBtn").html("<i class='fas fa-user-check extended-icon'></i>TUTOR ADDED");
+    }
   });
 
 });
