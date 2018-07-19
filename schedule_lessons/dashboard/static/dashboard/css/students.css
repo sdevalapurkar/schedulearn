@@ -98,9 +98,10 @@ html body {
 #submitBtn {
   color: #737373;
   position: absolute;
-  right: 20px;
+  right: 10px;
   background-color: Transparent;
   padding: 0;
+  padding-right: 10px;
 }
 
 .error-list {

@@ -61,13 +61,13 @@
     {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type %}
       {% if user.profile.user_type == 'tutor' %}
         {% if rel_exists %}
-          <a id="removeStudentBtn" class="extended-button" href="{{ remove_student_url }}"><i class="fas fa-user-check extended-icon"></i>STUDENT ADDED</a>
+          <a id="removeStudentBtn" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
         {% else %}
           <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
         {% endif %}
       {% else %}
         {% if rel_exists %}
-          <a id="removeTutorBtn" class="extended-button" href="{{ remove_tutor_url }}"><i class="fas fa-user-check extended-icon"></i>TUTOR ADDED</a>
+          <a id="removeTutorBtn" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
         {% else %}
           <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
         {% endif %}
