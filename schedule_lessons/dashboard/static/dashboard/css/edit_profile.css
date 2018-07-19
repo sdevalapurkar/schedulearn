@@ -166,7 +166,7 @@ html body {
 }
 
 .text {
-  background-color: #4CAF50;
+  background-color: #D14F52;
   color: white;
   font-size: 32px;
   padding: 0 15px;
@@ -182,6 +182,8 @@ html body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
+  border: 2px solid;
+  border-color: #D14F52;
 }
 
 #copy {
