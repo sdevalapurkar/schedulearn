@@ -1,6 +1,7 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
 
 
 html body {
@@ -8,11 +9,13 @@ html body {
   background-color: #F4F4F4;
 }
 
-.navbar {
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
   background-color: #4A4A4A;
 }
 
-.navbar .navbar-brand {
+#loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: AvenirNext-DemiBold;
   padding-top: 0.15%;
@@ -20,11 +23,11 @@ html body {
   margin-right: 5%;
 }
 
-.nav-item {
+#loggedInNavbar .nav-item {
   font-family: AvenirNext-Medium;
 }
 
-.mr-auto .nav-item {
+#loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
@@ -51,39 +54,13 @@ html body {
   cursor: pointer;
 }
 
-.navbar-expand-lg .navbar-nav .dropdown-menu {
+#signOutDropdown {
   position: absolute;
-}
-
-.collapse .sign-out-dropdown {
   text-align: center;
 }
 
 #openNavigation {
   margin-right: 2%;
-}
-
-#navbarContent {
-  top: 70px;
-  right: 10px;
-  background-color: #4F4F4F;
-  width: 50%;
-  padding: 1rem;
-  position: fixed;
-  border-radius: .25rem;
-}
-
-#navbarContent .nav-link {
-  text-decoration: none;
-  color: rgba(255,255,255,.5);
-}
-
-#navbarContent .nav-link:hover {
-  color: rgba(255,255,255,.75);
-}
-
-#navbarContent #active {
-  color: white;
 }
 
 #extendedNavbar {
@@ -109,6 +86,59 @@ html body {
 .extended-icon {
   margin-right: 4px;
 }
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    right: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+}
+/* END Navbar for logged in Users */
+/* Navbar for logged out Users */
+
+#loggedOutNavbar {
+  background-color: #4A4A4A;
+}
+
+#loggedOutNavbar .nav-link {
+  color: white;
+  font-family: avenir-next;
+  font-size: 130%;
+}
+
+#loggedOutNavbar .nav-link:hover {
+  text-decoration: none;
+  color: #E54F52;
+}
+
+#loggedOutNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+
+/* END Navbar for logged out Users */
 
 .container {
   margin-top: 1%;
