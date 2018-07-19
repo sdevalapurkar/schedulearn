@@ -58,7 +58,14 @@
     </div>
   </nav>
   <nav id="extendedNavbar">
-    <a class="extended-button" href="#"><i class="fas fa-plus extended-icon"></i>ADD A STUDENT</a>
+    <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+      {% if no_results %}
+      <input id="searchInput" class="form-control error-list" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search" value="{{ no_results }}">
+      {% else %}
+      <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+      {% endif %}
+      <button id="submitBtn" class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </nav>
   <!-- End navbar for signed in users -->
 
