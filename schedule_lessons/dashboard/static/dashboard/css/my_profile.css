@@ -143,6 +143,8 @@ html body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
+  border: 2px solid;
+  border-color: #D14F52;
 }
 
 #copy {
