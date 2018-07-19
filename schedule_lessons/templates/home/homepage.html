@@ -15,19 +15,56 @@
 </head>
 <body>
 
-  <!--navbar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  {% if not user.is_anonymous %}
+  <!-- navbar start for signed in users -->
+  <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
+        </li>
+        <li class="nav-item">
+          {% if user.profile.user_type == 'tutor' %}
+          <a class="nav-link" href="{% url 'students' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
+          {% else %}
+          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS</a>
+          {% endif %}
+        </li>
+      </ul>
+      <div class="navbar-nav" id="userProfileInfo">
+        <div id="userName" class="nav-item">
+          <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+        </div>
+        <div id="userPicContainer" class="nav-item dropdown">
+          <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </div>
+          <div id="signOutDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <a href="{% url 'logout' %}">Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- End navbar for signed in users -->
+  {% else %}
+  <!--navbar start -->
+  <nav class="navbar navbar-expand-lg navbar-dark" id="loggedOutNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
+    </ul>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">SCHEDULEARN<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
@@ -36,7 +73,7 @@
     </div>
   </nav>
   <!-- navbar end -->
-
+  {% endif %}
   <div class="main-background">
     <div class="main-content">
       <p class="main_subtitle">SCHEDULEARN</p>
@@ -93,6 +130,11 @@
   </footer>
 
   <script src="{% static 'home/js/homepage.js' %}"></script>
+  <style>
+  #userPic {
+    background-image: url('/media/{{ user.profile.profile_pic }}');
+  }
+  </style>
 
 </body>
 </html>
