@@ -151,6 +151,7 @@ def agenda(request):
 
 # will get executed when a student tries to go to the tutors page.
 # method will return a list of tutors that the student has added.
+@login_required
 def tutors(request):
     tutors = []
     relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
@@ -169,6 +170,7 @@ def tutors(request):
         return render(request, 'dashboard/tutors.html', {'tutors': tutors, 'no_results': 'No results were found'})
     return render(request, 'dashboard/tutors.html', {'tutors': tutors})
 
+@login_required
 def students(request):
     students = []
     relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
@@ -187,6 +189,7 @@ def students(request):
         return render(request, 'dashboard/students.html', {'students': students, 'no_results': 'No results were found'})
     return render(request, 'dashboard/students.html', {'students': students})
 
+@login_required
 def search(request):
     email = request.GET['searchResult']
     try:
@@ -206,22 +209,27 @@ def search(request):
 def public_profile(request, id):
     try:
         profile_user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        if request.user.profile.user_type == 'tutor':
-            if relationship_exists(profile_user, request.user):
-                remove_student_url = request.build_absolute_uri('/') + "dashboard/remove_student/" + str(id)
-                return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_student_url':remove_student_url})
-            else:
-                add_student_url = request.build_absolute_uri('/') + "dashboard/add_student/" + str(id)
-                return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_student_url': add_student_url})
+        if not request.user.is_anonymous:
+            if request.user.profile.user_type == 'tutor':
+                if relationship_exists(profile_user, request.user):
+                    remove_student_url = request.build_absolute_uri('/') + "dashboard/remove_student/" + str(id)
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_student_url':remove_student_url})
+                else:
+                    add_student_url = request.build_absolute_uri('/') + "dashboard/add_student/" + str(id)
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_student_url': add_student_url})
+            elif request.user.profile.user_type == 'student':
+                if relationship_exists(request.user, profile_user):
+                    remove_tutor_url = request.build_absolute_uri('/') + "dashboard/remove_tutor/" + str(id)
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
+                else:
+                    add_tutor_url = request.build_absolute_uri('/') + "dashboard/add_tutor/" + str(id)
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_tutor_url': add_tutor_url})
         else:
-            if relationship_exists(request.user, profile_user):
-                remove_tutor_url = request.build_absolute_uri('/') + "dashboard/remove_tutor/" + str(id)
-                return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
-            else:
-                add_tutor_url = request.build_absolute_uri('/') + "dashboard/add_tutor/" + str(id)
-                return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_tutor_url': add_tutor_url})
+            return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user})
+
 
     except Exception as e:
+        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
