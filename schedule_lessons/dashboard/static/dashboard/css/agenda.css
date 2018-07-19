@@ -107,9 +107,9 @@ html body {
 }
 
 .extended-button:hover {
-  color: #F4F4F4;
+  color: #D9D9D9;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .extended-icon {
