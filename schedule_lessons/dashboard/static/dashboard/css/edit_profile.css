@@ -1,10 +1,5 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
+
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 
 html body {
   height: 100%;
@@ -125,7 +120,7 @@ html body {
 /* END Navbar for logged in Users */
 
 .container {
-  margin-top: 1%;
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -137,15 +132,15 @@ html body {
     position: relative;
 }
 
-.bd-crop-picture-modal-lg {
+#cropPictureModal {
   height:95%;
 }
 
-#crop-modal-dialog, #crop-modal-content {
+#cropModalDialog, #cropModalContent {
   height: inherit;
 }
 
-#crop-modal-body {
+#cropModalBody {
   height:74%;
   margin-bottom:4%;
 }
