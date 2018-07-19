@@ -124,16 +124,16 @@ html body {
 
 .container {
   background-color: #F4F4F4;
-  margin-top: 5%;
+  margin-top: 50px;
   text-align: center;
 }
 
 .picture-container {
-    text-align: center;
-    margin: 0 auto;
-    width: 300px;
-    height: 200px;
-    overflow: hidden;
+  text-align: center;
+  margin: 0 auto;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
 }
 
 #profilePicture {
@@ -163,25 +163,14 @@ html body {
 }
 
 .title {
-    color: grey;
-    font-size: 22px;
-    margin-bottom: 0.8%;
+  color: grey;
+  font-size: 22px;
+  margin-bottom: 0.8%;
 }
 
-.availability-id {
+#availabilityId {
   display: inline-block;
-  height: 50px;
   margin: 0.2% auto;
-}
-
-.modal-title {
-  margin-left: auto;
-  font-family: LightFont;
-  font-size: 35px;
-}
-
-.extra {
-  margin-bottom: 10%;
 }
 
 #edit_profile {
@@ -194,10 +183,6 @@ html body {
   color: green;
   margin-top: 0.6%;
   margin-bottom: 0;
-}
-
-.nav-item .active {
-  color: white;
 }
 
 @media (max-width: 400px) {

@@ -8,7 +8,7 @@ $(document).ready(function () {
 
   /* ALL CODE BELOW RELATED TO CROPPING PICTURE */
 
-  var cropped = $("#crop_picture").croppie({
+  var cropped = $("#cropPicture").croppie({
     viewport: {
         width: 200,
         height: 200,
@@ -16,12 +16,12 @@ $(document).ready(function () {
     }
   });
 
-  $("#input_pfp").change(function () {
-    $(".bd-crop-picture-modal-lg").modal();
+  $("#inputPfp").change(function () {
+    $("#cropPictureModal").modal();
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#crop_picture').attr('src', e.target.result);
+            $('#cropPicture').attr('src', e.target.result);
             img_url = e.target.result;
         }
         reader.readAsDataURL(this.files[0]);
@@ -29,7 +29,7 @@ $(document).ready(function () {
 
   });
 
-  $('.bd-crop-picture-modal-lg').on('shown.bs.modal', function (e) {
+  $('#cropPictureModal').on('shown.bs.modal', function (e) {
     cropped.croppie('bind', {
       url: img_url,
       points: [77,469,280,739]
@@ -51,12 +51,12 @@ $(document).ready(function () {
                     }
                 });
 
-								$('.bd-crop-picture-modal-lg').modal('hide');
+								$('#cropPictureModal').modal('hide');
               })
   });
 
   $(".text").on("click", function() {
-    $("#input_pfp").click();
+    $("#inputPfp").click();
   });
 
 });
