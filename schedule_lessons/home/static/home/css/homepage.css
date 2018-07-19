@@ -110,6 +110,7 @@ body {
     padding: 1rem;
     position: fixed;
     border-radius: .25rem;
+    z-index: 2;
   }
 
   #loggedInNavbar .navbar-brand {
