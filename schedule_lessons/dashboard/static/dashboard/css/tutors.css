@@ -15,11 +15,13 @@ html body {
   background-color: #F4F4F4;
 }
 
-.navbar {
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
   background-color: #4A4A4A;
 }
 
-.navbar .navbar-brand {
+#loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: AvenirNext-DemiBold;
   padding-top: 0.15%;
@@ -27,11 +29,11 @@ html body {
   margin-right: 5%;
 }
 
-.nav-item {
+#loggedInNavbar .nav-item {
   font-family: AvenirNext-Medium;
 }
 
-.mr-auto .nav-item {
+#loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
@@ -58,39 +60,13 @@ html body {
   cursor: pointer;
 }
 
-.navbar-expand-lg .navbar-nav .dropdown-menu {
+#signOutDropdown {
   position: absolute;
-}
-
-.collapse .sign-out-dropdown {
   text-align: center;
 }
 
 #openNavigation {
   margin-right: 2%;
-}
-
-#navbarContent {
-  top: 70px;
-  right: 10px;
-  background-color: #4F4F4F;
-  width: 50%;
-  padding: 1rem;
-  position: fixed;
-  border-radius: .25rem;
-}
-
-#navbarContent .nav-link {
-  text-decoration: none;
-  color: rgba(255,255,255,.5);
-}
-
-#navbarContent .nav-link:hover {
-  color: rgba(255,255,255,.75);
-}
-
-#navbarContent #active {
-  color: white;
 }
 
 #extendedNavbar {
@@ -116,6 +92,32 @@ html body {
 .extended-icon {
   margin-right: 4px;
 }
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    right: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+}
+/* END Navbar for logged in Users */
 
 #main {
   text-align: center;
@@ -210,21 +212,3 @@ html body {
   margin-bottom: 1%;
 }
 */
-
-.alignRight {
-  top: 70px;
-  right: 10px;
-  background-color: #4F4F4F;
-}
-
-.alignRight a {
-  text-decoration: none;
-  color: rgba(255,255,255,.5);
-}
-.alignRight a:hover {
-  color: rgba(255,255,255,.75);
-}
-
-.nav-item .active {
-  color: white;
-}

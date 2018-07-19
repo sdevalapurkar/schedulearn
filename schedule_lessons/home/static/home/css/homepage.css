@@ -47,20 +47,112 @@ body {
   src: url("../fonts/adam-cg-pro.regular.otf");
 }
 
-nav {
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
   background-color: #4A4A4A;
 }
 
-.nav-link {
+#loggedInNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+#loggedInNavbar .nav-item {
+  font-family: AvenirNext-Medium;
+}
+
+#loggedInNavbar .mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+#userProfileInfo {
+  display: inline;
+}
+
+#userName {
+  float: left;
+}
+
+#userPicContainer {
+  float: right;
+}
+
+#userPic {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+#userPic:hover {
+  cursor: pointer;
+}
+
+#signOutDropdown {
+  position: absolute;
+  text-align: center;
+}
+
+#openNavigation {
+  margin-right: 2%;
+}
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    right: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+}
+/* END Navbar for logged in Users */
+/* Navbar for logged out Users */
+
+#loggedOutNavbar {
+  background-color: #4A4A4A;
+}
+
+#loggedOutNavbar .nav-link {
   color: white;
   font-family: avenir-next;
   font-size: 130%;
 }
 
-.nav-link:hover {
+#loggedOutNavbar .nav-link:hover {
   text-decoration: none;
   color: #E54F52;
 }
+
+#loggedOutNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: AvenirNext-DemiBold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+
+/* END Navbar for logged out Users */
 
 .main-background {
   background-image: url("../images/main-background.jpg");
