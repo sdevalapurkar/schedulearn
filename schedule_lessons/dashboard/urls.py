@@ -13,5 +13,5 @@ urlpatterns = [
     path('remove_student/<id>/', views.remove_student, name='remove_student'),
     path('add_tutor/<id>/', views.add_tutor, name='add_tutor'),
     path('remove_tutor/<id>/', views.remove_tutor, name='remove_tutor'),
-
+    path('get_profile_pic/', views.get_profile_pic, name='get_profile_pic'),
 ]
