@@ -184,6 +184,13 @@ body {
   margin-bottom: 20px;
 }
 
+.tutor {
+  width: 60%;
+  margin: 0 auto;
+  border: 2px solid #4A4A4A;
+  margin-bottom: 20px;
+}
+
 .main-information {
   width: 100%;
   display: inline-flex;
