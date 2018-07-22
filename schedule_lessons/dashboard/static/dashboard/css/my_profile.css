@@ -1,8 +1,7 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 
 html {
   height: 100%;
@@ -21,14 +20,14 @@ body {
 
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
-  font-family: AvenirNext-DemiBold;
+  font-family: avenir-next-demibold;
   padding-top: 0.15%;
   padding-bottom: 0.15%;
   margin-right: 5%;
 }
 
 #loggedInNavbar .nav-item {
-  font-family: AvenirNext-Medium;
+  font-family: avenir-next-medium;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
@@ -105,7 +104,7 @@ body {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
-    font-family: AvenirNext-DemiBold;
+    font-family: avenir-next-demibold;
     padding-top: 0.15%;
     padding-bottom: 0.15%;
     margin-right: auto;
@@ -127,8 +126,7 @@ body {
 /* END Navbar for logged in Users */
 
 .container {
-  background-color: #F4F4F4;
-  margin-top: 50px;
+  margin-top: 55px;
   text-align: center;
 }
 
@@ -138,6 +136,7 @@ body {
   width: 300px;
   height: 200px;
   overflow: hidden;
+  margin-bottom: 1rem;
 }
 
 #profilePicture {
@@ -147,62 +146,21 @@ body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
-  border: 2px solid;
-  border-color: #D14F52;
 }
 
 #userName {
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
+  font-family: avenir-next;
 }
 
 #userType {
   text-transform: capitalize;
-}
-
-#copy {
-  font-size: 25px;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline:none;
-  float: left;
-}
-
-#ID {
-  width: 350px;
-  text-align: center;
-  float: left;
+  margin-bottom: .5rem;
+  color: #4A4A4A;
 }
 
 .title {
   color: grey;
   font-size: 22px;
-  margin-bottom: 0.5rem;
-}
-
-#availabilityId {
-  display: inline-block;
-  margin: 0.2% auto;
-}
-
-#edit_profile {
-  float: right;
-  margin-right: 5%;
-}
-
-.confirm-list {
   font-family: avenir-next;
-  color: green;
-  margin-top: 0.6%;
-  margin-bottom: 0;
-}
-
-@media (max-width: 400px) {
-  #ID {
-    width: 250px;
-    text-align: center;
-    float: left;
-  }
 }
