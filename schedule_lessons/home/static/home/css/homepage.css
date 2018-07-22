@@ -15,6 +15,7 @@ paragraph: Rounded_Elegance
 @font-face { font-family: DINCondensed-Bold; src: url("../fonts/DINCondensed-Bold.ttf"); }
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 html {
@@ -25,95 +26,6 @@ html {
 body {
   height: 100%;
 }
-
-/* Navbar for logged in Users */
-
-#loggedInNavbar {
-  background-color: #4A4A4A;
-}
-
-#loggedInNavbar .navbar-brand {
-  font-size: 180%;
-  font-family: AvenirNext-DemiBold;
-  padding-top: 0.15%;
-  padding-bottom: 0.15%;
-  margin-right: 5%;
-}
-
-#loggedInNavbar .nav-item {
-  font-family: AvenirNext-Medium;
-}
-
-#loggedInNavbar .mr-auto .nav-item {
-  padding-right: 15px;
-}
-
-#userProfileInfo {
-  display: inline;
-}
-
-#userName {
-  float: left;
-}
-
-#userPicContainer {
-  float: right;
-}
-
-#userPic {
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  border-radius: 50%;
-}
-
-#userPic:hover {
-  cursor: pointer;
-}
-
-#signOutDropdown {
-  position: absolute;
-  text-align: center;
-}
-
-#openNavigation {
-  margin-right: 15px;
-}
-
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
-  }
-
-  #loggedInNavbar .navbar-brand {
-    font-size: 180%;
-    font-family: AvenirNext-DemiBold;
-    padding-top: 0.15%;
-    padding-bottom: 0.15%;
-    margin-right: auto;
-  }
-
-  #navbarContent .nav-link {
-    text-decoration: none;
-    color: rgba(255,255,255,.5);
-  }
-
-  #navbarContent .nav-link:hover {
-    color: rgba(255,255,255,.75);
-  }
-
-  #loggedInNavbar .active .nav-link {
-    color: white;
-  }
-}
-/* END Navbar for logged in Users */
 
 /* Navbar for logged out Users */
 
@@ -134,7 +46,7 @@ body {
 
 #loggedOutNavbar .navbar-brand {
   font-size: 180%;
-  font-family: AvenirNext-DemiBold;
+  font-family: avenir-next-demibold;
   padding-top: 0.15%;
   padding-bottom: 0.15%;
   margin-right: 5%;
@@ -287,7 +199,6 @@ body {
   font-family: DINCondensed-Bold;
   letter-spacing: 12.24px;
   text-align: center;
-  font-family: DINCondensed-Bold;
   font-size: 180%;
   margin-top: 2%;
   margin-bottom: 4%;
