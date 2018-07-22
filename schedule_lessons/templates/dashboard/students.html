@@ -22,33 +22,33 @@
 </head>
 <body>
 
-  <!-- navbar start for signed in users -->
+  <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
     <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
+    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
         <li class="nav-item active">
           {% if user.profile.user_type == 'tutor' %}
-          <a class="nav-link" href="{% url 'students' %}">MY STUDENTS</a>
+          <a class="nav-link" href="{% url 'students' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
           {% else %}
-          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS</a>
+          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS<span class="sr-only">(current)</span></a>
           {% endif %}
         </li>
       </ul>
-      <div class="navbar-nav" id="userProfileInfo">
-        <div id="userName" class="nav-item">
+      <div class="navbar-nav" id="myProfileInfo">
+        <div id="myName" class="nav-item">
           <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
         </div>
-        <div id="userPicContainer" class="nav-item dropdown">
-          <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="myPicContainer" class="nav-item dropdown">
+          <div id="myPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           </div>
           <div id="signOutDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a href="{% url 'logout' %}">Sign Out</a>
@@ -57,6 +57,8 @@
       </div>
     </div>
   </nav>
+  <!-- end main navbar -->
+  <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
     <a class="extended-button" href="{% url 'students' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
@@ -67,9 +69,8 @@
       {% endif %}
       <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
     </form>
-  </div>
-</nav>
-<!-- End navbar for signed in users -->
+  </nav>
+  <!-- end extended navbar for signed in users -->
 
 <div id="main">
   {% if students %}
@@ -91,7 +92,7 @@
 </div>
 
 <style>
-#userPic {
+#myPic {
   background-image: url('/media/{{ user.profile.profile_pic }}');
 }
 </style>

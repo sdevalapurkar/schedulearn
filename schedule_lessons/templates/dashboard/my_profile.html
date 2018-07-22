@@ -15,13 +15,13 @@
 </head>
 <body>
 
-  <!-- navbar start for signed in users -->
+  <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
     <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
+    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
@@ -50,10 +50,12 @@
       </div>
     </div>
   </nav>
+  <!-- end main navbar -->
+  <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
     <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT MY PROFILE</a>
   </nav>
-  <!-- End navbar for signed in users -->
+  <!-- end extended navbar for signed in users -->
 
   <div class="container">
     {% if changed_email %}
@@ -69,12 +71,6 @@
     <p id="userType" class="title">{{ user.profile.user_type }}</p>
     <p class="title">{{ user.email }}</p>
 
-    <!-- <div id="availabilityId">
-      <input type="text" class="form-control" id="ID" value="{{ user.profile.id }}" disabled="readonly" </input>
-      <button id="copy" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Copy your ID" class="center">
-        <i class="far fa-clipboard"></i>
-      </button>
-    </div> -->
   </div>
 
   <style>
