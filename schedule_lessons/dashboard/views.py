@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import json
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Relationship, Event
+from .models import Relationship, Lesson
 from accounts.models import Profile
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -13,11 +13,11 @@ import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
-# # used to set an event for a student. Later implementation will require another
-# # method like this for tutors to set events, or it can be done in this method
+# # used to set a Lesson for a student. Later implementation will require another
+# # method like this for tutors to set Lessons, or it can be done in this method
 # # using if-else to check for user_type of requesting user.
 # @login_required
-# def set_event(request):
+# def set_Lesson(request):
 #     if request.method == 'POST':
 #         data = request.POST
 #         try:
@@ -30,8 +30,8 @@ from schedule_lessons.local_settings import *
 #             location = data.get('lessonLocation')
 #             tutor = User.objects.get(profile__id=data.get('tutorID'))
 #
-#             event = Event(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
-#             event.save()
+#             Lesson = Lesson(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
+#             Lesson.save()
 #
 #             with get_connection(
 #                 host=EMAIL_HOST,
@@ -109,46 +109,46 @@ def agenda(request):
     if request.method == 'GET':
         user_type = request.user.profile.user_type
 
-        pending_event_list = []
-        scheduled_event_list = []
+        pending_lesson_list = []
+        scheduled_lesson_list = []
         if user_type == 'student':
-            events = Event.objects.filter(student=request.user)
+            lessons = Lesson.objects.filter(student=request.user)
         else:
-            events = Event.objects.filter(tutor=request.user)
-        for event in events:
+            lessons = Lesson.objects.filter(tutor=request.user)
+        for lesson in lessons:
             try:
                 data = {
-                    'id': event.id,
-                    'name': event.name,
-                    'location': event.location,
-                    'tutor_name': event.tutor.get_full_name(),
-                    'tutor_id': event.tutor.profile.id,
-                    'tutor_username': event.tutor.username,
-                    'student_name': event.student.get_full_name(),
-                    'student_id': event.student.profile.id,
-                    'student_username': event.student.username,
-                    'start_date': event.start_time,
-                    'end_date': event.end_time,
-                    'start_shortdate': event.start_time.strftime('%B'),
-                    'start_week_day': event.start_time.strftime('%A'),
-                    'start_month_day': event.start_time.strftime('%d'),
-                    'start_time': event.start_time.strftime('%I:%M %p'),
-                    'end_shortdate': event.end_time.strftime('%B, %Y'),
-                    'end_week_day': event.end_time.strftime('%A'),
-                    'end_month_day': event.end_time.strftime('%d'),
-                    'end_time': event.end_time.strftime('%I:%M %p'),
-                    'description': event.description
+                    'id': lesson.id,
+                    'name': lesson.name,
+                    'location': lesson.location,
+                    'tutor_name': lesson.tutor.get_full_name(),
+                    'tutor_id': lesson.tutor.profile.id,
+                    'tutor_username': lesson.tutor.username,
+                    'student_name': lesson.student.get_full_name(),
+                    'student_id': lesson.student.profile.id,
+                    'student_username': lesson.student.username,
+                    'start_date': lesson.start_time,
+                    'end_date': lesson.end_time,
+                    'start_shortdate': lesson.start_time.strftime('%B'),
+                    'start_week_day': lesson.start_time.strftime('%A'),
+                    'start_month_day': lesson.start_time.strftime('%d'),
+                    'start_time': lesson.start_time.strftime('%I:%M %p'),
+                    'end_shortdate': lesson.end_time.strftime('%B, %Y'),
+                    'end_week_day': lesson.end_time.strftime('%A'),
+                    'end_month_day': lesson.end_time.strftime('%d'),
+                    'end_time': lesson.end_time.strftime('%I:%M %p'),
+                    'description': lesson.description
                 }
-                if event.pending:
-                    pending_event_list.append(data)
+                if lesson.pending:
+                    pending_lesson_list.append(data)
                 else:
-                    scheduled_event_list.append(data)
+                    scheduled_lesson_list.append(data)
             except Exception as e:
                 pass
         no_results_found = request.GET.get('no_search_result')
         if no_results_found:
-            return render(request, 'dashboard/agenda.html', {'scheduled_events': scheduled_event_list, 'pending_events': pending_event_list, 'no_results': 'No results were found'})
-        return render(request, 'dashboard/agenda.html', {'scheduled_events': scheduled_event_list, 'pending_events': pending_event_list})
+            return render(request, 'dashboard/agenda.html', {'scheduled_lessons': scheduled_lesson_list, 'pending_lessons': pending_lesson_list, 'no_results': 'No results were found'})
+        return render(request, 'dashboard/agenda.html', {'scheduled_lessons': scheduled_lesson_list, 'pending_lessons': pending_lesson_list})
 
     return HttpResponse(status=404)
 
