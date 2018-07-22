@@ -73,23 +73,23 @@
   <!-- end extended navbar for signed in users -->
 
   <div id="mainScheduled">
-    {% if scheduled_events %}
+    {% if scheduled_lessons %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
-    {% for scheduled_event in scheduled_events %}
+    {% for scheduled_lesson in scheduled_lessons %}
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ scheduled_event.start_month_day }}</span>
-          <span class="date-month">{{ scheduled_event.start_shortdate }}</span>
+          <span class="date-day">{{ scheduled_lesson.start_month_day }}</span>
+          <span class="date-month">{{ scheduled_lesson.start_shortdate }}</span>
         </div>
         <div class="title-and-description">
-          <h4 class="lesson-title">{{ scheduled_event.name }}</h4>
-          <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_event.location }}</span></p>
-          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_event.start_time }} - {{ scheduled_event.end_time }}</span></p>
+          <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
+          <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
+          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time }} - {{ scheduled_lesson.end_time }}</span></p>
           {% if user.profile.user_type == 'tutor' %}
-          <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_event.student_name }}</span></p>
+          <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
           {% else %}
-          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_event.tutor_name }}</span></p>
+          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
           {% endif %}
         </div>
       </div>
@@ -98,21 +98,21 @@
     {% endif %}
   </div>
   <div id="mainPending">
-    {% if pending_events %}
+    {% if pending_lessons %}
     <h2 id="pendingLabel" class="group-title">PENDING LESSONS</h2>
 
-    {% for pending_event in pending_events %}
+    {% for pending_lesson in pending_lessons %}
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ pending_event.start_month_day }}</span>
-          <span class="date-month">{{ pending_event.start_shortdate }}</span>
+          <span class="date-day">{{ pending_lesson.start_month_day }}</span>
+          <span class="date-month">{{ pending_lesson.start_shortdate }}</span>
         </div>
         <div class="title-and-description">
-          <h4 class="lesson-title">{{ pending_event.name }}</h4>
-          <p class="extended-field">Location: <span class="extended-detail">{{ pending_event.location }}</span></p>
-          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_event.start_time }} - {{ pending_event.end_time }}</span></p>
-          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_event.tutor_name }}</span></p>
+          <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
+          <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
+          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time }} - {{ pending_lesson.end_time }}</span></p>
+          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_lesson.tutor_name }}</span></p>
         </div>
       </div>
     </div>
