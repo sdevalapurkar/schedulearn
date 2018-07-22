@@ -169,8 +169,9 @@ html body {
   background-color: #D14F52;
   color: white;
   font-size: 32px;
-  padding: 0 15px;
+  padding: 5px 15px;
   text-align: center;
+  border-radius: 50%;
 }
 
 #profilePicture {

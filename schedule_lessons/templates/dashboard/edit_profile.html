@@ -40,7 +40,7 @@
       </ul>
       <div class="navbar-nav" id="userProfileInfo">
         <div id="userName" class="nav-item active">
-          <a class="nav-link" href="{% url 'my_profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+          <a class="nav-link" href="#">{{ user.first_name }} {{ user.last_name }}</a>
         </div>
         <div id="userPicContainer" class="nav-item dropdown">
           <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +53,8 @@
     </div>
   </nav>
   <nav id="extendedNavbar">
-    <span class="extended-button" id="saveChanges" href="{% url 'edit_profile' %}"><i class="fas fa-check extended-icon"></i>SAVE CHANGES</span>
+    <a class="extended-button" id="cancelChanges" href="{% url 'my_profile' %}"><i class="fas fa-ban extended-icon"></i>CANCEL CHANGES</a>
+    <span class="extended-button" id="saveChanges"><i class="fas fa-check extended-icon"></i>SAVE CHANGES</span>
   </nav>
   <!-- navbar end -->
 
