@@ -58,6 +58,7 @@
     </div>
   </nav>
   <nav id="extendedNavbar">
+    <a class="extended-button" href="{% url 'students' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
       {% if no_results %}
       <input id="searchInput" class="form-control error-list" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search" value="{{ no_results }}">
@@ -66,33 +67,34 @@
       {% endif %}
       <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
     </form>
-  </nav>
-  <!-- End navbar for signed in users -->
+  </div>
+</nav>
+<!-- End navbar for signed in users -->
 
-  <div id="main">
-    {% if students %}
-    <h2 id="mainTitle">MY STUDENTS</h2>
-    {% for student in students %}
-    <div class="student">
-      <div class="main-information">
-        <div class="student-pfp-container">
-          <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
-        </div>
-        <div class="student-main-info">
-          <a class="student-link" href="{{ student.public_profile_url }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
-          <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
-        </div>
+<div id="main">
+  {% if students %}
+  <h2 id="mainTitle">MY STUDENTS</h2>
+  {% for student in students %}
+  <div class="student">
+    <div class="main-information">
+      <div class="student-pfp-container">
+        <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
+      </div>
+      <div class="student-main-info">
+        <a class="student-link" href="{{ student.public_profile_url }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+        <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
       </div>
     </div>
-    {% endfor %}
-    {% endif %}
   </div>
+  {% endfor %}
+  {% endif %}
+</div>
 
-  <style>
-  #userPic {
-    background-image: url('/media/{{ user.profile.profile_pic }}');
-  }
-  </style>
+<style>
+#userPic {
+  background-image: url('/media/{{ user.profile.profile_pic }}');
+}
+</style>
 
 </body>
 </html>
