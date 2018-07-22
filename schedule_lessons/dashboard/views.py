@@ -152,45 +152,43 @@ def agenda(request):
 
     return HttpResponse(status=404)
 
-# will get executed when a student tries to go to the tutors page.
-# method will return a list of tutors that the student has added.
 @login_required
-def tutors(request):
-    tutors = []
-    relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
-    for relationship in relationships:
-        url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.tutor.profile.id)
-        tutor_data = {
-            'first_name': relationship.tutor.first_name,
-            'last_name': relationship.tutor.last_name,
-            'email': relationship.tutor.email,
-            'profile_pic': relationship.tutor.profile.profile_pic,
-            'public_profile_url': url,
-        }
-        tutors.append(tutor_data)
-    no_results_found = request.GET.get('no_search_result')
-    if no_results_found:
-        return render(request, 'dashboard/tutors.html', {'tutors': tutors, 'no_results': 'No results were found'})
-    return render(request, 'dashboard/tutors.html', {'tutors': tutors})
+def relationships(request):
+    if request.user.profile.user_type == 'tutor':
+        students = []
+        relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+        for relationship in relationships:
+            url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.student.profile.id)
+            student_data = {
+                'first_name': relationship.student.first_name,
+                'last_name': relationship.student.last_name,
+                'email': relationship.student.email,
+                'profile_pic': relationship.student.profile.profile_pic,
+                'public_profile_url': url,
+            }
+            students.append(student_data)
+        no_results_found = request.GET.get('no_search_result')
+        if no_results_found:
+            return render(request, 'dashboard/relationships.html', {'students': students, 'no_results': 'No results were found'})
+        return render(request, 'dashboard/relationships.html', {'students': students})
+    else:
+        tutors = []
+        relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+        for relationship in relationships:
+            url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.tutor.profile.id)
+            tutor_data = {
+                'first_name': relationship.tutor.first_name,
+                'last_name': relationship.tutor.last_name,
+                'email': relationship.tutor.email,
+                'profile_pic': relationship.tutor.profile.profile_pic,
+                'public_profile_url': url,
+            }
+            tutors.append(tutor_data)
+        no_results_found = request.GET.get('no_search_result')
+        if no_results_found:
+            return render(request, 'dashboard/relationships.html', {'tutors': tutors, 'no_results': 'No results were found'})
+        return render(request, 'dashboard/relationships.html', {'tutors': tutors})
 
-@login_required
-def students(request):
-    students = []
-    relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
-    for relationship in relationships:
-        url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.student.profile.id)
-        student_data = {
-            'first_name': relationship.student.first_name,
-            'last_name': relationship.student.last_name,
-            'email': relationship.student.email,
-            'profile_pic': relationship.student.profile.profile_pic,
-            'public_profile_url': url,
-        }
-        students.append(student_data)
-    no_results_found = request.GET.get('no_search_result')
-    if no_results_found:
-        return render(request, 'dashboard/students.html', {'students': students, 'no_results': 'No results were found'})
-    return render(request, 'dashboard/students.html', {'students': students})
 
 @login_required
 def search(request):
