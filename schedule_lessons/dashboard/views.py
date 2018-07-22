@@ -310,6 +310,11 @@ def remove_tutor(request, id):
     old_rel.delete()
     return public_profile(request, id)
 
+@login_required
+def get_profile_pic(request):
+    user_pfp = str(request.user.profile.profile_pic)
+    return HttpResponse(user_pfp, status=200)
+
 def relationship_exists(student, tutor):
     try:
         Relationship.objects.get(student=student, tutor=tutor)

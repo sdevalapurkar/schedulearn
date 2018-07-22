@@ -1,12 +1,11 @@
 $(document).ready(function () {
 
-  $('#copy').click(function() {
-    var tutor_id = $("#ID");
-    tutor_id.select();
-    document.execCommand("copy");
+  $.ajax({
+    type: 'GET',
+    url: '/dashboard/get_profile_pic/',
+    success: function (data) {
+      $("#myPic").css("background-image", "url('/media/" + data + "')");
+    }
   });
 
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
 });
