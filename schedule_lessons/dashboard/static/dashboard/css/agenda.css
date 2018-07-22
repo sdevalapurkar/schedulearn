@@ -10,10 +10,15 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
-html body {
+html {
+  height: 100%;
+}
+
+body {
   height: 100%;
   background-color: #F4F4F4;
 }
+
 
 /* Navbar for logged in Users */
 
@@ -37,26 +42,26 @@ html body {
   padding-right: 15px;
 }
 
-#userProfileInfo {
+#myProfileInfo {
   display: inline;
 }
 
-#userName {
+#myName {
   float: left;
 }
 
-#userPicContainer {
+#myPicContainer {
   float: right;
 }
 
-#userPic {
+#myPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#userPic:hover {
+#myPic:hover {
   cursor: pointer;
 }
 

@@ -17,18 +17,18 @@
 </head>
 <body>
 
-  <!-- navbar start for signed in users -->
+  <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
     <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
+    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
         <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
@@ -38,12 +38,12 @@
           {% endif %}
         </li>
       </ul>
-      <div class="navbar-nav" id="userProfileInfo">
-        <div id="userName" class="nav-item active">
-          <a class="nav-link" href="#">{{ user.first_name }} {{ user.last_name }}</a>
+      <div class="navbar-nav" id="myProfileInfo">
+        <div id="myName" class="nav-item active">
+          <a class="nav-link" href="#">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></a>
         </div>
-        <div id="userPicContainer" class="nav-item dropdown">
-          <div id="userPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="myPicContainer" class="nav-item dropdown">
+          <div id="myPic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           </div>
           <div id="signOutDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a href="{% url 'logout' %}">Sign Out</a>
@@ -52,11 +52,13 @@
       </div>
     </div>
   </nav>
+  <!-- end main navbar -->
+  <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
     <a class="extended-button" id="cancelChanges" href="{% url 'my_profile' %}"><i class="fas fa-ban extended-icon"></i>CANCEL CHANGES</a>
     <span class="extended-button" id="saveChanges"><i class="fas fa-check extended-icon"></i>SAVE CHANGES</span>
   </nav>
-  <!-- navbar end -->
+  <!-- end extended navbar for signed in users -->
 
   <div id="cropPictureModal" class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
     <div id="cropModalDialog" class="modal-dialog modal-lg">
@@ -117,7 +119,7 @@
     font-family: avenir-next;
   }
 
-  #userPic {
+  #myPic {
     background-image: url('/media/{{ user.profile.profile_pic }}');
   }
 

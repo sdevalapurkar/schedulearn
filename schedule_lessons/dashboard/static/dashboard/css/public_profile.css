@@ -1,9 +1,10 @@
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+
+html {
+  height: 100%;
 }
 
-html, html body {
+body {
   height: 100%;
   background-color: #F4F4F4;
 }
