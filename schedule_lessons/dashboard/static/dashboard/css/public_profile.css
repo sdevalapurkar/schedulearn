@@ -1,4 +1,5 @@
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
 html {
   height: 100%;
@@ -183,45 +184,8 @@ body {
   color: #4A4A4A;
 }
 
-#copy {
-  font-size: 25px;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline:none;
-  float: left;
-}
-
-#ID {
-  width: 350px;
-  text-align: center;
-  float: left;
-}
-
 .title {
   color: grey;
   font-size: 22px;
   font-family: avenir-next;
-}
-
-.availability-id {
-  display: inline-block;
-  height: 50px;
-  margin: 0.2% auto;
-}
-
-.modal-title {
-  margin-left: auto;
-  font-family: LightFont;
-  font-size: 35px;
-}
-
-@media (max-width: 400px) {
-  #ID {
-    width: 250px;
-    text-align: center;
-    float: left;
-  }
 }

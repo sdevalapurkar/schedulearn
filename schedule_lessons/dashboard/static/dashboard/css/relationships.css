@@ -220,6 +220,36 @@ body {
   color: black;
 }
 
+.tutor-pfp-container {
+  height: 100%;
+  background-color: #D14F52;
+}
+
+.tutor-pfp {
+  height: 100%;
+  border-right: 2px solid #4A4A4A;
+}
+
+.tutor-main-info {
+  height: 70px;
+  background-color: white;
+  width: 100%;
+  padding-left: 1%;
+}
+
+.tutor-name {
+  padding-top: 0.5%;
+  font-family: BebasNeueRegular;
+  text-align: left;
+  font-size: 200%;
+  margin-bottom: 0;
+  color: #4a4a4a;
+}
+
+.tutor-link:hover {
+  color: black;
+}
+
 .extended-field {
   text-align: left;
   margin-bottom: 0;
