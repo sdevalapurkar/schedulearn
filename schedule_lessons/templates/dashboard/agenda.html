@@ -59,6 +59,14 @@
   </nav>
   <nav id="extendedNavbar">
     <a class="extended-button" href="{% url 'students' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+      {% if no_results %}
+      <input id="searchInput" class="form-control error-list" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search" value="{{ no_results }}">
+      {% else %}
+      <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+      {% endif %}
+      <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+    </form>
   </nav>
   <!-- End navbar for signed in users -->
 
@@ -89,7 +97,7 @@
   </div>
   <div id="mainPending">
     {% if pending_events %}
-    <h2 class="group-title">PENDING LESSONS</h2>
+    <h2 id="pendingLabel" class="group-title">PENDING LESSONS</h2>
 
     {% for pending_event in pending_events %}
     <div class="lesson">

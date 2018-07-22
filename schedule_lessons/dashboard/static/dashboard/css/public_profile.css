@@ -3,8 +3,7 @@
   src: url("../fonts/AvenirNext-Regular.ttf");
 }
 
-
-html body {
+html, html body {
   height: 100%;
   background-color: #F4F4F4;
 }
@@ -31,26 +30,26 @@ html body {
   padding-right: 15px;
 }
 
-#userProfileInfo {
+#myProfileInfo {
   display: inline;
 }
 
-#userName {
+#myUsername {
   float: left;
 }
 
-#userPicContainer {
+#myPicContainer {
   float: right;
 }
 
-#userPic {
+#myPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#userPic:hover {
+#myPic:hover {
   cursor: pointer;
 }
 
@@ -155,11 +154,12 @@ html body {
 }
 
 .picture-container {
-    text-align: center;
-    margin: 0 auto;
-    width: 300px;
-    height: 200px;
-    overflow: hidden;
+  text-align: center;
+  margin: 0 auto;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 1rem;
 }
 
 #profilePicture {
@@ -169,6 +169,17 @@ html body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
+}
+
+#userName {
+  margin-bottom: .5rem;
+  font-family: avenir-next;
+}
+
+#userType {
+  text-transform: capitalize;
+  margin-bottom: .5rem;
+  color: #4A4A4A;
 }
 
 #copy {
@@ -189,8 +200,9 @@ html body {
 }
 
 .title {
-    color: grey;
-    font-size: 22px;
+  color: grey;
+  font-size: 22px;
+  font-family: avenir-next;
 }
 
 .availability-id {
@@ -201,8 +213,8 @@ html body {
 
 .modal-title {
   margin-left: auto;
-    font-family: LightFont;
-    font-size: 35px;
+  font-family: LightFont;
+  font-size: 35px;
 }
 
 @media (max-width: 400px) {
