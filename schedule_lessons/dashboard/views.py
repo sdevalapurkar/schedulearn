@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import json
 import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Relationship, Event
 from accounts.models import Profile
 from django.http import JsonResponse
@@ -145,6 +145,9 @@ def agenda(request):
                     scheduled_event_list.append(data)
             except Exception as e:
                 pass
+        no_results_found = request.GET.get('no_search_result')
+        if no_results_found:
+            return render(request, 'dashboard/agenda.html', {'scheduled_events': scheduled_event_list, 'pending_events': pending_event_list, 'no_results': 'No results were found'})
         return render(request, 'dashboard/agenda.html', {'scheduled_events': scheduled_event_list, 'pending_events': pending_event_list})
 
     return HttpResponse(status=404)
@@ -198,12 +201,8 @@ def search(request):
         url = request.build_absolute_uri('/') + "dashboard/profile/" + id
         return public_profile(request, id)
     except User.DoesNotExist as e:
-        if request.user.profile.user_type == 'tutor':
-            response = redirect('students')
-            response['Location'] += '?no_search_result=False'
-        else:
-            response = redirect('tutors')
-            response['Location'] += '?no_search_result=False'
+        response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        response['Location'] += '?no_search_result=False'
         return response
 
 def public_profile(request, id):
