@@ -10,7 +10,11 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: BebasNeueRegular; src: url("../fonts/BebasNeue-Regular.ttf");}
 
-html body {
+html {
+  height: 100%;
+}
+
+body {
   height: 100%;
   background-color: #F4F4F4;
 }
@@ -37,26 +41,26 @@ html body {
   padding-right: 15px;
 }
 
-#userProfileInfo {
+#myProfileInfo {
   display: inline;
 }
 
-#userName {
+#myName {
   float: left;
 }
 
-#userPicContainer {
+#myPicContainer {
   float: right;
 }
 
-#userPic {
+#myPic {
   width: 40px;
   height: 40px;
   background-size: cover;
   border-radius: 50%;
 }
 
-#userPic:hover {
+#myPic:hover {
   cursor: pointer;
 }
 
@@ -75,7 +79,6 @@ html body {
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
-  height: 40px;
   position: relative;
 }
 

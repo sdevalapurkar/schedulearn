@@ -34,7 +34,7 @@
           {% if user.profile.user_type == 'tutor' %}
           <a class="nav-link" href="{% url 'students' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
           {% else %}
-          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS</a>
+          <a class="nav-link" href="{% url 'tutors' %}">MY TUTORS<span class="sr-only">(current)</span></a>
           {% endif %}
         </li>
       </ul>
@@ -109,20 +109,13 @@
     {% if profile_user.profile.bio %}
     <p class="title"> {{ profile_user.profile.bio }}</p>
     {% endif %}
+  </div>
 
-    <!--<div class="availability-id">
-    <input type="text" class="form-control" id="ID" value="{{ profile_user.profile.id }}" disabled </input>
-    <button id="copy" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Copy your ID" class="center">
-    <i class="far fa-clipboard"></i>
-  </button>
-</div>-->
-</div>
-
-<style>
-#myPic {
-  background-image: url('/media/{{ user.profile.profile_pic }}');
-}
-</style>
+  <style>
+    #myPic {
+      background-image: url('/media/{{ user.profile.profile_pic }}');
+    }
+  </style>
 
 </body>
 </html>
