@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div id="container">
     <div class="picture-container">
       <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
       <div class="middle">
@@ -102,8 +102,12 @@
         <label for="email">Email Address</label>
         <input class="form-control" type="email" name="email" value="{{ user.email }}">
       </div>
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea id="userBio" name="bio" rows="8">{{ user.profile.bio }}</textarea>
+      </div>
 
-      <button id="profileSave" type="submit" class="btn btn-primary" hidden>Save Changes</button>
+      <button class="form-control" id="profileSave" type="submit" class="btn btn-primary" hidden>Save Changes</button>
     </form>
 
   </div>
@@ -118,7 +122,7 @@
     text-align: center;
     font-family: avenir-next;
   }
-  
+
   </style>
 </body>
 </html>

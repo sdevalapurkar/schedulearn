@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  height: 100%;
+  height: 140%;
   background-color: #F4F4F4;
 }
 
@@ -122,8 +122,8 @@ body {
 }
 /* END Navbar for logged in Users */
 
-.container {
-  margin-top: 50px;
+#container {
+  padding: 50px 15%;
   text-align: center;
 }
 
@@ -190,31 +190,9 @@ body {
   border-color: #D14F52;
 }
 
-#copy {
-  font-size: 25px;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  float: left;
-}
-
-#ID {
-  width: 400px;
-  text-align: center;
-  float: left;
-}
-
-.modal-title {
-  margin-left: auto;
-  font-family: LightFont;
-  font-size: 35px;
-}
-
-.availability-id {
-  display: table;
-  margin: 0 auto;
-  height: 40px;
+#userBio {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-family: avenir-next;
 }
