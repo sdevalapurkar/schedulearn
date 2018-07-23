@@ -97,18 +97,15 @@
   </nav>
   <!-- navbar end -->
   {% endif %}
-
-  <div class="container">
-    <div class="picture-container">
-      <img id="profilePicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="Profile Picture">
+  <div id="topPane">
+    <img id="userPicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="User's Profile Picture">
+    <div id="rightContent">
+      <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+      <h3 id="userType">{{ profile_user.profile.user_type }}</h3>
+      <h5 class="userDetails">Email: {{ profile_user.email }}</h5>
+      <h5 class="userDetails">Bio: {{ profile_user.profile.bio }}</h5>
     </div>
-    <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
 
-    <p id="userType" class="title">{{ profile_user.profile.user_type }}</p>
-    <p class="title">{{ profile_user.email }}</p>
-    {% if profile_user.profile.bio %}
-    <p class="title"> {{ profile_user.profile.bio }}</p>
-    {% endif %}
   </div>
 
 </body>
