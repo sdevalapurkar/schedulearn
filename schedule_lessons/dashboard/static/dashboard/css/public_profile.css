@@ -10,7 +10,7 @@ html {
   height: 100%;
 }
 
-html body {
+body {
   height: 100%;
   background-color: #F4F4F4;
 }
@@ -30,43 +30,36 @@ html body {
 }
 
 #loggedInNavbar .nav-item {
-  font-family: AvenirNext-Medium;
+  font-family: avenir-next;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
-#myProfileInfo {
-  display: inline;
-}
-
-#myUsername {
-  float: left;
-}
-
-#myPicContainer {
-  float: right;
-}
-
-#myPic {
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  border-radius: 50%;
-}
-
-#myPic:hover {
+#myName:hover {
   cursor: pointer;
 }
 
-#signOutDropdown {
+#myDropdown {
   position: absolute;
   text-align: center;
 }
 
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
 #openNavigation {
-  margin-right: 2%;
+  margin-right: 15px;
 }
 
 #extendedNavbar {
@@ -80,7 +73,7 @@ html body {
 .extended-button {
   font-size: 100%;
   color: #F4F4F4;
-  margin-right: 25px;
+  margin-right: 3%;
 }
 
 .extended-button:hover {
@@ -125,9 +118,15 @@ html body {
   #loggedInNavbar .active .nav-link {
     color: white;
   }
+
+  #myDropdown {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: auto;
+  }
 }
 /* END Navbar for logged in Users */
-/* Navbar for logged out Users */
 
 #loggedOutNavbar {
   background-color: #4A4A4A;

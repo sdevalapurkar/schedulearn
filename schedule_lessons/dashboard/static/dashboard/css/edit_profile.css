@@ -1,4 +1,5 @@
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 
 html {
   height: 100%;
@@ -17,50 +18,43 @@ body {
 
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
-  font-family: AvenirNext-DemiBold;
+  font-family: avenir-next-demibold;
   padding-top: 0.15%;
   padding-bottom: 0.15%;
   margin-right: 5%;
 }
 
 #loggedInNavbar .nav-item {
-  font-family: AvenirNext-Medium;
+  font-family: avenir-next;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
-#myProfileInfo {
-  display: inline;
-}
-
-#myName {
-  float: left;
-}
-
-#myPicContainer {
-  float: right;
-}
-
-#myPic {
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  border-radius: 50%;
-}
-
-#myPic:hover {
+#myName:hover {
   cursor: pointer;
 }
 
-#signOutDropdown {
+#myDropdown {
   position: absolute;
   text-align: center;
 }
 
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
 #openNavigation {
-  margin-right: 2%;
+  margin-right: 15px;
 }
 
 #extendedNavbar {
@@ -101,7 +95,7 @@ body {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
-    font-family: AvenirNext-DemiBold;
+    font-family: avenir-next-demibold;
     padding-top: 0.15%;
     padding-bottom: 0.15%;
     margin-right: auto;
@@ -118,6 +112,13 @@ body {
 
   #loggedInNavbar .active .nav-link {
     color: white;
+  }
+
+  #myDropdown {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: auto;
   }
 }
 /* END Navbar for logged in Users */
