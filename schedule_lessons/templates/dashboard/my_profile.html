@@ -57,22 +57,14 @@
   </nav>
   <!-- end extended navbar for signed in users -->
 
-  <div class="container">
-    {% if changed_email %}
-      <p class="confirm-list">Your email has successfully been changed. An email has been sent out to your new email address, please verify your email.</p>
-    {% endif %}
-
-    <div class="picture-container">
-      <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+  <div id="topPane">
+    <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" alt="User's Profile Picture">
+    <div id="rightContent">
+      <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
+      <h3 id="userType">{{ user.profile.user_type }}</h3>
+      <h5 class="userDetails">Email: {{ user.email }}</h5>
+      <h5 class="userDetails">Bio: {{ user.profile.bio }}</h5>
     </div>
-
-    <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-
-    <p id="userType" class="title">{{ user.profile.user_type }}</p>
-    <p class="title">{{ user.email }}</p>
-    {% if user.profile.bio %}
-    <p class="title"> {{ user.profile.bio }}</p>
-    {% endif %}
   </div>
 
 </body>
