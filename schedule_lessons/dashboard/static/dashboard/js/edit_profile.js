@@ -59,14 +59,6 @@ $(document).ready(function () {
     $("#inputPfp").click();
   });
 
-  $.ajax({
-    type: 'GET',
-    url: '/dashboard/get_profile_pic/',
-    success: function (data) {
-      $("#myPic").css("background-image", "url('/media/" + data + "')");
-    }
-  });
-
 });
 
 function getCookie(name) {
