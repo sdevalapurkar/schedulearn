@@ -252,6 +252,7 @@ def edit_profile(request):
         else:
             request.user.first_name = request.POST['firstName'] # save first name
             request.user.last_name = request.POST['lastName'] # save last name
+            request.user.profile.bio = request.POST['bio']
             # then handle email
             email = request.POST['email']
             if not email == request.user.email: # if the emails are not same that means the user changed emails
