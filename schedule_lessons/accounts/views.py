@@ -117,6 +117,8 @@ def personalize_view(request):
                 request.user.profile.user_type = 'tutor'
             else:
                 request.user.profile.user_type = 'student'
+        if 'bio' in request.POST:
+            request.user.profile.bio = request.POST['bio']
 
         request.user.save()
         return redirect('agenda')
