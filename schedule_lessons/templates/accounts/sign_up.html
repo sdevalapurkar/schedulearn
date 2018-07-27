@@ -17,12 +17,11 @@
 
       <div class="div-left"></div>
 
-      <div class="login">
-        <div class="already-account-text">Have an account?</div>
-        <a class="login-btn" href="{% url 'login' %}">LOGIN</a>
-      </div>
-
       <div class="form-right">
+        <div class="login">
+          <div class="already-account-text">Have an account?</div>
+          <a class="login-btn" href="{% url 'login' %}">LOGIN</a>
+        </div>
         <div class="form">
           <h3 class="get-started"><span class="static-text">Get started and stay </span><span class="changing-text">connected.</span></h3>
           <form class="sign-up-info" action="{% url 'signup' %}" method="POST">

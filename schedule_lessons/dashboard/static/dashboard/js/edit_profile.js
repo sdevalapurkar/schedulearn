@@ -2,44 +2,26 @@ var img_url;
 
 $(document).ready(function () {
 
-  $('#dashboard').click(function() {
-    window.open('/dashboard/', '_self');
+  $("#saveChanges").click(function() {
+    $("#profileSave").click();
   });
-
-  $('#scheduler').click(function() {
-    window.open('/dashboard/scheduler', '_self');
-  });
-
-  $('#myProfile').click(function() {
-    window.open('/dashboard/my_profile', '_self');
-  });
-
-  $('#copy').click(function() {
-    var tutor_id = $("#ID");
-    tutor_id.select();
-    document.execCommand("copy");
-  });
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
 
   /* ALL CODE BELOW RELATED TO CROPPING PICTURE */
 
-  var cropped = $("#crop_picture").croppie({
+  var cropped = $("#cropPicture").croppie({
     viewport: {
         width: 200,
         height: 200,
-        type: 'circle'
+        type: 'square'
     }
   });
 
-  $("#input_pfp").change(function () {
-    $(".bd-crop-picture-modal-lg").modal();
+  $("#inputPfp").change(function () {
+    $("#cropPictureModal").modal();
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#crop_picture').attr('src', e.target.result);
+            $('#cropPicture').attr('src', e.target.result);
             img_url = e.target.result;
         }
         reader.readAsDataURL(this.files[0]);
@@ -47,7 +29,7 @@ $(document).ready(function () {
 
   });
 
-  $('.bd-crop-picture-modal-lg').on('shown.bs.modal', function (e) {
+  $('#cropPictureModal').on('shown.bs.modal', function (e) {
     cropped.croppie('bind', {
       url: img_url,
       points: [77,469,280,739]
@@ -69,13 +51,13 @@ $(document).ready(function () {
                     }
                 });
 
-								$('.bd-crop-picture-modal-lg').modal('hide');
+								$('#cropPictureModal').modal('hide');
               })
   });
 
   $(".text").on("click", function() {
-    $("#input_pfp").click();
-  });gi
+    $("#inputPfp").click();
+  });
 
 });
 
