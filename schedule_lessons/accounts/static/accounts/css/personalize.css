@@ -26,6 +26,12 @@ nav-links/buttons: avenir-next
   src: url("../fonts/adam-cg-pro.regular.otf");
 }
 
+@font-face {
+  font-family: avenir-next;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
+
+
 html {
   background-color: #F4F4F4;
   height: 100%;
@@ -86,7 +92,7 @@ will be necessary. */
 .get-started {
   font-family: bariol;
   font-size: 240%;
-  margin-bottom: 10%;
+  margin-bottom: 20px;
 }
 
 .static-text {
@@ -104,11 +110,22 @@ will be necessary. */
   display: block;
 }
 
+.form-input {
+  font-family: avenir-next;
+  display: block;
+  width: 100%;
+  padding-left: 2%;
+  padding-top: 1.4%;
+  padding-bottom: 1.4%;
+  border-radius: 4px;
+  border: 1px solid #8D8D8D;
+}
+
 /* Profile Picture Styling */
 .picture-container {
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10%;
+  margin-bottom: 10px;
     width: 160px;
     position: relative;
 }
@@ -152,6 +169,14 @@ will be necessary. */
 
 /* END Profile Picture Styling */
 
+#userBio {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  font-family: avenir-next;
+  margin-bottom: 10px;
+}
+
 .teacher-input {
 
   display: inline-block;
@@ -173,7 +198,7 @@ will be necessary. */
   font-family: anson;
   padding: 7px 25px;
   display: inline-block;
-  margin-top: 6%;
+  margin-top: 10px;
   background-color: #E54F52;
   font-size: 130%;
     color: #F4F4F4;
@@ -212,13 +237,13 @@ will be necessary. */
 
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (min-width: 576px) and (max-width: 991.98px) {
   .div-left {
     display: none;
   }
 
   .div-right {
-    padding: 50% 0;
+    padding: 40% 0;
     float: none;
     text-align: center;
     width: 100%;
