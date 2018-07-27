@@ -1,7 +1,6 @@
 /*
 Black (navbar) Color: #4A4A4A;
 Red (extended-navbar) Color: #D14F52;
-Light Red (search button) Color: #E54F52;
 White (background) Color: #F4F4F4;
 */
 
@@ -9,6 +8,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: BebasNeueRegular; src: url("../fonts/BebasNeue-Regular.ttf");}
 
 html {
   height: 100%;
@@ -167,26 +167,24 @@ body {
 }
 /* END Navbar for logged in Users */
 
-#mainScheduled {
+#main {
   text-align: center;
 }
 
-#mainPending {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-.group-title {
+#mainTitle {
   font-size: 220%;
   font-family: adam-cg-pro;
   margin: 40px auto;
 }
 
-#pendingLabel {
-  margin-top: 50px;
+.student {
+  width: 60%;
+  margin: 0 auto;
+  border: 2px solid #4A4A4A;
+  margin-bottom: 20px;
 }
 
-.lesson {
+.tutor {
   width: 60%;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
@@ -196,48 +194,67 @@ body {
 .main-information {
   width: 100%;
   display: inline-flex;
-  height: 130px;
+  height: 70px;
 }
 
-.date {
-  min-width: 80px;
+.student-pfp-container {
   height: 100%;
   background-color: #D14F52;
-  font-family: code-bold;
-  color: #F4F4F4;
 }
 
-.date-day {
-  padding-top: 25px;
-  font-size: 300%;
-  margin-bottom: -25%;
-  margin-top: -11%;
-  display: block;
+.student-pfp {
+  height: 100%;
+  border-right: 2px solid #4A4A4A;
 }
 
-.date-month {
-  display: block;
-  font-size: 150%;
-}
-
-.title-and-description {
+.student-main-info {
+  height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.lesson-title {
+.student-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
   font-size: 200%;
   margin-bottom: 0;
+  color: #4a4a4a;
 }
 
-.extended-information {
+.student-link:hover {
+  color: black;
+}
+
+.tutor-pfp-container {
+  height: 100%;
+  background-color: #D14F52;
+}
+
+.tutor-pfp {
+  height: 100%;
+  border-right: 2px solid #4A4A4A;
+}
+
+.tutor-main-info {
+  height: 70px;
+  background-color: white;
   width: 100%;
-  background-color: #4F4F4F;
+  padding-left: 1%;
+}
+
+.tutor-name {
+  padding-top: 0.5%;
+  font-family: BebasNeueRegular;
   text-align: left;
+  font-size: 200%;
+  margin-bottom: 0;
+  color: #4a4a4a;
+}
+
+.tutor-link:hover {
+  color: black;
 }
 
 .extended-field {
