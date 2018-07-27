@@ -1,5 +1,4 @@
 /*
-
 Colors:
 Primary Light Red Color: #E54F52;
 Primary Dark Red Primary Color: #D14F52
@@ -10,8 +9,14 @@ Title: adam-cg-pro
 Subtitle: DINCondensed-Bold
 nav-links/buttons: avenir-next
 paragraph: Rounded_Elegance
-
 */
+
+@font-face { font-family: rounded-elegance; src: url("../fonts/Rounded_Elegance.ttf"); }
+@font-face { font-family: DINCondensed-Bold; src: url("../fonts/DINCondensed-Bold.ttf"); }
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 html {
   height: 100%;
@@ -22,45 +27,32 @@ body {
   height: 100%;
 }
 
-@font-face {
-  font-family: rounded-elegance;
-  src: url("../fonts/Rounded_Elegance.ttf");
-}
+/* Navbar for logged out Users */
 
-@font-face {
-  font-family: DINCondensed-Bold;
-  src: url("../fonts/DINCondensed-Bold.ttf");
-}
-
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
-
-@font-face {
-  font-family: avenir-next-medium;
-  src: url("../fonts/AvenirNext-Medium.ttf");
-}
-
-@font-face {
-  font-family: adam-cg-pro;
-  src: url("../fonts/adam-cg-pro.regular.otf");
-}
-
-nav {
+#loggedOutNavbar {
   background-color: #4A4A4A;
 }
 
-.nav-link {
+#loggedOutNavbar .nav-link {
   color: white;
   font-family: avenir-next;
   font-size: 130%;
 }
 
-.nav-link:hover {
+#loggedOutNavbar .nav-link:hover {
   text-decoration: none;
   color: #E54F52;
 }
+
+#loggedOutNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+/* END Navbar for logged out Users */
 
 .main-background {
   background-image: url("../images/main-background.jpg");
@@ -105,10 +97,10 @@ nav {
   width: 235px;
   background-color: #E54F52;
   font-size: 140%;
-    color: white;
-    border: 2px solid #E54F52;
-    border-radius:50px;
-    margin-bottom: 0.7%;
+  color: white;
+  border: 2px solid #E54F52;
+  border-radius:50px;
+  margin-bottom: 5px;
 }
 
 .spaces {
@@ -125,8 +117,8 @@ nav {
   font-family: avenir-next-medium;
   background-color: white;
   font-size: 130%;
-    color: black;
-    border: 2px solid black;
+  color: black;
+  border: 2px solid black;
 }
 
 .learn-more-btn:hover {
@@ -150,15 +142,14 @@ nav {
   display: block;
   margin: 0 auto;
   width: 90%;
-box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
+  box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 }
 
 .classroom_picture {
   display: block;
   margin: 0 auto;
   width: 90%;
-box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
-
+  box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
 }
 
 .title_col {
@@ -208,7 +199,6 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
   font-family: DINCondensed-Bold;
   letter-spacing: 12.24px;
   text-align: center;
-  font-family: DINCondensed-Bold;
   font-size: 180%;
   margin-top: 2%;
   margin-bottom: 4%;
@@ -227,12 +217,12 @@ box-shadow: 0 2px 15px 4px rgba(0,0,0,0.50);
   font-family: avenir-next-medium;
   background-color: white;
   font-size: 130%;
-    color: black;
-    padding: 10px 30px;
-    border: 2px solid white;
-    border-radius:50px;
-    margin-bottom: 9%;
-    box-shadow: 8px 11px 30px 1px #4A4A4A;
+  color: black;
+  padding: 10px 30px;
+  border: 2px solid white;
+  border-radius:50px;
+  margin-bottom: 9%;
+  box-shadow: 8px 11px 30px 1px #4A4A4A;
 
 }
 
