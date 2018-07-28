@@ -11,12 +11,18 @@ class Profile(models.Model):
     user_type  = models.CharField(max_length=16, blank=False, null=False)
     profile_pic = models.ImageField(upload_to="profile_pics", blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    availability = models.CharField(max_length=1000, blank=True, null=True, default='{}')
     email_verified = models.BooleanField(default=False)
     has_signed_up = models.BooleanField(default=False) # this is useful for google sign ups
 
     def __str__(self):
         return str(self.user)
+
+class Availability(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    day = models.CharField(max_length=15)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
