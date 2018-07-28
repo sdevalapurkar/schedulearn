@@ -4,6 +4,7 @@
 @font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 @font-face { font-family: bariol; src: url("../fonts/Bariol_Regular.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 
 html {
@@ -151,22 +152,21 @@ body {
   margin-right: 5%;
 }
 
-
 /* END Navbar for logged out Users */
 
-#topPane {
+/* #topPane {
   margin-top: 35px;
   padding: 0 1.5%;
   width: 100%;
-  height: 300px;
-}
+  height: 250px;
+} */
 
-#userPicture {
+ /* #userPicture {
   width: 300px;
   border: 2px solid #4A4A4A;
   float: left;
   margin-right: 20px;
-}
+} 
 
 @media (max-width: 630px) {
   #userPicture {
@@ -188,6 +188,98 @@ body {
 }
 
 .userDetails {
-  font-family: Brandon Grotesque;
+  font-family: BrandonGrotesque-Regular;
   color: #6b6b6b;
+} */
+
+#topPane {
+  text-align: center;
+  padding: 0 1.5%;
+  width: 100%;
+  margin: 35px auto;
+}
+
+#userPicture {
+  width: 200px;
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
+}
+
+#userName {
+  font-family: bebas-neue;
+  color: black;
+  padding-top: 20px;
+  font-size: 350%;
+  margin-bottom: -10px;
+}
+
+#userType {
+  text-transform: uppercase;
+  font-family: bebas-neue;
+  color: #4a4a4a;
+  padding-bottom: 5px;
+}
+
+.userDetails {
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  margin-bottom: 5px;
+  width: 350px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+#outerAvailability {
+  margin-top: -15px;
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+#availabilityDiv {
+  text-align: center;
+  display: inline-block;
+}
+
+#availabilityHeading {
+  margin-top: -20px;
+  padding-bottom: 10px;
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  font-weight: bold;
+}
+
+.user-headings {
+    font-family: BrandonGrotesque-Regular;
+    color: #6b6b6b;
+    font-weight: bold;
+}
+
+#availabilityTable {
+  display: inline-block;
+  text-align: center;
+}
+
+#availabilityTable td, #availabilityTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#availabilityTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #D14F52;
+    color: white;
+    text-align: center;
+    font-family: adam-cg-pro;
+}
+
+#availabilityTable td {
+  font-family: avenir-next;
+}
+
+.day {
+  text-transform: uppercase;
 }

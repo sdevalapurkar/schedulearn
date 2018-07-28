@@ -1,5 +1,6 @@
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
 html {
   height: 100%;
