@@ -43,7 +43,7 @@
           <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>\
+            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
   </nav>
   <!-- navbar end -->
   {% endif %}
-  <div id="topPane">
+  <!-- <div id="topPane">
     <img id="userPicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="User's Profile Picture">
     <div id="rightContent">
       <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
@@ -102,8 +102,39 @@
       <h5 class="userDetails">Email: {{ profile_user.email }}</h5>
       <h5 class="userDetails">Bio: {{ profile_user.profile.bio }}</h5>
     </div>
+  </div> -->
 
+  <div id="topPane">
+      <img id="userPicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="User's Profile Picture">
+      <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+      <h3 id="userType">{{ profile_user.profile.user_type }}</h3>
+      <h4 class="user-headings">Email Address</h4>
+      <h5 class="userDetails">{{ profile_user.email }}</h5>
+      <h4 class="user-headings">Bio</h4>
+      <h5 class="userDetails">{{ profile_user.profile.bio }}</h5>
   </div>
+
+  {% if availabilities %}
+    <div id="outerAvailability">
+        <div id="availabilityDiv">
+            <h4 id="availabilityHeading">Availability</h4>
+            <table id="availabilityTable">
+            <tr>
+                <th>DAY</th>
+                <th>FROM</th>
+                <th>TO</th>
+            </tr>
+            {% for availability in availabilities %}
+                <tr>
+                <td class="day">{{ availability.day }}</th>
+                <td>{{ availability.start_time }}</th>
+                <td>{{ availability.end_time }}</th>            
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+  {% endif %}
 
 </body>
 </html>

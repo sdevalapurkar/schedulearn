@@ -3,7 +3,7 @@ import json
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Relationship, Lesson
-from accounts.models import Profile
+from accounts.models import Profile, Availability
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -206,26 +206,36 @@ def search(request):
 def public_profile(request, id):
     try:
         profile_user = User.objects.get(profile__id=id) # get the user to which the profile belongs
+        availabilities = []
+        availabilities_db = Availability.objects.filter(profile__id=id)
+        for availability in availabilities_db:
+            availabilities.append({
+                'day': availability.day,
+                'start_time': availability.start_time.strftime('%I:%M %p'),
+                'end_time': availability.end_time.strftime('%I:%M %p')
+            })
+
         if not request.user.is_anonymous:
             if request.user.profile.user_type == 'tutor':
                 if relationship_exists(profile_user, request.user):
                     remove_student_url = request.build_absolute_uri('/') + "dashboard/remove_student/" + str(id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_student_url':remove_student_url})
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_student_url':remove_student_url})
                 else:
                     add_student_url = request.build_absolute_uri('/') + "dashboard/add_student/" + str(id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_student_url': add_student_url})
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_student_url': add_student_url})
             elif request.user.profile.user_type == 'student':
                 if relationship_exists(request.user, profile_user):
                     remove_tutor_url = request.build_absolute_uri('/') + "dashboard/remove_tutor/" + str(id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
                 else:
                     add_tutor_url = request.build_absolute_uri('/') + "dashboard/add_tutor/" + str(id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'add_tutor_url': add_tutor_url})
+                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_tutor_url': add_tutor_url})
         else:
-            return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user})
+            return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities})
 
 
     except Exception as e:
+        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
