@@ -20,8 +20,8 @@ class Profile(models.Model):
 class Availability(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     day = models.CharField(max_length=15)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.CharField(max_length=15)
+    end_time = models.CharField(max_length=15)
 
 
 @receiver(post_save, sender=User)
