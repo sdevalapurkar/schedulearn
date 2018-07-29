@@ -68,12 +68,14 @@
         <th>DAY</th>
         <th>FROM</th>
         <th>TO</th>
+        <th>DELETE</th>
       </tr>
       {% for availability in availabilities %}
       <tr>
         <td class="day">{{ availability.day }}</td>
         <td>{{ availability.start_time }}</td>
         <td>{{ availability.end_time }}</td>
+        <td><a href="/dashboard/my_profile/delete_availability/{{ availability.day }}" id="cancelAvailability"><i class="far fa-trash-alt"></i></a></td>
       </tr>
       {% endfor %}
     </table>
