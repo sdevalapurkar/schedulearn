@@ -1,9 +1,8 @@
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
-@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
-@font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
-@font-face { font-family: bariol; src: url("../fonts/Bariol_Regular.otf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 
 html {
@@ -128,81 +127,54 @@ body {
 }
 /* END Navbar for logged in Users */
 
-#topPane {
+/* #topPane {
     text-align: center;
     padding: 0 1.5%;
     width: 100%;
-    margin: 35px auto;
-  }
-  
-  #userPicture {
-    width: 200px;
-    border-radius: 50%;
-    border: 2px solid #4A4A4A;
-  }
-  
-  #userName {
+    margin: 5px auto;
+  } */
+
+  #editAvailabilityTitle {
     font-family: bebas-neue;
     color: black;
-    margin-top: 20px;
+    margin: 40px 0;
     font-size: 350%;
-    margin-bottom: -10px;
-  }
-  
-  #userType {
-    text-transform: uppercase;
-    font-family: bebas-neue;
-    color: #4a4a4a;
-    padding-bottom: 5px;
-  }
-  
-  .userDetails {
-    font-family: BrandonGrotesque-Regular;
-    color: #6b6b6b;
-    margin-bottom: 5px;
-    width: 350px;
-    margin: 0 auto;
-    padding-bottom: 20px;
-  }
-  
-  #outerAvailability {
-    margin-top: -15px;
     text-align: center;
-    padding-bottom: 100px;
   }
   
-  #availabilityDiv {
-    text-align: center;
+  #currentAvailability {
     display: inline-block;
+    text-align: center;
+    width: 50%;
+  }
+
+  #addAvailability {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    float: right;
   }
   
-  #availabilityHeading {
-    margin-top: -20px;
+  .availabilityHeading {
     padding-bottom: 10px;
     font-family: BrandonGrotesque-Regular;
     color: #6b6b6b;
     font-weight: bold;
   }
-  
-  .user-headings {
-      font-family: BrandonGrotesque-Regular;
-      color: #6b6b6b;
-      font-weight: bold;
-  }
-  
-  #availabilityTable {
+
+  .availabilityTable {
     display: inline-block;
     text-align: center;
   }
   
-  #availabilityTable td, #availabilityTable th {
+  .availabilityTable td, .availabilityTable th {
       border: 1px solid #ddd;
       padding: 8px;
   }
   
-  #availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+  .availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
   
-  #availabilityTable th {
+  .availabilityTable th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
@@ -212,10 +184,14 @@ body {
       font-family: adam-cg-pro;
   }
   
-  #availabilityTable td {
+  .availabilityTable td {
     font-family: avenir-next;
   }
   
   .day {
     text-transform: uppercase;
+  }
+
+  .row .col-sm-6 {
+    margin: 0 auto;
   }
