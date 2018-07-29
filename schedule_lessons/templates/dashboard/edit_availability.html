@@ -2,18 +2,20 @@
 {% load static %}
 <html>
 <head>
-  <title>Edit My Profile | Schedulearn</title>
+  <title>Edit My Availability | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
-  <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+  <link rel="stylesheet" href="{% static "dashboard/css/edit_availability.css" %}">
+  <script src="{% static "dashboard/js/edit_availability.js" %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
+
 </head>
 <body>
 
@@ -57,69 +59,82 @@
   </nav>
   <!-- end extended navbar for signed in users -->
 
-  <div id="cropPictureModal" class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
-    <div id="cropModalDialog" class="modal-dialog modal-lg">
-      <div id="cropModalContent" class="modal-content">
-        <div id="cropModalBody" class="modal-body">
-          <img id="cropPicture" src="" alt="Your profile picture">
-        </div>
-        <div style="border-top:0px" class="modal-footer">
-          <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
-          <button id="cancelCrop" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
+
+  <h1 id="editAvailabilityTitle">Edit Availability</h1>
+  <div id="currentAvailability">
+    <h4 class="availabilityHeading">Current Availability</h4>
+    <table class="availabilityTable">
+      <tr>
+        <th>DAY</th>
+        <th>FROM</th>
+        <th>TO</th>
+      </tr>
+      {% for availability in availabilities %}
+      <tr>
+        <td class="day">{{ availability.day }}</th>
+        <td>{{ availability.start_time }}</th>
+        <td>{{ availability.end_time }}</th>            
+      </tr>
+      {% endfor %}
+    </table>
   </div>
 
-  <div id="container">
-    <div class="picture-container">
-      <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
-      <div class="middle">
-        <div class="text"><i class="fas fa-camera-retro"></i></div>
+  <div id="addAvailability">
+    <h4 class="availabilityHeading">Add Availability</h4>
+    <h5 class="availabilityHeading">Select a Day</h5>  
+    <select class="selectpicker">
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+      <option>Sunday</option>
+    </select>
+    <h5 class="availabilityHeading">Select a Start Time</h5>  
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-clock"></i></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      $(function () {
+        $('#datetimepicker1').datetimepicker({
+          format: 'LT'
+        });
+      });
+    </script>
+    </div>
+    <h5 class="availabilityHeading">Select an End Time</h5>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+              <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+              <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-clock"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          $(function () {
+            $('#datetimepicker2').datetimepicker({
+              format: 'LT'
+            });
+          });
+        </script>
       </div>
     </div>
-
-    <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-
-    <div class="form-group">
-      <input id="inputPfp" type="file" class="form-control-file" hidden>
-    </div>
-    <hr>
-    <form method="POST">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input class="form-control" type="text" name="firstName" value="{{ user.first_name }}">
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input class="form-control" type="text" name="lastName" value="{{ user.last_name }}">
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input class="form-control" type="email" name="email" value="{{ user.email }}">
-      </div>
-      <div class="form-group">
-        <label for="bio">Bio</label>
-        <textarea id="userBio" name="bio" rows="8">{{ user.profile.bio }}</textarea>
-      </div>
-
-      <button class="form-control" id="profileSave" type="submit" class="btn btn-primary" hidden>Save Changes</button>
-    </form>
-
+    <button>Add Availability</button>
   </div>
-
-  <style>
-
-  .cr-boundary {
-    height: 100%;
-  }
-
-  .form-control {
-    text-align: center;
-    font-family: avenir-next;
-  }
-
-  </style>
-</body>
+  </body>
 </html>

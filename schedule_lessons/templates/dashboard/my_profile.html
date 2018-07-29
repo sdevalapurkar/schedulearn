@@ -51,18 +51,44 @@
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
     <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT MY PROFILE</a>
+    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT MY AVAILABILITY</a>
   </nav>
   <!-- end extended navbar for signed in users -->
 
   <div id="topPane">
-    <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" alt="User's Profile Picture">
-    <div id="rightContent">
-      <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-      <h3 id="userType">{{ user.profile.user_type }}</h3>
-      <h5 class="userDetails">Email: {{ user.email }}</h5>
-      <h5 class="userDetails">Bio: {{ user.profile.bio }}</h5>
-    </div>
+    <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" alt="/media/profile_pics/default/man.png">
+    <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
+    <h3 id="userType">{{ user.profile.user_type }}</h3>
+    <h4 class="user-headings">Email Address</h4>
+    <h5 class="userDetails">{{ user.email }}</h5>
+    {% if user.profile.bio %}
+    <h4 class="user-headings">Bio</h4>
+    <h5 class="userDetails">{{ user.profile.bio }}</h5>
+    {% endif %}
+   
   </div>
+
+  {% if availabilities %}
+    <div id="outerAvailability">
+        <div id="availabilityDiv">
+            <h4 id="availabilityHeading">Availability</h4>
+            <table id="availabilityTable">
+            <tr>
+                <th>DAY</th>
+                <th>FROM</th>
+                <th>TO</th>
+            </tr>
+            {% for availability in availabilities %}
+                <tr>
+                <td class="day">{{ availability.day }}</th>
+                <td>{{ availability.start_time }}</th>
+                <td>{{ availability.end_time }}</th>            
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+  {% endif %}
 
 </body>
 </html>
