@@ -278,6 +278,13 @@ def edit_availability(request):
     else:
         return render(request, 'dashboard/edit_availability.html', context)
 
+
+@login_required
+def delete_availability(request, day):
+    delete_day = Availability.objects.get(profile__id=request.user.profile.id, day__iexact=day)
+    delete_day.delete()
+    return redirect('edit_availability')
+
 @login_required
 def add_student(request, id):
     student_profile = Profile.objects.get(id=id)
