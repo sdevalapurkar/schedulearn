@@ -17,7 +17,7 @@ from schedule_lessons.local_settings import *
 # # method like this for tutors to set Lessons, or it can be done in this method
 # # using if-else to check for user_type of requesting user.
 # @login_required
-# def set_Lesson(request):
+# def set_event(request):
 #     if request.method == 'POST':
 #         data = request.POST
 #         try:
@@ -51,56 +51,6 @@ from schedule_lessons.local_settings import *
 #             return HttpResponse(status=404)
 #     else:
 #         return HttpResponse(status=404)
-
-# # renders the availability page for a tutor. login_required decorator is not
-# # used so public can see availability too.
-# def get_availability(request, tutor_id):
-#     if request.method == 'GET':
-#         tutor = User.objects.get(profile__id=tutor_id)
-#         availability = tutor.profile.availability
-#         if tutor.profile.availability is not None:
-#             availability = json.loads(tutor.profile.availability.replace("'", '"'))
-#         if availability == {} or availability == '{}':
-#             availability = None
-#
-#         return render(request, 'dashboard/availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
-#     return HttpResponse(status=404)
-
-# # I don't think this method is even being used? Further inspection necessary.
-# def set_availability(request):
-#     if request.method == 'POST':
-#         data = request.body
-#         try:
-#             tutor = User.objects.get(profile__id=data.get('id'))
-#             tutor.profile.availability = data.get('data')
-#             tutor.save()
-#             return HttpResponse(status=200)
-#         except Exception as e:
-#             pass
-#
-#     return HttpResponse(status=404)
-
-# # allows to edit availability for tutor.
-# @login_required
-# def edit_availability(request):
-#     if request.method == 'POST':
-#         data = request.POST
-#         try:
-#             current_user = User.objects.get(id=request.user.id)
-#             availability = request.user.profile.availability
-#             if availability is not None:
-#                 current = json.loads(availability.replace("'", '"'))
-#             else:
-#                 current = {}
-#             current.update(data.dict())
-#             current_user.profile.availability = current
-#             current_user.save()
-#             return HttpResponse(status=200)
-#
-#         except Exception as e:
-#             pass
-#
-#     return HttpResponse(status=404)
 
 
 # returns scheduler information for scheduler tab for the user.
