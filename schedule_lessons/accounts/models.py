@@ -23,6 +23,9 @@ class Availability(models.Model):
     start_time = models.CharField(max_length=15)
     end_time = models.CharField(max_length=15)
 
+    def __str__(self):
+        return self.profile.user.get_full_name() + ' from ' + self.start_time + ' to ' + self.end_time + ' on ' + self.day
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
