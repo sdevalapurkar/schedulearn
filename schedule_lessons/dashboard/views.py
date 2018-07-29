@@ -158,7 +158,7 @@ def relationships(request):
         students = []
         relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
-            url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.student.profile.id)
+            url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.student.profile.id)
             student_data = {
                 'first_name': relationship.student.first_name,
                 'last_name': relationship.student.last_name,
@@ -175,7 +175,7 @@ def relationships(request):
         tutors = []
         relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
-            url = request.build_absolute_uri('/') + "dashboard/profile/" + str(relationship.tutor.profile.id)
+            url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.tutor.profile.id)
             tutor_data = {
                 'first_name': relationship.tutor.first_name,
                 'last_name': relationship.tutor.last_name,
@@ -196,7 +196,7 @@ def search(request):
     try:
         user_result = User.objects.get(email__iexact=email)
         id = str(user_result.profile.id)
-        url = request.build_absolute_uri('/') + "dashboard/profile/" + id
+        url = request.build_absolute_uri('/') + 'dashboard/profile/' + id
         return public_profile(request, id)
     except User.DoesNotExist as e:
         response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -218,24 +218,22 @@ def public_profile(request, id):
         if not request.user.is_anonymous:
             if request.user.profile.user_type == 'tutor':
                 if relationship_exists(profile_user, request.user):
-                    remove_student_url = request.build_absolute_uri('/') + "dashboard/remove_student/" + str(id)
+                    remove_student_url = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(id)
                     return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_student_url':remove_student_url})
                 else:
-                    add_student_url = request.build_absolute_uri('/') + "dashboard/add_student/" + str(id)
+                    add_student_url = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(id)
                     return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_student_url': add_student_url})
             elif request.user.profile.user_type == 'student':
                 if relationship_exists(request.user, profile_user):
-                    remove_tutor_url = request.build_absolute_uri('/') + "dashboard/remove_tutor/" + str(id)
+                    remove_tutor_url = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(id)
                     return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
                 else:
-                    add_tutor_url = request.build_absolute_uri('/') + "dashboard/add_tutor/" + str(id)
+                    add_tutor_url = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(id)
                     return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_tutor_url': add_tutor_url})
         else:
             return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities})
 
-
     except Exception as e:
-        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
@@ -270,7 +268,7 @@ def edit_profile(request):
                 request.user.email = email
                 request.user.profile.email_verified = False
                 id = request.user.profile.id
-                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                url = request.build_absolute_uri('/') + 'accounts/verify_email/' + str(id)
                 with get_connection(
                     host=EMAIL_HOST,
                     port=EMAIL_PORT,
@@ -278,8 +276,8 @@ def edit_profile(request):
                     password=EMAIL_HOST_PASSWORD,
                     use_tls=True,
                 ) as connection:
-                    EmailMessage("Schedulearn - Verify Your Email Address",
-                                 "Click on the following link to verify your email address\n\n" + url,
+                    EmailMessage('Schedulearn - Verify Your Email Address',
+                                 'Click on the following link to verify your email address\n\n' + url,
                                  VERIFY_USER_EMAIL,
                                  [email],
                                  connection=connection).send()
@@ -300,10 +298,35 @@ def edit_availability(request):
     for availability in availabilities_db:
         availabilities.append({
             'day': availability.day,
-            'start_time': availability.start_time.strftime('%I:%M %p'),
-            'end_time': availability.end_time.strftime('%I:%M %p')
+            'start_time': availability.start_time,
+            'end_time': availability.end_time
         })
-    return render(request, 'dashboard/edit_availability.html', {'availabilities': availabilities})
+    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # sorts the availabilities by the day of the week.
+    context = {'availabilities': availabilities}
+    if request.method == 'POST':
+        try:
+            existing_availabity = Availability.objects.get(profile__id=request.user.profile.id, day=request.POST['day'])
+            if not request.POST['startingTime'] or not request.POST['endingTime']:
+                return check_for_empty_times(request, context)
+            else:
+                existing_availabity.start_time = request.POST['startingTime']
+                existing_availabity.end_time = request.POST['endingTime']
+                existing_availabity.save()
+                return redirect('edit_availability')
+        except:
+            new_availability = Availability()
+            new_availability.profile = request.user.profile
+            new_availability.day = request.POST['day']
+            if not request.POST['startingTime'] or not request.POST['endingTime']:
+                return check_for_empty_times(request, context)
+            else:
+                new_availability.start_time = request.POST['startingTime']
+                new_availability.end_time = request.POST['endingTime']
+                new_availability.save()
+                return redirect('edit_availability')
+    else:
+        return render(request, 'dashboard/edit_availability.html', context)
 
 @login_required
 def add_student(request, id):
@@ -344,3 +367,12 @@ def relationship_exists(student, tutor):
         return True
     except:
         return False
+
+def check_for_empty_times(request, context):
+    if not request.POST['startingTime']:
+        context['starting_time_error'] = True
+    if not request.POST['endingTime']:
+        context['ending_time_error'] = True
+
+    if context.get('ending_time_error') or context.get('starting_time_error'):
+        return render(request, 'dashboard/edit_availability.html', context)
