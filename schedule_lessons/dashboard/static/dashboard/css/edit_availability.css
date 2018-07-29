@@ -127,71 +127,116 @@ body {
 }
 /* END Navbar for logged in Users */
 
-/* #topPane {
-    text-align: center;
-    padding: 0 1.5%;
-    width: 100%;
-    margin: 5px auto;
-  } */
+#editAvailabilityTitle {
+  font-family: bebas-neue;
+  color: black;
+  margin: 40px 0;
+  font-size: 350%;
+  text-align: center;
+}
 
-  #editAvailabilityTitle {
-    font-family: bebas-neue;
-    color: black;
-    margin: 40px 0;
-    font-size: 350%;
-    text-align: center;
-  }
-  
-  #currentAvailability {
-    display: inline-block;
-    text-align: center;
-    width: 50%;
-  }
+#currentAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: left;
+}
 
-  #addAvailability {
-    display: inline-block;
-    text-align: center;
-    width: 50%;
-    float: right;
-  }
-  
-  .availabilityHeading {
-    padding-bottom: 10px;
-    font-family: BrandonGrotesque-Regular;
-    color: #6b6b6b;
-    font-weight: bold;
-  }
+.edit-availability-subtitle {
+  font-family: bariol;
+  font-size: 180%;
+  color: black;
+  font-weight: bold;
+}
 
-  .availabilityTable {
-    display: inline-block;
-    text-align: center;
-  }
-  
-  .availabilityTable td, .availabilityTable th {
-      border: 1px solid #ddd;
-      padding: 8px;
-  }
-  
-  .availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
-  
-  .availabilityTable th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #D14F52;
-      color: white;
-      text-align: center;
-      font-family: adam-cg-pro;
-  }
-  
-  .availabilityTable td {
-    font-family: avenir-next;
-  }
-  
-  .day {
-    text-transform: uppercase;
-  }
+#availabilityTable {
+  display: inline-block;
+  text-align: center;
+}
 
-  .row .col-sm-6 {
-    margin: 0 auto;
-  }
+#availabilityTable td, #availabilityTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#availabilityTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
+}
+
+#availabilityTable td {
+  font-family: avenir-next;
+}
+
+.day {
+  text-transform: uppercase;
+}
+
+#warningText {
+  font-size: 120%;
+  color: #D14F52;
+}
+
+#addAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: right;
+}
+
+.input-label {
+  display: block;
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  font-weight: bold;
+  font-size: 120%;
+  margin: 10px 0;
+}
+
+.label-error {
+  color: #D14F52;
+}
+
+.input-error {
+  border: 1px solid #D14F52;
+}
+
+.time {
+  margin: 0 auto;
+  width: 50%;
+}
+
+
+#submit {
+  position: absolute;
+  left: -9999px;
+}
+
+#addBtn {
+  font-family: anson;
+  padding: 0.5% 4%;
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #E54F52;
+  font-size: 120%;
+  color: #F4F4F4;
+  border-radius: 50px;
+}
+
+#addBtn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
+}
