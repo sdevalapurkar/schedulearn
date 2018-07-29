@@ -294,6 +294,18 @@ def edit_profile(request):
         return render(request, 'dashboard/edit_profile.html', {'user': request.user})
 
 @login_required
+def edit_availability(request):
+    availabilities = []
+    availabilities_db = Availability.objects.filter(profile__id=request.user.profile.id)
+    for availability in availabilities_db:
+        availabilities.append({
+            'day': availability.day,
+            'start_time': availability.start_time.strftime('%I:%M %p'),
+            'end_time': availability.end_time.strftime('%I:%M %p')
+        })
+    return render(request, 'dashboard/edit_availability.html', {'availabilities': availabilities})
+
+@login_required
 def add_student(request, id):
     student_profile = Profile.objects.get(id=id)
     new_rel = Relationship(student=student_profile.user, tutor=request.user)

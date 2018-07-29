@@ -1,6 +1,8 @@
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+
 
 html {
   height: 100%;
@@ -125,7 +127,7 @@ body {
 /* END Navbar for logged in Users */
 
 #container {
-  padding: 50px 15%;
+  padding: 35px 15%;
   text-align: center;
 }
 
@@ -188,8 +190,13 @@ body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
-  border: 2px solid;
-  border-color: #D14F52;
+  border: 2px solid #4a4a4a;
+}
+
+#userName {
+  margin-top: 20px;
+  font-family: bebas-neue;
+  font-size: 350%;
 }
 
 #userBio {
@@ -198,3 +205,4 @@ body {
   border-radius: 0.25rem;
   font-family: avenir-next;
 }
+  
