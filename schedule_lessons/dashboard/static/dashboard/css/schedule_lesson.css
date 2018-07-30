@@ -1,0 +1,269 @@
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
+
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #F4F4F4;
+}
+
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
+  background-color: #4A4A4A;
+}
+
+#loggedInNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+#loggedInNavbar .nav-item {
+  font-family: avenir-next;
+}
+
+#loggedInNavbar .mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+#myName:hover {
+  cursor: pointer;
+}
+
+#myDropdown {
+  position: absolute;
+  text-align: center;
+}
+
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
+#openNavigation {
+  margin-right: 15px;
+}
+
+#extendedNavbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #D9D9D9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    left: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+    z-index: 2;
+  }
+
+  #loggedInNavbar .navbar-brand {
+    font-size: 180%;
+    font-family: avenir-next-demibold;
+    padding-top: 0.15%;
+    padding-bottom: 0.15%;
+    margin-right: auto;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+
+  #myDropdown {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: auto;
+  }
+}
+/* END Navbar for logged in Users */
+
+#editAvailabilityTitle {
+  font-family: bebas-neue;
+  color: black;
+  margin: 40px 0;
+  font-size: 350%;
+  text-align: center;
+}
+
+#currentAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: left;
+}
+
+.edit-availability-subtitle {
+  font-family: bariol;
+  font-size: 180%;
+  color: black;
+  font-weight: bold;
+}
+
+#availabilityTable {
+  display: inline-block;
+  text-align: center;
+}
+
+#availabilityTable td, #availabilityTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#availabilityTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
+}
+
+#availabilityTable td {
+  font-family: avenir-next;
+}
+
+.unavailable {
+  color: #D14F52;
+}
+
+.day {
+  text-transform: uppercase;
+}
+
+#cancelAvailability {
+  color: #E54F52;
+}
+
+#cancelAvailability:hover {
+  color: #D14F52;
+}
+
+#warningText {
+  font-size: 120%;
+  color: #D14F52;
+  font-family: BrandonGrotesque-Regular;
+}
+
+#addAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: right;
+}
+
+#lessonTitle {
+  width: 50%;
+  margin: 0 auto;
+}
+#lessonLocation {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.input-label {
+  display: block;
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  font-weight: bold;
+  font-size: 120%;
+  margin: 10px 0;
+}
+
+.label-error {
+  color: #D14F52;
+}
+
+.input-error {
+  border: 1px solid #D14F52;
+}
+
+.date {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.time {
+  margin: 0 auto;
+  width: 50%;
+}
+
+
+#submit {
+  position: absolute;
+  left: -9999px;
+}
+
+#addBtn {
+  font-family: anson;
+  padding: 2px 35px;
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #E54F52;
+  font-size: 120%;
+  color: #F4F4F4;
+  border-radius: 50px;
+}
+
+#addBtn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
+}
