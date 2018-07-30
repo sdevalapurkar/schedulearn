@@ -106,12 +106,12 @@ def login_view(request):
 @login_required
 def personalize_view(request):
     if request.method == 'POST':
-        if 'profile_pic' in request.POST:
-             cropped_img = request.POST['profile_pic']
-             format, imgstr = cropped_img.split(';base64,')
-             ext = format.split('/')[-1]
-             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-             request.user.profile.profile_pic = cropped_img
+        if request.POST['profile_pic'] != '':
+            cropped_img = request.POST['profile_pic']
+            format, imgstr = cropped_img.split(';base64,')
+            ext = format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+            request.user.profile.profile_pic = cropped_img
         if 'user-type' in request.POST:
             if request.POST['user-type'] == 'tutor':
                 request.user.profile.user_type = 'tutor'
