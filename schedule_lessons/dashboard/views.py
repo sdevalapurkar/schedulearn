@@ -157,7 +157,7 @@ def public_profile(request, id):
     try:
         profile_user = User.objects.get(profile__id=id) # get the user to which the profile belongs
         availabilities = return_availabilities(request, id)
-        
+
         if not request.user.is_anonymous:
             if request.user.profile.user_type == 'tutor':
                 if relationship_exists(profile_user, request.user):
@@ -247,8 +247,8 @@ def edit_availability(request):
             if not request.POST['startingTime'] or not request.POST['endingTime']:
                 return check_for_empty_times(request, context)
             else:
-                existing_availabity.start_time = request.POST['startingTime']
-                existing_availabity.end_time = request.POST['endingTime']
+                existing_availabity.start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p')
+                existing_availabity.end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p')
                 existing_availabity.save()
                 return redirect('edit_availability')
         except:
@@ -258,8 +258,8 @@ def edit_availability(request):
             if not request.POST['startingTime'] or not request.POST['endingTime']:
                 return check_for_empty_times(request, context)
             else:
-                new_availability.start_time = request.POST['startingTime']
-                new_availability.end_time = request.POST['endingTime']
+                new_availability.start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p')
+                new_availability.end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p')
                 new_availability.save()
                 return redirect('edit_availability')
     else:
@@ -323,8 +323,8 @@ def return_availabilities(request, profile_id):
         if availabilities_db:
             availabilities.append({
                 'day': availabilities_db[0].day,
-                'start_time': availabilities_db[0].start_time,
-                'end_time': availabilities_db[0].end_time })
+                'start_time': availabilities_db[0].start_time.strftime('%I:%M %p'),
+                'end_time': availabilities_db[0].end_time.strftime('%I:%M %p') })
         else:
             availabilities.append({
                 'day': day,

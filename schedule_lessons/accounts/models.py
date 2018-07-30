@@ -20,11 +20,11 @@ class Profile(models.Model):
 class Availability(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     day = models.CharField(max_length=15)
-    start_time = models.CharField(max_length=15)
-    end_time = models.CharField(max_length=15)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
 
     def __str__(self):
-        return self.profile.user.get_full_name() + ' from ' + self.start_time + ' to ' + self.end_time + ' on ' + self.day
+        return self.profile.user.get_full_name() + ' from ' + str(self.start_time) + ' to ' + str(self.end_time) + ' on ' + self.day
 
 
 @receiver(post_save, sender=User)
