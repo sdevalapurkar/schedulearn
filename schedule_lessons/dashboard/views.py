@@ -13,46 +13,6 @@ import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
-# # used to set a Lesson for a student. Later implementation will require another
-# # method like this for tutors to set Lessons, or it can be done in this method
-# # using if-else to check for user_type of requesting user.
-# @login_required
-# def set_event(request):
-#     if request.method == 'POST':
-#         data = request.POST
-#         try:
-#             name = data.get('lessonName')
-#             start_time = datetime.datetime.strptime(data.get('startDate'), '%m/%d/%Y %I:%M %p')
-#
-#             end_time = datetime.datetime.strptime(data.get('endDate'), '%m/%d/%Y %I:%M %p')
-#
-#             description = data.get('lessonDescription')
-#             location = data.get('lessonLocation')
-#             tutor = User.objects.get(profile__id=data.get('tutorID'))
-#
-#             Lesson = Lesson(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
-#             Lesson.save()
-#
-#             with get_connection(
-#                 host=EMAIL_HOST,
-#                 port=EMAIL_PORT,
-#                 username=SCHEDULER_NOTIFY_EMAIL,
-#                 password=EMAIL_HOST_PASSWORD,
-#                 use_tls=True,
-#             ) as connection:
-#                 EmailMessage('Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
-#                              'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
-#                              local_settings.SCHEDULER_NOTIFY_EMAIL,
-#                              [tutor.email],
-#                              connection=connection).send()
-#
-#             return HttpResponse(status=200)
-#         except Exception as e:
-#             return HttpResponse(status=404)
-#     else:
-#         return HttpResponse(status=404)
-
-
 # returns scheduler information for scheduler tab for the user.
 @login_required
 def agenda(request):
