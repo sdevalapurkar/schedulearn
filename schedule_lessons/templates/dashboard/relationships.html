@@ -61,7 +61,7 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="#"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
       {% if user.profile.user_type == 'tutor' %}
         {% if no_results %}
@@ -70,7 +70,7 @@
           <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
         {% endif %}
       {% endif %}
-    
+
       {% if user.profile.user_type == 'student' %}
         {% if no_results %}
           <input id="searchInput" class="form-control error-list" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search" value="{{ no_results }}">
