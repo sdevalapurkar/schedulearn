@@ -95,10 +95,29 @@
     <h4 class="edit-availability-subtitle">Details</h4>
     <form method="post">
       {% csrf_token %}
+      {% if name_error %}
+      <label for="name" class="input-label label-error">Lesson Name</label>
+      <input id="lessonTitle" class="form-control input-error" type="text" name="name">
+      {% else %}
       <label for="name" class="input-label">Lesson Name</label>
-      <input id="lessonTitle" class="form-control" type="text" name="name" placeholder="">
+      <input id="lessonTitle" class="form-control" type="text" name="name">
+      {% endif %}
+      {% if location_error %}
+      <label for="location" class="input-label label-error">Lesson Location</label>
+      <input id="lessonLocation" class="form-control input-error" type="text" name="location" placeholder="">
+      {% else %}
       <label for="location" class="input-label">Lesson Location</label>
       <input id="lessonLocation" class="form-control" type="text" name="location" placeholder="">
+      {% endif %}
+      {% if date_error %}
+      <label for="date" class="input-label label-error">Lesson Date</label>
+      <div class="input-group date" id="date" data-target-input="nearest">
+        <input type="text" name="date" class="form-control datetimepicker-input input-error" data-target="#date"/>
+        <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+      </div>
+      {% else %}
       <label for="date" class="input-label">Lesson Date</label>
       <div class="input-group date" id="date" data-target-input="nearest">
         <input type="text" name="date" class="form-control datetimepicker-input" data-target="#date"/>
@@ -106,6 +125,16 @@
           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
       </div>
+      {% endif %}
+      {% if starting_time_error %}
+      <label for="startingTime" class="input-label label-error">Lesson Starting Time</label>
+      <div class="input-group time" id="startingTime" data-target-input="nearest">
+        <input type="text" name="startingTime" class="form-control datetimepicker-input input-error" data-target="#startingTime"/>
+        <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% else %}
       <label for="startingTime" class="input-label">Lesson Starting Time</label>
       <div class="input-group time" id="startingTime" data-target-input="nearest">
         <input type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime"/>
@@ -113,6 +142,16 @@
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
       </div>
+      {% endif %}
+      {% if ending_time_error %}
+      <label for="endingTime" class="input-label label-error">Lesson Ending Time</label>
+      <div class="input-group time" id="endingTime" data-target-input="nearest">
+        <input type="text" name="endingTime" class="form-control datetimepicker-input input-error" data-target="#endingTime"/>
+        <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% else %}
       <label for="endingTime" class="input-label">Lesson Ending Time</label>
       <div class="input-group time" id="endingTime" data-target-input="nearest">
         <input type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime"/>
@@ -120,6 +159,7 @@
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
       </div>
+      {% endif %}
 
       <input id="submit" type="submit">
       <div class="center">
