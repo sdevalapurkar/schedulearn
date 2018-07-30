@@ -175,6 +175,10 @@ body {
   font-family: avenir-next;
 }
 
+.unavailable {
+  color: #D14F52;
+}
+
 .day {
   text-transform: uppercase;
 }
@@ -190,6 +194,7 @@ body {
 #warningText {
   font-size: 120%;
   color: #D14F52;
+  font-family: BrandonGrotesque-Regular;
 }
 
 #addAvailability {
