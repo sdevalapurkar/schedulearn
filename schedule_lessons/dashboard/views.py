@@ -38,15 +38,12 @@ def agenda(request):
                     'student_id': lesson.student.profile.id,
                     'student_username': lesson.student.username,
                     'date': lesson.date,
-                    'short_month': lesson.date.strftime('%b'),
-                    'long_week_day': lesson.start_time.strftime('%A'),
-                    'number_day': lesson.start_time.strftime('%d'),
+                    'short_month_name': lesson.date.strftime('%b'),
+                    'long_week_day': lesson.date.strftime('%A'), # not used
+                    'number_day': lesson.date.strftime('%d'),
+                    'year': lesson.date.strftime('%Y'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
-                    'end_shortdate': lesson.end_time.strftime('%B, %Y'),
-                    'end_week_day': lesson.end_time.strftime('%A'),
-                    'end_month_day': lesson.end_time.strftime('%d'),
                     'end_time': lesson.end_time.strftime('%I:%M %p'),
-                    'description': lesson.description
                 }
                 if lesson.pending:
                     pending_lesson_list.append(data)
