@@ -156,15 +156,8 @@ def search(request):
 def public_profile(request, id):
     try:
         profile_user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        availabilities = []
-        availabilities_db = Availability.objects.filter(profile__id=id)
-        for availability in availabilities_db:
-            availabilities.append({
-                'day': availability.day,
-                'start_time': availability.start_time.strftime('%I:%M %p'),
-                'end_time': availability.end_time.strftime('%I:%M %p')
-            })
-
+        availabilities = return_availabilities(request, id)
+        
         if not request.user.is_anonymous:
             if request.user.profile.user_type == 'tutor':
                 if relationship_exists(profile_user, request.user):
@@ -191,10 +184,11 @@ def public_profile(request, id):
 @login_required
 def my_profile(request):
     reset_email = request.GET.get('reset_email', False)
+    availabilities = return_availabilities(request, request.user.profile.id)
     if reset_email:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'changed_email': True})
+        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities, 'changed_email': True})
     else:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user})
+        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities})
 
 @login_required
 def edit_profile(request):
@@ -209,7 +203,10 @@ def edit_profile(request):
              return HttpResponse(status=200)
         else:
             request.user.first_name = request.POST['firstName'] # save first name
-            request.user.last_name = request.POST['lastName'] # save last name
+            if not request.POST['lastName']:
+                request.user.last_name = ' '
+            else:
+                request.user.last_name = request.POST['lastName'] # save last name
             request.user.profile.bio = request.POST['bio']
             # then handle email
             email = request.POST['email']
@@ -243,17 +240,7 @@ def edit_profile(request):
 
 @login_required
 def edit_availability(request):
-    availabilities = []
-    availabilities_db = Availability.objects.filter(profile__id=request.user.profile.id)
-    for availability in availabilities_db:
-        availabilities.append({
-            'day': availability.day,
-            'start_time': availability.start_time,
-            'end_time': availability.end_time
-        })
-    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # sorts the availabilities by the day of the week.
-    context = {'availabilities': availabilities}
+    context = {'availabilities': return_availabilities(request, request.user.profile.id)}
     if request.method == 'POST':
         try:
             existing_availabity = Availability.objects.get(profile__id=request.user.profile.id, day=request.POST['day'])
@@ -277,7 +264,6 @@ def edit_availability(request):
                 return redirect('edit_availability')
     else:
         return render(request, 'dashboard/edit_availability.html', context)
-
 
 @login_required
 def delete_availability(request, day):
@@ -313,11 +299,6 @@ def remove_tutor(request, id):
     old_rel.delete()
     return public_profile(request, id)
 
-@login_required
-def get_profile_pic(request):
-    user_pfp = str(request.user.profile.profile_pic)
-    return HttpResponse(user_pfp, status=200)
-
 def relationship_exists(student, tutor):
     try:
         Relationship.objects.get(student=student, tutor=tutor)
@@ -333,3 +314,21 @@ def check_for_empty_times(request, context):
 
     if context.get('ending_time_error') or context.get('starting_time_error'):
         return render(request, 'dashboard/edit_availability.html', context)
+
+def return_availabilities(request, profile_id):
+    availabilities = []
+    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for day in days_of_the_week:
+        availabilities_db = Availability.objects.filter(profile__id=profile_id, day=day)
+        if availabilities_db:
+            availabilities.append({
+                'day': availabilities_db[0].day,
+                'start_time': availabilities_db[0].start_time,
+                'end_time': availabilities_db[0].end_time })
+        else:
+            availabilities.append({
+                'day': day,
+                'unavailable': True })
+
+    # availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # sorts the availabilities by the day of the week.
+    return availabilities
