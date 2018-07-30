@@ -77,11 +77,10 @@ def agenda(request):
                     'student_name': lesson.student.get_full_name(),
                     'student_id': lesson.student.profile.id,
                     'student_username': lesson.student.username,
-                    'start_date': lesson.start_time,
-                    'end_date': lesson.end_time,
-                    'start_shortdate': lesson.start_time.strftime('%B'),
-                    'start_week_day': lesson.start_time.strftime('%A'),
-                    'start_month_day': lesson.start_time.strftime('%d'),
+                    'date': lesson.date,
+                    'short_month': lesson.date.strftime('%b'),
+                    'long_week_day': lesson.start_time.strftime('%A'),
+                    'number_day': lesson.start_time.strftime('%d'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
                     'end_shortdate': lesson.end_time.strftime('%B, %Y'),
                     'end_week_day': lesson.end_time.strftime('%A'),
@@ -178,6 +177,79 @@ def public_profile(request, id):
 
     except Exception as e:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
+
+@login_required
+def choose_person(request):
+        if request.user.profile.user_type == 'tutor':
+            students = []
+            relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+            for relationship in relationships:
+                url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.student.profile.id)
+                student_data = {
+                    'first_name': relationship.student.first_name,
+                    'last_name': relationship.student.last_name,
+                    'email': relationship.student.email,
+                    'profile_pic': relationship.student.profile.profile_pic,
+                    'id': relationship.student.profile.id,
+                }
+                students.append(student_data)
+            no_results_found = request.GET.get('no_search_result')
+            if no_results_found:
+                return render(request, 'dashboard/choose_person.html', {'students': students, 'no_results': 'No results were found'})
+            return render(request, 'dashboard/choose_person.html', {'students': students})
+        else:
+            tutors = []
+            relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+            for relationship in relationships:
+                url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.tutor.profile.id)
+                tutor_data = {
+                    'first_name': relationship.tutor.first_name,
+                    'last_name': relationship.tutor.last_name,
+                    'email': relationship.tutor.email,
+                    'profile_pic': relationship.tutor.profile.profile_pic,
+                    'id': relationship.tutor.profile.id,
+                }
+                tutors.append(tutor_data)
+            no_results_found = request.GET.get('no_search_result')
+            if no_results_found:
+                return render(request, 'dashboard/choose_person.html', {'tutors': tutors, 'no_results': 'No results were found'})
+            return render(request, 'dashboard/choose_person.html', {'tutors': tutors})
+
+@login_required
+def schedule_lesson(request, id):
+    profile_user = Profile.objects.get(id=id)
+    context = {'profile_user': profile_user.user, 'availabilities': return_availabilities(request, id)}
+    if request.method == 'POST':
+        new_lesson = Lesson()
+        if not request.POST['name']:
+            context['name_error'] = True
+        else:
+            new_lesson.name = request.POST['name']
+        if not request.POST['location']:
+            context['location_error'] = True
+        else:
+            new_lesson.location = request.POST['location']
+        if not request.POST['date']:
+            context['date_error'] = True
+        else:
+            new_lesson.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+        if not request.POST['startingTime']:
+            context['starting_time_error'] = True
+        else:
+            new_lesson.start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p')
+        if not request.POST['endingTime']:
+            context['ending_time_error'] = True
+        else:
+            new_lesson.end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p')
+        if request.user.profile.user_type == 'tutor':
+            new_lesson.tutor = request.user
+            new_lesson.student = profile_user.user
+        else:
+            new_lesson.tutor = profile_user.user
+            new_lesson.student = request.user
+        if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
+            new_lesson.save()
+    return render(request, 'dashboard/schedule_lesson.html', context)
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
 # a new view template and url will be set up for the feature of viewing someone else's profile.
