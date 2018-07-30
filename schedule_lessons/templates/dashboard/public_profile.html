@@ -59,12 +59,14 @@
     {% if user.profile.user_type == 'tutor' %}
     {% if rel_exists %}
     <a id="removeStudentBtn" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     {% else %}
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
     {% endif %}
     {% else %}
     {% if rel_exists %}
     <a id="removeTutorBtn" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     {% else %}
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
     {% endif %}
