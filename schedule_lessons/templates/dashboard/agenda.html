@@ -57,7 +57,7 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="#"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
       {% if user.profile.user_type == 'tutor' %}
         {% if no_results %}
@@ -86,8 +86,8 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ scheduled_lesson.start_month_day }}</span>
-          <span class="date-month">{{ scheduled_lesson.start_shortdate }}</span>
+          <span class="date-day">{{ scheduled_lesson.number_day }}</span>
+          <span class="date-month">{{ scheduled_lesson.short_month }}</span>
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
@@ -112,8 +112,8 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ pending_lesson.start_month_day }}</span>
-          <span class="date-month">{{ pending_lesson.start_shortdate }}</span>
+          <span class="date-day">{{ pending_lesson.number_day }}</span>
+          <span class="date-month">{{ pending_lesson.short_month }}</span>
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
