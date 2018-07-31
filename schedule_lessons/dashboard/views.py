@@ -37,11 +37,10 @@ def agenda(request):
                     'student_name': lesson.student.get_full_name(),
                     'student_id': lesson.student.profile.id,
                     'student_username': lesson.student.username,
-                    'date': lesson.date,
-                    'short_month_name': lesson.date.strftime('%b'),
-                    'long_week_day': lesson.date.strftime('%A'), # not used
-                    'number_day': lesson.date.strftime('%d'),
-                    'year': lesson.date.strftime('%Y'),
+                    'short_month_name': lesson.start_time.strftime('%b'),
+                    'long_week_day': lesson.start_time.strftime('%A'), # not used
+                    'number_day': lesson.start_time.strftime('%d'),
+                    'year': lesson.start_time.strftime('%Y'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
                     'end_time': lesson.end_time.strftime('%I:%M %p'),
                 }
@@ -189,15 +188,15 @@ def schedule_lesson(request, id):
         if not request.POST['date']:
             context['date_error'] = True
         else:
-            new_lesson.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+            date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
         if not request.POST['startingTime']:
             context['starting_time_error'] = True
         else:
-            new_lesson.start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p')
+            start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
         if not request.POST['endingTime']:
             context['ending_time_error'] = True
         else:
-            new_lesson.end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p')
+            end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
         if request.user.profile.user_type == 'tutor':
             new_lesson.tutor = request.user
             new_lesson.student = profile_user.user
@@ -205,7 +204,10 @@ def schedule_lesson(request, id):
             new_lesson.tutor = profile_user.user
             new_lesson.student = request.user
         if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
+            new_lesson.start_time = datetime.datetime.combine(date, start_time)
+            new_lesson.end_time = datetime.datetime.combine(date, end_time)
             new_lesson.save()
+            context['schedule_success'] = "Your Lesson '" + new_lesson.name + "' Was Scheduled Successfully"
     return render(request, 'dashboard/schedule_lesson.html', context)
 
 # viewing MY profile will be different than viewing somebody else's profile, hence

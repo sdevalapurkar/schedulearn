@@ -135,6 +135,15 @@ body {
   text-align: center;
 }
 
+#scheduleVerification {
+  font-family: avenir-next;
+  color: green;
+  margin-top: -43px;
+  margin-bottom: 30px;
+  font-size: 110%;
+  text-align: center;
+}
+
 #currentAvailability {
   display: inline-block;
   text-align: center;
