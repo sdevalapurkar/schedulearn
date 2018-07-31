@@ -7,4 +7,4 @@ class Command(BaseCommand):
     help = 'Expires event objects which are out-of-date'
 
     def handle(self, *args, **options):
-        Lesson.objects.filter(end_time__lt=datetime.datetime.now()).delete()
+        Lesson.objects.filter(end_time__gt=datetime.datetime.now()).delete()
