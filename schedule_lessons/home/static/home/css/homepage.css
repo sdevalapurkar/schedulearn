@@ -20,12 +20,13 @@ paragraph: Rounded_Elegance
 
 html {
   height: 100%;
+}
+
+html body {
+  height: 100%;
   background-color: #ededed;
 }
 
-body {
-  height: 100%;
-}
 
 /* Navbar for logged out Users */
 
@@ -131,6 +132,10 @@ body {
   background-position: 130px -3px;
   background-size: cover;
   height: auto;
+}
+
+.container-fluid {
+  background-color: #ededed;
 }
 
 .first_row {
