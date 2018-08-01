@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- END FontAwesome CDN -->
   <!-- My Styling and Script -->
-  <link rel="stylesheet" href="{% static 'dashboard/css/relationships.css' %}">
-  <script src="{% static 'dashboard/js/relationships.js'%}"></script>
+  <link rel="stylesheet" href="{% static 'dashboard/css/choose_person.css' %}">
+  <script src="{% static 'dashboard/js/choose_person.js'%}"></script>
   <link rel="shortcut icon" href="#">
   <!-- END My Styling and Script -->
 </head>
@@ -39,7 +39,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
           <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
           {% else %}
@@ -61,7 +61,6 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
       {% if user.profile.user_type == 'tutor' %}
         {% if no_results %}
@@ -85,15 +84,15 @@
 
 <div id="main">
   {% if students %}
-  <h2 id="mainTitle">MY STUDENTS</h2>
+  <h2 id="mainTitle">SELECT A STUDENT:</h2>
   {% for student in students %}
   <div class="student">
     <div class="main-information">
       <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile.profile_pic }}"></img>
+        <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
       </div>
       <div class="student-main-info">
-        <a class="student-link" href="{% url 'public_profile' student.profile.id %}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+        <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
         <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
       </div>
     </div>
@@ -101,15 +100,15 @@
   {% endfor %}
   {% endif %}
   {% if tutors %}
-  <h2 id="mainTitle">MY TUTORS</h2>
+  <h2 id="mainTitle">SELECT A TUTOR:</h2>
   {% for tutor in tutors %}
   <div class="tutor">
     <div class="main-information">
       <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile.profile_pic }}"></img>
+        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}"></img>
       </div>
       <div class="tutor-main-info">
-        <a class="tutor-link" href="{% url 'public_profile' tutor.profile.id %}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
+        <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
         <p class="extended-field"><span class="extended-detail">{{ tutor.email }}</span></p>
       </div>
     </div>

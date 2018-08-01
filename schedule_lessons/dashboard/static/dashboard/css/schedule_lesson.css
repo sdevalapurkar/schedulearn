@@ -1,7 +1,8 @@
-@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
 @font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 
 html {
@@ -9,7 +10,7 @@ html {
 }
 
 body {
-  height: 140%;
+  height: 100%;
   background-color: #ededed;
 }
 
@@ -126,82 +127,152 @@ body {
 }
 /* END Navbar for logged in Users */
 
-#container {
-  padding: 35px 15%;
+#editAvailabilityTitle {
+  font-family: bebas-neue;
+  color: black;
+  margin: 40px 0;
+  font-size: 350%;
   text-align: center;
 }
 
-.picture-container {
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-}
-
-#cropPictureModal {
-  height:95%;
-}
-
-#cropModalDialog, #cropModalContent {
-  height: inherit;
-}
-
-#cropModalBody {
-  height:74%;
-  margin-bottom:4%;
-}
-
-.middle {
-  cursor: pointer;
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+#scheduleVerification {
+  font-family: avenir-next;
+  color: green;
+  margin-top: -43px;
+  margin-bottom: 30px;
+  font-size: 110%;
   text-align: center;
 }
 
-.picture-container:hover .image {
-  opacity: 0.3;
+#currentAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: left;
 }
 
-.picture-container:hover .middle {
-  opacity: 1;
+.edit-availability-subtitle {
+  font-family: bariol;
+  font-size: 180%;
+  color: black;
+  font-weight: bold;
 }
 
-.text {
+#availabilityTable {
+  display: inline-block;
+  text-align: center;
+}
+
+#availabilityTable td, #availabilityTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#availabilityTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
   background-color: #D14F52;
   color: white;
-  font-size: 32px;
-  padding: 5px 15px;
   text-align: center;
-  border-radius: 50%;
+  font-family: adam-cg-pro;
 }
 
-#profilePicture {
-  transition: .5s ease;
-  backface-visibility: hidden;
-  display: block;
-  opacity: 1;
-  margin: 0 auto;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  border: 2px solid #4a4a4a;
-}
-
-#userName {
-  margin-top: 20px;
-  font-family: bebas-neue;
-  font-size: 350%;
-}
-
-#userBio {
-  width: 100%;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+#availabilityTable td {
   font-family: avenir-next;
+}
+
+.unavailable {
+  color: #D14F52;
+}
+
+.day {
+  text-transform: uppercase;
+}
+
+#cancelAvailability {
+  color: #E54F52;
+}
+
+#cancelAvailability:hover {
+  color: #D14F52;
+}
+
+#warningText {
+  font-size: 120%;
+  color: #D14F52;
+  font-family: BrandonGrotesque-Regular;
+}
+
+#addAvailability {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: right;
+}
+
+#lessonTitle {
+  width: 50%;
+  margin: 0 auto;
+}
+#lessonLocation {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.input-label {
+  display: block;
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  font-weight: bold;
+  font-size: 120%;
+  margin: 10px 0;
+}
+
+.label-error {
+  color: #D14F52;
+}
+
+.input-error {
+  border: 1px solid #D14F52;
+}
+
+.date {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.time {
+  margin: 0 auto;
+  width: 50%;
+}
+
+
+#submit {
+  position: absolute;
+  left: -9999px;
+}
+
+#addBtn {
+  font-family: anson;
+  padding: 2px 35px;
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #E54F52;
+  font-size: 120%;
+  color: #F4F4F4;
+  border-radius: 50px;
+}
+
+#addBtn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
 }
