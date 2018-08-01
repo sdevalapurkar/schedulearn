@@ -57,12 +57,22 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="#"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-      {% if no_results %}
-      <input id="searchInput" class="form-control error-list" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search" value="{{ no_results }}">
-      {% else %}
-      <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+      {% if user.profile.user_type == 'tutor' %}
+        {% if no_results %}
+        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+        {% else %}
+        <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+        {% endif %}
+      {% endif %}
+
+      {% if user.profile.user_type == 'student' %}
+        {% if no_results %}
+        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+        {% else %}
+        <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+        {% endif %}
       {% endif %}
       <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
     </form>
@@ -76,18 +86,30 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ scheduled_lesson.start_month_day }}</span>
-          <span class="date-month">{{ scheduled_lesson.start_shortdate }}</span>
+          <span class="day">{{ scheduled_lesson.day }}</span>
+          <span class="month-day">{{ scheduled_lesson.month_day }}</span>
+          <span class="month">{{ scheduled_lesson.month }}</span>
+          <span class="year">{{ scheduled_lesson.year }}</span>
         </div>
-        <div class="title-and-description">
-          <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
-          <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
-          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time }} - {{ scheduled_lesson.end_time }}</span></p>
-          {% if user.profile.user_type == 'tutor' %}
-          <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
-          {% else %}
-          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
-          {% endif %}
+        <div class="details-and-buttons">
+          <div class="details">
+            <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
+            <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
+            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time }} - {{ scheduled_lesson.end_time }}</span></p>
+            {% if user.profile.user_type == 'tutor' %}
+            <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
+            {% else %}
+            <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
+            {% endif %}
+          </div>
+          <div class="two-buttons">
+            <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
+              <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' scheduled_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -102,14 +124,44 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ pending_lesson.start_month_day }}</span>
-          <span class="date-month">{{ pending_lesson.start_shortdate }}</span>
+          <span class="day">{{ pending_lesson.day }}</span>
+          <span class="month-day">{{ pending_lesson.month_day }}</span>
+          <span class="month">{{ pending_lesson.month }}</span>
+          <span class="year">{{ pending_lesson.year }}</span>
         </div>
-        <div class="title-and-description">
-          <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
-          <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
-          <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time }} - {{ pending_lesson.end_time }}</span></p>
-          <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_lesson.tutor_name }}</span></p>
+        <div class="details-and-buttons">
+          <div class="details">
+            <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
+            <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
+            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time }} - {{ pending_lesson.end_time }}</span></p>
+            {% if user.profile.user_type == 'tutor' %}
+            <p class="extended-field">Student:</b> <span class="extended-detail">{{ pending_lesson.student_name }}</span></p>
+            {% else %}
+            <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_lesson.tutor_name }}</span></p>
+            {% endif %}
+          </div>
+          {% if pending_lesson.display_options %}
+          <div class="three-buttons">
+            <a href="{% url 'confirm_lesson' pending_lesson.id %}">
+              <button class="accept-btn btn" type="button" name="button"><i class="fas fa-check"></i></button>
+            </a>
+            <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
+              <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
+            </a>
+          </div>
+          {% else %}
+          <div class="two-buttons">
+            <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
+              <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
+            </a>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ html {
 
 body {
   height: 100%;
-  background-color: #F4F4F4;
+  background-color: #ededed;
 }
 
 /* Navbar for logged in Users */
@@ -117,7 +117,8 @@ body {
   padding-right: 10px;
 }
 
-.error-list {
+.error-list::placeholder {
+  opacity: 0.65;
   color: red;
 }
 
@@ -187,9 +188,9 @@ body {
 }
 
 .lesson {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
-  border: 2px solid #4A4A4A;
+  box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
   margin-bottom: 20px;
 }
 
@@ -207,23 +208,40 @@ body {
   color: #F4F4F4;
 }
 
-.date-day {
-  padding-top: 25px;
-  font-size: 300%;
-  margin-bottom: -25%;
-  margin-top: -11%;
+.day {
   display: block;
+  margin-top: 1px;
+  font-size: 140%;
 }
 
-.date-month {
+.month-day {
+  font-size: 260%;
+  margin-bottom: -18px;
+  margin-top: -14px;
   display: block;
+  padding-right: 5px;
+}
+
+.month {
+  display: block;
+  font-size: 180%;
+  margin-bottom: -11px;
+}
+
+.year {
   font-size: 150%;
+  display: block;
 }
 
-.title-and-description {
+.details-and-buttons {
   background-color: white;
   width: 100%;
-  padding-left: 1%;
+}
+
+.details {
+  float: left;
+  padding-left: 9px;
+  padding-top: 4px;
 }
 
 .lesson-title {
@@ -232,12 +250,6 @@ body {
   text-align: left;
   font-size: 200%;
   margin-bottom: 0;
-}
-
-.extended-information {
-  width: 100%;
-  background-color: #4F4F4F;
-  text-align: left;
 }
 
 .extended-field {
@@ -252,4 +264,63 @@ body {
 
 .extended-detail {
   font-family: avenir-next-regular;
+}
+
+.two-buttons {
+  float: right;
+  width: 80px;
+  height: 50%;
+}
+
+.three-buttons {
+  float: right;
+  width: 80px;
+  height: 33.33%;
+}
+
+.two-buttons .btn, .three-buttons .btn {
+  display: block;
+  margin-left: auto;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  font-family: bariol;
+}
+
+.accept-btn {
+  background-color: #2E8B57;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: green;
+}
+
+.fa-check {
+  font-size: 130%;
+}
+
+.decline-btn {
+  background-color: #E54F52;
+  color: white;
+}
+
+.decline-btn:hover {
+  background-color: #D14F52;
+}
+
+.fa-times {
+  font-size: 140%;
+}
+
+.reschedule-btn {
+  background-color: #efef00;
+}
+
+.reschedule-btn:hover {
+  background-color: gold;
+}
+
+.fa-calendar {
+  font-size: 110%;
 }
