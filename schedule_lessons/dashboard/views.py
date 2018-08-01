@@ -43,6 +43,7 @@ def agenda(request):
                     'year': lesson.start_time.strftime('%Y'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
                     'end_time': lesson.end_time.strftime('%I:%M %p'),
+                    'display_options': lesson.created_by != request.user,
                 }
                 if lesson.pending:
                     pending_lesson_list.append(data)
@@ -56,6 +57,57 @@ def agenda(request):
         return render(request, 'dashboard/agenda.html', {'scheduled_lessons': scheduled_lesson_list, 'pending_lessons': pending_lesson_list})
 
     return HttpResponse(status=404)
+
+@login_required
+def confirm_lesson(request, id):
+    try:
+        lesson_to_confirm = Lesson.objects.get(id=id)
+        if lesson_to_confirm and (lesson_to_confirm.tutor == request.user or lesson_to_confirm.student == request.user) and request.user != lesson_to_confirm.created_by:
+            lesson_to_confirm.pending = False
+            lesson_to_confirm.save()
+        return redirect('agenda')
+    except Exception:
+        return redirect('agenda')
+
+@login_required
+def decline_lesson(request, id):
+    try:
+        lesson_to_delete = Lesson.objects.get(id=id)
+        if lesson_to_delete and (lesson_to_delete.tutor == request.user or lesson_to_delete.student == request.user):
+            lesson_to_delete.delete()
+        return redirect('agenda')
+    except Exception:
+        return redirect('agenda')
+
+@login_required
+def reschedule_lesson(request, id):
+    try:
+        lesson_to_reschedule = Lesson.objects.get(id=id)
+    except Exception:
+        return HttpResponse(status=404)
+    context = {
+        'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
+    }
+    if request.method == 'POST':
+        context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
+        if context.get('name_error') or context.get('location_error') or context.get('date_error') or context.get('starting_time_error') or context.get('ending_time_error'):
+            return render(request, 'dashboard/schedule_lesson.html', context)
+        return redirect('agenda')
+    else:
+        if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
+            context['availabilities'] = return_availabilities(request, context['person_to_schedule_with'].profile.id)
+            context['lesson_to_reschedule'] = {
+                'name': lesson_to_reschedule.name,
+                'location': lesson_to_reschedule.location,
+                'date': lesson_to_reschedule.end_time.strftime('%m/%d/%Y'),
+                'start_time': lesson_to_reschedule.start_time.strftime('%I:%M %p'),
+                'end_time': lesson_to_reschedule.end_time.strftime('%I:%M %p'),
+            }
+            return render(request, 'dashboard/schedule_lesson.html', context)
+        else:
+            return HttpResponse(status=404)
+
+
 
 @login_required
 def relationships(request):
@@ -173,41 +225,12 @@ def choose_person(request):
 
 @login_required
 def schedule_lesson(request, id):
-    profile_user = Profile.objects.get(id=id)
-    context = {'profile_user': profile_user.user, 'availabilities': return_availabilities(request, id)}
+    person_to_schedule_with = User.objects.get(profile__id=id)
+    context = {'person_to_schedule_with': person_to_schedule_with, 'availabilities': return_availabilities(request, id)}
     if request.method == 'POST':
         new_lesson = Lesson()
-        if not request.POST['name']:
-            context['name_error'] = True
-        else:
-            new_lesson.name = request.POST['name']
-        if not request.POST['location']:
-            context['location_error'] = True
-        else:
-            new_lesson.location = request.POST['location']
-        if not request.POST['date']:
-            context['date_error'] = True
-        else:
-            date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
-        if not request.POST['startingTime']:
-            context['starting_time_error'] = True
-        else:
-            start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
-        if not request.POST['endingTime']:
-            context['ending_time_error'] = True
-        else:
-            end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
-        if request.user.profile.user_type == 'tutor':
-            new_lesson.tutor = request.user
-            new_lesson.student = profile_user.user
-        else:
-            new_lesson.tutor = profile_user.user
-            new_lesson.student = request.user
-        if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
-            new_lesson.start_time = datetime.datetime.combine(date, start_time)
-            new_lesson.end_time = datetime.datetime.combine(date, end_time)
-            new_lesson.save()
-            context['schedule_success'] = "Your Lesson '" + new_lesson.name + "' Was Scheduled Successfully"
+        context = error_check_and_save_lesson(request, new_lesson, context)
+        context['schedule_success'] = "Your Lesson '" + new_lesson.name + "' Was Scheduled Successfully"
     return render(request, 'dashboard/schedule_lesson.html', context)
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
@@ -363,3 +386,35 @@ def return_availabilities(request, profile_id):
 
     # availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # sorts the availabilities by the day of the week.
     return availabilities
+
+def error_check_and_save_lesson(request, lesson, context):
+    if not request.POST['name']:
+        context['name_error'] = True
+    else:
+        lesson.name = request.POST['name']
+    if not request.POST['location']:
+        context['location_error'] = True
+    else:
+        lesson.location = request.POST['location']
+    if not request.POST['date']:
+        context['date_error'] = True
+    else:
+        date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
+    if not request.POST['startingTime']:
+        context['starting_time_error'] = True
+    else:
+        start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
+    if not request.POST['endingTime']:
+        context['ending_time_error'] = True
+    else:
+        end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
+
+    lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else context['person_to_schedule_with']
+    lesson.student = request.user if request.user.profile.user_type == 'student' else context['person_to_schedule_with']
+
+    if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
+        lesson.start_time = datetime.datetime.combine(date, start_time)
+        lesson.end_time = datetime.datetime.combine(date, end_time)
+        lesson.created_by = request.user
+        lesson.save()
+    return context
