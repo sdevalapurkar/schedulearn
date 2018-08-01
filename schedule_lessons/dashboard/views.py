@@ -227,9 +227,8 @@ def reschedule_lesson(request, lesson_id):
             context['lesson_to_reschedule'] = {
                 'name': lesson_to_reschedule.name,
                 'location': lesson_to_reschedule.location,
-                'date': lesson_to_reschedule.end_time.strftime('%m/%d/%Y'),
-                'start_time': lesson_to_reschedule.start_time.strftime('%I:%M %p'),
-                'end_time': lesson_to_reschedule.end_time.strftime('%I:%M %p'),
+                'start_time': lesson_to_reschedule.start_time,
+                'end_time': lesson_to_reschedule.end_time,
             }
             return render(request, 'dashboard/schedule_lesson.html', context)
         else:

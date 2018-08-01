@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tz_detect %}
 <html>
 <head>
   <title>Schedule a Lesson | Schedulearn</title>
@@ -64,7 +65,7 @@
     {% endif %}
   </nav>
   <!-- end extended navbar for signed in users -->
-
+  {% tz_detect %}
   {% if lesson_to_reschedule %}
   <h1 id="editAvailabilityTitle">Reschedule '{{ lesson_to_reschedule.name }}'</h1>
   {% else %}
@@ -119,7 +120,7 @@
       {% if date_error %}
       <label for="date" class="input-label label-error">Lesson Date</label>
       <div class="input-group date" id="date" data-target-input="nearest">
-        <input type="text" name="date" class="form-control datetimepicker-input input-error" data-target="#date" value="{{ lesson_to_reschedule.date }}"/>
+        <input type="text" name="date" class="form-control datetimepicker-input input-error" data-target="#date" value="{{ lesson_to_reschedule.start_time|date:'m/d/Y' }}"/>
         <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
@@ -127,7 +128,7 @@
       {% else %}
       <label for="date" class="input-label">Lesson Date</label>
       <div class="input-group date" id="date" data-target-input="nearest">
-        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#date" value="{{ lesson_to_reschedule.date }}"/>
+        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#date" value="{{ lesson_to_reschedule.start_time|date:'m/d/Y' }}"/>
         <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
@@ -136,7 +137,7 @@
       {% if starting_time_error %}
       <label for="startingTime" class="input-label label-error">Lesson Starting Time</label>
       <div class="input-group time" id="startingTime" data-target-input="nearest">
-        <input type="text" name="startingTime" class="form-control datetimepicker-input input-error" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time }}"/>
+        <input type="text" name="startingTime" class="form-control datetimepicker-input input-error" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time|date:'g:i A' }}"/>
         <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
@@ -144,7 +145,7 @@
       {% else %}
       <label for="startingTime" class="input-label">Lesson Starting Time</label>
       <div class="input-group time" id="startingTime" data-target-input="nearest">
-        <input type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time }}"/>
+        <input type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time|date:'g:i A' }}"/>
         <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
@@ -153,7 +154,7 @@
       {% if ending_time_error %}
       <label for="endingTime" class="input-label label-error">Lesson Ending Time</label>
       <div class="input-group time" id="endingTime" data-target-input="nearest">
-        <input type="text" name="endingTime" class="form-control datetimepicker-input input-error" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time }}"/>
+        <input type="text" name="endingTime" class="form-control datetimepicker-input input-error" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time|date:'g:i A' }}"/>
         <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
@@ -161,7 +162,7 @@
       {% else %}
       <label for="endingTime" class="input-label">Lesson Ending Time</label>
       <div class="input-group time" id="endingTime" data-target-input="nearest">
-        <input type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time }}"/>
+        <input type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time|date:'g:i A' }}"/>
         <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="far fa-clock"></i></div>
         </div>
