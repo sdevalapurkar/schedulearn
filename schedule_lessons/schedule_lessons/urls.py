@@ -29,3 +29,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls'), name='dashboard'),
     path('admin/', admin.site.urls)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Needed for media folder to upload profile pictures.
+
+urlpatterns += [
+    url(r'^tz_detect/', include('tz_detect.urls')),
+]
