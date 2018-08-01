@@ -210,14 +210,14 @@ body {
 
 .day {
   display: block;
-  margin-top: 4px;
-  font-size: 90%;
+  margin-top: 1px;
+  font-size: 140%;
 }
 
 .month-day {
   font-size: 260%;
   margin-bottom: -18px;
-  margin-top: -10px;
+  margin-top: -14px;
   display: block;
   padding-right: 5px;
 }
