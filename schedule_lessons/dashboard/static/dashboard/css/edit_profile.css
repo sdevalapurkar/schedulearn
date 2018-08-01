@@ -10,7 +10,7 @@ html {
 
 body {
   height: 140%;
-  background-color: #F4F4F4;
+  background-color: #ededed;
 }
 
 /* Navbar for logged in Users */
@@ -205,4 +205,3 @@ body {
   border-radius: 0.25rem;
   font-family: avenir-next;
 }
-  
