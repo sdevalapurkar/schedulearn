@@ -16,4 +16,7 @@ $(document).ready(function() {
     $("#submit").click();
   });
 
+  var timezoneInfo = new Date().toString().split(' ')[5].substring(3);
+  $('#timeZoneInput').attr('value', timezoneInfo);
+
 });
