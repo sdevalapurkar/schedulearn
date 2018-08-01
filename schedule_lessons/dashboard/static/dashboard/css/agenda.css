@@ -244,6 +244,28 @@ body {
   padding-top: 4px;
 }
 
+.lesson-title {
+  padding-top: 0.5%;
+  font-family: BebasNeueRegular;
+  text-align: left;
+  font-size: 200%;
+  margin-bottom: 0;
+}
+
+.extended-field {
+  text-align: left;
+  margin-bottom: 0;
+  color: #4F4F4F;
+  font-family: adam-cg-pro;
+  font-weight: lighter;
+  font-size: 100%;
+  display: block;
+}
+
+.extended-detail {
+  font-family: avenir-next-regular;
+}
+
 .two-buttons {
   float: right;
   width: 80px;
@@ -256,7 +278,7 @@ body {
   height: 33.33%;
 }
 
-.buttons .btn {
+.two-buttons .btn, .three-buttons .btn {
   display: block;
   margin-left: auto;
   border-radius: 0;
@@ -301,32 +323,4 @@ body {
 
 .fa-calendar {
   font-size: 110%;
-}
-
-.lesson-title {
-  padding-top: 0.5%;
-  font-family: BebasNeueRegular;
-  text-align: left;
-  font-size: 200%;
-  margin-bottom: 0;
-}
-
-.extended-information {
-  width: 100%;
-  background-color: #4F4F4F;
-  text-align: left;
-}
-
-.extended-field {
-  text-align: left;
-  margin-bottom: 0;
-  color: #4F4F4F;
-  font-family: adam-cg-pro;
-  font-weight: lighter;
-  font-size: 100%;
-  display: block;
-}
-
-.extended-detail {
-  font-family: avenir-next-regular;
 }
