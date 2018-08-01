@@ -31,12 +31,8 @@ def agenda(request):
                     'tutor_id': lesson.tutor.profile.id,
                     'student_name': lesson.student.get_full_name(),
                     'student_id': lesson.student.profile.id,
-                    'month': lesson.start_time.strftime('%b'),
-                    'day': lesson.start_time.strftime('%a'),
-                    'month_day': lesson.start_time.strftime('%d'),
-                    'year': lesson.start_time.strftime('%Y'),
-                    'start_time': lesson.start_time.strftime('%I:%M %p'),
-                    'end_time': lesson.end_time.strftime('%I:%M %p'),
+                    'start_time': lesson.start_time,
+                    'end_time': lesson.end_time,
                     'display_options': lesson.created_by != request.user,
                 }
                 if lesson.pending:
