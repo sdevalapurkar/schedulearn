@@ -20,7 +20,7 @@ paragraph: Rounded_Elegance
 
 html {
   height: 100%;
-  background-color: #F4F4F4;
+  background-color: #ededed;
 }
 
 body {
@@ -79,7 +79,7 @@ body {
   font-size: 250%;
   letter-spacing: 12.24px;
   text-align: center;
-  margin-bottom: -1%;
+  margin-bottom: -10px;
 }
 
 .main_title {

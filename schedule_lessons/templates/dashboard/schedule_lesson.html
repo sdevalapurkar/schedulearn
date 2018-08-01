@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <title>Schedule a Lesson | Schedulearn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static "dashboard/css/schedule_lesson.css" %}">
+  <script src="{% static "dashboard/js/schedule_lesson.js" %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+</head>
+<body>
+
+  <!-- main navbar for signed in users -->
+  <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
+        </li>
+        <li class="nav-item">
+          {% if user.profile.user_type == 'tutor' %}
+          <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS</a>
+          {% endif %}
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <div class="nav-item dropdown">
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- end main navbar -->
+  <!-- extended navbar for signed in users -->
+
+  <nav id="extendedNavbar">
+    {% if lesson_to_reschedule %}
+    <a class="extended-button" href="{% url 'agenda' %}"><i class="fas fa-ban extended-icon"></i>CANCEL 'RESCHEDULING'</a>
+    {% else %}
+    {% if user.profile.user_type == 'tutor' %}
+    <a class="extended-button" href="{% url 'choose_person' %}"><i class="fas fa-exchange-alt extended-icon"></i>CHANGE STUDENT</a>
+    {% else %}
+    <a class="extended-button" href="{% url 'choose_person' %}"><i class="fas fa-exchange-alt extended-icon"></i>CHANGE TUTOR</a>
+    {% endif %}
+    {% endif %}
+  </nav>
+  <!-- end extended navbar for signed in users -->
+
+  {% if lesson_to_reschedule %}
+  <h1 id="editAvailabilityTitle">Reschedule '{{ lesson_to_reschedule.name }}'</h1>
+  {% else %}
+  <h1 id="editAvailabilityTitle">Schedule a Lesson</h1>
+  {% endif %}
+  <p id="scheduleVerification">{{ schedule_success }}</p>
+  <div id="currentAvailability">
+    <h4 class="edit-availability-subtitle">Availability for {{ person_to_schedule_with.first_name }} {{ person_to_schedule_with.last_name }}</h4>
+    {% if availabilities %}
+    <table id="availabilityTable">
+      <tr>
+        <th>DAY</th>
+        <th>FROM</th>
+        <th>TO</th>
+      </tr>
+      {% for availability in availabilities %}
+      <tr>
+        {% if availability.unavailable %}
+        <td class="day">{{ availability.day }}</td>
+        <td class="unavailable" colspan="3">UNAVAILABLE</td>
+        {% else %}
+        <td class="day">{{ availability.day }}</td>
+        <td>{{ availability.start_time }}</td>
+        <td>{{ availability.end_time }}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <h4 id="warningText">No Availability Set</h4>
+    {% endif %}
+  </div>
+
+  <div id="addAvailability">
+    <h4 class="edit-availability-subtitle">Details</h4>
+    <form method="post">
+      {% csrf_token %}
+      {% if name_error %}
+      <label for="name" class="input-label label-error">Lesson Name</label>
+      <input id="lessonTitle" class="form-control input-error" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
+      {% else %}
+      <label for="name" class="input-label">Lesson Name</label>
+      <input id="lessonTitle" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
+      {% endif %}
+      {% if location_error %}
+      <label for="location" class="input-label label-error">Lesson Location</label>
+      <input id="lessonLocation" class="form-control input-error" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
+      {% else %}
+      <label for="location" class="input-label">Lesson Location</label>
+      <input id="lessonLocation" class="form-control" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
+      {% endif %}
+      {% if date_error %}
+      <label for="date" class="input-label label-error">Lesson Date</label>
+      <div class="input-group date" id="date" data-target-input="nearest">
+        <input type="text" name="date" class="form-control datetimepicker-input input-error" data-target="#date" value="{{ lesson_to_reschedule.date }}"/>
+        <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+      </div>
+      {% else %}
+      <label for="date" class="input-label">Lesson Date</label>
+      <div class="input-group date" id="date" data-target-input="nearest">
+        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#date" value="{{ lesson_to_reschedule.date }}"/>
+        <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+      </div>
+      {% endif %}
+      {% if starting_time_error %}
+      <label for="startingTime" class="input-label label-error">Lesson Starting Time</label>
+      <div class="input-group time" id="startingTime" data-target-input="nearest">
+        <input type="text" name="startingTime" class="form-control datetimepicker-input input-error" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time }}"/>
+        <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% else %}
+      <label for="startingTime" class="input-label">Lesson Starting Time</label>
+      <div class="input-group time" id="startingTime" data-target-input="nearest">
+        <input type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time }}"/>
+        <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% endif %}
+      {% if ending_time_error %}
+      <label for="endingTime" class="input-label label-error">Lesson Ending Time</label>
+      <div class="input-group time" id="endingTime" data-target-input="nearest">
+        <input type="text" name="endingTime" class="form-control datetimepicker-input input-error" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time }}"/>
+        <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% else %}
+      <label for="endingTime" class="input-label">Lesson Ending Time</label>
+      <div class="input-group time" id="endingTime" data-target-input="nearest">
+        <input type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time }}"/>
+        <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="far fa-clock"></i></div>
+        </div>
+      </div>
+      {% endif %}
+
+      <input id="submit" type="submit">
+      <div class="center">
+        {% if lesson_to_reschedule %}
+        <a id="addBtn" href="#">RESCHEDULE</a>
+        {% else %}
+        <a id="addBtn" href="#">SCHEDULE</a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</body>
+</html>

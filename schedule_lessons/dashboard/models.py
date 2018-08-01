@@ -12,6 +12,7 @@ class Lesson(models.Model):
 
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_by', default=None)
 
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()

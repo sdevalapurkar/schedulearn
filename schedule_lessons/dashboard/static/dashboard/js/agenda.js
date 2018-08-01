@@ -1,6 +1,2 @@
-$('document').ready(function() {
-  $("#searchInput").on("click", function() {
-    $(this).removeClass('error-list');
-  });
-
-});
+var time = new Date().toString().split(' ');
+console.log(time);
