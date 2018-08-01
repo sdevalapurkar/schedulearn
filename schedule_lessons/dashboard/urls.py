@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     path('agenda/', views.agenda, name='agenda'),
+    path('confirm_lesson/<id>/', views.confirm_lesson, name='confirm_lesson'),
+    path('decline_lesson/<id>/', views.decline_lesson, name='decline_lesson'),
+    path('reschedule_lesson/<id>/', views.reschedule_lesson, name='reschedule_lesson'),
     path('relationships/', views.relationships, name='relationships'),
     path('search/', views.search, name='search'),
     path('profile/<id>/', views.public_profile, name='public_profile'), # this url is for public profiles
