@@ -106,7 +106,7 @@ def login_view(request):
 @login_required
 def personalize_view(request):
     if request.method == 'POST':
-        if request.POST['profile_pic'] != '':
+        if request.POST.get('profile_pic', '') != '':
             cropped_img = request.POST['profile_pic']
             format, imgstr = cropped_img.split(';base64,')
             ext = format.split('/')[-1]

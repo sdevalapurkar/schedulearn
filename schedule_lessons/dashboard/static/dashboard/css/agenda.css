@@ -188,9 +188,9 @@ body {
 }
 
 .lesson {
-  width: 400px;
+  width: 80%;
   margin: 0 auto;
-  border: 2px solid #4A4A4A;
+  box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
   margin-bottom: 20px;
 }
 
@@ -233,11 +233,74 @@ body {
   display: block;
 }
 
-.title-and-description {
+.details-and-buttons {
   background-color: white;
   width: 100%;
+}
+
+.details {
+  float: left;
   padding-left: 9px;
   padding-top: 4px;
+}
+
+.two-buttons {
+  float: right;
+  width: 80px;
+  height: 50%;
+}
+
+.three-buttons {
+  float: right;
+  width: 80px;
+  height: 33.33%;
+}
+
+.buttons .btn {
+  display: block;
+  margin-left: auto;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  font-family: bariol;
+}
+
+.accept-btn {
+  background-color: #2E8B57;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: green;
+}
+
+.fa-check {
+  font-size: 130%;
+}
+
+.decline-btn {
+  background-color: #E54F52;
+  color: white;
+}
+
+.decline-btn:hover {
+  background-color: #D14F52;
+}
+
+.fa-times {
+  font-size: 140%;
+}
+
+.reschedule-btn {
+  background-color: #efef00;
+}
+
+.reschedule-btn:hover {
+  background-color: gold;
+}
+
+.fa-calendar {
+  font-size: 110%;
 }
 
 .lesson-title {
