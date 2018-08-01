@@ -37,9 +37,9 @@ def agenda(request):
                     'student_name': lesson.student.get_full_name(),
                     'student_id': lesson.student.profile.id,
                     'student_username': lesson.student.username,
-                    'short_month_name': lesson.start_time.strftime('%b'),
-                    'long_week_day': lesson.start_time.strftime('%A'), # not used
-                    'number_day': lesson.start_time.strftime('%d'),
+                    'month': lesson.start_time.strftime('%b'),
+                    'day': lesson.start_time.strftime('%A'),
+                    'month_day': lesson.start_time.strftime('%d'),
                     'year': lesson.start_time.strftime('%Y'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
                     'end_time': lesson.end_time.strftime('%I:%M %p'),

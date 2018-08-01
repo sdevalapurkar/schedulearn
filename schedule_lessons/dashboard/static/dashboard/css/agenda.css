@@ -208,21 +208,27 @@ body {
   color: #F4F4F4;
 }
 
-.date-day {
+.day {
+  display: block;
+  margin-top: 4px;
+  font-size: 90%;
+}
+
+.month-day {
   font-size: 260%;
   margin-bottom: -18px;
-  margin-top: 5px;
+  margin-top: -10px;
   display: block;
   padding-right: 5px;
 }
 
-.date-month {
+.month {
   display: block;
   font-size: 180%;
   margin-bottom: -11px;
 }
 
-.date-year {
+.year {
   font-size: 150%;
   display: block;
 }

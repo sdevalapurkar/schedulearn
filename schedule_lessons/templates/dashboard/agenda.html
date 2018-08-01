@@ -86,9 +86,10 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ scheduled_lesson.number_day }}</span>
-          <span class="date-month">{{ scheduled_lesson.short_month_name }}</span>
-          <span class="date-year">{{ scheduled_lesson.year }}</span>
+          <span class="day">{{ scheduled_lesson.day }}</span>
+          <span class="month-day">{{ scheduled_lesson.month_day }}</span>
+          <span class="month">{{ scheduled_lesson.month }}</span>
+          <span class="year">{{ scheduled_lesson.year }}</span>
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
@@ -113,9 +114,10 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="date-day">{{ pending_lesson.number_day }}</span>
-          <span class="date-month">{{ pending_lesson.short_month_name }}</span>
-          <span class="date-year">{{ pending_lesson.year }}</span>
+          <span class="day">{{ pending_lesson.day }}</span>
+          <span class="month-day">{{ pending_lesson.month_day }}</span>
+          <span class="month">{{ pending_lesson.month }}</span>
+          <span class="year">{{ pending_lesson.year }}</span>
         </div>
         <div class="title-and-description">
           <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
