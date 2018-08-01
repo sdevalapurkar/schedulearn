@@ -365,11 +365,9 @@ def return_availabilities(request, profile_id):
 
 def error_check_and_save_lesson(request, lesson, context):
     # Get lesson timezone when (re)scheduling lessons
-    timezone = request.POST.get('timezoneInfo','')
-    if timezone:
-        hours_difference = int(timezone[:3])
-        minutes_difference = int(timezone[3:])
-        time_difference = datetime.timezone(datetime.timedelta(hours=hours_difference, minutes=minutes_difference))
+    minutes_offset = request.POST.get('timezoneInfo','')
+    minutes_difference = int(minutes_offset)
+    time_difference = datetime.timezone(datetime.timedelta(minutes=minutes_difference))
     # Get lesson name when (re)scheduling lessons
     if not request.POST['name']:
         context['name_error'] = True
