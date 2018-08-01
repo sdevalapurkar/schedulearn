@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tz_detect %}
 <html>
 <head>
   <meta charset="utf-8">
@@ -78,7 +79,7 @@
     </form>
   </nav>
   <!-- end extended navbar for signed in users -->
-
+  {% tz_detect %}
   <div id="mainScheduled">
     {% if scheduled_lessons %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
@@ -86,16 +87,18 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="day">{{ scheduled_lesson.day }}</span>
-          <span class="month-day">{{ scheduled_lesson.month_day }}</span>
-          <span class="month">{{ scheduled_lesson.month }}</span>
-          <span class="year">{{ scheduled_lesson.year }}</span>
+          <span class="day">{{ scheduled_lesson.start_time|date:"D" }}</span>
+          <span class="month-day">{{ scheduled_lesson.start_time|date:"d" }}</span>
+          <span class="month">{{ scheduled_lesson.start_time|date:"M" }}</span>
+          <span class="year">{{ scheduled_lesson.start_time|date:"Y" }}</span>
         </div>
         <div class="details-and-buttons">
           <div class="details">
             <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
             <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
-            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time }} - {{ scheduled_lesson.end_time }}</span></p>
+            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
+            It is {% now "jS F Y H:i" %}
+            {% tz_detect %}
             {% if user.profile.user_type == 'tutor' %}
             <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
             {% else %}
@@ -124,16 +127,16 @@
     <div class="lesson">
       <div class="main-information">
         <div class="date">
-          <span class="day">{{ pending_lesson.day }}</span>
-          <span class="month-day">{{ pending_lesson.month_day }}</span>
-          <span class="month">{{ pending_lesson.month }}</span>
-          <span class="year">{{ pending_lesson.year }}</span>
+          <span class="day">{{ pending_lesson.start_time|date:"D" }}</span>
+          <span class="month-day">{{ pending_lesson.start_time|date:"d" }}</span>
+          <span class="month">{{ pending_lesson.start_time|date:"M" }}</span>
+          <span class="year">{{ pending_lesson.start_time|date:"Y" }}</span>
         </div>
         <div class="details-and-buttons">
           <div class="details">
             <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
             <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
-            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time }} - {{ pending_lesson.end_time }}</span></p>
+            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time|date:"g:i A" }} - {{ pending_lesson.end_time|date:"g:i A" }}</span></p>
             {% if user.profile.user_type == 'tutor' %}
             <p class="extended-field">Student:</b> <span class="extended-detail">{{ pending_lesson.student_name }}</span></p>
             {% else %}

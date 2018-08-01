@@ -25,17 +25,14 @@ def agenda(request):
             try:
                 data = {
                     'id': lesson.id,
+                    'name': lesson.name,
                     'location': lesson.location,
                     'tutor_name': lesson.tutor.get_full_name(),
                     'tutor_id': lesson.tutor.profile.id,
                     'student_name': lesson.student.get_full_name(),
                     'student_id': lesson.student.profile.id,
-                    'month': lesson.start_time.strftime('%b'),
-                    'day': lesson.start_time.strftime('%a'),
-                    'month_day': lesson.start_time.strftime('%d'),
-                    'year': lesson.start_time.strftime('%Y'),
-                    'start_time': lesson.start_time.strftime('%I:%M %p'),
-                    'end_time': lesson.end_time.strftime('%I:%M %p'),
+                    'start_time': lesson.start_time,
+                    'end_time': lesson.end_time,
                     'display_options': lesson.created_by != request.user,
                 }
                 if lesson.pending:
@@ -187,7 +184,6 @@ def schedule_lesson(request, user_id):
     if request.method == 'POST':
         new_lesson = Lesson()
         context = error_check_and_save_lesson(request, new_lesson, context)
-        context['schedule_success'] = "Your Lesson '" + new_lesson.name + "' Was Scheduled Successfully"
     return render(request, 'dashboard/schedule_lesson.html', context)
 
 @login_required
@@ -364,26 +360,38 @@ def return_availabilities(request, profile_id):
                 'day': day,
                 'unavailable': True })
 
-    # availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # sorts the availabilities by the day of the week.
+    # availabilities.sort(key=lambda v: days_of_the_week.index(v['day'])) # Don't delete yet, could be useful syntax
+    # Delete above line after First Offical Release.
     return availabilities
 
 def error_check_and_save_lesson(request, lesson, context):
+    # Get lesson timezone when (re)scheduling lessons
+    timezone = request.POST.get('timezoneInfo','')
+    if timezone:
+        hours_difference = int(timezone[:3])
+        minutes_difference = int(timezone[3:])
+        time_difference = datetime.timezone(datetime.timedelta(hours=hours_difference, minutes=minutes_difference))
+    # Get lesson name when (re)scheduling lessons
     if not request.POST['name']:
         context['name_error'] = True
     else:
         lesson.name = request.POST['name']
+    # Get lesson location when (re)scheduling lessons
     if not request.POST['location']:
         context['location_error'] = True
     else:
         lesson.location = request.POST['location']
+    # Get lesson date when (re)scheduling lessons
     if not request.POST['date']:
         context['date_error'] = True
     else:
         date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
+    # Get lesson starting time when (re)scheduling lessons
     if not request.POST['startingTime']:
         context['starting_time_error'] = True
     else:
         start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
+    # Get lesson ending time when (re)scheduling lessons
     if not request.POST['endingTime']:
         context['ending_time_error'] = True
     else:
@@ -393,8 +401,12 @@ def error_check_and_save_lesson(request, lesson, context):
     lesson.student = request.user if request.user.profile.user_type == 'student' else context['person_to_schedule_with']
 
     if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
-        lesson.start_time = datetime.datetime.combine(date, start_time)
-        lesson.end_time = datetime.datetime.combine(date, end_time)
+        utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
+        start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
+        end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)
+        lesson.start_time = start_time_in_local_time.astimezone(utczone) # store starting time in UTC
+        lesson.end_time = end_time_in_local_time.astimezone(utczone) # store ending time in UTC
         lesson.created_by = request.user
         lesson.save()
+        context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
     return context
