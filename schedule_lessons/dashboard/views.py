@@ -38,7 +38,7 @@ def agenda(request):
                     'student_id': lesson.student.profile.id,
                     'student_username': lesson.student.username,
                     'month': lesson.start_time.strftime('%b'),
-                    'day': lesson.start_time.strftime('%A'),
+                    'day': lesson.start_time.strftime('%a'),
                     'month_day': lesson.start_time.strftime('%d'),
                     'year': lesson.start_time.strftime('%Y'),
                     'start_time': lesson.start_time.strftime('%I:%M %p'),
