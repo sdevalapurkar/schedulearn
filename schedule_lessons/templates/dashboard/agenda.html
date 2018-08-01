@@ -102,6 +102,14 @@
             <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
             {% endif %}
           </div>
+          <div class="two-buttons">
+            <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
+              <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' scheduled_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -133,24 +141,24 @@
             {% endif %}
           </div>
           {% if pending_lesson.display_options %}
-          <div class="three-buttons buttons">
+          <div class="three-buttons">
             <a href="{% url 'confirm_lesson' pending_lesson.id %}">
               <button class="accept-btn btn" type="button" name="button"><i class="fas fa-check"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
-            </a>
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
             </a>
           </div>
           {% else %}
-          <div class="two-buttons buttons">
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
-            </a>
+          <div class="two-buttons">
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-calendar"></i></button>
+            </a>
+            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button"><i class="fas fa-times"></i></button>
             </a>
           </div>
           {% endif %}
