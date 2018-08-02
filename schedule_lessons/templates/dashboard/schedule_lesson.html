@@ -84,12 +84,12 @@
       {% for availability in availabilities %}
       <tr>
         {% if availability.unavailable %}
-        <td class="day">{{ availability.day }}</td>
+        <td class="day">{{ availability.unavailable|date:"l" }}</td>
         <td class="unavailable" colspan="3">UNAVAILABLE</td>
         {% else %}
-        <td class="day">{{ availability.day }}</td>
-        <td>{{ availability.start_time }}</td>
-        <td>{{ availability.end_time }}</td>
+        <td class="day">{{ availability.start_time|date:"l" }}</td>
+        <td>{{ availability.start_time|date:"g:i A" }}</td>
+        <td>{{ availability.end_time|date:"g:i A" }}</td>
         {% endif %}
       </tr>
       {% endfor %}
@@ -168,8 +168,7 @@
         </div>
       </div>
       {% endif %}
-      <input id="timeZoneInput" style="position:absolute;right:-99999px;"type="text" name="timezoneInfo" value="">
-
+      <input id="timeZoneInput" type="text" name="timezoneInfo" value="">
       <input id="submit" type="submit">
       <div class="center">
         {% if lesson_to_reschedule %}
