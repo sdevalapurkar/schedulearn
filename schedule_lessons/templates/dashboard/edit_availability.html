@@ -71,12 +71,12 @@
       {% for availability in availabilities %}
       <tr>
         {% if availability.unavailable %}
-        <td class="day">{{ availability.day }}</td>
+        <td class="day">{{ availability.unavailable|date:"l" }}</td>
         <td class="unavailable" colspan="3">UNAVAILABLE</td>
         {% else %}
-        <td class="day">{{ availability.day }}</td>
-        <td>{{ availability.start_time }}</td>
-        <td>{{ availability.end_time }}</td>
+        <td class="day">{{ availability.start_time|date:"l" }}</td>
+        <td>{{ availability.start_time|date:"g:i A" }}</td>
+        <td>{{ availability.end_time|date:"g:i A" }}</td>
         <td><a href="/dashboard/my_profile/delete_availability/{{ availability.day }}" id="cancelAvailability"><i class="far fa-trash-alt"></i></a></td>
         {% endif %}
       </tr>
@@ -137,7 +137,7 @@
         </div>
       </div>
       {% endif %}
-
+      <input id="timeZoneInput" type="text" name="timezoneInfo" value="">
       <input id="submit" type="submit">
       <div class="center">
         <a id="addBtn" href="#">ADD</a>
