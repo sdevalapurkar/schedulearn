@@ -135,6 +135,10 @@ html body {
   text-align: center;
 }
 
+.row {
+  width: 100%;
+}
+
 .col-md {
   text-align: center;
   padding-bottom: 100px;
