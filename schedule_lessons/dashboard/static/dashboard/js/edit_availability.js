@@ -12,4 +12,8 @@ $(document).ready(function() {
     $("#submit").click();
   });
 
+  var offset = new Date().getTimezoneOffset();
+  offset *= (-1)
+  $('#timeZoneInput').attr('value', offset);
+
 });

@@ -97,8 +97,6 @@
             <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
             <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
             <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
-            It is {% now "jS F Y H:i" %}
-            {% tz_detect %}
             {% if user.profile.user_type == 'tutor' %}
             <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
             {% else %}
