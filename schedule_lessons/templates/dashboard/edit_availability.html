@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load dashboard_extras %}
 <html>
 <head>
   <title>Edit My Availability | Schedulearn</title>
@@ -61,7 +62,37 @@
 
       <div class="col-md">
         <h4 class="edit-availability-subtitle">Current Availability</h4>
-        {% if availabilities %}
+
+        <table id="availabilityTable">
+          <tr>
+            <th>DAY</th>
+            <th>FROM</th>
+            <th>TO</th>
+            <th hidden>DELETE</th>
+          </tr>
+          {% for day in days_of_the_week %}
+            {% define_variable 0 %}
+            {% for availability in availabilities %}
+              {% if availability.start_time|date:"l" == day %}
+                <tr>
+                  <td class="day">{{ day }}</td>
+                  <td>{{ availability.start_time|date:"g:i A" }}</td>
+                  <td>{{ availability.end_time|date:"g:i A" }}</td>
+                  <td id="deleteAvailability"><a href="/dashboard/my_profile/delete_availability/{{ availability.id }}"><i class="far fa-trash-alt"></i></a></td>
+                </tr>
+                {% define_variable 1 %}
+              {% endif %}
+            {% endfor %}
+            {% get_variable as available %}
+            {% if not available %}
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td class="unavailable" colspan="2">UNAVAILABLE</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </table>
+        <!-- {% if availabilities %}
         <table id="availabilityTable">
           <tr>
             <th>DAY</th>
@@ -78,14 +109,14 @@
             <td class="day">{{ availability.start_time|date:"l" }}</td>
             <td>{{ availability.start_time|date:"g:i A" }}</td>
             <td>{{ availability.end_time|date:"g:i A" }}</td>
-            <td id="deleteAvailability"><a href="/dashboard/my_profile/delete_availability/{{ availability.day }}"><i class="far fa-trash-alt"></i></a></td>
+            <td id="deleteAvailability"><a href="/dashboard/my_profile/delete_availability/{{ availability.id }}"><i class="far fa-trash-alt"></i></a></td>
             {% endif %}
           </tr>
           {% endfor %}
         </table>
         {% else %}
         <h4 id="warningText">No Availability Set</h4>
-        {% endif %}
+        {% endif %} -->
       </div>
 
       <div class="col-md">
