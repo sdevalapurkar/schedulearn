@@ -27,6 +27,18 @@ class Availability(models.Model):
     def __str__(self):
         return self.profile.user.get_full_name() + ' from ' + str(self.start_time) + ' to ' + str(self.end_time) + ' on ' + self.day
 
+# Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
+def return_availabilities(user_id):
+    availabilities = []
+    days_of_the_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    for day in days_of_the_week:
+        availabilities_in_day = Availability.objects.filter(profile__id=user_id, day=day)
+        if availabilities_in_day:
+            for availability_in_day in availabilities_in_day:
+                availabilities.append(availability_in_day)
+
+    return availabilities
+    
 # Below code is necessary
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
