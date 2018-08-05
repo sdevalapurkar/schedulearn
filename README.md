@@ -1,5 +1,5 @@
 # Schedulearn
-A web app that tutors and students can use to interact with each other and easily schedule/manage all their lessons
+A web app that tutors and students can use to schedule lessons with each other through setting availabilities.
 
 ## Try it out
 
@@ -7,44 +7,65 @@ If you want to see our work in action, visit: schedulearn.com
 
 Otherwise, if you'd like to run a test module and play around with our code, complete the following steps:
 
-1- Using your terminal or command prompt, navigate to your workspace directory such as the following:
+NOTE: This project is using python 3.6.5 and Django 2.0.6
 
-```
-$ cd Desktop
-$ cd Workspace
-```
+1- Using your terminal or command prompt, navigate to your workspace directory.
 
 2- Next, you need to clone our repo on the terminal. You can do this by the following command:
-NOTE: $ sign at the beginning denotes the terminal, you don't type that in
+NOTE: $ sign at the beginning denotes the terminal.
 
 ```
-$ git clone https://github.com/sdevalapurkar/schedule-my-lessons.git
+$ git clone https://github.com/sdevalapurkar/schedulearn.git
 ```
 
 OR if you would like to clone from a specific branch, then the following command will do:
 
 ```
-$ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedule-my-lessons.git
+$ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedulearn.git
 ```
 
-3- This app has lots of requirements, you can install them by:
+3- Assuming you have python3.6.5 installed, you can install our dependencies using pip
+(The pip command is a tool for installing and managing Python packages).
 
-  First, navigating inside our directory:
+Side note: We recommend you install these dependencies in a virtual environment, although this isn't necessary.
+
+  First, start a virtual environment:
+  
+  ```
+  $ virtualenv -p python3.6.5 schedulearn_venv
+  ```
+ 
+  Activate the virtual environment:
+  
+  ```
+  $ source schedulearn_venv/bin/activate
+  ```
+  
+  Navigate inside our repo:
+  
   ```
   $ cd schedulearn
   ```
-  Lastly, using pip3 to install the requirements:
+  
+  Download our dependencies:
+  
   ```
-  $ pip3 install -r requirements.txt
+  $ pip3 install -r requirements.txt 
   ```
  
-4- Navigate inside our project:
+4- Navigate inside our django project:
 
 ```
 $ cd schedule_lessons
 ```
 
-4- Now you want to run our app locally on your computer, you can do this using the following command:
+5- Now you want to migrate our database.
+
+```
+$ python3 manage.py migrate
+```
+
+6- Now you want to run our app locally on your computer, you can do this using the following command:
 NOTE: This project is using python3.
 ```
 $ python3 manage.py runserver
