@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Relationship, Lesson
-from accounts.models import Availability
+from .models import *
+from accounts.models import Availability, return_availabilities
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
@@ -95,27 +95,23 @@ def public_profile(request, user_id):
         }
 
         if not request.user.is_anonymous:
-            if request.user.profile.user_type == 'tutor':
-                if relationship_exists(context['profile_user'], request.user):
+            # Returns a boolean value depending on whether a relationship
+            # exists between Person A and Person B
+            context['rel_exists'] = relationship_exists(context['profile_user'], request.user)
+            if context['rel_exists']:
+                if request.user.profile.user_type == 'tutor':
                     context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
-                    context['rel_exists'] = True
-                    return render(request, 'dashboard/public_profile.html', context)
                 else:
-                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', context)
-            elif request.user.profile.user_type == 'student':
-                if relationship_exists(request.user, context['profile_user']):
                     context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
-                    context['rel_exists'] = True
-                    return render(request, 'dashboard/public_profile.html', context)
+            else:
+                if request.user.profile.user_type == 'tutor':
+                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
                 else:
                     context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', context)
-        else:
+
             return render(request, 'dashboard/public_profile.html', context)
 
     except Exception as e:
-        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 @login_required
@@ -353,35 +349,13 @@ def delete_availability(request, availability_id):
     except:
         return HttpResponse(status=404)
 
-# Functions for the views
-
-def relationship_exists(student, tutor):
-    try:
-        Relationship.objects.get(student=student, tutor=tutor)
-        return True
-    except:
-        return False
+# Error Checking Functions
 
 def check_for_empty_times(request, context):
-    if not request.POST['startingTime']:
-        context['starting_time_error'] = True
-    if not request.POST['endingTime']:
-        context['ending_time_error'] = True
-
+    context['starting_time_error'] = False if request.POST['startingTime'] else True
+    context['ending_time_error'] = False if request.POST['endingTime'] else True
     if context.get('ending_time_error') or context.get('starting_time_error'):
         return render(request, 'dashboard/edit_availability.html', context)
-
-# Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
-def return_availabilities(user_id):
-    availabilities = []
-    days_of_the_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    for day in days_of_the_week:
-        availabilities_in_day = Availability.objects.filter(profile__id=user_id, day=day)
-        if availabilities_in_day:
-            for availability_in_day in availabilities_in_day:
-                availabilities.append(availability_in_day)
-
-    return availabilities
 
 def error_check_and_save_lesson(request, lesson, context):
     # Get lesson timezone when (re)scheduling lessons
@@ -427,19 +401,3 @@ def error_check_and_save_lesson(request, lesson, context):
         lesson.save()
         context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
     return context
-
-def getDateFromDay(day):
-    if day == 'Monday':
-        return datetime.datetime(2018, 7, 30)
-    elif day == 'Tuesday':
-        return datetime.datetime(2018, 7, 31)
-    elif day == 'Wednesday':
-        return datetime.datetime(2018, 8, 1)
-    elif day == 'Thursday':
-        return datetime.datetime(2018, 8, 2)
-    elif day == 'Friday':
-        return datetime.datetime(2018, 8, 3)
-    elif day == 'Saturday':
-        return datetime.datetime(2018, 8, 4)
-    elif day == 'Sunday':
-        return datetime.datetime(2018, 8, 5)
