@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load dashboard_extras %}
 <html>
 <head>
   <title>{{ user.first_name }}'s Profile | Schedulearn</title>
@@ -68,29 +69,32 @@
 
     <div id="availability">
       <h4 class="user-headings">Availability</h4>
-      {% if availabilities %}
       <table id="availabilityTable">
         <tr>
           <th>DAY</th>
           <th>FROM</th>
           <th>TO</th>
-        </tr>
-        {% for availability in availabilities %}
-        <tr>
-          {% if availability.unavailable %}
-          <td class="day">{{ availability.unavailable|date:"l" }}</td>
-          <td class="unavailable" colspan="3">UNAVAILABLE</td>
-          {% else %}
-          <td class="day">{{ availability.start_time|date:"l" }}</td>
-          <td>{{ availability.start_time|date:"g:i A" }}</td>
-          <td>{{ availability.end_time|date:"g:i A" }}</td>
-          {% endif %}
-        </tr>
-        {% endfor %}
+          {% for day in days_of_the_week %}
+            {% define_variable 0 %}
+            {% for availability in availabilities %}
+              {% if availability.start_time|date:"l" == day %}
+                <tr>
+                  <td class="day">{{ day }}</td>
+                  <td>{{ availability.start_time|date:"g:i A" }}</td>
+                  <td>{{ availability.end_time|date:"g:i A" }}</td>
+                </tr>
+                {% define_variable 1 %}
+              {% endif %}
+            {% endfor %}
+            {% get_variable as available %}
+            {% if not available %}
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td class="unavailable" colspan="2">UNAVAILABLE</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
       </table>
-      {% else %}
-      <h4 id="warningText">No Availability Set</h4>
-      {% endif %}
     </div>
 
   </div>
