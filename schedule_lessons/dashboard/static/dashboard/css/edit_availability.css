@@ -245,6 +245,13 @@ tr #deleteAvailability {
   left: -9999px;
 }
 
+.error-list {
+  font-family: avenir-next;
+  color: #D14F52;
+  margin-top: 0.6%;
+  margin-bottom: 0;
+}
+
 #addBtn {
   font-family: anson;
   padding: 2px 35px;
