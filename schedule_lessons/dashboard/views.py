@@ -180,7 +180,11 @@ def choose_person(request):
 @login_required
 def schedule_lesson(request, user_id):
     person_to_schedule_with = User.objects.get(profile__id=user_id)
-    context = {'person_to_schedule_with': person_to_schedule_with, 'availabilities': return_availabilities(user_id)}
+    context = {
+        'person_to_schedule_with': person_to_schedule_with,
+        'availabilities': return_availabilities(user_id),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    }
     if request.method == 'POST':
         new_lesson = Lesson()
         context = error_check_and_save_lesson(request, new_lesson, context)
@@ -215,6 +219,7 @@ def reschedule_lesson(request, lesson_id):
         return HttpResponse(status=404)
     context = {
         'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
@@ -238,12 +243,16 @@ def reschedule_lesson(request, lesson_id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    reset_email = request.GET.get('reset_email', False)
-    availabilities = return_availabilities(request.user.profile.id)
-    if reset_email:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities, 'changed_email': True})
+    context = {
+        'user': request.user,
+        'availabilities': return_availabilities(request.user.profile.id),
+        'reset_email': request.GET.get('reset_email', False),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    }
+    if context['reset_email']:
+        return render(request, 'dashboard/my_profile.html', context)
     else:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities})
+        return render(request, 'dashboard/my_profile.html', context)
 
 @login_required
 def edit_profile(request):
