@@ -9,7 +9,7 @@ html {
   height: 100%;
 }
 
-body {
+html body {
   height: 100%;
   background-color: #ededed;
 }
@@ -226,6 +226,10 @@ body {
   width: 50%;
 }
 
+#timeZoneInput {
+  position: absolute;
+  right:-99999px;
+}
 
 #submit {
   position: absolute;

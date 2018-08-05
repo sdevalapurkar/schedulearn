@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tz_detect %}
 <html>
 <head>
   <meta charset="utf-8">
@@ -36,7 +37,7 @@
     </div>
   </nav>
   <!-- navbar end -->
-
+  {% tz_detect %}
   <div class="main-background">
     <div class="main-content">
       <p class="main_subtitle">SCHEDULEARN</p>
