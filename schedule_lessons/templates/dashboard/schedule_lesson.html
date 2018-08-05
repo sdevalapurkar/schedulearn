@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-{% load tz_detect %}
 {% load dashboard_extras %}
 <html>
 <head>
@@ -66,7 +65,6 @@
     {% endif %}
   </nav>
   <!-- end extended navbar for signed in users -->
-  {% tz_detect %}
   {% if lesson_to_reschedule %}
   <h1 id="editAvailabilityTitle">Reschedule '{{ lesson_to_reschedule.name }}'</h1>
   {% else %}
