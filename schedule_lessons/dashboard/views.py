@@ -88,28 +88,34 @@ def search(request):
 
 def public_profile(request, user_id):
     try:
-        profile_user = User.objects.get(profile__id=user_id) # get the user to which the profile belongs
-        availabilities = return_availabilities(user_id)
+        context = {
+            'profile_user': User.objects.get(profile__id=user_id), # get the user to which the profile belongs
+            'availabilities': return_availabilities(user_id),
+            'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        }
 
         if not request.user.is_anonymous:
             if request.user.profile.user_type == 'tutor':
-                if relationship_exists(profile_user, request.user):
-                    remove_student_url = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_student_url':remove_student_url})
+                if relationship_exists(context['profile_user'], request.user):
+                    context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                    context['rel_exists'] = True
+                    return render(request, 'dashboard/public_profile.html', context)
                 else:
-                    add_student_url = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_student_url': add_student_url})
+                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                    return render(request, 'dashboard/public_profile.html', context)
             elif request.user.profile.user_type == 'student':
-                if relationship_exists(request.user, profile_user):
-                    remove_tutor_url = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'rel_exists': True, 'remove_tutor_url':remove_tutor_url})
+                if relationship_exists(request.user, context['profile_user']):
+                    context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                    context['rel_exists'] = True
+                    return render(request, 'dashboard/public_profile.html', context)
                 else:
-                    add_tutor_url = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-                    return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities, 'add_tutor_url': add_tutor_url})
+                    context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
+                    return render(request, 'dashboard/public_profile.html', context)
         else:
-            return render(request, 'dashboard/public_profile.html', {'profile_user': profile_user, 'availabilities': availabilities})
+            return render(request, 'dashboard/public_profile.html', context)
 
     except Exception as e:
+        print(str(e))
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
 
 @login_required
