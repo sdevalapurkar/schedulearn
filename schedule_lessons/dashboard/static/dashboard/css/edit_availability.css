@@ -183,11 +183,18 @@ html body {
   text-transform: uppercase;
 }
 
-#cancelAvailability {
+tr #deleteAvailability {
   color: #E54F52;
+  border: 0;
+  background-color: #ededed;
 }
 
-#cancelAvailability:hover {
+#deleteAvailability a {
+  color: #E54F52;
+  font-size: 110%;
+}
+
+#deleteAvailability a:hover {
   color: #D14F52;
 }
 
