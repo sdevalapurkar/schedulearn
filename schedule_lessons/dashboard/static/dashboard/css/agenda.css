@@ -9,6 +9,8 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+
 
 html {
   height: 100%;
@@ -246,7 +248,7 @@ html body {
 
 .lesson-title {
   padding-top: 0.5%;
-  font-family: BebasNeueRegular;
+  font-family: bebas-neue;
   text-align: left;
   font-size: 200%;
   margin-bottom: 0;

@@ -180,7 +180,11 @@ def choose_person(request):
 @login_required
 def schedule_lesson(request, user_id):
     person_to_schedule_with = User.objects.get(profile__id=user_id)
-    context = {'person_to_schedule_with': person_to_schedule_with, 'availabilities': return_availabilities(user_id)}
+    context = {
+        'person_to_schedule_with': person_to_schedule_with,
+        'availabilities': return_availabilities(user_id),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    }
     if request.method == 'POST':
         new_lesson = Lesson()
         context = error_check_and_save_lesson(request, new_lesson, context)
@@ -215,6 +219,7 @@ def reschedule_lesson(request, lesson_id):
         return HttpResponse(status=404)
     context = {
         'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
@@ -238,12 +243,16 @@ def reschedule_lesson(request, lesson_id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    reset_email = request.GET.get('reset_email', False)
-    availabilities = return_availabilities(request.user.profile.id)
-    if reset_email:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities, 'changed_email': True})
+    context = {
+        'user': request.user,
+        'availabilities': return_availabilities(request.user.profile.id),
+        'reset_email': request.GET.get('reset_email', False),
+        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    }
+    if context['reset_email']:
+        return render(request, 'dashboard/my_profile.html', context)
     else:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'availabilities': availabilities})
+        return render(request, 'dashboard/my_profile.html', context)
 
 @login_required
 def edit_profile(request):
@@ -295,29 +304,21 @@ def edit_profile(request):
 
 @login_required
 def edit_availability(request):
-    context = {'availabilities': return_availabilities(request.user.profile.id)}
+    context = {'availabilities': return_availabilities(request.user.profile.id),
+               'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
     if request.method == 'POST':
         day = request.POST.get('day', '')
         date = getDateFromDay(day).date() # a date object with static date with the sole purpose of representing a day of the week.
         minutes_offset = request.POST.get('timezoneInfo','')
-        minutes_difference = int(minutes_offset)
-        time_difference = datetime.timezone(datetime.timedelta(minutes=minutes_difference))
+        time_difference = datetime.timezone(datetime.timedelta(minutes=int(minutes_offset)))
         utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
-
         if not request.POST['startingTime'] or not request.POST['endingTime']:
             return check_for_empty_times(request, context)
         else:
-            start_time_naive = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time()
-            end_time_naive = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
-            start_time = datetime.datetime.combine(date, start_time_naive, time_difference)
-            end_time = datetime.datetime.combine(date, end_time_naive, time_difference)
-        try:
-            existing_availabity = Availability.objects.get(profile__id=request.user.profile.id, day=day)
-            existing_availabity.start_time = start_time.astimezone(utczone)
-            existing_availabity.end_time = end_time.astimezone(utczone)
-            existing_availabity.save()
-            return redirect('edit_availability')
-        except Exception as e:
+            start_time_naive = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # time objects
+            end_time_naive = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time() # time objects
+            start_time = datetime.datetime.combine(date, start_time_naive, time_difference) # datetime objects
+            end_time = datetime.datetime.combine(date, end_time_naive, time_difference) # datetime objects
             new_availability = Availability()
             new_availability.profile = request.user.profile
             new_availability.start_time = start_time.astimezone(utczone)
@@ -329,10 +330,13 @@ def edit_availability(request):
         return render(request, 'dashboard/edit_availability.html', context)
 
 @login_required
-def delete_availability(request, day):
-    delete_day = Availability.objects.get(profile__id=request.user.profile.id, day__iexact=day)
-    delete_day.delete()
-    return redirect('edit_availability')
+def delete_availability(request, availability_id):
+    try:
+        delete_day = Availability.objects.get(profile__id=request.user.profile.id, id=availability_id)
+        delete_day.delete()
+        return redirect('edit_availability')
+    except:
+        return HttpResponse(status=404)
 
 # Functions for the views
 
@@ -357,13 +361,10 @@ def return_availabilities(user_id):
     availabilities = []
     days_of_the_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     for day in days_of_the_week:
-        try:
-            availability = Availability.objects.get(profile__id=user_id, day=day)
-            availabilities.append(availability)
-        except Exception as e:
-            availabilities.append({
-                'unavailable': getDateFromDay(day), # Append a datetime object whenever someone isn't available.
-            })
+        availabilities_in_day = Availability.objects.filter(profile__id=user_id, day=day)
+        if availabilities_in_day:
+            for availability_in_day in availabilities_in_day:
+                availabilities.append(availability_in_day)
 
     return availabilities
 
