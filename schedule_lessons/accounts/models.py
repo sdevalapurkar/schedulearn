@@ -18,6 +18,7 @@ class Profile(models.Model):
         return str(self.user)
 
 class Availability(models.Model):
+    id = models.AutoField(primary_key=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     day = models.CharField(max_length=15)
     start_time = models.DateTimeField()
@@ -25,7 +26,7 @@ class Availability(models.Model):
 
     def __str__(self):
         return self.profile.user.get_full_name() + ' from ' + str(self.start_time) + ' to ' + str(self.end_time) + ' on ' + self.day
-        
+
 # Below code is necessary
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
