@@ -319,6 +319,15 @@ def edit_availability(request):
             end_time_naive = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time() # time objects
             start_time = datetime.datetime.combine(date, start_time_naive, time_difference) # datetime objects
             end_time = datetime.datetime.combine(date, end_time_naive, time_difference) # datetime objects
+            # First check if provided availability overlaps with other availabilities
+            existing_availabilities = Availability.objects.filter(profile__id=request.user.profile.id, day=day)
+            for availability in existing_availabilities:
+                existing_start_time = availability.start_time
+                existing_end_time = availability.end_time
+                if (existing_start_time < end_time) and (existing_end_time > start_time):
+                    context['overlap_time_error'] = 'The timings you provided overlap with other timings that you have set'
+                    return render(request, 'dashboard/edit_availability.html', context)
+            # If timings aren't overlapping, add availability to database.
             new_availability = Availability()
             new_availability.profile = request.user.profile
             new_availability.start_time = start_time.astimezone(utczone)
