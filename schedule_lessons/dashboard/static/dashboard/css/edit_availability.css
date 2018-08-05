@@ -135,11 +135,13 @@ html body {
   text-align: center;
 }
 
-#currentAvailability {
-  display: inline-block;
+.row {
+  width: 100%;
+}
+
+.col-md {
   text-align: center;
-  width: 50%;
-  float: left;
+  padding-bottom: 100px;
 }
 
 .edit-availability-subtitle {
@@ -204,13 +206,6 @@ tr #deleteAvailability {
   font-family: BrandonGrotesque-Regular;
 }
 
-#addAvailability {
-  display: inline-block;
-  text-align: center;
-  width: 50%;
-  float: right;
-}
-
 .input-label {
   display: block;
   font-family: BrandonGrotesque-Regular;
@@ -231,11 +226,6 @@ tr #deleteAvailability {
 .time {
   margin: 0 auto;
   width: 50%;
-}
-
-#timeZoneInput {
-  position: absolute;
-  right:-99999px;
 }
 
 #submit {
