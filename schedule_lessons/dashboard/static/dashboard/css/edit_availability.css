@@ -221,6 +221,16 @@ tr #deleteAvailability {
   color: #D14F52;
 }
 
+.selectpicker {
+  background: #F4F4F4;
+  font-family: avenir-next;
+  border: 1px solid #828282;
+}
+
+.form-control {
+  font-family: avenir-next;
+}
+
 .input-error {
   border: 1px solid #D14F52;
 }
