@@ -9,10 +9,11 @@ $(document).ready(function() {
   });
 
   $("#addBtn").click(function() {
+    let form_data = $('form#availabilityForm').serialize() + "&timezoneInfo=" + (new Date().getTimezoneOffset() * -1);
     $.ajax({
       url: '/dashboard/my_profile/edit_availability/',
       type: 'post',
-      data: $('form#availabilityForm').serialize(),
+      data: form_data,
       error: function(xhr, status) {
         $('.error-list').html('Something went wrong, please refresh and try again.');
       },
@@ -40,9 +41,4 @@ $(document).ready(function() {
       },
     });
   });
-
-  var offset = new Date().getTimezoneOffset();
-  offset *= (-1)
-  $('#timeZoneInput').attr('value', offset);
-
 });
