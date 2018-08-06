@@ -238,11 +238,6 @@ tr #deleteAvailability {
   width: 50%;
 }
 
-#submit {
-  position: absolute;
-  left: -9999px;
-}
-
 .error-list {
   font-family: avenir-next;
   color: #D14F52;
