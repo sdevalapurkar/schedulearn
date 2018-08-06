@@ -11,6 +11,10 @@ import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
 
+# Global Variables
+
+DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 # returns scheduler information for scheduler tab for the user.
 @login_required
 def agenda(request):
@@ -91,7 +95,7 @@ def public_profile(request, user_id):
         context = {
             'profile_user': User.objects.get(profile__id=user_id), # get the user to which the profile belongs
             'availabilities': return_availabilities(user_id),
-            'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            'days_of_the_week': DAYS_OF_THE_WEEK
         }
 
         if not request.user.is_anonymous:
@@ -185,7 +189,7 @@ def schedule_lesson(request, user_id):
     context = {
         'person_to_schedule_with': person_to_schedule_with,
         'availabilities': return_availabilities(user_id),
-        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        'days_of_the_week': DAYS_OF_THE_WEEK
     }
     if request.method == 'POST':
         new_lesson = Lesson()
@@ -221,7 +225,7 @@ def reschedule_lesson(request, lesson_id):
         return HttpResponse(status=404)
     context = {
         'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
-        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        'days_of_the_week': DAYS_OF_THE_WEEK
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
@@ -249,7 +253,7 @@ def my_profile(request):
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
-        'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        'days_of_the_week': DAYS_OF_THE_WEEK
     }
     if context['reset_email']:
         return render(request, 'dashboard/my_profile.html', context)
@@ -306,7 +310,7 @@ def edit_profile(request):
 
 @login_required
 def edit_availability(request):
-    context = {'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    context = {'days_of_the_week': DAYS_OF_THE_WEEK,
                'day': request.POST.get('day', ''),
                'start_time': request.POST.get('startingTime', ''),
                'end_time': request.POST.get('endingTime', ''),
