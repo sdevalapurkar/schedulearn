@@ -34,6 +34,17 @@ $(document).ready(function() {
       success: function(data) {
         if (data['status'] == 200) {
           $('#scheduleVerification').html(data['schedule_success']);
+          $('#titleLabel').removeClass('label-error');
+          $('#titleInput').removeClass('input-error');
+          $('#locationLabel').removeClass('label-error');
+          $('#locationInput').removeClass('input-error');
+          $('#dateLabel').removeClass('label-error');
+          $('#dateInput').removeClass('input-error');
+          $('#startTimeLabel').removeClass('label-error');
+          $('#startTimeInput').removeClass('input-error');
+          $('#endTimeLabel').removeClass('label-error');
+          $('#endTimeInput').removeClass('input-error');
+          $('.error-list').html('');
         } else {
           if (data['name_error']) {
             $('#titleLabel').addClass('label-error');
