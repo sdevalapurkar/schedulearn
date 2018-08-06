@@ -15,7 +15,11 @@ $(document).ready(function() {
       type: 'post',
       data: form_data,
       error: function(xhr, status) {
-        $('.error-list').html('Something went wrong, please refresh and try again.');
+        $('.error-list').html('Something went wrong, please make sure your information is correct and try again.');
+        $('#startTimeLabel').addClass('label-error');
+        $('#startTimeInput').addClass('input-error');
+        $('#endTimeLabel').addClass('label-error');
+        $('#endTimeInput').addClass('input-error');
       },
       success: function(data) {
         if (data['status'] == 200) {

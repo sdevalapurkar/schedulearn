@@ -189,12 +189,17 @@ def schedule_lesson(request, user_id):
     context = {
         'person_to_schedule_with': person_to_schedule_with,
         'availabilities': return_availabilities(user_id),
-        'days_of_the_week': DAYS_OF_THE_WEEK
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'status': 500
     }
     if request.method == 'POST':
         new_lesson = Lesson()
         context = error_check_and_save_lesson(request, new_lesson, context)
-    return render(request, 'dashboard/schedule_lesson.html', context)
+        del context['person_to_schedule_with']
+        del context['availabilities']
+        return JsonResponse(context)
+    else:
+        return render(request, 'dashboard/schedule_lesson.html', context)
 
 @login_required
 def confirm_lesson(request, lesson_id):
@@ -225,13 +230,12 @@ def reschedule_lesson(request, lesson_id):
         return HttpResponse(status=404)
     context = {
         'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
-        'days_of_the_week': DAYS_OF_THE_WEEK
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'status': 500
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
-        if context.get('name_error') or context.get('location_error') or context.get('date_error') or context.get('starting_time_error') or context.get('ending_time_error'):
-            return render(request, 'dashboard/schedule_lesson.html', context)
-        return redirect('agenda')
+        return JsonResponse(context)
     else:
         if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
             context['availabilities'] = return_availabilities(context['person_to_schedule_with'].profile.id)
@@ -365,9 +369,7 @@ def delete_availability(request, availability_id):
 
 def error_check_and_save_lesson(request, lesson, context):
     # Get lesson timezone when (re)scheduling lessons
-    minutes_offset = request.POST.get('timezoneInfo','')
-    minutes_difference = int(minutes_offset)
-    time_difference = datetime.timezone(datetime.timedelta(minutes=minutes_difference))
+    time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
     # Get lesson name when (re)scheduling lessons
     if not request.POST['name']:
         context['name_error'] = True
@@ -398,6 +400,7 @@ def error_check_and_save_lesson(request, lesson, context):
     lesson.student = request.user if request.user.profile.user_type == 'student' else context['person_to_schedule_with']
 
     if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
+        context['status'] = 200
         utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)
