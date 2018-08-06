@@ -307,14 +307,16 @@ def edit_profile(request):
 @login_required
 def edit_availability(request):
     context = {'availabilities': return_availabilities(request.user.profile.id),
-               'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
+               'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+               'day': request.POST.get('day', ''),
+               'start_time': request.POST.get('startingTime', ''),
+               'end_time': request.POST.get('endingTime', '')
+               }
     if request.method == 'POST':
-        day = request.POST.get('day', '')
-        date = getDateFromDay(day).date() # a date object with static date with the sole purpose of representing a day of the week.
-        minutes_offset = request.POST.get('timezoneInfo','')
-        time_difference = datetime.timezone(datetime.timedelta(minutes=int(minutes_offset)))
+        date = getDateFromDay(context['day']).date() # a date object with static date with the sole purpose of representing a day of the week.
+        time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
         utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
-        if not request.POST['startingTime'] or not request.POST['endingTime']:
+        if not context['start_time'] or not context['end_time']:
             return check_for_empty_times(request, context)
         else:
             start_time_naive = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # time objects
@@ -325,7 +327,7 @@ def edit_availability(request):
                 context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
                 return render(request, 'dashboard/edit_availability.html', context)
             # First check if provided availability overlaps with other availabilities
-            existing_availabilities = Availability.objects.filter(profile__id=request.user.profile.id, day=day)
+            existing_availabilities = Availability.objects.filter(profile__id=request.user.profile.id, day=context['day'])
             for availability in existing_availabilities:
                 existing_start_time = availability.start_time
                 existing_end_time = availability.end_time
@@ -337,7 +339,7 @@ def edit_availability(request):
             new_availability.profile = request.user.profile
             new_availability.start_time = start_time.astimezone(utczone)
             new_availability.end_time = end_time.astimezone(utczone)
-            new_availability.day = day
+            new_availability.day = context['day']
             new_availability.save()
             return redirect('edit_availability')
     else:
