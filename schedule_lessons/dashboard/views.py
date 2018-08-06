@@ -14,6 +14,7 @@ from schedule_lessons.local_settings import *
 # Global Variables
 
 DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+UTC_ZONE = datetime.timezone(datetime.timedelta(0)) # A timezone object used to convert local times into UTC times.
 
 # returns scheduler information for scheduler tab for the user.
 @login_required
@@ -322,7 +323,6 @@ def edit_availability(request):
     if request.method == 'POST':
         date = getDateFromDay(context['day']).date() # a date object with static date with the sole purpose of representing a day of the week.
         time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
-        utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
         context['starting_time_error'] = False if context['start_time'] else True
         context['ending_time_error'] = False if context['end_time'] else True
         if context.get('ending_time_error') or context.get('starting_time_error'):
@@ -346,8 +346,8 @@ def edit_availability(request):
             # If timings aren't overlapping, add availability to database.
             new_availability = Availability()
             new_availability.profile = request.user.profile
-            new_availability.start_time = start_time.astimezone(utczone)
-            new_availability.end_time = end_time.astimezone(utczone)
+            new_availability.start_time = start_time.astimezone(UTC_ZONE)
+            new_availability.end_time = end_time.astimezone(UTC_ZONE)
             new_availability.day = context['day']
             new_availability.save()
             context['status'] = 200
@@ -401,11 +401,10 @@ def error_check_and_save_lesson(request, lesson, context):
 
     if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
         context['status'] = 200
-        utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)
-        lesson.start_time = start_time_in_local_time.astimezone(utczone) # store starting time in UTC
-        lesson.end_time = end_time_in_local_time.astimezone(utczone) # store ending time in UTC
+        lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE) # store starting time in UTC
+        lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE) # store ending time in UTC
         lesson.created_by = request.user
         lesson.save()
         context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
