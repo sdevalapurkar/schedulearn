@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import datetime
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from accounts.models import Availability, return_availabilities
 from django.contrib.auth.models import User
@@ -306,18 +306,19 @@ def edit_profile(request):
 
 @login_required
 def edit_availability(request):
-    context = {'availabilities': return_availabilities(request.user.profile.id),
-               'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    context = {'days_of_the_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                'day': request.POST.get('day', ''),
                'start_time': request.POST.get('startingTime', ''),
-               'end_time': request.POST.get('endingTime', '')
-               }
+               'end_time': request.POST.get('endingTime', ''),
+               'status': 500}
     if request.method == 'POST':
         date = getDateFromDay(context['day']).date() # a date object with static date with the sole purpose of representing a day of the week.
         time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
         utczone = datetime.timezone(datetime.timedelta(0)) # used to convert times in other timezones to UTC
-        if not context['start_time'] or not context['end_time']:
-            return check_for_empty_times(request, context)
+        context['starting_time_error'] = False if context['start_time'] else True
+        context['ending_time_error'] = False if context['end_time'] else True
+        if context.get('ending_time_error') or context.get('starting_time_error'):
+            return JsonResponse(context)
         else:
             start_time_naive = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # time objects
             end_time_naive = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time() # time objects
@@ -325,7 +326,7 @@ def edit_availability(request):
             end_time = datetime.datetime.combine(date, end_time_naive, time_difference) # datetime objects
             if start_time > end_time:
                 context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
-                return render(request, 'dashboard/edit_availability.html', context)
+                return JsonResponse(context)
             # First check if provided availability overlaps with other availabilities
             existing_availabilities = Availability.objects.filter(profile__id=request.user.profile.id, day=context['day'])
             for availability in existing_availabilities:
@@ -333,7 +334,7 @@ def edit_availability(request):
                 existing_end_time = availability.end_time
                 if (existing_start_time < end_time) and (existing_end_time > start_time):
                     context['time_error'] = 'The timings you provided overlap with other timings that you have set'
-                    return render(request, 'dashboard/edit_availability.html', context)
+                    return JsonResponse(context)
             # If timings aren't overlapping, add availability to database.
             new_availability = Availability()
             new_availability.profile = request.user.profile
@@ -341,8 +342,10 @@ def edit_availability(request):
             new_availability.end_time = end_time.astimezone(utczone)
             new_availability.day = context['day']
             new_availability.save()
-            return redirect('edit_availability')
+            context['status'] = 200
+            return JsonResponse(context)
     else:
+        context['availabilities'] = return_availabilities(request.user.profile.id)
         return render(request, 'dashboard/edit_availability.html', context)
 
 @login_required
@@ -355,12 +358,6 @@ def delete_availability(request, availability_id):
         return HttpResponse(status=404)
 
 # Error Checking Functions
-
-def check_for_empty_times(request, context):
-    context['starting_time_error'] = False if request.POST['startingTime'] else True
-    context['ending_time_error'] = False if request.POST['endingTime'] else True
-    if context.get('ending_time_error') or context.get('starting_time_error'):
-        return render(request, 'dashboard/edit_availability.html', context)
 
 def error_check_and_save_lesson(request, lesson, context):
     # Get lesson timezone when (re)scheduling lessons
