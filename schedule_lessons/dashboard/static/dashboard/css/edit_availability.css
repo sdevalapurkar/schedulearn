@@ -188,14 +188,12 @@ html body {
 }
 
 tr #deleteAvailability {
-  color: #E54F52;
   border: 0;
   background-color: #ededed;
 }
 
 #deleteAvailability a {
   color: #E54F52;
-  font-size: 110%;
 }
 
 #deleteAvailability a:hover {

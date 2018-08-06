@@ -96,7 +96,7 @@
 
     <div class="col-md">
       <h4 class="edit-availability-subtitle">Add Availability</h4>
-      <form method="post">
+      <form method="post" id="availabilityForm">
         {% csrf_token %}
         <label for="day" class="input-label">Select a Day</label>
         <select name="day" class="selectpicker">
@@ -127,25 +127,13 @@
 
         <input id="timeZoneInput" type="text" name="timezoneInfo" value="" hidden>
         <input id="submit" type="submit">
-        <p class="error-list">{{ time_error }}</p>
+        <p class="error-list"></p>
         <div class="center">
           <a id="addBtn" href="#">ADD</a>
         </div>
       </form>
     </div>
   </div>
-  <script>
-  {% if starting_time_error %}
-  $('#startTimeLabel').addClass('label-error');
-  $('#startTimeInput').addClass('input-error');
-  {% endif %}
-  {% if ending_time_error %}
-  $('#endTimeLabel').addClass('label-error');
-  $('#endTimeInput').addClass('input-error');
-  {% endif %}
-  {% if day %}
-  $('.selectpicker').val('{{ day }}');
-  {% endif %}
-  </script>
+
 </body>
 </html>
