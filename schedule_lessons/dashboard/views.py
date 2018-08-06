@@ -186,20 +186,18 @@ def choose_person(request):
 
 @login_required
 def schedule_lesson(request, user_id):
-    person_to_schedule_with = User.objects.get(profile__id=user_id)
     context = {
-        'person_to_schedule_with': person_to_schedule_with,
-        'availabilities': return_availabilities(user_id),
+        'user_id': user_id,
         'days_of_the_week': DAYS_OF_THE_WEEK,
         'status': 500
     }
     if request.method == 'POST':
         new_lesson = Lesson()
         context = error_check_and_save_lesson(request, new_lesson, context)
-        del context['person_to_schedule_with']
-        del context['availabilities']
         return JsonResponse(context)
     else:
+        context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
+        context['availabilities'] = return_availabilities(user_id)
         return render(request, 'dashboard/schedule_lesson.html', context)
 
 @login_required
@@ -230,7 +228,7 @@ def reschedule_lesson(request, lesson_id):
     except Exception:
         return HttpResponse(status=404)
     context = {
-        'person_to_schedule_with': User.objects.get(profile__id=lesson_to_reschedule.student.profile.id) if request.user.profile.user_type == 'tutor' else User.objects.get(profile__id=lesson_to_reschedule.tutor.profile.id),
+        'user_id': lesson_to_reschedule.student.profile.id if request.user.profile.user_type == 'tutor' else lesson_to_reschedule.tutor.profile.id,
         'days_of_the_week': DAYS_OF_THE_WEEK,
         'status': 500
     }
@@ -238,6 +236,7 @@ def reschedule_lesson(request, lesson_id):
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
         return JsonResponse(context)
     else:
+        context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
         if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
             context['availabilities'] = return_availabilities(context['person_to_schedule_with'].profile.id)
             context['lesson_to_reschedule'] = {
@@ -368,6 +367,7 @@ def delete_availability(request, availability_id):
 # Error Checking Functions
 
 def error_check_and_save_lesson(request, lesson, context):
+    person_to_schedule_with = User.objects.get(profile__id=context['user_id'])
     # Get lesson timezone when (re)scheduling lessons
     time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
     # Get lesson name when (re)scheduling lessons
@@ -396,8 +396,8 @@ def error_check_and_save_lesson(request, lesson, context):
     else:
         end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
 
-    lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else context['person_to_schedule_with']
-    lesson.student = request.user if request.user.profile.user_type == 'student' else context['person_to_schedule_with']
+    lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
+    lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
     if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
         context['status'] = 200
