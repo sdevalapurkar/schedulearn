@@ -216,11 +216,12 @@ html body {
   float: right;
 }
 
-#lessonTitle {
+#titleInput {
   width: 50%;
   margin: 0 auto;
 }
-#lessonLocation {
+
+#locationInput {
   width: 50%;
   margin: 0 auto;
 }
@@ -252,21 +253,16 @@ html body {
   width: 50%;
 }
 
-#timeZoneInput {
-  position: absolute;
-  right:-99999px;
-}
-
-#submit {
-  position: absolute;
-  left: -9999px;
+.error-list {
+  font-family: avenir-next;
+  color: #D14F52;
+  margin: 10px 0;
 }
 
 #addBtn {
   font-family: anson;
   padding: 2px 35px;
   display: inline-block;
-  margin-top: 20px;
   background-color: #E54F52;
   font-size: 120%;
   color: #F4F4F4;
@@ -282,4 +278,5 @@ html body {
 
 .center {
   text-align: center;
+  padding-bottom: 100px;
 }
