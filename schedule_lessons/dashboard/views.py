@@ -124,28 +124,28 @@ def add_student(request, student_id):
     student_profile = User.objects.get(profile__id=student_id)
     new_rel = Relationship(student=student_profile, tutor=request.user)
     new_rel.save()
-    return public_profile(request, student_id)
+    return redirect('public_profile', student_id)
 
 @login_required
 def remove_student(request, student_id):
     student_profile = User.objects.get(profile__id=student_id)
     old_rel = Relationship.objects.get(student=student_profile, tutor=request.user)
     old_rel.delete()
-    return public_profile(request, student_id)
+    return redirect('public_profile', student_id)
 
 @login_required
 def add_tutor(request, tutor_id):
     tutor_profile = User.objects.get(profile__id=tutor_id)
     new_rel = Relationship(student=request.user, tutor=tutor_profile)
     new_rel.save()
-    return public_profile(request, tutor_id)
+    return redirect('public_profile', tutor_id)
 
 @login_required
 def remove_tutor(request, tutor_id):
     tutor_profile = User.objects.get(profile__id=tutor_id)
     old_rel = Relationship.objects.get(student=request.user, tutor=tutor_profile)
     old_rel.delete()
-    return public_profile(request, tutor_id)
+    return redirect('public_profile', tutor_id)
 
 @login_required
 def choose_person(request):
