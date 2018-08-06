@@ -395,11 +395,13 @@ def error_check_and_save_lesson(request, lesson, context):
         context['ending_time_error'] = True
     else:
         end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
+    if start_time > end_time:
+        context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
 
     lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
     lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
-    if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error'):
+    if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error') and not context.get('time_error'):
         context['status'] = 200
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)

@@ -19,6 +19,7 @@ $(document).ready(function() {
       type: 'post',
       data: form_data,
       error: function(xhr, status) {
+        $('#scheduleVerification').html('');
         $('.error-list').html('Something went wrong, please make sure your information is correct and try again.');
         $('#titleLabel').addClass('label-error');
         $('#titleInput').addClass('input-error');
@@ -32,6 +33,7 @@ $(document).ready(function() {
         $('#endTimeInput').addClass('input-error');
       },
       success: function(data) {
+        console.log(data);
         if (data['status'] == 200) {
           $('#scheduleVerification').html(data['schedule_success']);
           $('#titleLabel').removeClass('label-error');
@@ -81,6 +83,7 @@ $(document).ready(function() {
             $('#endTimeLabel').removeClass('label-error');
             $('#endTimeInput').removeClass('input-error');
           }
+          $('.error-list').html(data['time_error']);
         }
       },
     });
