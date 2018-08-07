@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('agenda/', views.agenda, name='agenda'),
+    path('save_gcalendar_lesson/<lesson_id>', views.save_gcalendar_lesson, name='save_gcalendar_lesson'),
     path('relationships/', views.relationships, name='relationships'),
     path('search/', views.search, name='search'),
     path('profile/<user_id>/', views.public_profile, name='public_profile'), # this url is for public profiles
