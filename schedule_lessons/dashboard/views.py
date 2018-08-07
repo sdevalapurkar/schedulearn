@@ -22,78 +22,91 @@ UTC_ZONE = datetime.timezone(datetime.timedelta(0)) # A timezone object used to 
 # returns scheduler information for scheduler tab for the user.
 @login_required
 def agenda(request):
-    if request.method == 'GET':
-        pending_lesson_list = []
-        scheduled_lesson_list = []
-        if request.user.profile.user_type == 'student':
-            lessons = Lesson.objects.filter(student=request.user)
-        else:
-            lessons = Lesson.objects.filter(tutor=request.user)
-        for lesson in lessons:
-            try:
-                data = {
-                    'id': lesson.id,
-                    'name': lesson.name,
-                    'location': lesson.location,
-                    'tutor_name': lesson.tutor.get_full_name(),
-                    'tutor_id': lesson.tutor.profile.id,
-                    'student_name': lesson.student.get_full_name(),
-                    'student_id': lesson.student.profile.id,
-                    'start_time': lesson.start_time,
-                    'end_time': lesson.end_time,
-                    'display_options': lesson.created_by != request.user,
-                }
-                if lesson.pending:
-                    pending_lesson_list.append(data)
-                else:
-                    scheduled_lesson_list.append(data)
-            except Exception as e:
-                pass
-        no_results_found = request.GET.get('no_search_result')
-        if no_results_found:
-            return render(request, 'dashboard/agenda.html', {'scheduled_lessons': scheduled_lesson_list, 'pending_lessons': pending_lesson_list, 'no_results': 'No results were found'})
-        return render(request, 'dashboard/agenda.html', {'scheduled_lessons': scheduled_lesson_list, 'pending_lessons': pending_lesson_list})
+    pending_lesson_list = []
+    scheduled_lesson_list = []
+    if request.user.profile.user_type == 'student':
+        lessons = Lesson.objects.filter(student=request.user)
+    else:
+        lessons = Lesson.objects.filter(tutor=request.user)
+    for lesson in lessons:
+        try:
+            data = {
+                'id': lesson.id,
+                'name': lesson.name,
+                'location': lesson.location,
+                'tutor_name': lesson.tutor.get_full_name(),
+                'tutor_id': lesson.tutor.profile.id,
+                'student_name': lesson.student.get_full_name(),
+                'student_id': lesson.student.profile.id,
+                'start_time': lesson.start_time,
+                'end_time': lesson.end_time,
+                'display_options': lesson.created_by != request.user,
+            }
+            if lesson.pending:
+                pending_lesson_list.append(data)
+            else:
+                scheduled_lesson_list.append(data)
+        except Exception as e:
+            return HttpResponse(status=404)
+    context = {
+        'scheduled_lessons': scheduled_lesson_list,
+        'pending_lessons': pending_lesson_list,
 
-    return HttpResponse(status=404)
+        }
+    no_results_found = request.GET.get('no_search_result')
+    context['gcalender_success'] = request.GET.get('gcalender_success', '')
+    if no_results_found:
+        context['no_results'] = 'No results were found'
+
+    return render(request, 'dashboard/agenda.html', context)
+
+
 
 @login_required
 def save_gcalendar_lesson(request, lesson_id):
-    if request.user.social_auth.filter(provider='google-calendar'):
-        lesson_to_save = Lesson.objects.get(id=lesson_id)
-        headers = {
-            "Authorization": "Bearer " + request.user.social_auth.get(provider='google-calendar').get_access_token(load_strategy()),
-        }
-        insert_calendar_url = "https://www.googleapis.com/calendar/v3/calendars"
-        list_calendar_url = "https://www.googleapis.com/calendar/v3/users/me/calendarList"
-        user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
-        schedulearn_calendar_exists = False
-        for calendar in user_calendars:
-            if calendar['summary'] == 'My Lessons (Schedulearn)':
-                schedulearn_calendar_exists = True
-                schedulearn_calendar_id = calendar['id']
-
-        if not schedulearn_calendar_exists:
-            requests.post(insert_calendar_url, headers=headers, json={'summary': 'My Lessons (Schedulearn)', 'timeZone': 'Europe/London'})
+    response = redirect('agenda')
+    try:
+        if request.user.social_auth.filter(provider='google-calendar'):
+            lesson_to_save = Lesson.objects.get(id=lesson_id)
+            headers = {
+                "Authorization": "Bearer " + request.user.social_auth.get(provider='google-calendar').get_access_token(load_strategy()),
+            }
+            insert_calendar_url = "https://www.googleapis.com/calendar/v3/calendars"
+            list_calendar_url = "https://www.googleapis.com/calendar/v3/users/me/calendarList"
             user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
+            schedulearn_calendar_exists = False
             for calendar in user_calendars:
                 if calendar['summary'] == 'My Lessons (Schedulearn)':
+                    schedulearn_calendar_exists = True
                     schedulearn_calendar_id = calendar['id']
 
-        start_time = str(lesson_to_save.start_time.date()) + "T" + str(lesson_to_save.start_time.time()) + "+00:00"
-        end_time = str(lesson_to_save.end_time.date()) + "T" + str(lesson_to_save.end_time.time()) + "+00:00"
+            if not schedulearn_calendar_exists:
+                requests.post(insert_calendar_url, headers=headers, json={'summary': 'My Lessons (Schedulearn)', 'timeZone': 'Europe/London'})
+                user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
+                for calendar in user_calendars:
+                    if calendar['summary'] == 'My Lessons (Schedulearn)':
+                        schedulearn_calendar_id = calendar['id']
 
-        create_event_url = "https://www.googleapis.com/calendar/v3/calendars/" + schedulearn_calendar_id + "/events?sendNotifications=True"
-        event = {
-            "summary": lesson_to_save.name,
-            "start": {
-                "dateTime": start_time
-            },
-            "end": {
-                "dateTime": end_time
+            start_time = str(lesson_to_save.start_time.date()) + "T" + str(lesson_to_save.start_time.time()) + "+00:00"
+            end_time = str(lesson_to_save.end_time.date()) + "T" + str(lesson_to_save.end_time.time()) + "+00:00"
+
+            create_event_url = "https://www.googleapis.com/calendar/v3/calendars/" + schedulearn_calendar_id + "/events?sendNotifications=True"
+            event = {
+                "summary": lesson_to_save.name,
+                "start": {
+                    "dateTime": start_time
+                },
+                "end": {
+                    "dateTime": end_time
+                }
             }
-        }
-        requests.post(create_event_url, headers=headers, json=event)
-        return redirect('agenda')
+            if requests.post(create_event_url, headers=headers, json=event).status_code == 200:
+                response['Location'] += '?gcalender_success=Yes'
+            else:
+                response['Location'] += '?gcalender_success=No'
+    except:
+        response['Location'] += '?gcalender_success=No'
+    return response
 
 
 @login_required
