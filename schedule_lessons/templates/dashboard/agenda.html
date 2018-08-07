@@ -61,19 +61,19 @@
     <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     <form action="{% url 'search' %}" id="searchBar" class="form-inline">
       {% if user.profile.user_type == 'tutor' %}
-        {% if no_results %}
-        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-        <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
-        {% endif %}
+      {% if no_results %}
+      <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+      {% else %}
+      <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+      {% endif %}
       {% endif %}
 
       {% if user.profile.user_type == 'student' %}
-        {% if no_results %}
-        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-        <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-        {% endif %}
+      {% if no_results %}
+      <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+      {% else %}
+      <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+      {% endif %}
       {% endif %}
       <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
     </form>
@@ -81,6 +81,21 @@
   <!-- end extended navbar for signed in users -->
   {% tz_detect %}
   <div id="mainScheduled">
+    {% if gcalender_success == 'Yes' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> You've added the lesson to your google calendar.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% elif gcalender_success == 'No' %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Failure!</strong> Something went wrong, try again?
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
     {% if scheduled_lessons %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
     {% for scheduled_lesson in scheduled_lessons %}
