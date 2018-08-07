@@ -8,3 +8,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '243916091300-hf2tirt56sqv8mfid7poipac9rpie57c.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'OlHJPD_zb3UvsDRLvlCUBpd-' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/calendar']
