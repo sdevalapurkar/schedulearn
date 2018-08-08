@@ -68,6 +68,9 @@ def save_gcalendar_lesson(request, lesson_id):
     try:
         if request.user.social_auth.filter(provider='google-calendar'):
             lesson_to_save = Lesson.objects.get(id=lesson_id)
+            if not request.user == lesson_to_save.tutor and not request.user == lesson_to_save.student:
+                response['Location'] += '?gcalender_success=invalid_permission'
+                return redirect('agenda')
             headers = {
                 "Authorization": "Bearer " + request.user.social_auth.get(provider='google-calendar').get_access_token(load_strategy()),
             }
@@ -81,11 +84,15 @@ def save_gcalendar_lesson(request, lesson_id):
                     schedulearn_calendar_id = calendar['id']
 
             if not schedulearn_calendar_exists:
-                requests.post(insert_calendar_url, headers=headers, json={'summary': 'My Lessons (Schedulearn)', 'timeZone': 'Europe/London'})
+                requests.post(insert_calendar_url, headers=headers, json={'summary': 'My Lessons (Schedulearn)', 'timeZone': 'Etc/UTC'})
                 user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
                 for calendar in user_calendars:
                     if calendar['summary'] == 'My Lessons (Schedulearn)':
                         schedulearn_calendar_id = calendar['id']
+
+            change_calendar_color_url = list_calendar_url + "/" + schedulearn_calendar_id + '?colorRgbFormat=True'
+
+            requests.put(change_calendar_color_url, headers=headers, json={'foregroundColor': '#ffffff', 'backgroundColor': '#D14F52', 'selected': True})
 
             start_time = str(lesson_to_save.start_time.date()) + "T" + str(lesson_to_save.start_time.time()) + "+00:00"
             end_time = str(lesson_to_save.end_time.date()) + "T" + str(lesson_to_save.end_time.time()) + "+00:00"
@@ -98,7 +105,16 @@ def save_gcalendar_lesson(request, lesson_id):
                 },
                 "end": {
                     "dateTime": end_time
-                }
+                },
+                "location": lesson_to_save.location,
+                "status": "tentative",
+                'attendees': [
+                    {
+                        'displayName': lesson_to_save.student.get_full_name() if request.user == lesson_to_save.tutor else lesson_to_save.tutor.get_full_name(),
+                        'email': lesson_to_save.student.email if request.user == lesson_to_save.tutor else lesson_to_save.tutor.email,
+                        'responseStatus': 'tentative',
+                    }
+                ]
             }
             if requests.post(create_event_url, headers=headers, json=event).status_code == 200:
                 response['Location'] += '?gcalender_success=Yes'
