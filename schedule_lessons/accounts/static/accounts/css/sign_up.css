@@ -170,21 +170,21 @@ body {
 }
 
 .google-btn {
-  width: 300px;
+  width: 350px;
   font-family: anson;
-  background: white;
   font-size: 140%;
   display: inline-block;
-  border: 1.5px solid #4A4A4A;
   padding: 3%;
-  border-radius: 3px;
-  color: #4A4A4A;
+  background-color: rgba(224, 72, 58, 0.9);
+  color: white;
+  border: none;
+  border-radius: 1000px;
 }
 
 .google-btn:hover {
-  color: #EDEDED;
+  background-color: #E0483A;
+  color: white;
   text-decoration: none;
-  background-color: #D2442C;
 }
 
 .center {
