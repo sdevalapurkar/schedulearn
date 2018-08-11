@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django', # for social authentication
     'tz_detect',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

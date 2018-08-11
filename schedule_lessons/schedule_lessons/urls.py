@@ -15,21 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import include, url
-from django.contrib.auth.views import login, logout
-from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.static import serve
+from rest_framework import routers
+from api.views import UserViewSet
 
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('', include('home.urls'), name='home'),
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('dashboard/', include('dashboard.urls'), name='dashboard'),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('tz_detect/', include('tz_detect.urls')),
+    path('api/v1/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Needed for media folder to upload profile pictures.
-
-urlpatterns += [
-    url(r'^tz_detect/', include('tz_detect.urls')),
-]
