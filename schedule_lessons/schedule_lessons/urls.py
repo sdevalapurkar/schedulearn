@@ -17,18 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from rest_framework import routers
-from api.views import UserViewSet
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path('', include('home.urls'), name='home'),
-    path('accounts/', include('accounts.urls'), name='accounts'),
-    path('dashboard/', include('dashboard.urls'), name='dashboard'),
+    path('', include('home.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('admin/', admin.site.urls),
     path('tz_detect/', include('tz_detect.urls')),
-    path('api/v1/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/v1/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Needed for media folder to upload profile pictures.
