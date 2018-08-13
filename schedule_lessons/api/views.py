@@ -1,20 +1,22 @@
-# from django.shortcuts import render
-# from rest_framework import routers, serializers, viewsets
-# from .serializers import UserSerializer
-# from django.contrib.auth.models import User
-# from rest_framework.response import Response
-from django.http import JsonResponse
-# # ViewSets define the view behavior.
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+from rest_framework.views import APIView
+from .serializers import ProfileSerializer
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from django.http import Http404
 
-def get_user(request):
-    user = request.user
-    json = {
-        'user_name': user.get_full_name(),
-        'user_username': user.username,
-        'user_email': user.email,
-        'user_id': user.profile.id,
-    }
-    return JsonResponse(json)
+class Profile(APIView):
+    '''
+    GET REQUEST: Returns profile information given a token.
+    PUT REQUEST: Updates profile information given a token.
+    '''
+    def get_profile(self, token):
+        try:
+            token = Token.objects.get(key=token)
+            return token.user.profile
+        except Token.DoesNotExist:
+            raise Http404
+
+    def get(self, request, token):
+        profile = self.get_profile(token)
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
