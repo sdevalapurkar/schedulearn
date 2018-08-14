@@ -56,13 +56,13 @@
   </nav>
   <!-- end extended navbar for signed in users -->
 
-    
+
       <div class="container-fluid">
         <div class="row">
 
           <!-- Left side that contains only the profile picture -->
           <div class="col-md-2 m-4 pl-4">
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png"> 
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
           </div>
 
           <!-- Right side that contains everything else -->
@@ -70,7 +70,7 @@
             <div id="availability">
               <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
               <h3 id="userType">{{ user.profile.user_type }}</h3>
-              
+
               <h5 class="user-details"><b>Email Address: </b><a href="mailto:{{ user.email }}">{{ user.email }}</a></h5>
 
               <h5 class="user-headings">Bio:</h5>
@@ -131,9 +131,9 @@
       </div>
 
 <script>
-  // This script is used from this website and modified to suit our design needs: 
+  // This script is used from this website and modified to suit our design needs:
   // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
-  
+
   $("ul li").click(function(e) {
 
 // make sure we cannot click the slider
@@ -147,7 +147,7 @@ if ($(this).hasClass('slider')) {
 var whatTab = $(this).index();
 
 // Work out how far the slider needs to go
-var howFar = 100 * whatTab;
+var howFar = 120 * whatTab;
 
 $(".slider").css({
   left: howFar + "px"

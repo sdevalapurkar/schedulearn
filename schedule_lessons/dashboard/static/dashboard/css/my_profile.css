@@ -233,7 +233,7 @@ html body {
 
 .s-line-options {
   display: inline-block;
-  width: 100px;
+  width: 120px;
   text-align: center;
   height: 60px;
   font-size: 16px;
@@ -275,14 +275,14 @@ html body {
   -webkit-animation: rippleDrop .6s linear;
   animation: rippleDrop .6s linear;
 }
- @-webkit-keyframes 
+ @-webkit-keyframes
 rippleDrop {  100% {
  -webkit-transform: scale(2);
  transform: scale(2);
  opacity: 0;
 }
 }
- @keyframes 
+ @keyframes
 rippleDrop {  100% {
  -webkit-transform: scale(2);
  transform: scale(2);
