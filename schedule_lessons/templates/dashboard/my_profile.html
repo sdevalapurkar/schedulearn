@@ -57,77 +57,77 @@
   <!-- end extended navbar for signed in users -->
 
 
-      <div class="container-fluid">
-        <div class="row">
+  <div class="container-fluid">
+    <div class="row">
 
-          <!-- Left side that contains only the profile picture -->
-          <div class="col-md-2 m-4 pl-4">
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
-          </div>
+      <!-- Left side that contains only the profile picture -->
+      <div class="col-md-2 m-4 pl-4">
+        <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
+      </div>
 
-          <!-- Right side that contains everything else -->
-          <div class="col-md-7">
-            <div id="availability">
-              <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-              <h3 id="userType">{{ user.profile.user_type }}</h3>
+      <!-- Right side that contains everything else -->
+      <div class="col-md-7">
+        <div id="availability">
+          <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
+          <h3 id="userType">{{ user.profile.user_type }}</h3>
 
-              <h5 class="user-details"><b>Email Address: </b><a href="mailto:{{ user.email }}">{{ user.email }}</a></h5>
+          <h5 class="user-details"><b>Email Address: </b><a href="mailto:{{ user.email }}">{{ user.email }}</a></h5>
 
-              <h5 class="user-headings">Bio:</h5>
-              {% if user.profile.bio %}
-                <h6 class="user-details">{{ user.profile.bio }}</h6>
-              {% else %}
-                <h6 class="user-details">Sorry, no bio available. ¯\_(ツ)_/¯</h6>
+          <h5 class="user-headings">Bio:</h5>
+          {% if user.profile.bio %}
+          <h6 class="user-details">{{ user.profile.bio }}</h6>
+          {% else %}
+          <h6 class="user-details">Sorry, no bio available. ¯\_(ツ)_/¯</h6>
+          {% endif %}
+
+          <!-- Options  -->
+          <ul class="slider-line w-100">
+            <li class="s-line-options" id="avail">AVAILABILITY</li>
+            <li class="s-line-options" id="revi">REVIEWS</li>
+            <li class="s-line-options" id="hist">HISTORY</li>
+            <li class="slider s-line-options"></li>
+          </ul>
+
+          <!-- Availability option -->
+          <table id="availabilityTable">
+            <tr>
+              <th>DAY</th>
+              <th>FROM</th>
+              <th>TO</th>
+              {% for day in days_of_the_week %}
+              {% define_variable 0 %}
+              {% for availability in availabilities %}
+              {% if availability.start_time|date:"l" == day %}
+              <tr>
+                <td class="day">{{ day }}</td>
+                <td>{{ availability.start_time|date:"g:i A" }}</td>
+                <td>{{ availability.end_time|date:"g:i A" }}</td>
+              </tr>
+              {% define_variable 1 %}
               {% endif %}
+              {% endfor %}
+              {% get_variable as available %}
+              {% if not available %}
+              <tr>
+                <td class="day">{{ day }}</td>
+                <td class="unavailable" colspan="2">UNAVAILABLE</td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </table>
 
-              <!-- Options  -->
-              <ul class="slider-line w-100">
-                <li class="s-line-options" id="avail">AVAILABILITY</li>
-                <li class="s-line-options" id="revi">REVIEWS</li>
-                <li class="s-line-options" id="hist">HISTORY</li>
-                <li class="slider s-line-options"></li>
-              </ul>
+            <!-- Reviews Option -->
+            <div id="reviewTab">
+              This is the review box!
+            </div>
 
-              <!-- Availability option -->
-              <table id="availabilityTable">
-                <tr>
-                  <th>DAY</th>
-                  <th>FROM</th>
-                  <th>TO</th>
-                  {% for day in days_of_the_week %}
-                    {% define_variable 0 %}
-                    {% for availability in availabilities %}
-                      {% if availability.start_time|date:"l" == day %}
-                        <tr>
-                          <td class="day">{{ day }}</td>
-                          <td>{{ availability.start_time|date:"g:i A" }}</td>
-                          <td>{{ availability.end_time|date:"g:i A" }}</td>
-                        </tr>
-                        {% define_variable 1 %}
-                      {% endif %}
-                    {% endfor %}
-                    {% get_variable as available %}
-                    {% if not available %}
-                    <tr>
-                      <td class="day">{{ day }}</td>
-                      <td class="unavailable" colspan="2">UNAVAILABLE</td>
-                    </tr>
-                    {% endif %}
-                  {% endfor %}
-              </table>
-
-              <!-- Reviews Option -->
-              <div id="reviewTab">
-                This is the review box!
-              </div>
-
-              <!-- History Option -->
-              <div id="historyTab">
-                This is the history box!
-              </div>
+            <!-- History Option -->
+            <div id="historyTab">
+              This is the history box!
             </div>
           </div>
         </div>
       </div>
-</body>
-</html>
+    </div>
+  </body>
+  </html>
