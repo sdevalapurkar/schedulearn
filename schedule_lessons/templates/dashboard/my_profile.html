@@ -56,48 +56,166 @@
   </nav>
   <!-- end extended navbar for signed in users -->
 
-  <div id="topPane">
-    <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" alt="/media/profile_pics/default/man.png">
-    <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-    <h3 id="userType">{{ user.profile.user_type }}</h3>
-    <h4 class="user-headings">Email Address</h4>
-    <h5 class="user-details">{{ user.email }}</h5>
-    {% if user.profile.bio %}
-    <h4 class="user-headings">Bio</h4>
-    <h5 class="user-details">{{ user.profile.bio }}</h5>
-    {% endif %}
+    
+      <div class="container-fluid">
+        <div class="row">
 
-    <div id="availability">
-      <h4 class="user-headings">Availability</h4>
-      <table id="availabilityTable">
-        <tr>
-          <th>DAY</th>
-          <th>FROM</th>
-          <th>TO</th>
-          {% for day in days_of_the_week %}
-            {% define_variable 0 %}
-            {% for availability in availabilities %}
-              {% if availability.start_time|date:"l" == day %}
-                <tr>
-                  <td class="day">{{ day }}</td>
-                  <td>{{ availability.start_time|date:"g:i A" }}</td>
-                  <td>{{ availability.end_time|date:"g:i A" }}</td>
-                </tr>
-                {% define_variable 1 %}
+          <!-- Left side that contains only the profile picture -->
+          <div class="col-md-2 m-4 pl-4">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png"> 
+          </div>
+
+          <!-- Right side that contains everything else -->
+          <div class="col-md-7">
+            <div id="availability">
+              <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
+              <h3 id="userType">{{ user.profile.user_type }}</h3>
+              
+              <h5 class="user-details"><b>Email Address: </b><a href="mailto:{{ user.email }}">{{ user.email }}</a></h5>
+
+              <h5 class="user-headings">Bio:</h5>
+              {% if user.profile.bio %}
+                <h6 class="user-details">{{ user.profile.bio }}</h6>
+              {% else %}
+                <h6 class="user-details">Sorry, no bio available. ¯\_(ツ)_/¯</h6>
               {% endif %}
-            {% endfor %}
-            {% get_variable as available %}
-            {% if not available %}
-            <tr>
-              <td class="day">{{ day }}</td>
-              <td class="unavailable" colspan="2">UNAVAILABLE</td>
-            </tr>
-            {% endif %}
-          {% endfor %}
-      </table>
-    </div>
 
-  </div>
+              <!-- Options  -->
+              <ul class="slider-line w-100">
+                <li class="s-line-options" id="avail">AVAILABILITY</li>
+                <li class="s-line-options" id="revi">REVIEWS</li>
+                <li class="s-line-options" id="hist">HISTORY</li>
+                <li class="slider s-line-options"></li>
+              </ul>
 
+              <!-- Availability option -->
+              <table id="availabilityTable">
+                <tr>
+                  <th>DAY</th>
+                  <th>FROM</th>
+                  <th>TO</th>
+                  {% for day in days_of_the_week %}
+                    {% define_variable 0 %}
+                    {% for availability in availabilities %}
+                      {% if availability.start_time|date:"l" == day %}
+                        <tr>
+                          <td class="day">{{ day }}</td>
+                          <td>{{ availability.start_time|date:"g:i A" }}</td>
+                          <td>{{ availability.end_time|date:"g:i A" }}</td>
+                        </tr>
+                        {% define_variable 1 %}
+                      {% endif %}
+                    {% endfor %}
+                    {% get_variable as available %}
+                    {% if not available %}
+                    <tr>
+                      <td class="day">{{ day }}</td>
+                      <td class="unavailable" colspan="2">UNAVAILABLE</td>
+                    </tr>
+                    {% endif %}
+                  {% endfor %}
+              </table>
+
+              <!-- Reviews Option -->
+              <div id="reviewTab">
+                This is the review box!
+              </div>
+
+              <!-- History Option -->
+              <div id="historyTab">
+                This is the history box!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+  // This script is used from this website and modified to suit our design needs: 
+  // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
+  
+  $("ul li").click(function(e) {
+
+// make sure we cannot click the slider
+if ($(this).hasClass('slider')) {
+  return;
+}
+
+/* Add the slider movement */
+
+// what tab was pressed
+var whatTab = $(this).index();
+
+// Work out how far the slider needs to go
+var howFar = 100 * whatTab;
+
+$(".slider").css({
+  left: howFar + "px"
+});
+
+/* Add the ripple */
+
+// Remove olds ones
+$(".ripple").remove();
+
+// Setup
+var posX = $(this).offset().left,
+    posY = $(this).offset().top,
+    buttonWidth = $(this).width(),
+    buttonHeight = $(this).height();
+
+// Add the element
+$(this).prepend("<span class='ripple'></span>");
+
+// Make it round!
+if (buttonWidth >= buttonHeight) {
+  buttonHeight = buttonWidth;
+} else {
+  buttonWidth = buttonHeight;
+}
+
+// Get the center of the element
+var x = e.pageX - posX - buttonWidth / 2;
+var y = e.pageY - posY - buttonHeight / 2;
+
+// Add the ripples CSS and start the animation
+$(".ripple").css({
+  width: buttonWidth,
+  height: buttonHeight,
+  top: y + 'px',
+  left: x + 'px'
+}).addClass("rippleEffect");
+});
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+// This is my own jQuery code
+$("#avail").click(function(){
+  $("#availabilityTable").delay(350).fadeIn(100);
+  $("#reviewTab").fadeOut(300);
+  $("#historyTab").fadeOut(300);
+});
+
+$("#revi").click(function(){
+  $("#reviewTab").delay(350).fadeIn(100);
+  $("#availabilityTable").fadeOut(300);
+  $("#historyTab").fadeOut(300);
+});
+
+$("#hist").click(function(){
+  $("#historyTab").delay(350).fadeIn(100);
+  $("#availabilityTable").fadeOut(300);
+  $("#reviewTab").fadeOut(300);
+});
+</script>
 </body>
 </html>
