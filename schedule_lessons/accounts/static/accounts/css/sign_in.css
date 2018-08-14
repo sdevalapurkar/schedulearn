@@ -200,6 +200,8 @@ body {
 
 .google-btn:hover {
   background-color: #E0483A;
+  color: white;
+  text-decoration: none;
 }
 
 .center {
