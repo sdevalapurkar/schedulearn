@@ -38,6 +38,10 @@ html body {
   padding-right: 15px;
 }
 
+#myName {
+  padding: 0;
+}
+
 #myName:hover {
   cursor: pointer;
 }

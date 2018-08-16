@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
-from accounts.models import Availability, return_availabilities
+from accounts.models import Availability, return_availabilities, return_skills
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
@@ -312,6 +312,7 @@ def my_profile(request):
     context = {
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
+        'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
         'days_of_the_week': DAYS_OF_THE_WEEK
     }
@@ -324,13 +325,13 @@ def my_profile(request):
 def edit_profile(request):
     if request.method == 'POST':
         if 'profile_pic' in request.POST:
-             cropped_img = request.POST['profile_pic']
-             format, imgstr = cropped_img.split(';base64,')
-             ext = format.split('/')[-1]
-             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-             request.user.profile.profile_pic = cropped_img
-             request.user.save()
-             return HttpResponse(status=200)
+            cropped_img = request.POST['profile_pic']
+            format, imgstr = cropped_img.split(';base64,')
+            ext = format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+            request.user.profile.profile_pic = cropped_img
+            request.user.save()
+            return HttpResponse(status=200)
         else:
             request.user.first_name = request.POST['firstName'] # save first name
             if not request.POST['lastName']:
