@@ -46,6 +46,11 @@ html body {
   cursor: pointer;
 }
 
+#myName #userPicture {
+  width: 45px;
+  height: 45px;
+}
+
 #myDropdown {
   position: absolute;
   text-align: center;
