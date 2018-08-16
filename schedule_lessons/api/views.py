@@ -3,7 +3,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.http import Http404
-from dashboard.models import Relationship
+from dashboard.models import Relationship, Lesson
 
 class Profile(APIView):
     '''
@@ -21,6 +21,33 @@ class Profile(APIView):
         profile = self.get_profile(token)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
+
+class Lessons(APIView):
+    '''
+    GET REQUEST: Returns lessons given a token.
+    PUT REQUEST: Updates a lesson given a token.
+    POST REQUEST: Adds a lesson given a token.
+    '''
+    def get_user(self, token):
+        try:
+            token = Token.objects.get(key=token)
+            return token.user
+        except Token.DoesNotExist:
+            raise Http404
+
+    def get(self, request, token):
+        user = self.get_user(token)
+        lessons = []
+        if user.profile.user_type == 'tutor':
+            lessons_db = Lesson.objects.filter(tutor=user)
+        else:
+            lessons_db = Lesson.objects.filter(student=user)
+        for lesson in lessons_db:
+            serializer = LessonSerializer(lesson)
+            data = serializer.data
+            data['lesson_with'] = lesson.tutor.get_full_name() if user.profile.user_type == 'student' else lesson.student.get_full_name()
+            lessons.append(data)
+        return Response({'lessons': lessons})
 
 class Connections(APIView):
     '''
