@@ -39,8 +39,12 @@
       </ul>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="50" alt="/media/profile_pics/default/man.png">
+          </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <div id="triangle-up"></div>
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
@@ -60,9 +64,23 @@
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Left side that contains only the profile picture -->
+      <!-- Left side that contains the profile picture and the skills -->
       <div class="col-md-2 m-4 pl-4">
         <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
+        <div class="col-md-12 mt-4">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th>Skills</th>
+              </tr>
+            </thead>
+            <!-- {% for skill in skills_ahmed_will_add %} -->
+            <tr>
+              <td>  <!-- {{skill}} --> None Yet</td>
+            </tr>
+          <!-- {% endfor %} -->
+          </table>
+        </div>
       </div>
 
       <!-- Right side that contains everything else -->
@@ -71,9 +89,10 @@
           <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
           <h3 id="userType">{{ user.profile.user_type }}</h3>
 
-          <h5 class="user-details"><b>Email Address: </b><a href="mailto:{{ user.email }}">{{ user.email }}</a></h5>
+          <h5 class="user-headings"><b>Email Address: </b></h5>
+          <h6 class="user-details"><a href="mailto:{{ user.email }}">{{ user.email }}</a></h6>
 
-          <h5 class="user-headings">Bio:</h5>
+          <h5 class="user-headings mt-4">Bio:</h5>
           {% if user.profile.bio %}
           <h6 class="user-details">{{ user.profile.bio }}</h6>
           {% else %}
@@ -81,11 +100,11 @@
           {% endif %}
 
           <!-- Options  -->
-          <ul class="slider-line w-100">
-            <li class="s-line-options" id="avail">AVAILABILITY</li>
-            <li class="s-line-options" id="revi">REVIEWS</li>
-            <li class="s-line-options" id="hist">HISTORY</li>
-            <li class="slider s-line-options"></li>
+          <ul class="col-md-12 slider-line w-100">
+            <li class="col-xs-3 s-line-options" id="avail">AVAILABILITY</li>
+            <li class="col-xs-3 s-line-options" id="revi">REVIEWS</li>
+            <li class="col-xs-3 s-line-options" id="hist">HISTORY</li>
+            <li class="col-xs-3 slider s-line-options"></li>
           </ul>
 
           <!-- Availability option -->
