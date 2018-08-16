@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import Profile
-from dashboard.models import Relationship
+from dashboard.models import Relationship, Lesson
 from django.contrib.auth.models import User
 
 
@@ -21,3 +21,8 @@ class ConnectionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relationship
         fields = ('tutor','student')
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = '__all__'
