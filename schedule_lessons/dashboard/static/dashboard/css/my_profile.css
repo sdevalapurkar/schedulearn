@@ -45,6 +45,7 @@ html body {
 #myDropdown {
   position: absolute;
   text-align: center;
+  margin-top: 7px;
 }
 
 .dropdown-options {
@@ -85,6 +86,17 @@ html body {
 
 .extended-icon {
   margin-right: 4px;
+}
+
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
 }
 
 @media (max-width: 991.98px) {
@@ -171,10 +183,6 @@ html body {
   text-align: center;
 }
 
-/* #availability {
-  text-align: center;
-} */
-
 #availabilityTable {
   display: inline-block;
   text-align: center;
@@ -215,16 +223,12 @@ html body {
   font-family: BrandonGrotesque-Regular;
 }
 
-
-/* playground */
-
 .slider-line {
   border-bottom: 1px solid #6b6b6b;
   font-size: 0;
   position: relative;
   padding: 0;
   width: 300px;
-  /* margin: 40px auto; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -257,8 +261,6 @@ html body {
 }
 
 /*  Ripple */
-
-
 .ripple {
   width: 0;
   height: 0;
