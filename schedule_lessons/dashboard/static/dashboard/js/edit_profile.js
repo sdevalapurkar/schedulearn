@@ -44,7 +44,7 @@ $(document).ready(function () {
 							}).then(function (resp) {
                 $.ajax({
                     type: 'POST',
-                    url: '/dashboard/edit_profile/',
+                    url: '/dashboard/my_profile/edit_profile/',
                     data: {'profile_pic': resp},
                     success: function () {
                         location.reload();
