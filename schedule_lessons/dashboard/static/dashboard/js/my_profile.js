@@ -2,6 +2,9 @@ $(document).ready(function() {
   // This script is used from this website and modified to suit our design needs:
   // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
+  $("#reviewTab").fadeOut(0);
+  $("#historyTab").fadeOut(0);
+
   $("ul li").click(function(e) {
 
     // make sure we cannot click the slider
@@ -12,14 +15,14 @@ $(document).ready(function() {
     /* Add the slider movement */
 
     // what tab was pressed
-    var whatTab = $(this).index();
+    var clickedTab = $(this).index();
 
     // Work out how far the slider needs to go
-    var howFar = 120
-    * whatTab;
+    var sliderMovesBy = 120
+    * clickedTab;
 
     $(".slider").css({
-      left: howFar + "px"
+      left: sliderMovesBy + "px"
     });
 
     /* Add the ripple */
@@ -55,6 +58,7 @@ $(document).ready(function() {
       left: x + 'px'
     }).addClass("rippleEffect");
   });
+
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
