@@ -87,11 +87,12 @@ Quit the server with CONTROL-C.
 
 NOTE: You can make changes to the code while the server is running and the new code will show up as soon as you refresh your browser, you don't need to restart the server. HOWEVER, in the advanced case you make changes to the database (models.py), you will need to migrate those changes. Additonally, changes to the css files may not show up even if you refresh your browser, this can be because your browser is storing cache files of the css (HINT: try holding shift and refreshing your browser).
 
-## Authors
+## Development Team
 
 * [Ahmed Siddiqui](https://github.com/JeSuisAhmedN)
 * [Shreyas Devalapurkar](https://github.com/sdevalapurkar)
 * [Lee Zeitz](https://github.com/LeeZeitz)
+* [Nisarg Patel](https://github.com/Nppatel97)
 * [John Schriemer](https://github.com/jschriem)
 * [David Schriemer](https://github.com/CodemanDave)
 
