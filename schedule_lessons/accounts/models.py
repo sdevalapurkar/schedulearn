@@ -27,6 +27,13 @@ class Availability(models.Model):
     def __str__(self):
         return self.profile.user.get_full_name() + ' from ' + str(self.start_time) + ' to ' + str(self.end_time) + ' on ' + self.day
 
+class Skill(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    skill = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.profile.user.get_full_name() + ' has skill: ' + self.skill
+
 # Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
 def return_availabilities(user_id):
     availabilities = []
@@ -38,7 +45,14 @@ def return_availabilities(user_id):
                 availabilities.append(availability_in_day)
 
     return availabilities
-    
+
+def return_skills(user_id):
+    skills = []
+    skills_db = Skill.objects.filter(profile__id=user_id)
+    for skill in skills_db:
+        skills.append(skill.skill)
+    return skills
+
 # Below code is necessary
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
