@@ -38,13 +38,23 @@ html body {
   padding-right: 15px;
 }
 
+#myName {
+  padding: 0;
+}
+
 #myName:hover {
   cursor: pointer;
+}
+
+#myName #userPicture {
+  width: 45px;
+  height: 45px;
 }
 
 #myDropdown {
   position: absolute;
   text-align: center;
+  margin-top: 7px;
 }
 
 .dropdown-options {
@@ -85,6 +95,17 @@ html body {
 
 .extended-icon {
   margin-right: 4px;
+}
+
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
 }
 
 @media (max-width: 991.98px) {
@@ -130,14 +151,12 @@ html body {
 /* END Navbar for logged in Users */
 
 #topPane {
-  text-align: center;
   width: 100%;
-  margin: 35px auto;
+  margin: 35px;
   padding-bottom: 100px;
 }
 
 #userPicture {
-  width: 200px;
   border-radius: 50%;
   border: 2px solid #4A4A4A;
 }
@@ -166,13 +185,10 @@ html body {
 .user-details {
   font-family: BrandonGrotesque-Regular;
   color: #6b6b6b;
-  margin-bottom: 5px;
-  width: 350px;
-  margin: 0 auto;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
-#availability {
+.email-style{
   text-align: center;
 }
 
@@ -214,4 +230,73 @@ html body {
   font-size: 120%;
   color: #D14F52;
   font-family: BrandonGrotesque-Regular;
+}
+
+.slider-line {
+  border-bottom: 1px solid #6b6b6b;
+  font-size: 0;
+  position: relative;
+  padding: 0;
+  width: 300px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.s-line-options {
+  display: inline-block;
+  width: 120px;
+  text-align: center;
+  height: 60px;
+  font-size: 16px;
+  line-height: 60px;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.slider {
+  display: block;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 4px;
+  background: #D14F52;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/*  Ripple */
+.ripple {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(209, 79, 82, 0.4);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+
+.rippleEffect {
+  -webkit-animation: rippleDrop .6s linear;
+  animation: rippleDrop .6s linear;
+}
+ @-webkit-keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
+}
+ @keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
 }
