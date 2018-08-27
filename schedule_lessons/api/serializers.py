@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 
 # Serializers define the API representation.
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -14,13 +13,13 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('bio', 'user_type', 'profile_pic')
 
 # Serializer for Relationships
 class ConnectionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relationship
-        fields = ('tutor','student')
+        fields = ('tutor', 'student')
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
