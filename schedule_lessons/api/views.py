@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.http import Http404
 from dashboard.models import Relationship, Lesson
+from rest_framework import status
 
 class Profile(APIView):
     '''
-    GET REQUEST: Returns profile information given a token.
-    PUT REQUEST: Updates profile information given a token.
+    GET REQUEST: Returns profile info (bio, user_type, path to profile pic) given an auth token.
+    PUT REQUEST: Updates profile info (bio, user_type, path to profile pic) given a token and data.
     '''
     def get_profile(self, token):
         try:
@@ -22,11 +23,17 @@ class Profile(APIView):
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
+    def put(self, request, token):
+        profile = self.get_profile(token)
+        serializer = ProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class Lessons(APIView):
     '''
-    GET REQUEST: Returns lessons given a token.
-    PUT REQUEST: Updates a lesson given a token.
-    POST REQUEST: Adds a lesson given a token.
+    GET REQUEST: Returns all lessons given a token.
     '''
     def get_user(self, token):
         try:
@@ -52,7 +59,6 @@ class Lessons(APIView):
 class Connections(APIView):
     '''
     GET REQUEST: Returns all connections given a token.
-    POST REQUEST: Add a connection given a token.
     '''
     def get_user(self, token):
         try:
@@ -80,3 +86,7 @@ class Connections(APIView):
             connections.append(person_info)
 
         return Response({'connections': connections})
+
+# Future API Developments will need to branch into interacting with individual
+# lessons (GET, POST, PUT, DELETE), interacting with the availabilities of
+# users, and creating new connections between users (POST)
