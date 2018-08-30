@@ -1,258 +1,360 @@
 from django.shortcuts import render, redirect
-import json
 import datetime
-from django.http import HttpResponse
-from .models import Relationship, Event
-from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from .models import *
+from accounts.models import Availability, return_availabilities, return_skills
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core.mail import get_connection, send_mail
+from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
-
 import base64
 from django.core.files.base import ContentFile
 from schedule_lessons.local_settings import *
+from social_django.utils import load_strategy
+import requests
+from django.contrib.auth import login
 
-# Create your views here.
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard/dashboard.html') # if they try to go to website.com/dashboard, they'll get dashboard/dashboard.html
+# Global Variables
 
-# Create a relationship between the student and a tutor
-@login_required
-def add_tutor(request):
-    if request.method == 'POST':
-        tutor_email = request.POST.get('tutor_email')
-        try:
-            try:
-                # checks where there is already such an existing relationship.
-                existing_rel = Relationship.objects.get(student=request.user, tutor=User.objects.get(email=tutor_email))
-                return HttpResponse(status=200)
-
-            except Exception as e:
-                # if it doesn't a new one is created.
-                new_rel = Relationship(student=request.user, tutor=User.objects.get(email=tutor_email))
-                new_rel.save()
-                return HttpResponse(status=200)
-        # if the above code isn't successfully executed. An error 404 is sent back.
-        except Exception as e:
-            return HttpResponse(status=404)
-    return HttpResponse(status=404)
-
-
-# Return list of tutors that have Relationship with the student that is asking
-# for the list of tutors.
-@login_required
-def get_tutors(request):
-    if request.method == 'GET':
-        response = []
-        # below code will return a list of relationshion objects containing the
-        # name of student and tutor
-        students_tutors = Relationship.objects.filter(student=request.user)
-        if request.user.profile.user_type == 'student':
-            for tutor in students_tutors:
-                response.append([tutor.tutor.first_name, tutor.tutor.last_name, tutor.tutor.profile.id, tutor.tutor.email])
-        else:
-            # this part of the code will never be executed right now because
-            # a tutor is not able to look at his students, but because of future
-            # implementation it is left in.
-            for tutor in students_tutors:
-                response.append([tutor.student.first_name, tutor.student.last_name, tutor.student.profile.id, tutor.tutor.email])
-
-        return JsonResponse(response, safe=False)
-
-# simply returns a Json object containing the list of events for the request user.
-@login_required
-def get_events(request):
-    if request.method == 'GET':
-        event_list = []
-
-        events = Event.objects.filter(student=request.user)
-
-        for event in events:
-            event_list.append({
-                'name': event.name,
-                'tutor_name': event.tutor.get_full_name(),
-                'tutor_id': event.tutor.profile.id,
-                'tutor_username': event.tutor.username,
-                'student_name': event.student.get_full_name(),
-                'student_id': event.student.profile.id,
-                'student_username': event.student.username,
-                'start_time': event.start_time,
-                'end_time': event.end_time,
-                'description': event.description
-            })
-        return JsonResponse(event_list, safe=False)
-    return HttpResponse(status=404)
-
-
-# used to set an event for a student. Later implementation will require another
-# method like this for tutors to set events, or it can be done in this method
-# using if-else to check for user_type of requesting user.
-@login_required
-def set_event(request):
-    if request.method == 'POST':
-        data = request.POST
-        try:
-            name = data.get('lessonName')
-            start_time = datetime.datetime.strptime(data.get('startDate'), '%m/%d/%Y %I:%M %p')
-
-            end_time = datetime.datetime.strptime(data.get('endDate'), '%m/%d/%Y %I:%M %p')
-
-            description = data.get('lessonDescription')
-            location = data.get('lessonLocation')
-            tutor = User.objects.get(profile__id=data.get('tutorID'))
-
-            event = Event(name=name, tutor=tutor, start_time = start_time, end_time = end_time, description=description, location=location, student=request.user)
-            event.save()
-
-            with get_connection(
-                host=EMAIL_HOST,
-                port=EMAIL_PORT,
-                username=SCHEDULER_NOTIFY_EMAIL,
-                password=EMAIL_HOST_PASSWORD,
-                use_tls=True,
-            ) as connection:
-                EmailMessage('Schedulearn: Lesson scheduled by ' + request.user.first_name + ' ' + request.user.last_name,
-                             'A student of yours, ' + request.user.first_name + ' ' + request.user.last_name + ', has booked a lesson with you with the following details, please visit schedulearn.com/ to either accept or decline the lesson.\n\n' + 'Lesson Name: '  + str(name) + '\n\nLesson Description: ' + str(description) + '\n\nLesson Timings: ' + 'From ' + str(start_time) + ' to ' + str(end_time) + '\n\nLesson Location: ' + location,
-                             local_settings.SCHEDULER_NOTIFY_EMAIL,
-                             [tutor.email],
-                             connection=connection).send()
-
-            return HttpResponse(status=200)
-        except Exception as e:
-            return HttpResponse(status=404)
-    else:
-        return HttpResponse(status=404)
-
-# renders the availability page for a tutor. login_required decorator is not
-# used so public can see availability too.
-def get_availability(request, tutor_id):
-    if request.method == 'GET':
-        tutor = User.objects.get(profile__id=tutor_id)
-        availability = tutor.profile.availability
-        if tutor.profile.availability is not None:
-            availability = json.loads(tutor.profile.availability.replace("'", '"'))
-        if availability == {} or availability == '{}':
-            availability = None
-
-        return render(request, 'dashboard/availability.html', {'availability': availability, 'user_full_name': tutor.get_full_name()})
-    return HttpResponse(status=404)
-
-# I don't think this method is even being used? Further inspection necessary.
-def set_availability(request):
-    if request.method == 'POST':
-        data = request.body
-        try:
-            tutor = User.objects.get(profile__id=data.get('id'))
-            tutor.profile.availability = data.get('data')
-            tutor.save()
-            return HttpResponse(status=200)
-        except Exception as e:
-            pass
-
-    return HttpResponse(status=404)
-
-# allows to edit availability for tutor.
-@login_required
-def edit_availability(request):
-    if request.method == 'POST':
-        data = request.POST
-        try:
-            current_user = User.objects.get(id=request.user.id)
-            availability = request.user.profile.availability
-            if availability is not None:
-                current = json.loads(availability.replace("'", '"'))
-            else:
-                current = {}
-            current.update(data.dict())
-            current_user.profile.availability = current
-            current_user.save()
-            return HttpResponse(status=200)
-
-        except Exception as e:
-            pass
-
-    return HttpResponse(status=404)
-
+DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+UTC_ZONE = datetime.timezone(datetime.timedelta(0)) # A timezone object used to convert local times into UTC times.
 
 # returns scheduler information for scheduler tab for the user.
 @login_required
-def scheduler(request):
-    if request.method == 'GET':
-        user_type = request.user.profile.user_type
+def agenda(request):
+    pending_lesson_list = []
+    scheduled_lesson_list = []
+    if request.user.profile.user_type == 'student':
+        lessons = Lesson.objects.filter(student=request.user)
+    else:
+        lessons = Lesson.objects.filter(tutor=request.user)
+    for lesson in lessons:
+        try:
+            data = {
+                'id': lesson.id,
+                'name': lesson.name,
+                'location': lesson.location,
+                'tutor_name': lesson.tutor.get_full_name(),
+                'tutor_id': lesson.tutor.profile.id,
+                'student_name': lesson.student.get_full_name(),
+                'student_id': lesson.student.profile.id,
+                'start_time': lesson.start_time,
+                'end_time': lesson.end_time,
+                'display_options': lesson.created_by != request.user,
+            }
+            if lesson.pending:
+                pending_lesson_list.append(data)
+            else:
+                scheduled_lesson_list.append(data)
+        except Exception as e:
+            return HttpResponse(status=404)
+    context = {
+        'scheduled_lessons': scheduled_lesson_list,
+        'pending_lessons': pending_lesson_list,
 
-        pending_event_list = []
-        event_list = []
-        if user_type == 'student':
-            events = Event.objects.filter(student=request.user)
-        else:
-            events = Event.objects.filter(tutor=request.user)
-        for event in events:
-            try:
-                data = {
-                    'id': event.id,
-                    'name': event.name,
-                    'location': event.location,
-                    'tutor_name': event.tutor.get_full_name(),
-                    'tutor_id': event.tutor.profile.id,
-                    'tutor_username': event.tutor.username,
-                    'student_name': event.student.get_full_name(),
-                    'student_id': event.student.profile.id,
-                    'student_username': event.student.username,
-                    'start_date': event.start_time,
-                    'end_date': event.end_time,
-                    'start_shortdate': event.start_time.strftime('%B, %Y'),
-                    'start_week_day': event.start_time.strftime('%A'),
-                    'start_month_day': event.start_time.strftime('%d'),
-                    'start_time': event.start_time.strftime('%I:%M %p'),
-                    'end_shortdate': event.end_time.strftime('%B, %Y'),
-                    'end_week_day': event.end_time.strftime('%A'),
-                    'end_month_day': event.end_time.strftime('%d'),
-                    'end_time': event.end_time.strftime('%I:%M %p'),
-                    'description': event.description
-                }
-                if event.pending:
-                    pending_event_list.append(data)
-                else:
-                    event_list.append(data)
-            except Exception as e:
-                pass
-        return render(request, 'dashboard/scheduler.html', {'user_type': user_type, 'events': event_list, 'pending_events': pending_event_list})
+        }
+    no_results_found = request.GET.get('no_search_result')
+    context['gcalender_success'] = request.GET.get('gcalender_success', '')
+    if no_results_found:
+        context['no_results'] = 'No results were found'
 
-    return HttpResponse(status=404)
+    return render(request, 'dashboard/agenda.html', context)
 
-def public_profile(request, id):
+
+
+@login_required
+def save_gcalendar_lesson(request, lesson_id):
+    response = redirect('agenda')
     try:
-        user = User.objects.get(profile__id=id) # get the user to which the profile belongs
-        return render(request, 'dashboard/public_profile.html', {'user': user, 'host': request.user})
+        if request.user.social_auth.filter(provider='google-calendar'):
+            lesson_to_save = Lesson.objects.get(id=lesson_id)
+            if not request.user == lesson_to_save.tutor and not request.user == lesson_to_save.student:
+                response['Location'] += '?gcalender_success=invalid_permission'
+                return redirect('agenda')
+            headers = {
+                "Authorization": "Bearer " + request.user.social_auth.get(provider='google-calendar').get_access_token(load_strategy()),
+            }
+            insert_calendar_url = "https://www.googleapis.com/calendar/v3/calendars"
+            list_calendar_url = "https://www.googleapis.com/calendar/v3/users/me/calendarList"
+            user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
+            schedulearn_calendar_exists = False
+            for calendar in user_calendars:
+                if calendar['summary'] == 'My Lessons (Schedulearn)':
+                    schedulearn_calendar_exists = True
+                    schedulearn_calendar_id = calendar['id']
+
+            if not schedulearn_calendar_exists:
+                requests.post(insert_calendar_url, headers=headers, json={'summary': 'My Lessons (Schedulearn)', 'timeZone': 'Etc/UTC'})
+                user_calendars = requests.get(list_calendar_url, headers=headers).json()['items']
+                for calendar in user_calendars:
+                    if calendar['summary'] == 'My Lessons (Schedulearn)':
+                        schedulearn_calendar_id = calendar['id']
+
+            change_calendar_color_url = list_calendar_url + "/" + schedulearn_calendar_id + '?colorRgbFormat=True'
+
+            requests.put(change_calendar_color_url, headers=headers, json={'foregroundColor': '#ffffff', 'backgroundColor': '#D14F52', 'selected': True})
+
+            start_time = str(lesson_to_save.start_time.date()) + "T" + str(lesson_to_save.start_time.time()) + "+00:00"
+            end_time = str(lesson_to_save.end_time.date()) + "T" + str(lesson_to_save.end_time.time()) + "+00:00"
+
+            create_event_url = "https://www.googleapis.com/calendar/v3/calendars/" + schedulearn_calendar_id + "/events?sendNotifications=True"
+            event = {
+                "summary": lesson_to_save.name,
+                "start": {
+                    "dateTime": start_time
+                },
+                "end": {
+                    "dateTime": end_time
+                },
+                "location": lesson_to_save.location,
+                "status": "tentative",
+                'attendees': [
+                    {
+                        'displayName': lesson_to_save.student.get_full_name() if request.user == lesson_to_save.tutor else lesson_to_save.tutor.get_full_name(),
+                        'email': lesson_to_save.student.email if request.user == lesson_to_save.tutor else lesson_to_save.tutor.email,
+                        'responseStatus': 'tentative',
+                    }
+                ]
+            }
+            if requests.post(create_event_url, headers=headers, json=event).status_code == 200:
+                response['Location'] += '?gcalender_success=Yes'
+            else:
+                response['Location'] += '?gcalender_success=No'
     except:
+        response['Location'] += '?gcalender_success=No'
+    return response
+
+
+@login_required
+def relationships(request):
+    if request.user.profile.user_type == 'tutor':
+        students = []
+        relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+        for relationship in relationships:
+            students.append(relationship.student)
+        no_results_found = request.GET.get('no_search_result')
+        if no_results_found:
+            return render(request, 'dashboard/relationships.html', {'students': students, 'no_results': 'No results were found'})
+        return render(request, 'dashboard/relationships.html', {'students': students})
+    else:
+        tutors = []
+        relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+        for relationship in relationships:
+            tutors.append(relationship.tutor)
+        no_results_found = request.GET.get('no_search_result')
+        if no_results_found:
+            return render(request, 'dashboard/relationships.html', {'tutors': tutors, 'no_results': 'No results were found'})
+        return render(request, 'dashboard/relationships.html', {'tutors': tutors})
+
+@login_required
+def search(request):
+    email = request.GET.get('searchResult')
+    if not email:
+        response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        response['Location'] += '?no_search_result=True'
+        return response
+    try:
+        user_result = User.objects.get(email__iexact=email)
+        id = str(user_result.profile.id)
+        url = request.build_absolute_uri('/') + 'dashboard/profile/' + id
+        return public_profile(request, id)
+    except User.DoesNotExist as e:
+        response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        response['Location'] += '?no_search_result=True'
+        return response
+
+def public_profile(request, user_id):
+    try:
+        context = {
+            'profile_user': User.objects.get(profile__id=user_id), # get the user to which the profile belongs
+            'availabilities': return_availabilities(user_id),
+            'days_of_the_week': DAYS_OF_THE_WEEK
+        }
+
+        if not request.user.is_anonymous:
+            # Returns a boolean value depending on whether a relationship
+            # exists between Person A and Person B
+            context['rel_exists'] = relationship_exists(context['profile_user'], request.user)
+            if context['rel_exists']:
+                if request.user.profile.user_type == 'tutor':
+                    context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                else:
+                    context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+            else:
+                if request.user.profile.user_type == 'tutor':
+                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                else:
+                    context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
+
+            return render(request, 'dashboard/public_profile.html', context)
+
+    except Exception as e:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
+
+@login_required
+def add_student(request, student_id):
+    student_profile = User.objects.get(profile__id=student_id)
+    new_rel = Relationship(student=student_profile, tutor=request.user)
+    new_rel.save()
+    return redirect('public_profile', student_id)
+
+@login_required
+def remove_student(request, student_id):
+    student_profile = User.objects.get(profile__id=student_id)
+    old_rel = Relationship.objects.get(student=student_profile, tutor=request.user)
+    old_rel.delete()
+    return redirect('public_profile', student_id)
+
+@login_required
+def add_tutor(request, tutor_id):
+    tutor_profile = User.objects.get(profile__id=tutor_id)
+    new_rel = Relationship(student=request.user, tutor=tutor_profile)
+    new_rel.save()
+    return redirect('public_profile', tutor_id)
+
+@login_required
+def remove_tutor(request, tutor_id):
+    tutor_profile = User.objects.get(profile__id=tutor_id)
+    old_rel = Relationship.objects.get(student=request.user, tutor=tutor_profile)
+    old_rel.delete()
+    return redirect('public_profile', tutor_id)
+
+@login_required
+def choose_person(request):
+        if request.user.profile.user_type == 'tutor':
+            students = []
+            relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+            for relationship in relationships:
+                url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.student.profile.id)
+                student_data = {
+                    'first_name': relationship.student.first_name,
+                    'last_name': relationship.student.last_name,
+                    'email': relationship.student.email,
+                    'profile_pic': relationship.student.profile.profile_pic,
+                    'id': relationship.student.profile.id,
+                }
+                students.append(student_data)
+            no_results_found = request.GET.get('no_search_result')
+            if no_results_found:
+                return render(request, 'dashboard/choose_person.html', {'students': students, 'no_results': 'No results were found'})
+            return render(request, 'dashboard/choose_person.html', {'students': students})
+        else:
+            tutors = []
+            relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+            for relationship in relationships:
+                url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.tutor.profile.id)
+                tutor_data = {
+                    'first_name': relationship.tutor.first_name,
+                    'last_name': relationship.tutor.last_name,
+                    'email': relationship.tutor.email,
+                    'profile_pic': relationship.tutor.profile.profile_pic,
+                    'id': relationship.tutor.profile.id,
+                }
+                tutors.append(tutor_data)
+            no_results_found = request.GET.get('no_search_result')
+            if no_results_found:
+                return render(request, 'dashboard/choose_person.html', {'tutors': tutors, 'no_results': 'No results were found'})
+            return render(request, 'dashboard/choose_person.html', {'tutors': tutors})
+
+@login_required
+def schedule_lesson(request, user_id):
+    context = {
+        'user_id': user_id,
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'status': 500
+    }
+    if request.method == 'POST':
+        new_lesson = Lesson()
+        context = error_check_and_save_lesson(request, new_lesson, context)
+        return JsonResponse(context)
+    else:
+        context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
+        context['availabilities'] = return_availabilities(user_id)
+        return render(request, 'dashboard/schedule_lesson.html', context)
+
+@login_required
+def confirm_lesson(request, lesson_id):
+    try:
+        lesson_to_confirm = Lesson.objects.get(id=lesson_id)
+        if lesson_to_confirm and (lesson_to_confirm.tutor == request.user or lesson_to_confirm.student == request.user) and request.user != lesson_to_confirm.created_by:
+            lesson_to_confirm.pending = False
+            lesson_to_confirm.save()
+        return redirect('agenda')
+    except Exception:
+        return redirect('agenda')
+
+@login_required
+def decline_lesson(request, lesson_id):
+    try:
+        lesson_to_delete = Lesson.objects.get(id=lesson_id)
+        if lesson_to_delete and (lesson_to_delete.tutor == request.user or lesson_to_delete.student == request.user):
+            lesson_to_delete.delete()
+        return redirect('agenda')
+    except Exception:
+        return redirect('agenda')
+
+@login_required
+def reschedule_lesson(request, lesson_id):
+    try:
+        lesson_to_reschedule = Lesson.objects.get(id=lesson_id)
+    except Exception:
+        return HttpResponse(status=404)
+    context = {
+        'user_id': lesson_to_reschedule.student.profile.id if request.user.profile.user_type == 'tutor' else lesson_to_reschedule.tutor.profile.id,
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'status': 500
+    }
+    if request.method == 'POST':
+        context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
+        return JsonResponse(context)
+    else:
+        context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
+        if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
+            context['availabilities'] = return_availabilities(context['person_to_schedule_with'].profile.id)
+            context['lesson_to_reschedule'] = {
+                'name': lesson_to_reschedule.name,
+                'location': lesson_to_reschedule.location,
+                'start_time': lesson_to_reschedule.start_time,
+                'end_time': lesson_to_reschedule.end_time,
+            }
+            return render(request, 'dashboard/schedule_lesson.html', context)
+        else:
+            return HttpResponse(status=404)
 
 # viewing MY profile will be different than viewing somebody else's profile, hence
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    reset_email = request.GET.get('reset_email', False)
-    if reset_email:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user, 'changed_email': True})
+    context = {
+        'user': request.user,
+        'availabilities': return_availabilities(request.user.profile.id),
+        'skills': return_skills(request.user.profile.id),
+        'reset_email': request.GET.get('reset_email', False),
+        'days_of_the_week': DAYS_OF_THE_WEEK
+    }
+    if context['reset_email']:
+        return render(request, 'dashboard/my_profile.html', context)
     else:
-        return render(request, 'dashboard/my_profile.html', {'user': request.user})
+        return render(request, 'dashboard/my_profile.html', context)
 
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
         if 'profile_pic' in request.POST:
-             cropped_img = request.POST['profile_pic']
-             format, imgstr = cropped_img.split(';base64,')
-             ext = format.split('/')[-1]
-             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-             request.user.profile.profile_pic = cropped_img
-             request.user.save()
-             return HttpResponse(status=200)
+            cropped_img = request.POST['profile_pic']
+            format, imgstr = cropped_img.split(';base64,')
+            ext = format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+            request.user.profile.profile_pic = cropped_img
+            request.user.save()
+            return HttpResponse(status=200)
         else:
             request.user.first_name = request.POST['firstName'] # save first name
-            request.user.last_name = request.POST['lastName'] # save last name
+            if not request.POST['lastName']:
+                request.user.last_name = ' '
+            else:
+                request.user.last_name = request.POST['lastName'] # save last name
+            request.user.profile.bio = request.POST['bio']
             # then handle email
             email = request.POST['email']
             if not email == request.user.email: # if the emails are not same that means the user changed emails
@@ -260,7 +362,7 @@ def edit_profile(request):
                 request.user.email = email
                 request.user.profile.email_verified = False
                 id = request.user.profile.id
-                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                url = request.build_absolute_uri('/') + 'accounts/verify_email/' + str(id)
                 with get_connection(
                     host=EMAIL_HOST,
                     port=EMAIL_PORT,
@@ -268,8 +370,8 @@ def edit_profile(request):
                     password=EMAIL_HOST_PASSWORD,
                     use_tls=True,
                 ) as connection:
-                    EmailMessage("Schedulearn - Verify Your Email Address",
-                                 "Click on the following link to verify your email address\n\n" + url,
+                    EmailMessage('Schedulearn - Verify Your Email Address',
+                                 'Click on the following link to verify your email address\n\n' + url,
                                  VERIFY_USER_EMAIL,
                                  [email],
                                  connection=connection).send()
@@ -283,29 +385,102 @@ def edit_profile(request):
     else:
         return render(request, 'dashboard/edit_profile.html', {'user': request.user})
 
-
-# will return the user_type for the current user.
 @login_required
-def user_type(request):
-    if request.method == 'GET':
-        return JsonResponse({'user_type': request.user.profile.user_type, 'id': request.user.profile.id})
-    return HttpResponse(status=404)
-
-@login_required
-def confirm_lesson(request):
+def edit_availability(request):
+    context = {'days_of_the_week': DAYS_OF_THE_WEEK,
+               'day': request.POST.get('day', ''),
+               'start_time': request.POST.get('startingTime', ''),
+               'end_time': request.POST.get('endingTime', ''),
+               'status': 500}
     if request.method == 'POST':
-        event_id = request.POST.get('id')
-        event = Event.objects.get(id=event_id)
-        event.pending = False
-        event.save()
-        return HttpResponse(status=200)
-    return HttpResponse(status=404)
-
+        date = getDateFromDay(context['day']).date() # a date object with static date with the sole purpose of representing a day of the week.
+        time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
+        context['starting_time_error'] = False if context['start_time'] else True
+        context['ending_time_error'] = False if context['end_time'] else True
+        if context.get('ending_time_error') or context.get('starting_time_error'):
+            return JsonResponse(context)
+        else:
+            start_time_naive = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # time objects
+            end_time_naive = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time() # time objects
+            start_time = datetime.datetime.combine(date, start_time_naive, time_difference) # datetime objects
+            end_time = datetime.datetime.combine(date, end_time_naive, time_difference) # datetime objects
+            if start_time > end_time:
+                context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
+                return JsonResponse(context)
+            # First check if provided availability overlaps with other availabilities
+            existing_availabilities = Availability.objects.filter(profile__id=request.user.profile.id, day=context['day'])
+            for availability in existing_availabilities:
+                existing_start_time = availability.start_time
+                existing_end_time = availability.end_time
+                if (existing_start_time < end_time) and (existing_end_time > start_time):
+                    context['time_error'] = 'The timings you provided overlap with other timings that you have set'
+                    return JsonResponse(context)
+            # If timings aren't overlapping, add availability to database.
+            new_availability = Availability()
+            new_availability.profile = request.user.profile
+            new_availability.start_time = start_time.astimezone(UTC_ZONE)
+            new_availability.end_time = end_time.astimezone(UTC_ZONE)
+            new_availability.day = context['day']
+            new_availability.save()
+            context['status'] = 200
+            return JsonResponse(context)
+    else:
+        context['availabilities'] = return_availabilities(request.user.profile.id)
+        return render(request, 'dashboard/edit_availability.html', context)
 
 @login_required
-def decline_lesson(request):
-    if request.method == 'POST':
-        event_id = request.POST.get('id')
-        Event.objects.get(id=event_id).delete()
-        return HttpResponse(status=200)
-    return HttpResponse(status=404)
+def delete_availability(request, availability_id):
+    try:
+        delete_day = Availability.objects.get(profile__id=request.user.profile.id, id=availability_id)
+        delete_day.delete()
+        return redirect('edit_availability')
+    except:
+        return HttpResponse(status=404)
+
+# Error Checking Functions
+
+def error_check_and_save_lesson(request, lesson, context):
+    person_to_schedule_with = User.objects.get(profile__id=context['user_id'])
+    # Get lesson timezone when (re)scheduling lessons
+    time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
+    # Get lesson name when (re)scheduling lessons
+    if not request.POST['name']:
+        context['name_error'] = True
+    else:
+        lesson.name = request.POST['name']
+    # Get lesson location when (re)scheduling lessons
+    if not request.POST['location']:
+        context['location_error'] = True
+    else:
+        lesson.location = request.POST['location']
+    # Get lesson date when (re)scheduling lessons
+    if not request.POST['date']:
+        context['date_error'] = True
+    else:
+        date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
+    # Get lesson starting time when (re)scheduling lessons
+    if not request.POST['startingTime']:
+        context['starting_time_error'] = True
+    else:
+        start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
+    # Get lesson ending time when (re)scheduling lessons
+    if not request.POST['endingTime']:
+        context['ending_time_error'] = True
+    else:
+        end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
+    if start_time > end_time:
+        context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
+
+    lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
+    lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
+
+    if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error') and not context.get('time_error'):
+        context['status'] = 200
+        start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
+        end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)
+        lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE) # store starting time in UTC
+        lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE) # store ending time in UTC
+        lesson.created_by = request.user
+        lesson.save()
+        context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
+    return context
