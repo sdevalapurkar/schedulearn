@@ -1,133 +1,129 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-  <head>
-    <title>Edit My Profile | Schedulearn</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-    </head>
-  <body>
+<head>
+  <title>Edit My Profile | Schedulearn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
+  <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+</head>
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- main navbar for signed in users -->
+  <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu -->
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a id="dashboard" class="nav-link" href="#"><i class="fas fa-chalkboard"></i>  Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a id="scheduler" class="nav-link" href="#"><i class="far fa-calendar"></i>  Scheduler</a>
-          </li>
-          <li class="nav-item">
-            <a id="myProfile" class="nav-link" href="#"><i class="fas fa-user"></i>  My Profile</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a id="signOut" class="btn btn-danger signout-button" data-toggle="modal" data-target="#signOutModal" href="#"><i class="fas fa-sign-out-alt"></i>  Sign Out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
-      <div id="crop-modal-dialog" class="modal-dialog modal-lg">
-        <div id="crop-modal-content" class="modal-content">
-          <div id="crop-modal-body" class="modal-body">
-            <img id="crop_picture" src="" alt="Your profile picture">
-          </div>
-          <div style="border-top:0px" class="modal-footer">
-            <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
-            <button id="cancelCrop" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
+        </li>
+        <li class="nav-item">
+          {% if user.profile.user_type == 'tutor' %}
+          <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS</a>
+          {% endif %}
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <div class="nav-item dropdown">
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
         </div>
       </div>
     </div>
+  </nav>
+  <!-- end main navbar -->
+  <!-- extended navbar for signed in users -->
+  <nav id="extendedNavbar">
+    <a class="extended-button" id="cancelChanges" href="{% url 'my_profile' %}"><i class="fas fa-ban extended-icon"></i>CANCEL CHANGES</a>
+    <span class="extended-button" id="saveChanges"><i class="fas fa-check extended-icon"></i>SAVE CHANGES</span>
+  </nav>
+  <!-- end extended navbar for signed in users -->
 
-
-    <div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="signOutLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div style="border-top: 0px solid black" class="modal-footer">
-                    <a href="/accounts/logout"><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i>  Sign Out</button></a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+  <div id="cropPictureModal" class="modal fade bd-crop-picture-modal-lg" tabindex="-1" role="dialog" aria-labelledby="croppingPictureModal" aria-hidden="true">
+    <div id="cropModalDialog" class="modal-dialog modal-lg">
+      <div id="cropModalContent" class="modal-content">
+        <div id="cropModalBody" class="modal-body">
+          <img id="cropPicture" src="" alt="Your profile picture">
         </div>
-    </div>
-
-    <div class="container">
-      {% if user.last_name %}
-      <h1>{{ user.first_name}} {{user.last_name}}'s Profile</h1>
-      {% else %}
-        <h1>{{ user.first_name}}'s Profile</h1>
-      {% endif %}
-      <div class="picture-container">
-        <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
-        <div class="middle">
-          <div class="text"><i class="fas fa-camera-retro"></i></div>
+        <div style="border-top:0px" class="modal-footer">
+          <button id="saveCrop" type="button" class="btn btn-primary">Save changes</button>
+          <button id="cancelCrop" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
-
-        <div class="form-group">
-          <input id="input_pfp" type="file" class="form-control-file" hidden>
-        </div>
-
-
-      <hr>
-
-      <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input class="form-control" type="text" name="firstName" value="{{ user.first_name }}">
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input class="form-control" type="text" name="lastName" value="{{ user.last_name }}">
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input class="form-control"type="email" name="email" value="{{ user.email }}">
-        </div>
-
-        <button id="profileSave" type="submit" class="btn btn-primary">Save Changes</button>
-      </form>
-
     </div>
-    <style>
-      .cr-boundary {
-        height: 100%;
-      }
+  </div>
 
-      .form-control {
-        text-align: center;
-        font-family: avenir-next;
-      }
+  <div id="container">
+    <div class="picture-container">
+      <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
+      <div class="middle">
+        <div class="text"><i class="fas fa-camera-retro"></i></div>
+      </div>
+    </div>
 
-    </style>
-    <script type="text/javascript">
-        $('#id_first_name').val("{{ user.first_name }}");
-        $('#id_last_name').val("{{ user.last_name }}");
+    <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
 
-    </script>
-  </body>
+    <div class="form-group">
+      <input id="inputPfp" type="file" class="form-control-file" hidden>
+    </div>
+    <hr>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input class="form-control" type="text" name="firstName" value="{{ user.first_name }}">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        {% if user.last_name == ' ' %}
+        <input class="form-control" type="text" name="lastName">
+        {% else %}
+        <input class="form-control" type="text" name="lastName" value="{{ user.last_name }}">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input class="form-control" type="email" name="email" value="{{ user.email }}">
+      </div>
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea id="userBio" name="bio" rows="8">{{ user.profile.bio }}</textarea>
+      </div>
+
+      <button class="form-control" id="profileSave" type="submit" class="btn btn-primary" hidden>Save Changes</button>
+    </form>
+
+  </div>
+
+  <style>
+
+  .cr-boundary {
+    height: 100%;
+  }
+
+  .form-control {
+    text-align: center;
+    font-family: avenir-next;
+  }
+
+  </style>
+</body>
 </html>

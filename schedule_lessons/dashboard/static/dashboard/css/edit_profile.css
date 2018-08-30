@@ -1,23 +1,133 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+
+
+html {
+  height: 100%;
 }
 
-
-body {
-  background: url("../images/funky-lines.png");
-  background-color: #F4F4F4;
+html body {
+  height: 140%;
+  background-color: #ededed;
 }
 
-nav {
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
   background-color: #4A4A4A;
 }
 
-.container {
-  margin-top: 1%;
+#loggedInNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+#loggedInNavbar .nav-item {
+  font-family: avenir-next;
+}
+
+#loggedInNavbar .mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+#myName:hover {
+  cursor: pointer;
+}
+
+#myDropdown {
+  position: absolute;
+  text-align: center;
+}
+
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
+#openNavigation {
+  margin-right: 15px;
+}
+
+#extendedNavbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #D9D9D9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    left: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+    z-index: 2;
+  }
+
+  #loggedInNavbar .navbar-brand {
+    font-size: 180%;
+    font-family: avenir-next-demibold;
+    padding-top: 0.15%;
+    padding-bottom: 0.15%;
+    margin-right: auto;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+
+  #myDropdown {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: auto;
+  }
+}
+/* END Navbar for logged in Users */
+
+#container {
+  padding: 35px 15%;
   text-align: center;
 }
 
@@ -29,15 +139,15 @@ nav {
     position: relative;
 }
 
-.bd-crop-picture-modal-lg {
+#cropPictureModal {
   height:95%;
 }
 
-#crop-modal-dialog, #crop-modal-content {
+#cropModalDialog, #cropModalContent {
   height: inherit;
 }
 
-#crop-modal-body {
+#cropModalBody {
   height:74%;
   margin-bottom:4%;
 }
@@ -63,11 +173,12 @@ nav {
 }
 
 .text {
-  background-color: #4CAF50;
+  background-color: #D14F52;
   color: white;
   font-size: 32px;
-  padding: 0 15px;
+  padding: 5px 15px;
   text-align: center;
+  border-radius: 50%;
 }
 
 #profilePicture {
@@ -79,33 +190,18 @@ nav {
   border-radius: 50%;
   height: 200px;
   width: 200px;
+  border: 2px solid #4a4a4a;
 }
 
-#copy {
-  font-size: 25px;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  float: left;
+#userName {
+  margin-top: 20px;
+  font-family: bebas-neue;
+  font-size: 350%;
 }
 
-#ID {
-  width: 400px;
-  text-align: center;
-  float: left;
-}
-
-.modal-title {
-  margin-left: auto;
-  font-family: LightFont;
-  font-size: 35px;
-}
-
-.availability-id {
-  display: table;
-  margin: 0 auto;
-  height: 40px;
+#userBio {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-family: avenir-next;
 }

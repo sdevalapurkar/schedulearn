@@ -1,99 +1,302 @@
-@font-face { font-family: LightFont; src: url('../fonts/TheLightFont.otf'); }
-@font-face { font-family: Feeding; src: url('../fonts/Feeding_a_Moment.otf'); }
-@font-face { font-family: Comforta; src: url('../fonts/Comfortaa-Regular.ttf'); }
-@font-face {
-  font-family: avenir-next;
-  src: url("../fonts/AvenirNext-Regular.ttf");
-}
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: bariol; src: url("../fonts/Bariol_Regular.otf"); }
+@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 
 
-
-body {
-  background: url("../images/funky-lines.png");
+html {
   height: 100%;
 }
 
-nav {
+html body {
+  height: 100%;
+  background-color: #ededed;
+}
+
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
   background-color: #4A4A4A;
 }
 
-.container {
-  margin-top: 1%;
-  text-align: center;
-}
-
-.picture-container {
-    text-align: center;
-    margin: 0 auto;
-    width: 300px;
-    height: 200px;
-    overflow: hidden;
-}
-
-
-#profilePicture {
-  backface-visibility: hidden;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-}
-
-#copy {
-  font-size: 25px;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline:none;
-  float: left;
-}
-
-#ID {
-  width: 350px;
-  text-align: center;
-  float: left;
-}
-
-.title {
-    color: grey;
-    font-size: 22px;
-}
-
-.availability-id {
-  display: inline-block;
-  height: 50px;
-  margin: 0 auto;
-}
-
-.modal-title {
-  margin-left: auto;
-    font-family: LightFont;
-    font-size: 35px;
-}
-
-.extra {
-  margin-bottom: 10%;
-}
-
-#edit_profile {
-  float: right;
+#loggedInNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
   margin-right: 5%;
 }
 
-.confirm-list {
+#loggedInNavbar .nav-item {
   font-family: avenir-next;
-  color: green;
-  margin-top: 0.6%;
-  margin-bottom: 0;
 }
 
-@media (max-width: 400px) {
-  #ID {
-    width: 250px;
-    text-align: center;
-    float: left;
+#loggedInNavbar .mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+#myName {
+  padding: 0;
+}
+
+#myName:hover {
+  cursor: pointer;
+}
+
+#myName #userPicture {
+  width: 45px;
+  height: 45px;
+}
+
+#myDropdown {
+  position: absolute;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
+#openNavigation {
+  margin-right: 15px;
+}
+
+#extendedNavbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #D9D9D9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
+@media (max-width: 991.98px) {
+  #navbarContent {
+    top: 70px;
+    left: 10px;
+    background-color: #4F4F4F;
+    width: 50%;
+    padding: 1rem;
+    position: fixed;
+    border-radius: .25rem;
+    z-index: 2;
   }
+
+  #loggedInNavbar .navbar-brand {
+    font-size: 180%;
+    font-family: avenir-next-demibold;
+    padding-top: 0.15%;
+    padding-bottom: 0.15%;
+    margin-right: auto;
+  }
+
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,.5);
+  }
+
+  #navbarContent .nav-link:hover {
+    color: rgba(255,255,255,.75);
+  }
+
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+
+  #myDropdown {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: auto;
+  }
+}
+/* END Navbar for logged in Users */
+
+#topPane {
+  width: 100%;
+  margin: 35px;
+  padding-bottom: 100px;
+}
+
+#userPicture {
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
+}
+
+#userName {
+  font-family: bebas-neue;
+  color: black;
+  margin-top: 20px;
+  font-size: 350%;
+  margin-bottom: -10px;
+}
+
+#userType {
+  text-transform: uppercase;
+  font-family: bebas-neue;
+  color: #4a4a4a;
+  padding-bottom: 5px;
+}
+
+.user-headings {
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  font-weight: bold;
+}
+
+.user-details {
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  padding-bottom: 10px;
+}
+
+.email-style{
+  text-align: center;
+}
+
+#availabilityTable {
+  display: inline-block;
+  text-align: center;
+}
+
+#availabilityTable td, #availabilityTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#availabilityTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
+}
+
+#availabilityTable td {
+  font-family: avenir-next;
+}
+
+.unavailable {
+  color: #D14F52;
+}
+
+.day {
+  text-transform: uppercase;
+}
+
+#warningText {
+  font-size: 120%;
+  color: #D14F52;
+  font-family: BrandonGrotesque-Regular;
+}
+
+.slider-line {
+  border-bottom: 1px solid #6b6b6b;
+  font-size: 0;
+  position: relative;
+  padding: 0;
+  width: 300px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.s-line-options {
+  display: inline-block;
+  width: 120px;
+  text-align: center;
+  height: 60px;
+  font-size: 16px;
+  line-height: 60px;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.slider {
+  display: block;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 4px;
+  background: #D14F52;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/*  Ripple */
+.ripple {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(209, 79, 82, 0.4);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+
+.rippleEffect {
+  -webkit-animation: rippleDrop .6s linear;
+  animation: rippleDrop .6s linear;
+}
+ @-webkit-keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
+}
+ @keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
 }

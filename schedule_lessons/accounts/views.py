@@ -67,7 +67,7 @@ def signup_view(request):
             return render(request, "accounts/sign_up.html")
         else:
             # user is already signed in. so take him to the dashboard page.
-            return redirect('dashboard')
+            return redirect('agenda')
 
 
 def login_view(request):
@@ -86,7 +86,7 @@ def login_view(request):
             if not user.profile.user_type:
                 return redirect('personalize')
             else:
-                return redirect('dashboard')
+                return redirect('agenda')
         else:
             return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination', 'email': email, 'password': password})
 
@@ -99,30 +99,32 @@ def login_view(request):
                 # if the user is not logged in, just send him to the sign up page.
                 return render(request, "accounts/sign_in.html")
             else:
-                # user is already signed in. so take him to the dashboard page.
-                return redirect('dashboard')
+                # user is already signed in. so take him to the agenda page.
+                return redirect('agenda')
 
 
 @login_required
 def personalize_view(request):
     if request.method == 'POST':
-        if 'profile_pic' in request.POST:
-             cropped_img = request.POST['profile_pic']
-             format, imgstr = cropped_img.split(';base64,')
-             ext = format.split('/')[-1]
-             cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
-             request.user.profile.profile_pic = cropped_img
+        if request.POST.get('profile_pic', '') != '':
+            cropped_img = request.POST['profile_pic']
+            format, imgstr = cropped_img.split(';base64,')
+            ext = format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+            request.user.profile.profile_pic = cropped_img
         if 'user-type' in request.POST:
             if request.POST['user-type'] == 'tutor':
                 request.user.profile.user_type = 'tutor'
             else:
                 request.user.profile.user_type = 'student'
+        if 'bio' in request.POST:
+            request.user.profile.bio = request.POST['bio']
 
         request.user.save()
-        return redirect('dashboard')
+        return redirect('agenda')
     else:
         if request.user.profile.user_type:
-            return redirect('dashboard')
+            return redirect('agenda')
         else:
             return render(request, "accounts/personalize.html", {'user': request.user})
 
