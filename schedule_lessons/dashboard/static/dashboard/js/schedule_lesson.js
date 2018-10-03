@@ -83,7 +83,11 @@ $(document).ready(function() {
             $('#endTimeLabel').removeClass('label-error');
             $('#endTimeInput').removeClass('input-error');
           }
-          $('.error-list').html(data['time_error']);
+          if (data['time_error']) {
+            $('.error-list').html(data['time_error']);
+          } else if (data['past_lesson_error']) {
+            $('.error-list').html(data['past_lesson_error']);
+          }
         }
       },
     });

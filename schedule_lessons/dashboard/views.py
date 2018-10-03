@@ -475,8 +475,11 @@ def error_check_and_save_lesson(request, lesson, context):
     lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
     if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error') and not context.get('time_error'):
-        context['status'] = 200
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
+        if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
+            context['past_lesson_error'] = "Fix starting time or date of lesson to make sure it's after current time."
+            return context
+        context['status'] = 200
         end_time_in_local_time = datetime.datetime.combine(date, end_time, time_difference)
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE) # store starting time in UTC
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE) # store ending time in UTC
