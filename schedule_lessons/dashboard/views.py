@@ -445,36 +445,36 @@ def error_check_and_save_lesson(request, lesson, context):
     time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
     # Get lesson name when (re)scheduling lessons
     if not request.POST['name']:
-        context['name_error'] = True
+        context['no_name_error'] = True
     else:
         lesson.name = request.POST['name']
     # Get lesson location when (re)scheduling lessons
     if not request.POST['location']:
-        context['location_error'] = True
+        context['no_location_error'] = True
     else:
         lesson.location = request.POST['location']
     # Get lesson date when (re)scheduling lessons
     if not request.POST['date']:
-        context['date_error'] = True
+        context['no_date_error'] = True
     else:
         date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y').date() # a date object.
     # Get lesson starting time when (re)scheduling lessons
     if not request.POST['startingTime']:
-        context['starting_time_error'] = True
+        context['no_starting_time_error'] = True
     else:
         start_time = datetime.datetime.strptime(request.POST['startingTime'], '%I:%M %p').time() # a time object
     # Get lesson ending time when (re)scheduling lessons
     if not request.POST['endingTime']:
-        context['ending_time_error'] = True
+        context['no_ending_time_error'] = True
     else:
         end_time = datetime.datetime.strptime(request.POST['endingTime'], '%I:%M %p').time()
     if start_time > end_time:
-        context['time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
+        context['bigger_start_time_error'] = 'The starting time provided is greater than the end time. Please fix this.'
 
     lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
     lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
-    if not context.get('name_error') and not context.get('location_error') and not context.get('date_error') and not context.get('starting_time_error') and not context.get('ending_time_error') and not context.get('time_error'):
+    if not context.get('no_name_error') and not context.get('no_location_error') and not context.get('no_date_error') and not context.get('no_starting_time_error') and not context.get('no_ending_time_error') and not context.get('bigger_start_time_error'):
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
             context['past_lesson_error'] = "Fix starting time or date of lesson to make sure it's after current time."
