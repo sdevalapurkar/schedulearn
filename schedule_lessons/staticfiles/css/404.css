@@ -1,3 +1,11 @@
-h1 {
-  color: green;
+.img-err, .msg-err{
+  width: fit-content;
+  margin: 50px auto;
+  text-align: center;
+  color: rgb(229, 79, 82);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sad-rain{
+  border-radius: 10px;
 }
