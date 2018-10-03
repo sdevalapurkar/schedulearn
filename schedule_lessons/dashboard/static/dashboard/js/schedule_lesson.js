@@ -32,10 +32,9 @@ $(document).ready(function() {
         $('#endTimeLabel').addClass('label-error');
         $('#endTimeInput').addClass('input-error');
       },
-      success: function(data) {
-        console.log(data);
-        if (data['status'] == 200) {
-          $('#scheduleVerification').html(data['schedule_success']);
+      success: function(response) {
+        if (response.status == 200) {
+          $('#scheduleVerification').html(response.schedule_success);
           $('#titleLabel').removeClass('label-error');
           $('#titleInput').removeClass('input-error');
           $('#locationLabel').removeClass('label-error');
@@ -48,45 +47,45 @@ $(document).ready(function() {
           $('#endTimeInput').removeClass('input-error');
           $('.error-list').html('');
         } else {
-          if (data['name_error']) {
+          if (response.no_name_error) {
             $('#titleLabel').addClass('label-error');
             $('#titleInput').addClass('input-error');
           } else {
             $('#titleLabel').removeClass('label-error');
             $('#titleInput').removeClass('input-error');
           }
-          if (data['location_error']) {
+          if (response.no_location_error) {
             $('#locationLabel').addClass('label-error');
             $('#locationInput').addClass('input-error');
           } else {
             $('#locationLabel').removeClass('label-error');
             $('#locationInput').removeClass('input-error');
           }
-          if (data['date_error']) {
+          if (response.no_date_error) {
             $('#dateLabel').addClass('label-error');
             $('#dateInput').addClass('input-error');
           } else {
             $('#dateLabel').removeClass('label-error');
             $('#dateInput').removeClass('input-error');
           }
-          if (data['starting_time_error']) {
+          if (response.no_starting_time_error) {
             $('#startTimeLabel').addClass('label-error');
             $('#startTimeInput').addClass('input-error');
           } else {
             $('#startTimeLabel').removeClass('label-error');
             $('#startTimeInput').removeClass('input-error');
           }
-          if (data['ending_time_error']) {
+          if (response.no_ending_time_error) {
             $('#endTimeLabel').addClass('label-error');
             $('#endTimeInput').addClass('input-error');
           } else {
             $('#endTimeLabel').removeClass('label-error');
             $('#endTimeInput').removeClass('input-error');
           }
-          if (data['time_error']) {
-            $('.error-list').html(data['time_error']);
-          } else if (data['past_lesson_error']) {
-            $('.error-list').html(data['past_lesson_error']);
+          if (response.bigger_start_time_error) {
+            $('.error-list').html(response.bigger_start_time_error);
+          } else if (response.past_lesson_error) {
+            $('.error-list').html(response.past_lesson_error);
           }
         }
       },
