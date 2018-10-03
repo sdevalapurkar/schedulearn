@@ -1,4 +1,6 @@
-.img-err, .msg-err{
+
+#imageContainer, #errorMessageContainer {
+
   width: fit-content;
   margin: 50px auto;
   text-align: center;
@@ -6,6 +8,11 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.sad-rain{
-  border-radius: 10px;
+#homeLink {
+    color: #a3393b;
 }
+
+#homeLink:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #6d2123;
