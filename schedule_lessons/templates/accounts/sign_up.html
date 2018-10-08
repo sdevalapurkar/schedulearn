@@ -26,15 +26,11 @@
           <h3 class="get-started"><span class="static-text">Get started and stay </span><span class="changing-text">connected.</span></h3>
           <form class="sign-up-info" action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
-            <label class="form-label" for="user_email">Email Address</label>
-            <input class="form-input email_input" type="email" name="user_email" placeholder="jamie_ferguson@example.com" value="{{ email }}">
+            <input class="form-input email_input" type="email" name="user_email" placeholder="Email" value="{{ email }}">
             <p class="error-list">{{ email_error }}</p>
-            <label class="form-label" for="user_name">Full Name</label>
-            <input class="form-input" type="text" name="user_name" placeholder="Jamie Ferguson" value="{{ fullName }}">
-            <label class="form-label" for="user_password1">Password</label>
-            <input class="form-input password_input" type="password" name="user_password1" placeholder="7+ Characters" value="{{ password1 }}">
-            <label class="form-label" for="user_password2">Password Confirmation</label>
-            <input class="form-input password_input" type="password" name="user_password2" placeholder="7+ Characters" value="{{ password2 }}">
+            <input class="form-label form-input" type="text" name="user_name" placeholder="Full Name" value="{{ fullName }}">
+            <input class="form-label form-input password_input" type="password" name="user_password1" placeholder="Password" value="{{ password1 }}">
+            <input class="form-label form-input password_input" type="password" name="user_password2" placeholder="Confirm Password" value="{{ password2 }}">
             {% for weak_password_error in password_errors %}
             <p class="error-list">{{ weak_password_error }}</p>
             {% endfor %}
