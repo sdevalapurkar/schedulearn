@@ -14,7 +14,8 @@ NOTE: This project is using python 3.6.5 and Django 2.0.6
 2- Next, you need to clone our repo on the terminal. You can do this by the following command:
 NOTE: $ sign at the beginning denotes the terminal.
 
-```
+```bash
+#!/bin/bash
 $ git clone https://github.com/sdevalapurkar/schedulearn.git
 ```
 
