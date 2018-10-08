@@ -16,8 +16,14 @@ def signup_view(request):
         fullName = request.POST['user_name']
         passwordOne = request.POST['user_password1']
         passwordTwo = request.POST['user_password2']
-        #User has send post request with information such as email, password
-        #etc and they want to sing up.
+        # User has send post request with information such as email, password
+        # etc and they want to sign up.
+        if not email:
+            return render(request, 'accounts/sign_up.html', {'email_missing_error': 'Please enter a valid email address.', 'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+
+        if not fullName:
+            return render(request, 'accounts/sign_up.html', {'name_missing_error': 'Please enter your name.', 'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+
         if passwordOne == passwordTwo:
             # The user enterered the password correctly.
             try:
