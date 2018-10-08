@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $(".continue-btn").on("click", function() {
+  $(".login-btn").on("click", function() {
     $(".submit").click();
   });
 
