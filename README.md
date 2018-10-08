@@ -4,77 +4,68 @@ A web app that tutors and students can use to schedule lessons efficiently with 
 
 The service is available for free use at `https://www.schedulearn.com`
 
-## Repository Details
+## Running the Application Locally
 
-### Running the Application Locally
+### NOTE: This project is using python 3.6.5 and Django 2.0.6
 
-NOTE: This project is using python 3.6.5 and Django 2.0.6
+a. Using your terminal or command prompt, navigate to your workspace directory.
 
-1. Using your terminal or command prompt, navigate to your workspace directory.
-
-2. You need to clone our repo on the terminal. You can do this by the following command:
+b. You need to clone our repo on the terminal. You can do this by the following command:
 
 ```bash
 #!/bin/bash
 $ git clone https://github.com/sdevalapurkar/schedulearn.git
 ```
 
-OR if you would like to clone from a specific branch, then the following command will do:
-
-```bash
-#!/bin/bash
-$ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedulearn.git
-```
-
-3. Assuming you have python3.6.5 installed, you can install our dependencies using pip.
+c. Assuming you have python3.6.5 installed, you can install our dependencies using pip.
 
 #### Side note: We recommend you install these dependencies in a virtual environment, although this isn't necessary
 
 In order to do this in a virtual env, start your virtual environment and follow the following steps:
 
-1. Start the virtual environment
+a. Start the virtual environment
 
 ```bash
 #!/bin/bash
 $ virtualenv -p python3.6.5 schedulearn_venv
 ```
 
-1. Activate the virtual environment
+b. Activate the virtual environment
 
 ```bash
 #!/bin/bash
 $ source schedulearn_venv/bin/activate
 ```
 
-1. Navigate inside our repo:
+c. Navigate inside our repo:
 
 ```bash
 #!/bin/bash
   $ cd schedulearn
 ```
 
-1. Download our dependencies:
+d. Download our dependencies:
 
 ```bash
 #!/bin/bash
   $ pip3 install -r requirements.txt 
 ```
 
-1. Navigate inside our django project:
+e. Navigate inside our django project:
 
 ```bash
 #!/bin/bash
 $ cd schedule_lessons
 ```
 
-1. Now you want to migrate our database.
+f. Now you want to migrate our database.
 
 ```bash
 #!/bin/bash
 $ python3 manage.py migrate
 ```
 
-#### Running the app locally on your computer
+g. Run the application
 
 ```bash
 #!/bin/bash
