@@ -28,7 +28,9 @@
             {% csrf_token %}
             <input class="form-input email_input" type="email" name="user_email" placeholder="Email" value="{{ email }}">
             <p class="error-list">{{ email_error }}</p>
-            <input class="form-label form-input" type="text" name="user_name" placeholder="Full Name" value="{{ fullName }}">
+            <p class="error-list">{{ email_missing_error }}</p>
+            <input class="form-label form-input name_input" type="text" name="user_name" placeholder="Full Name" value="{{ fullName }}">
+            <p class="error-list">{{ name_missing_error }}</p>
             <input class="form-label form-input password_input" type="password" name="user_password1" placeholder="Password" value="{{ password1 }}">
             <input class="form-label form-input password_input" type="password" name="user_password2" placeholder="Confirm Password" value="{{ password2 }}">
             {% for weak_password_error in password_errors %}
@@ -57,9 +59,14 @@
           border: 1px solid #D14F52;
         }
     {% endif %}
-    {% if email_error %}
+    {% if email_error or email_missing_error %}
         .email_input {
           border: 1px solid #D14F52;
+        }
+    {% endif %}
+    {% if name_missing_error %}
+        .name_input {
+            border: 1px solid #D14F52;
         }
     {% endif %}
     {% if sign_up_google_email_error %}
