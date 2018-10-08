@@ -96,7 +96,7 @@ body {
 .form-label {
   font-family: anson;
   display: inline-block;
-  margin-bottom: 0;
+  margin-top: 10px;
 }
 
 .label-container {
@@ -107,6 +107,7 @@ body {
 .forgot-password {
   font-family: anson;
   float: right;
+  margin-top: 5px;
 }
 
 .form-input {
@@ -206,6 +207,7 @@ body {
 
 .center {
   text-align: center;
+  margin-top: 30px;
 }
 
 @media (max-width: 575.98px) {
