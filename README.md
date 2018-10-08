@@ -1,18 +1,18 @@
 # Schedulearn
-A web app that tutors and students can use to schedule lessons with each other through setting availabilities.
 
-## Try it out
+A web app that tutors and students can use to schedule lessons efficiently with each other.
 
-If you want to see our work in action, visit: schedulearn.com
+The service is available for free use at `https://www.schedulearn.com`
 
-Otherwise, if you'd like to run a test module and play around with our code, complete the following steps:
+## Repository Details
+
+### Running the Application Locally
 
 NOTE: This project is using python 3.6.5 and Django 2.0.6
 
-1- Using your terminal or command prompt, navigate to your workspace directory.
+1. Using your terminal or command prompt, navigate to your workspace directory.
 
-2- Next, you need to clone our repo on the terminal. You can do this by the following command:
-NOTE: $ sign at the beginning denotes the terminal.
+2. You need to clone our repo on the terminal. You can do this by the following command:
 
 ```bash
 #!/bin/bash
@@ -21,60 +21,70 @@ $ git clone https://github.com/sdevalapurkar/schedulearn.git
 
 OR if you would like to clone from a specific branch, then the following command will do:
 
-```
+```bash
+#!/bin/bash
 $ git clone -b [INSERT_BRANCH_NAME] https://github.com/sdevalapurkar/schedulearn.git
 ```
 
-3- Assuming you have python3.6.5 installed, you can install our dependencies using pip
-(The pip command is a tool for installing and managing Python packages).
+3. Assuming you have python3.6.5 installed, you can install our dependencies using pip.
 
-Side note: We recommend you install these dependencies in a virtual environment, although this isn't necessary.
+#### Side note: We recommend you install these dependencies in a virtual environment, although this isn't necessary
 
-  First, start a virtual environment:
-  
-  ```
-  $ virtualenv -p python3.6.5 schedulearn_venv
-  ```
- 
-  Activate the virtual environment:
-  
-  ```
-  $ source schedulearn_venv/bin/activate
-  ```
-  
-  Navigate inside our repo:
-  
-  ```
-  $ cd schedulearn
-  ```
-  
-  Download our dependencies:
-  
-  ```
-  $ pip3 install -r requirements.txt 
-  ```
- 
-4- Navigate inside our django project:
+In order to do this in a virtual env, start your virtual environment and follow the following steps:
 
+1. Start the virtual environment
+
+```bash
+#!/bin/bash
+$ virtualenv -p python3.6.5 schedulearn_venv
 ```
+
+1. Activate the virtual environment
+
+```bash
+#!/bin/bash
+$ source schedulearn_venv/bin/activate
+```
+
+1. Navigate inside our repo:
+
+```bash
+#!/bin/bash
+  $ cd schedulearn
+```
+
+1. Download our dependencies:
+
+```bash
+#!/bin/bash
+  $ pip3 install -r requirements.txt 
+```
+
+1. Navigate inside our django project:
+
+```bash
+#!/bin/bash
 $ cd schedule_lessons
 ```
 
-5- Now you want to migrate our database.
+1. Now you want to migrate our database.
 
-```
+```bash
+#!/bin/bash
 $ python3 manage.py migrate
 ```
 
-6- Now you want to run our app locally on your computer, you can do this using the following command:
-NOTE: This project is using python3.
-```
+#### Running the app locally on your computer
+
+```bash
+#!/bin/bash
 $ python3 manage.py runserver
 ```
 
-After running that command, you should get the following output: 
+##### After running that command, you should get the following output
 
-```
+```bash
+#!/bin/bash
 Performing system checks...
 
 System check identified no issues (0 silenced).
@@ -84,7 +94,7 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-5- You can now go to IP address that the app is running on (in our case: http://127.0.0.1:8000/) in your browser
+##### You can now go to IP address that the app is running on in your browser
 
 NOTE: You can make changes to the code while the server is running and the new code will show up as soon as you refresh your browser, you don't need to restart the server. HOWEVER, in the advanced case you make changes to the database (models.py), you will need to migrate those changes. Additonally, changes to the css files may not show up even if you refresh your browser, this can be because your browser is storing cache files of the css (HINT: try holding shift and refreshing your browser).
 
