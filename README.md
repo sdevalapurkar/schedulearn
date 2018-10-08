@@ -85,7 +85,7 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-##### You can now go to IP address that the app is running on in your browser
+##### You can now go to the IP address that the app is running on in your browser
 
 NOTE: You can make changes to the code while the server is running and the new code will show up as soon as you refresh your browser, you don't need to restart the server. HOWEVER, in the advanced case you make changes to the database (models.py), you will need to migrate those changes. Additonally, changes to the css files may not show up even if you refresh your browser, this can be because your browser is storing cache files of the css (HINT: try holding shift and refreshing your browser).
 
@@ -97,23 +97,3 @@ NOTE: You can make changes to the code while the server is running and the new c
 * [Nisarg Patel](https://github.com/Nppatel97)
 * [John Schriemer](https://github.com/jschriem)
 * [David Schriemer](https://github.com/CodemanDave)
-
-## Screenshots
-
-<img width="1257" alt="pending" src="https://user-images.githubusercontent.com/28017034/37558880-7825830c-29d8-11e8-84a1-1b46f3c08e57.png">
-
-When a student schedules a lesson, the tutor can confirm or decline the request.
-
-<img width="1250" alt="confirm" src="https://user-images.githubusercontent.com/28017034/37558872-5f74557c-29d8-11e8-9a17-b894820f79ea.png">
-
-Login page
-
-<img width="428" alt="login" src="https://user-images.githubusercontent.com/28017034/37558878-77f9cd3e-29d8-11e8-9f43-920a66ddfc3d.png">
-
-See a list of tutors and add tutors to this list
-
-<img width="599" alt="mytutors" src="https://user-images.githubusercontent.com/28017034/37558879-780eac90-29d8-11e8-9599-a9b556b6a3b9.png">
-
-Check the availability of a tutor before scheduling a lesson.
-
-<img width="1250" alt="avail" src="https://user-images.githubusercontent.com/28017034/37558893-ba94fee8-29d8-11e8-8489-eaf54b3e648e.png">
