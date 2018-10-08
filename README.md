@@ -4,6 +4,10 @@ A web app that tutors and students can use to schedule lessons efficiently with 
 
 The service is available for free use at `https://www.schedulearn.com`
 
+![Homepage](/misc/homepage.png)
+
+![Schedule](/misc/schedule.png)
+
 ## Running the Application Locally
 
 ### NOTE: This project is using python 3.6.5 and Django 2.0.6
