@@ -50,13 +50,20 @@ def agenda(request):
             return HttpResponse(status=404)
     context = {
         'scheduled_lessons': scheduled_lesson_list,
-        'pending_lessons': pending_lesson_list,
+        'pending_lessons': pending_lesson_list }
 
-        }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
+    context['scheduled_successful'] = request.GET.get('schedule', False)
+    context['rescheduled_successful'] = request.GET.get('reschedule', False)
     if no_results_found:
         context['no_results'] = 'No results were found'
+
+    if context['scheduled_successful']:
+        context['scheduled_lesson_name'] = request.GET.get('lesson')
+
+    if context['rescheduled_successful']:
+        context['rescheduled_lesson_name'] = request.GET.get('lesson')
 
     return render(request, 'dashboard/agenda.html', context)
 
@@ -306,6 +313,7 @@ def reschedule_lesson(request, lesson_id):
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
+        context['rescheduled_lesson'] = True
         return JsonResponse(context)
     else:
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
@@ -458,6 +466,7 @@ def error_check_and_save_lesson(request, lesson, context):
         context['no_name_error'] = True
     else:
         lesson.name = request.POST['name']
+        context['lesson_name'] = request.POST['name']
     # Get lesson location when (re)scheduling lessons
     if not request.POST['location']:
         context['no_location_error'] = True
