@@ -55,11 +55,11 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT MY PROFILE</a>
-    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT MY AVAILABILITY</a>
+    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
+    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
+    <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
   </nav>
   <!-- end extended navbar for signed in users -->
-
 
   <div class="container-fluid">
     <div class="row">
@@ -147,6 +147,27 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- delete account modal -->
+    <div id="deleteAccountModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="bold-text-style modal-title">Are you sure you would like to delete your account?</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-style">If you delete your account you will no longer be able to use Schedulearn or any of its features.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+                    <button id="deleteAccountConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Delete Account</span></button>
+                </div>
+            </div>
+        </div>
     </div>
   </body>
   </html>
