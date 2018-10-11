@@ -83,6 +83,22 @@
   <!-- end extended navbar for signed in users -->
 
 <div id="main">
+  {% if not students and not tutors %}
+  {% if user.profile.user_type == 'student' %}
+
+
+  <!-- TODO: Add images/text or whatever to tell the user that he has no tutors added. -->
+
+
+  {% endif %}
+  {% if user.profile.user_type == 'tutor' %}
+
+
+  <!-- TODO: Add images/text or whatever to tell the user that he has no students added. -->
+
+
+  {% endif %}
+  {% else %}
   {% if students %}
   <h2 id="mainTitle">SELECT A STUDENT:</h2>
   {% for student in students %}
@@ -114,6 +130,7 @@
     </div>
   </div>
   {% endfor %}
+  {% endif %}
   {% endif %}
 </div>
 
