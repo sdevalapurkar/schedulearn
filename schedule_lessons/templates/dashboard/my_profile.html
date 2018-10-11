@@ -55,8 +55,9 @@
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
   <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT MY PROFILE</a>
-    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT MY AVAILABILITY</a>
+    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
+    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
+    <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
   </nav>
   <!-- end extended navbar for signed in users -->
 
