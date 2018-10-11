@@ -348,6 +348,37 @@ def delete_account(request):
             return HttpResponse(status=400)
 
 @login_required
+def change_password(request):
+    if request.method == 'POST':
+        data = {
+            'status_code': 400
+        }
+        current_user = request.user
+        if current_user.social_auth.filter(provider='google-oauth2'):
+            data['social_error'] = "You are using a google account so you can't change your password"
+            return JsonResponse(data)
+        old_password = request.POST.get('old_password', '')
+        new_password1 = request.POST.get('new_password1', '')
+        new_password2 = request.POST.get('new_password2', '')
+
+        if not old_password or not new_password1 or not new_password2:
+            data['missing_field'] = 'Please fill in a missing field'
+            return JsonResponse(data)
+
+        if not current_user.check_password(old_password):
+            data['invalid_old_password'] = "Your old password is wrong, please try again"
+            return JsonResponse(data)
+
+        if new_password1 != new_password2:
+            data['inequal_password'] = 'Your new passwords do not match'
+            return JsonResponse(data)
+
+        current_user.set_password(new_password1)
+        data['status_code'] = 200
+        return JsonResponse(data)
+    return HttpResponse(status=403)
+
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         if 'profile_pic' in request.POST:
@@ -393,7 +424,8 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user})
+        password_change = request.GET.get('password_change', False)
+        return render(request, 'dashboard/edit_profile.html', {'user': request.user, 'password_change': password_change})
 
 @login_required
 def edit_availability(request):
