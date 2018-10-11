@@ -80,6 +80,13 @@
   </nav>
   <!-- end extended navbar for signed in users -->
   {% tz_detect %}
+  {% if not scheduled_lessons and not pending_lessons %}
+
+
+  <!-- TODO: Add an image/text, or something creative to show the user that there are no lessons scheduled yet.  -->
+
+  
+  {% else %}
   <div id="mainScheduled">
     {% if gcalender_success == 'Yes' %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -187,5 +194,6 @@
     {% endfor %}
     {% endif %}
   </div>
+  {% endif %}
 </body>
 </html>
