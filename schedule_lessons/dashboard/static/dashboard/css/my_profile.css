@@ -269,6 +269,23 @@ html body {
   transition: all 0.5s;
 }
 
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.btn-danger {
+  background-color:  #D14F52;
+  border-color: #D14F52;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;;
+}
+
+.text-style {
+  font-family: avenir-next;
+}
+
 /*  Ripple */
 .ripple {
   width: 0;
