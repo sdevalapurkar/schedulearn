@@ -338,6 +338,16 @@ def my_profile(request):
         return render(request, 'dashboard/my_profile.html', context)
 
 @login_required
+def delete_account(request):
+    if request.method == 'DELETE':
+        try:
+            user_to_delete = request.user
+            user_to_delete.delete()
+            return HttpResponse(status=200)
+        except:
+            return HttpResponse(status=400)
+
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         if 'profile_pic' in request.POST:
