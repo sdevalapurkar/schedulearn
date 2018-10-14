@@ -325,17 +325,14 @@ def reschedule_lesson(request, lesson_id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    context = {
+    return render(request, 'dashboard/my_profile.html', {
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
         'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
-        'days_of_the_week': DAYS_OF_THE_WEEK
-    }
-    if context['reset_email']:
-        return render(request, 'dashboard/my_profile.html', context)
-    else:
-        return render(request, 'dashboard/my_profile.html', context)
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'password_change': request.GET.get('password_change', False)
+    })
 
 @login_required
 def delete_account(request):
@@ -424,8 +421,7 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        password_change = request.GET.get('password_change', False)
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user, 'password_change': password_change})
+        return render(request, 'dashboard/edit_profile.html', {'user': request.user, })
 
 @login_required
 def edit_availability(request):
