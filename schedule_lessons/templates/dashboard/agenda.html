@@ -96,22 +96,15 @@
       </button>
     </div>
     {% endif %}
-    {% if scheduled_successful %}
+    {% if successful_schedule_msg %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-      You've <strong>successfully</strong> scheduled {{ scheduled_lesson_name }}
+      <strong>{{ successful_schedule_msg }}</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     {% endif %}
-    {% if rescheduled_successful %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      You've <strong>successfully</strong> rescheduled {{ scheduled_lesson_name }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %}
+
     {% if scheduled_lessons %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
     {% for scheduled_lesson in scheduled_lessons %}
