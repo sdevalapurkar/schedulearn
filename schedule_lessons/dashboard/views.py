@@ -50,8 +50,8 @@ def agenda(request):
             return HttpResponse(status=404)
     context = {
         'scheduled_lessons': scheduled_lesson_list,
-        'pending_lessons': pending_lesson_list }
-
+        'pending_lessons': pending_lesson_list
+        }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
     context['scheduled_successful'] = request.GET.get('schedule', False)
@@ -60,10 +60,10 @@ def agenda(request):
         context['no_results'] = 'No results were found'
 
     if context['scheduled_successful']:
-        context['scheduled_lesson_name'] = request.GET.get('lesson')
+        context['successful_schedule_msg'] = "You've successfully scheduled " + request.GET.get('lesson')
 
     if context['rescheduled_successful']:
-        context['rescheduled_lesson_name'] = request.GET.get('lesson')
+        context['successful_schedule_msg'] = "You've successfully rescheduled " + request.GET.get('lesson')
 
     return render(request, 'dashboard/agenda.html', context)
 
