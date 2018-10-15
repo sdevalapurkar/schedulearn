@@ -81,7 +81,7 @@ $(document).ready(function() {
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-  
+
   // This is my own jQuery code
   $("#avail").click(function(){
     $("#availabilityTable").delay(350).fadeIn(100);
@@ -100,7 +100,38 @@ $(document).ready(function() {
     $("#availabilityTable").fadeOut(300);
     $("#reviewTab").fadeOut(300);
   });
-});
+
+  $("#confirmChangePassword").on("click", function() {
+    $.ajax({
+      type: 'POST',
+      url: '/dashboard/my_profile/change_password/',
+      data: {'old_password': $("#oldPasswordInput").val(), 'new_password1': $("#newPasswordInput1").val(), 'new_password2': $("#newPasswordInput2").val()},
+      error: function(xhr, status) {
+        $("#oldPasswordInput").html('');
+        $("#newPasswordInput1").html('');
+        $("#newPasswordInput2").html('');
+        $('.error-list').html('Something went wrong, please try again');
+      },
+      success: function(response) {
+        if (response.status_code == 200) {
+          window.location.href = window.location.href + "?password_change=True";
+        } else {
+          $("#changePasswordModal").modal('show');
+          if (response.social_error) {
+            $('.error-list').html(response.social_error);
+          } else if (response.missing_field) {
+            $('.error-list').html(response.missing_field);
+          } else if (response.inequal_password) {
+            $('.error-list').html(response.inequal_password);
+          } else if (response.invalid_old_password) {
+            $('.error-list').html(response.invalid_old_password);
+          }
+        }
+      },
+    })
+  }); // click handler END for #confirmChangePassword
+}); // Document.ready function END
+
 
 function getCookie(name) {
     var cookieValue = null;
