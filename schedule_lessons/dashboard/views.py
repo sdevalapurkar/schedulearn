@@ -50,13 +50,20 @@ def agenda(request):
             return HttpResponse(status=404)
     context = {
         'scheduled_lessons': scheduled_lesson_list,
-        'pending_lessons': pending_lesson_list,
-
+        'pending_lessons': pending_lesson_list
         }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
+    context['scheduled_successful'] = request.GET.get('schedule', False)
+    context['rescheduled_successful'] = request.GET.get('reschedule', False)
     if no_results_found:
         context['no_results'] = 'No results were found'
+
+    if context['scheduled_successful']:
+        context['successful_schedule_msg'] = "You've successfully scheduled " + request.GET.get('lesson')
+
+    if context['rescheduled_successful']:
+        context['successful_schedule_msg'] = "You've successfully rescheduled " + request.GET.get('lesson')
 
     return render(request, 'dashboard/agenda.html', context)
 
@@ -306,6 +313,7 @@ def reschedule_lesson(request, lesson_id):
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
+        context['rescheduled_lesson'] = True
         return JsonResponse(context)
     else:
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
@@ -325,17 +333,55 @@ def reschedule_lesson(request, lesson_id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    context = {
+    return render(request, 'dashboard/my_profile.html', {
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
         'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
-        'days_of_the_week': DAYS_OF_THE_WEEK
-    }
-    if context['reset_email']:
-        return render(request, 'dashboard/my_profile.html', context)
-    else:
-        return render(request, 'dashboard/my_profile.html', context)
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'password_change': request.GET.get('password_change', False)
+    })
+
+@login_required
+def delete_account(request):
+    if request.method == 'DELETE':
+        try:
+            user_to_delete = request.user
+            user_to_delete.delete()
+            return HttpResponse(status=200)
+        except:
+            return HttpResponse(status=400)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        data = {
+            'status_code': 400
+        }
+        current_user = request.user
+        if current_user.social_auth.filter(provider='google-oauth2'):
+            data['social_error'] = "You are using a google account so you can't change your password"
+            return JsonResponse(data)
+        old_password = request.POST.get('old_password', '')
+        new_password1 = request.POST.get('new_password1', '')
+        new_password2 = request.POST.get('new_password2', '')
+
+        if not old_password or not new_password1 or not new_password2:
+            data['missing_field'] = 'Please fill in a missing field'
+            return JsonResponse(data)
+
+        if not current_user.check_password(old_password):
+            data['invalid_old_password'] = "Your old password is wrong, please try again"
+            return JsonResponse(data)
+
+        if new_password1 != new_password2:
+            data['inequal_password'] = 'Your new passwords do not match'
+            return JsonResponse(data)
+
+        current_user.set_password(new_password1)
+        data['status_code'] = 200
+        return JsonResponse(data)
+    return HttpResponse(status=403)
 
 @login_required
 def edit_profile(request):
@@ -383,7 +429,7 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user})
+        return render(request, 'dashboard/edit_profile.html', {'user': request.user, })
 
 @login_required
 def edit_availability(request):
@@ -448,6 +494,7 @@ def error_check_and_save_lesson(request, lesson, context):
         context['no_name_error'] = True
     else:
         lesson.name = request.POST['name']
+        context['lesson_name'] = request.POST['name']
     # Get lesson location when (re)scheduling lessons
     if not request.POST['location']:
         context['no_location_error'] = True

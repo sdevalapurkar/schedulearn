@@ -19,6 +19,8 @@ urlpatterns = [
     path('reschedule_lesson/<lesson_id>/', views.reschedule_lesson, name='reschedule_lesson'),
     path('my_profile/', views.my_profile, name='my_profile'), # this url is for private profiles
     path('my_profile/edit_profile/', views.edit_profile, name='edit_profile'),
+    path('my_profile/delete_account/', views.delete_account, name='delete_account'),
+    path('my_profile/change_password/', views.change_password, name='change_password'),
     path('my_profile/edit_availability/', views.edit_availability, name='edit_availability'),
     path('my_profile/delete_availability/<availability_id>/', views.delete_availability, name='delete_availability'),
 ]
