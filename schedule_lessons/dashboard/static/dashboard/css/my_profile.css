@@ -47,8 +47,8 @@ html body {
 }
 
 #myName #userPicture {
-  width: 45px;
-  height: 45px;
+  width: auto;
+  height: 35px;
 }
 
 #myDropdown {
