@@ -205,24 +205,3 @@ html body {
   border-radius: 0.25rem;
   font-family: avenir-next;
 }
-
-/* Change password modal styling */
-
-.modal-dialog {
-  padding-top: 10%;
-}
-
-.modal-body .password-input {
-  text-align: left;
-}
-
-.bold-text-style {
-  font-family: avenir-next-demibold;
-}
-
-.error-list {
-  font-family: avenir-next;
-  color: #D14F52;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-}

@@ -46,8 +46,12 @@
       </ul>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+          </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
@@ -103,6 +107,15 @@
       </button>
     </div>
     {% endif %}
+    {% if successful_schedule_msg %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{ successful_schedule_msg }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+
     {% if scheduled_lessons %}
     <h2 class="group-title">SCHEDULED LESSONS</h2>
     {% for scheduled_lesson in scheduled_lessons %}
