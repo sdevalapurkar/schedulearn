@@ -40,7 +40,10 @@
       </ul>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+          </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
@@ -54,7 +57,6 @@
   <nav id="extendedNavbar">
     <a class="extended-button" id="cancelChanges" href="{% url 'my_profile' %}"><i class="fas fa-ban extended-icon"></i>CANCEL CHANGES</a>
     <span class="extended-button" id="saveChanges"><i class="fas fa-check extended-icon"></i>SAVE CHANGES</span>
-    <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-lock extended-icon"></i>CHANGE PASSWORD</a>
   </nav>
   <!-- end extended navbar for signed in users -->
 
@@ -71,14 +73,7 @@
       </div>
     </div>
   </div>
-  {% if password_change %}
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success!</strong> You've changed your password
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% endif %}
+
   <div id="container">
     <div class="picture-container">
       <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" alt="Profile Picture">
@@ -120,41 +115,6 @@
     </form>
 
   </div>
-
-  <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="changePasswordHeading">Change your password</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="oldPasswordInput" class="col-form-label">Old Password:</label>
-              <input type="password" class="form-control password-input" id="oldPasswordInput">
-            </div>
-            <div class="form-group">
-              <label for="newPasswordInput1" class="col-form-label">New Password:</label>
-              <input type="password" class="form-control password-input" id="newPasswordInput1"></input>
-            </div>
-            <div class="form-group">
-              <label for="newPasswordInput2" class="col-form-label">New Password (confirm):</label>
-              <input type="password" class="form-control password-input" id="newPasswordInput2"></input>
-            </div>
-          </form>
-        </div>
-        <p class="error-list"></p>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary bold-text-style" data-dismiss="modal">Close</button>
-          <button type="button" id="confirmChangePassword" class="btn btn-primary bold-text-style">Change Password</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <style>
 

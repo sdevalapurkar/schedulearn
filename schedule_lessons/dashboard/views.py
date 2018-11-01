@@ -50,13 +50,20 @@ def agenda(request):
             return HttpResponse(status=404)
     context = {
         'scheduled_lessons': scheduled_lesson_list,
-        'pending_lessons': pending_lesson_list,
-
+        'pending_lessons': pending_lesson_list
         }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
+    context['scheduled_successful'] = request.GET.get('schedule', False)
+    context['rescheduled_successful'] = request.GET.get('reschedule', False)
     if no_results_found:
         context['no_results'] = 'No results were found'
+
+    if context['scheduled_successful']:
+        context['successful_schedule_msg'] = "You've successfully scheduled " + request.GET.get('lesson')
+
+    if context['rescheduled_successful']:
+        context['successful_schedule_msg'] = "You've successfully rescheduled " + request.GET.get('lesson')
 
     return render(request, 'dashboard/agenda.html', context)
 
@@ -306,6 +313,7 @@ def reschedule_lesson(request, lesson_id):
     }
     if request.method == 'POST':
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
+        context['rescheduled_lesson'] = True
         return JsonResponse(context)
     else:
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
@@ -325,17 +333,14 @@ def reschedule_lesson(request, lesson_id):
 # a new view template and url will be set up for the feature of viewing someone else's profile.
 @login_required
 def my_profile(request):
-    context = {
+    return render(request, 'dashboard/my_profile.html', {
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
         'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
-        'days_of_the_week': DAYS_OF_THE_WEEK
-    }
-    if context['reset_email']:
-        return render(request, 'dashboard/my_profile.html', context)
-    else:
-        return render(request, 'dashboard/my_profile.html', context)
+        'days_of_the_week': DAYS_OF_THE_WEEK,
+        'password_change': request.GET.get('password_change', False)
+    })
 
 @login_required
 def delete_account(request):
@@ -424,8 +429,7 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        password_change = request.GET.get('password_change', False)
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user, 'password_change': password_change})
+        return render(request, 'dashboard/edit_profile.html', {'user': request.user, })
 
 @login_required
 def edit_availability(request):
@@ -490,6 +494,7 @@ def error_check_and_save_lesson(request, lesson, context):
         context['no_name_error'] = True
     else:
         lesson.name = request.POST['name']
+        context['lesson_name'] = request.POST['name']
     # Get lesson location when (re)scheduling lessons
     if not request.POST['location']:
         context['no_location_error'] = True

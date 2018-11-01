@@ -34,18 +34,11 @@ $(document).ready(function() {
       },
       success: function(response) {
         if (response.status == 200) {
-          $('#scheduleVerification').html(response.schedule_success);
-          $('#titleLabel').removeClass('label-error');
-          $('#titleInput').removeClass('input-error');
-          $('#locationLabel').removeClass('label-error');
-          $('#locationInput').removeClass('input-error');
-          $('#dateLabel').removeClass('label-error');
-          $('#dateInput').removeClass('input-error');
-          $('#startTimeLabel').removeClass('label-error');
-          $('#startTimeInput').removeClass('input-error');
-          $('#endTimeLabel').removeClass('label-error');
-          $('#endTimeInput').removeClass('input-error');
-          $('.error-list').html('');
+          if (response.rescheduled_lesson) {
+            window.location.href = "../../agenda/" + "?reschedule=True&lesson=" + response.lesson_name
+          } else {
+            window.location.href = "../agenda/" + "?schedule=True&lesson=" + response.lesson_name
+          }
         } else {
           if (response.no_name_error) {
             $('#titleLabel').addClass('label-error');

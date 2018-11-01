@@ -47,8 +47,8 @@ html body {
 }
 
 #myName #userPicture {
-  width: 45px;
-  height: 45px;
+  width: auto;
+  height: 35px;
 }
 
 #myDropdown {
@@ -316,4 +316,39 @@ rippleDrop {  100% {
  transform: scale(2);
  opacity: 0;
 }
+}
+
+/* Change password modal styling */
+
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.modal-title {
+  font-family: avenir-next-demibold;
+}
+
+.password-label {
+  font-family: avenir-next-medium;
+}
+
+.modal-body .password-input {
+  text-align: left;
+  font-family: avenir-next;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;
+}
+
+.error-list {
+  font-family: avenir-next;
+  color: #D14F52;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+#confirmChangePassword {
+  background-color: #D14F52;
+  border: 0;
 }
