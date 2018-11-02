@@ -86,12 +86,12 @@
   {% tz_detect %}
   {% if not scheduled_lessons and not pending_lessons %}
 
-  <img id="whiteboard" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
-  <h2 class="whiteboardPrompt">No Lessons Scheduled</h1>
+  <img id="picturePrompt" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
+  <h2 class="text-prompt">No Lessons Scheduled</h1>
   {% if user.profile.user_type == 'student' %}
-  <h5 class="whiteboardPrompt">Schedule a lesson by finding your tutor using the search bar in the navigation bar.</h5>
+  <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar above.</h5>
   {% else %}
-  <h5 class="whiteboardPrompt">Schedule a lesson by finding your student using the search bar in the navigation bar.</h5>
+  <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar above.</h5>
   {% endif %}
   {% else %}
   <div id="mainScheduled">
