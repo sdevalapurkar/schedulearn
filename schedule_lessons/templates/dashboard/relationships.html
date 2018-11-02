@@ -88,11 +88,12 @@
 
 <div id="main">
   {% if not students and not tutors %}
+  <img id="picturePrompt" src="{% static 'dashboard/images/student.png' %}" alt="A confused student">
   {% if user.profile.user_type == 'student' %}
-  <h2 class="no-relationships-prompt">You have no tutors added.</h2>
+  <h4 class="text-prompt">You have not added any tutors. Add a tutor using the search bar above.</h4>
   {% endif %}
   {% if user.profile.user_type == 'tutor' %}
-  <h2 class="no-relationships-prompt">You have no students added.</h2>
+  <h4 class="text-prompt">You have not added any students. Add a student using the search bar above.</h4>
   {% endif %}
   {% else %}
   {% if students %}

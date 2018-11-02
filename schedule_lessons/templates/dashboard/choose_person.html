@@ -84,11 +84,12 @@
 
 <div id="main">
   {% if not students and not tutors %}
+  <img id="picturePrompt" src="{% static 'dashboard/images/tutor.png' %}" alt="A teacher">
   {% if user.profile.user_type == 'student' %}
-  <h2 class="no-relationships-prompt">You can't schedule lessons until you add a tutor using the search bar.</h2>
+  <h4 class="text-prompt">Please add a tutor that you would like to schedule lessons with using the search bar above.</h4>
   {% endif %}
   {% if user.profile.user_type == 'tutor' %}
-  <h2 class="no-relationships-prompt">You can't schedule lessons until you add a student using the search bar.</h2>
+  <h4 class="text-prompt">Please add a student that you would like to schedule lessons with using the search bar above.</h4>
   {% endif %}
   {% else %}
   {% if students %}
