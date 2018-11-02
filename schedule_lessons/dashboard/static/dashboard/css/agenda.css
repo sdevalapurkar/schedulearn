@@ -170,6 +170,19 @@ html body {
 }
 /* END Navbar for logged in Users */
 
+#whiteboard {
+  height: 300px;
+  margin: 60px auto;
+  display: block;
+}
+
+.whiteboardPrompt {
+  text-align: center;
+  display: block;
+  font-family: avenir-next-regular;
+  color: #4a4a4a;
+}
+
 #mainScheduled {
   text-align: center;
 }

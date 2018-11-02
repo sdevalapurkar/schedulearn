@@ -168,6 +168,11 @@ html body {
 }
 /* END Navbar for logged in Users */
 
+.no-relationships-prompt {
+  margin-top: 200px;
+  font-family: avenir-next-regular;
+}
+
 #main {
   text-align: center;
 }
