@@ -170,13 +170,13 @@ html body {
 }
 /* END Navbar for logged in Users */
 
-#whiteboard {
+#picturePrompt {
   height: 300px;
   margin: 60px auto;
   display: block;
 }
 
-.whiteboardPrompt {
+.text-prompt {
   text-align: center;
   display: block;
   font-family: avenir-next-regular;
