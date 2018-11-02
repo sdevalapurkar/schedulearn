@@ -89,18 +89,10 @@
 <div id="main">
   {% if not students and not tutors %}
   {% if user.profile.user_type == 'student' %}
-
-
-  <!-- TODO: Add images/text or whatever to tell the user that he has no tutors added. -->
-
-
+  <h2 class="no-relationships-prompt">You have no tutors added.</h2>
   {% endif %}
   {% if user.profile.user_type == 'tutor' %}
-
-
-  <!-- TODO: Add images/text or whatever to tell the user that he has no students added. -->
-
-
+  <h2 class="no-relationships-prompt">You have no students added.</h2>
   {% endif %}
   {% else %}
   {% if students %}
