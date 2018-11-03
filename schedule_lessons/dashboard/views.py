@@ -199,31 +199,83 @@ def public_profile(request, user_id):
 
 @login_required
 def add_student(request, student_id):
-    student_profile = User.objects.get(profile__id=student_id)
-    new_rel = Relationship(student=student_profile, tutor=request.user)
-    new_rel.save()
-    return redirect('public_profile', student_id)
+    if not request.user.is_anonymous:
+        try:
+            student = User.objects.get(profile__id=student_id)
+        except Exception:
+            return HttpResponse(status=404)
+
+        if student.profile.user_type != 'student' or request.user.profile.user_type != 'tutor':
+            return HttpResponse(status=400)
+        rel_exists = relationship_exists(student, request.user)
+        if rel_exists:
+            return HttpResponse(status=400)
+
+        new_rel = Relationship(student=student, tutor=request.user, created_by=request.user, pending=True)
+        new_rel.save()
+        return redirect('public_profile', student_id)
+    else:
+        return HttpResponse(status=403)
 
 @login_required
 def remove_student(request, student_id):
-    student_profile = User.objects.get(profile__id=student_id)
-    old_rel = Relationship.objects.get(student=student_profile, tutor=request.user)
-    old_rel.delete()
-    return redirect('public_profile', student_id)
+    if not request.user.is_anonymous:
+        try:
+            student = User.objects.get(profile__id=student_id)
+        except Exception:
+            return HttpResponse(status=404)
+
+        if student.profile.user_type != 'student':
+            return HttpResponse(status=400)
+
+        try:
+            old_rel = Relationship.objects.get(student=student, tutor=request.user)
+            old_rel.delete()
+            return redirect('public_profile', student_id)
+        except:
+            return HttpResponse(status=400)
+    else:
+        return HttpResponse(status=403)
 
 @login_required
 def add_tutor(request, tutor_id):
-    tutor_profile = User.objects.get(profile__id=tutor_id)
-    new_rel = Relationship(student=request.user, tutor=tutor_profile)
-    new_rel.save()
-    return redirect('public_profile', tutor_id)
+    if not request.user.is_anonymous:
+        try:
+            tutor = User.objects.get(profile__id=tutor_id)
+        except Exception:
+            return HttpResponse(status=404)
+
+        if tutor.profile.user_type != 'tutor' or request.user.profile.user_type != 'student':
+            return HttpResponse(status=400)
+        rel_exists = relationship_exists(tutor, request.user)
+        if rel_exists:
+            return HttpResponse(status=400)
+
+        new_rel = Relationship(student=request.user, tutor=tutor, created_by=request.user, pending=True)
+        new_rel.save()
+        return redirect('public_profile', tutor_id)
+    else:
+        return HttpResponse(status=403)
 
 @login_required
 def remove_tutor(request, tutor_id):
-    tutor_profile = User.objects.get(profile__id=tutor_id)
-    old_rel = Relationship.objects.get(student=request.user, tutor=tutor_profile)
-    old_rel.delete()
-    return redirect('public_profile', tutor_id)
+    if not request.user.is_anonymous:
+        try:
+            tutor = User.objects.get(profile__id=tutor_id)
+        except Exception:
+            return HttpResponse(status=404)
+
+        if tutor.profile.user_type != 'tutor':
+            return HttpResponse(status=400)
+
+        try:
+            old_rel = Relationship.objects.get(student=request.user, tutor=tutor)
+            old_rel.delete()
+            return redirect('public_profile', student_id)
+        except:
+            return HttpResponse(status=400)
+    else:
+        return HttpResponse(status=403)
 
 @login_required
 def choose_person(request):
