@@ -13,7 +13,7 @@ class Lesson(models.Model):
 
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_by', default=None)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lesson_created_by', default=None)
 
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -44,6 +44,8 @@ def getDateFromDay(day):
 class Relationship(models.Model):
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='rel_created_by', default=None, null=True)
+    pending = models.BooleanField(null=False, default=True)
 
     def __str__(self):
         return ("Tutor: " + str(self.tutor) + " and Student: " + str(self.student))
