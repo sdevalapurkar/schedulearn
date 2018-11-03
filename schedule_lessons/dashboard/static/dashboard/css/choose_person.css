@@ -168,6 +168,17 @@ html body {
 }
 /* END Navbar for logged in Users */
 
+#picturePrompt {
+  height: 300px;
+  margin: 60px auto;
+  display: block;
+}
+
+.text-prompt {
+  font-family: avenir-next-regular;
+  color: #4a4a4a;
+}
+
 #main {
   text-align: center;
 }
