@@ -192,7 +192,7 @@ def public_profile(request, user_id):
                 else:
                     context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
 
-            return render(request, 'dashboard/public_profile.html', context)
+        return render(request, 'dashboard/public_profile.html', context)
 
     except Exception as e:
         return HttpResponse(status=404) # replace with return of the error 404 page after it's made.
