@@ -163,8 +163,7 @@ def search(request):
     try:
         user_result = User.objects.get(email__iexact=email)
         id = str(user_result.profile.id)
-        url = request.build_absolute_uri('/') + 'dashboard/profile/' + id
-        return public_profile(request, id)
+        return redirect('public_profile', id)
     except User.DoesNotExist as e:
         response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         response['Location'] += '?no_search_result=True'
