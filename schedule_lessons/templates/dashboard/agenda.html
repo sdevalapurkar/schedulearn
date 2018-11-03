@@ -84,6 +84,16 @@
   </nav>
   <!-- end extended navbar for signed in users -->
   {% tz_detect %}
+  {% if not scheduled_lessons and not pending_lessons %}
+
+  <img id="picturePrompt" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
+  <h2 class="text-prompt">No Lessons Scheduled</h1>
+  {% if user.profile.user_type == 'student' %}
+  <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar above.</h5>
+  {% else %}
+  <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar above.</h5>
+  {% endif %}
+  {% else %}
   <div id="mainScheduled">
     {% if gcalender_success == 'Yes' %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -200,5 +210,6 @@
     {% endfor %}
     {% endif %}
   </div>
+  {% endif %}
 </body>
 </html>
