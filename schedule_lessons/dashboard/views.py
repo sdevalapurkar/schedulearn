@@ -182,10 +182,26 @@ def public_profile(request, user_id):
             # exists between Person A and Person B
             context['rel_exists'] = relationship_exists(context['profile_user'], request.user)
             if context['rel_exists']:
-                if request.user.profile.user_type == 'tutor':
-                    context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
-                else:
-                    context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                try:
+                    relationship = Relationship.objects.get(tutor=request.user, student=context['profile_user'])
+                except:
+                    relationship = Relationship.objects.get(tutor=context['profile_user'], student=request.user)
+
+                context['rel_pending'] = relationship.pending
+                if request.user == relationship.created_by and relationship.pending:
+                    context['rel_created_by_request_user'] = True
+                if request.user != relationship.created_by and relationship.pending:
+                    if request.user.profile.user_type == 'tutor':
+                        context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                    else:
+                        context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
+                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                elif not relationship.pending:
+                    if request.user.profile.user_type == 'tutor':
+                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                    else:
+                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
             else:
                 if request.user.profile.user_type == 'tutor':
                     context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
@@ -209,10 +225,15 @@ def add_student(request, student_id):
             return HttpResponse(status=400)
         rel_exists = relationship_exists(student, request.user)
         if rel_exists:
-            return HttpResponse(status=400)
-
-        new_rel = Relationship(student=student, tutor=request.user, created_by=request.user, pending=True)
-        new_rel.save()
+            relationship = Relationship.objects.get(tutor=request.user, student=student)
+            if relationship.pending and relationship.created_by != request.user:
+                relationship.pending = False
+                relationship.save()
+            else:
+                return HttpResponse(status=400)
+        else:
+            new_rel = Relationship(student=student, tutor=request.user, created_by=request.user, pending=True)
+            new_rel.save()
         return redirect('public_profile', student_id)
     else:
         return HttpResponse(status=403)
@@ -249,10 +270,15 @@ def add_tutor(request, tutor_id):
             return HttpResponse(status=400)
         rel_exists = relationship_exists(tutor, request.user)
         if rel_exists:
-            return HttpResponse(status=400)
-
-        new_rel = Relationship(student=request.user, tutor=tutor, created_by=request.user, pending=True)
-        new_rel.save()
+            relationship = Relationship.objects.get(tutor=tutor, student=request.user)
+            if relationship.pending and relationship.created_by != request.user:
+                relationship.pending = False
+                relationship.save()
+            else:
+                return HttpResponse(status=400)
+        else:
+            new_rel = Relationship(student=request.user, tutor=tutor, created_by=request.user, pending=True)
+            new_rel.save()
         return redirect('public_profile', tutor_id)
     else:
         return HttpResponse(status=403)
@@ -271,7 +297,7 @@ def remove_tutor(request, tutor_id):
         try:
             old_rel = Relationship.objects.get(student=request.user, tutor=tutor)
             old_rel.delete()
-            return redirect('public_profile', student_id)
+            return redirect('public_profile', tutor_id)
         except:
             return HttpResponse(status=400)
     else:
