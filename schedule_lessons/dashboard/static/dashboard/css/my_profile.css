@@ -153,6 +153,11 @@ html body {
 }
 /* END Navbar for logged in Users */
 
+#profilePicture {
+  border-radius: 50%;
+  border: 2px solid #4a4a4a;
+}
+
 #userName {
   font-family: bebas-neue;
   color: black;
