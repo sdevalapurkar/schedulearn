@@ -183,20 +183,16 @@ html body {
   text-align: center;
 }
 
-#mainTitle {
+.main-title {
   font-size: 220%;
-  font-family: adam-cg-pro;
-  margin: 40px auto;
-}
-
-.student {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
+  font-family: avenir-next-regular;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
-.tutor {
+.relationship-container {
   width: 400px;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
@@ -209,24 +205,24 @@ html body {
   height: 70px;
 }
 
-.student-pfp-container {
+.relationship-pfp-container {
   height: 100%;
   background-color: #D14F52;
 }
 
-.student-pfp {
+.relationship-pfp {
   height: 100%;
   border-right: 2px solid #4A4A4A;
 }
 
-.student-main-info {
+.relationship-main-info {
   height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.student-name {
+.relationship-profile-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
@@ -235,41 +231,11 @@ html body {
   color: #4a4a4a;
 }
 
-.student-link:hover {
+.relationship-profile-link:hover {
   color: black;
 }
 
-.tutor-pfp-container {
-  height: 100%;
-  background-color: #D14F52;
-}
-
-.tutor-pfp {
-  height: 100%;
-  border-right: 2px solid #4A4A4A;
-}
-
-.tutor-main-info {
-  height: 70px;
-  background-color: white;
-  width: 100%;
-  padding-left: 1%;
-}
-
-.tutor-name {
-  padding-top: 0.5%;
-  font-family: BebasNeueRegular;
-  text-align: left;
-  font-size: 200%;
-  margin-bottom: 0;
-  color: #4a4a4a;
-}
-
-.tutor-link:hover {
-  color: black;
-}
-
-.extended-field {
+.relationship-extra-field {
   text-align: left;
   margin-bottom: 0;
   color: #4F4F4F;
@@ -279,6 +245,56 @@ html body {
   display: block;
 }
 
-.extended-detail {
+.relationship-extra-detail {
   font-family: avenir-next-regular;
+}
+
+.two-buttons {
+  float: right;
+  width: 80px;
+  height: 50%;
+}
+
+.details {
+  float: left;
+  padding-left: 5px;
+}
+
+.details-and-buttons {
+  background-color: white;
+  width: 100%;
+}
+
+.two-buttons .btn {
+  display: block;
+  margin-left: auto;
+  border-radius: 0;
+  width: 70px;
+  height: 100%;
+}
+
+.accept-btn {
+  background-color: #2E8B57;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: green;
+}
+
+.fa-check {
+  font-size: 130%;
+}
+
+.decline-btn {
+  background-color: #E54F52;
+  color: white;
+}
+
+.decline-btn:hover {
+  background-color: #D14F52;
+}
+
+.fa-times {
+  font-size: 140%;
 }
