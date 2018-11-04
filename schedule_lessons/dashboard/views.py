@@ -282,7 +282,7 @@ def remove_student(request, student_id):
         try:
             old_rel = Relationship.objects.get(student=student, tutor=request.user)
             old_rel.delete()
-            return redirect('public_profile', student_id)
+            return redirect('relationships')
         except:
             return HttpResponse(status=400)
     else:
@@ -309,7 +309,7 @@ def add_tutor(request, tutor_id):
         else:
             new_rel = Relationship(student=request.user, tutor=tutor, created_by=request.user, pending=True)
             new_rel.save()
-        return redirect('public_profile', tutor_id)
+        return redirect('relationships')
     else:
         return HttpResponse(status=403)
 
@@ -327,7 +327,7 @@ def remove_tutor(request, tutor_id):
         try:
             old_rel = Relationship.objects.get(student=request.user, tutor=tutor)
             old_rel.delete()
-            return redirect('public_profile', tutor_id)
+            return redirect('relationships')
         except:
             return HttpResponse(status=400)
     else:
