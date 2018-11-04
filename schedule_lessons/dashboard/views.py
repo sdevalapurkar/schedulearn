@@ -135,23 +135,57 @@ def save_gcalendar_lesson(request, lesson_id):
 @login_required
 def relationships(request):
     if request.user.profile.user_type == 'tutor':
-        students = []
+        requests_from_students = []
+        requests_to_students = []
+        accepted_students = []
         relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
-            students.append(relationship.student)
+            if relationship.pending:
+                if relationship.created_by == request.user:
+                    requests_to_students.append(relationship.student)
+                else:
+                    requests_from_students.append(relationship.student)
+            else:
+                accepted_students.append(relationship.student)
         no_results_found = request.GET.get('no_search_result')
         if no_results_found:
-            return render(request, 'dashboard/relationships.html', {'students': students, 'no_results': 'No results were found'})
-        return render(request, 'dashboard/relationships.html', {'students': students})
+            return render(request, 'dashboard/relationships.html', {
+            'accepted_students': accepted_students,
+            'requests_from_students': requests_from_students,
+            'requests_to_students':requests_to_students,
+            'no_results': 'No results were found'
+            })
+        return render(request, 'dashboard/relationships.html', {
+            'accepted_students': accepted_students,
+            'requests_from_students': requests_from_students,
+            'requests_to_students':requests_to_students
+            })
     else:
-        tutors = []
+        requests_from_tutors = []
+        requests_to_tutors = []
+        accepted_tutors = []
         relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
-            tutors.append(relationship.tutor)
+            if relationship.pending:
+                if relationship.created_by == request.user:
+                    requests_to_tutors.append(relationship.tutor)
+                else:
+                    requests_from_tutors.append(relationship.tutor)
+            else:
+                accepted_tutors.append(relationship.tutor)
         no_results_found = request.GET.get('no_search_result')
         if no_results_found:
-            return render(request, 'dashboard/relationships.html', {'tutors': tutors, 'no_results': 'No results were found'})
-        return render(request, 'dashboard/relationships.html', {'tutors': tutors})
+            return render(request, 'dashboard/relationships.html', {
+            'accepted_tutors': accepted_tutors,
+            'requests_from_tutors': requests_from_tutors,
+            'requests_to_tutors':requests_to_tutors,
+            'no_results': 'No results were found'
+            })
+        return render(request, 'dashboard/relationships.html', {
+        'accepted_tutors': accepted_tutors,
+        'requests_from_tutors': requests_from_tutors,
+        'requests_to_tutors':requests_to_tutors
+        })
 
 @login_required
 def search(request):
@@ -234,7 +268,7 @@ def add_student(request, student_id):
         else:
             new_rel = Relationship(student=student, tutor=request.user, created_by=request.user, pending=True)
             new_rel.save()
-        return redirect('public_profile', student_id)
+        return redirect('relationships')
     else:
         return HttpResponse(status=403)
 
