@@ -5,16 +5,16 @@
 <head>
   <title>{{ profile_user.first_name }}'s Profile | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="{% static "dashboard/css/public_profile.css" %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <script src="{% static "dashboard/js/public_profile.js" %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+  <link rel="stylesheet" href="{% static "dashboard/css/public_profile.css" %}">
+  <script src="{% static "dashboard/js/public_profile.js" %}"></script>
 </head>
 <body>
   {% if not user.is_anonymous %}
@@ -118,48 +118,91 @@
   </nav>
   <!-- navbar end -->
   {% endif %}
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left side that contains the profile picture and the skills -->
+      <div class="col-md-2 m-4 pl-4">
+        <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
+        <div class="col-md-12 mt-4">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th>Skills</th>
+              </tr>
+            </thead>
+            {% for skill in skills %}
+            <tr>
+              <td>{{ skill }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
 
-  <div id="topPane">
-    <img id="userPicture" src="/media/{{ profile_user.profile.profile_pic }}" alt="User's Profile Picture">
-    <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
-    <h3 id="userType">{{ profile_user.profile.user_type }}</h3>
-    <h4 class="user-headings">Email Address</h4>
-    <h5 class="user-details">{{ profile_user.email }}</h5>
-    <h4 class="user-headings">Bio</h4>
-    <h5 class="user-details">{{ profile_user.profile.bio }}</h5>
-    <div id="availability">
-      <h4 class="user-headings">Availability</h4>
-      <table id="availabilityTable">
-        <tr>
-          <th>DAY</th>
-          <th>FROM</th>
-          <th>TO</th>
-        </tr>
-        {% for day in days_of_the_week %}
-          {% define_variable 0 %}
-          {% for availability in availabilities %}
-            {% if availability.start_time|date:"l" == day %}
+      <!-- Right side that contains everything else -->
+      <div class="col-md-7">
+        <div id="availability">
+          <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
+          <h3 id="userType">{{ user.profile.user_type }}</h3>
+
+          <h5 class="user-headings"><b>Email Address: </b></h5>
+          <h6 class="user-details"><a href="mailto:{{ user.email }}">{{ user.email }}</a></h6>
+
+          <h5 class="user-headings mt-4">Bio:</h5>
+          {% if user.profile.bio %}
+          <h6 class="user-details">{{ user.profile.bio }}</h6>
+          {% else %}
+          <h6 class="user-details">Sorry, no bio available. ¯\_(ツ)_/¯</h6>
+          {% endif %}
+
+          <!-- Options  -->
+          <ul class="col-md-12 slider-line w-100">
+            <li class="col-xs-3 s-line-options" id="avail">AVAILABILITY</li>
+            <li class="col-xs-3 s-line-options" id="revi">REVIEWS</li>
+            <li class="col-xs-3 s-line-options" id="hist">HISTORY</li>
+            <li class="col-xs-3 slider s-line-options"></li>
+          </ul>
+
+          <!-- Availability option -->
+          <table id="availabilityTable">
+            <tr>
+              <th>DAY</th>
+              <th>FROM</th>
+              <th>TO</th>
+              {% for day in days_of_the_week %}
+              {% define_variable 0 %}
+              {% for availability in availabilities %}
+              {% if availability.start_time|date:"l" == day %}
               <tr>
                 <td class="day">{{ day }}</td>
                 <td>{{ availability.start_time|date:"g:i A" }}</td>
                 <td>{{ availability.end_time|date:"g:i A" }}</td>
               </tr>
               {% define_variable 1 %}
-            {% endif %}
-          {% endfor %}
-          {% get_variable as available %}
-          {% if not available %}
-          <tr>
-            <td class="day">{{ day }}</td>
-            <td class="unavailable" colspan="2">UNAVAILABLE</td>
-          </tr>
-          {% endif %}
-        {% endfor %}
-      </table>
+              {% endif %}
+              {% endfor %}
+              {% get_variable as available %}
+              {% if not available %}
+              <tr>
+                <td class="day">{{ day }}</td>
+                <td class="unavailable" colspan="2">UNAVAILABLE</td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </table>
+
+            <!-- Reviews Option -->
+            <div id="reviewTab">
+              This is the review box!
+            </div>
+
+            <!-- History Option -->
+            <div id="historyTab">
+              This is the history box!
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-
-
 </body>
 </html>
