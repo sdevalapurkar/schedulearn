@@ -352,3 +352,22 @@ html body {
 .details-and-buttons .fa-calendar {
   font-size: 110%;
 }
+
+/* Cancel/Delete Lesson Modal Styling */
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.btn-danger {
+  background-color:  #D14F52;
+  border-color: #D14F52;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;;
+}
+
+.text-style {
+  font-family: avenir-next-regular;
+}
+/* END Cancel/Delete Account Modal Styling */
