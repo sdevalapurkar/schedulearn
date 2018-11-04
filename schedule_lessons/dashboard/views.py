@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from accounts.models import Skill
 from .models import *
 from accounts.models import Availability, return_availabilities, return_skills
 from django.contrib.auth.models import User
@@ -509,6 +510,11 @@ def edit_profile(request):
             request.user.profile.bio = request.POST['bio']
             # then handle email
             email = request.POST['email']
+            skills = request.POST.getlist('tags')
+            Skill.objects.filter(profile=request.user.profile).delete()
+            for skill in skills:
+                Skill(profile=request.user.profile, skill=skill).save()
+
             if not email == request.user.email: # if the emails are not same that means the user changed emails
                 # send a mail
                 request.user.email = email
@@ -535,7 +541,11 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user, })
+        skills = []
+        skills_db = Skill.objects.filter(profile=request.user.profile)
+        for skill in skills_db:
+            skills.append(skill.skill)
+        return render(request, 'dashboard/edit_profile.html', {'skills': skills})
 
 @login_required
 def edit_availability(request):
