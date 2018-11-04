@@ -153,13 +153,11 @@ def relationships(request):
             'accepted_students': accepted_students,
             'requests_from_students': requests_from_students,
             'requests_to_students':requests_to_students,
-            'no_results': 'No results were found'
-            })
+            'no_results': 'No results were found' })
         return render(request, 'dashboard/relationships.html', {
             'accepted_students': accepted_students,
             'requests_from_students': requests_from_students,
-            'requests_to_students':requests_to_students
-            })
+            'requests_to_students':requests_to_students })
     else:
         requests_from_tutors = []
         requests_to_tutors = []
@@ -179,13 +177,11 @@ def relationships(request):
             'accepted_tutors': accepted_tutors,
             'requests_from_tutors': requests_from_tutors,
             'requests_to_tutors':requests_to_tutors,
-            'no_results': 'No results were found'
-            })
+            'no_results': 'No results were found' })
         return render(request, 'dashboard/relationships.html', {
         'accepted_tutors': accepted_tutors,
         'requests_from_tutors': requests_from_tutors,
-        'requests_to_tutors':requests_to_tutors
-        })
+        'requests_to_tutors':requests_to_tutors })
 
 @login_required
 def search(request):
