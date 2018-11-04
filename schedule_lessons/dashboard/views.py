@@ -598,7 +598,7 @@ def error_check_and_save_lesson(request, lesson, context):
         try:
             relationship = Relationship.objects.get(tutor=person_to_schedule_with, student=request.user)
         except:
-            relationship = Relationship.objects.get(student=request.user, tutor=person_to_schedule_with)
+            relationship = Relationship.objects.get(tutor=request.user, student=person_to_schedule_with)
         if relationship.pending:
             context['pending_relationship_error'] = True
     else:
