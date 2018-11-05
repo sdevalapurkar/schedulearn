@@ -222,21 +222,21 @@ def public_profile(request, user_id):
                     context['rel_created_by_request_user'] = True
                 if request.user != relationship.created_by and relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['add_student_url'] =  + '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['add_tutor_url'] = '{}dashboard/add_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
                 elif not relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
             else:
                 if request.user.profile.user_type == 'tutor':
-                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                    context['add_student_url'] = '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
                 else:
-                    context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
+                    context['add_tutor_url'] = '{}dashboard/add_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
 
         return render(request, 'dashboard/public_profile.html', context)
 
