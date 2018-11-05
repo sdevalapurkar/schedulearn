@@ -136,13 +136,13 @@ def save_gcalendar_lesson(request, lesson_id):
 def relationships(request):
     if request.user.profile.user_type == 'tutor':
         requests_from_students = []
-        requests_to_students = []
+        requested_students = []
         accepted_students = []
         relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_students.append(relationship.student)
+                    requested_students.append(relationship.student)
                 else:
                     requests_from_students.append(relationship.student)
             else:
@@ -152,21 +152,21 @@ def relationships(request):
             return render(request, 'dashboard/relationships.html', {
             'accepted_students': accepted_students,
             'requests_from_students': requests_from_students,
-            'requests_to_students':requests_to_students,
+            'requested_students':requested_students,
             'no_results': 'No results were found' })
         return render(request, 'dashboard/relationships.html', {
             'accepted_students': accepted_students,
             'requests_from_students': requests_from_students,
-            'requests_to_students':requests_to_students })
+            'requested_students':requested_students })
     else:
         requests_from_tutors = []
-        requests_to_tutors = []
+        requested_tutors = []
         accepted_tutors = []
         relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_tutors.append(relationship.tutor)
+                    requested_tutors.append(relationship.tutor)
                 else:
                     requests_from_tutors.append(relationship.tutor)
             else:
@@ -176,12 +176,12 @@ def relationships(request):
             return render(request, 'dashboard/relationships.html', {
             'accepted_tutors': accepted_tutors,
             'requests_from_tutors': requests_from_tutors,
-            'requests_to_tutors':requests_to_tutors,
+            'requested_tutors':requested_tutors,
             'no_results': 'No results were found' })
         return render(request, 'dashboard/relationships.html', {
         'accepted_tutors': accepted_tutors,
         'requests_from_tutors': requests_from_tutors,
-        'requests_to_tutors':requests_to_tutors })
+        'requested_tutors':requested_tutors })
 
 @login_required
 def search(request):
