@@ -34,6 +34,11 @@ class Skill(models.Model):
     def __str__(self):
         return self.profile.user.get_full_name() + ' has skill: ' + self.skill
 
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.CharField(max_length=30)
+    created_on = models.DateTimeField()
+
 # Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
 def return_availabilities(user_id):
     availabilities = []
