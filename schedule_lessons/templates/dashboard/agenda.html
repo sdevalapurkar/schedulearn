@@ -147,8 +147,8 @@
             <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' scheduled_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+            <a data-target="#declineLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' scheduled_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
         </div>
@@ -189,7 +189,7 @@
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+            <a data-target="#declineLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' pending_lesson.id %}">
               <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
@@ -198,7 +198,7 @@
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+            <a data-target="#cancelLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' pending_lesson.id %}">
               <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
@@ -210,5 +210,48 @@
     {% endif %}
   </div>
   {% endif %}
+
+  <!-- decline lesson modal -->
+  <div id="declineLessonModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="bold-text-style modal-title">Are you sure you would like to decline this lesson?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <div class="modal-body">
+          <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <a id="declineLessonConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cancel lesson modal -->
+  <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
+          <a id="cancelLessonConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
