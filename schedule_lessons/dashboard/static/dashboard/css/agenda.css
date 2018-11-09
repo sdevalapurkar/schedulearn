@@ -8,6 +8,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 @font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
 
@@ -29,7 +30,7 @@ html body {
 
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
-  font-family: AvenirNext-DemiBold;
+  font-family: avenir-next-demibold;
   padding-top: 0.15%;
   padding-bottom: 0.15%;
   margin-right: 5%;
@@ -43,13 +44,25 @@ html body {
   padding-right: 15px;
 }
 
+#myName {
+  padding: 0;
+}
+
 #myName:hover {
   cursor: pointer;
+}
+
+#myName #userPicture {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
 }
 
 #myDropdown {
   position: absolute;
   text-align: center;
+  margin-top: 7px;
 }
 
 .dropdown-options {
