@@ -153,7 +153,7 @@ html body {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
-    font-family: AvenirNext-DemiBold;
+    font-family: avenir-next-demibold;
     padding-top: 0.15%;
     padding-bottom: 0.15%;
     margin-right: auto;
@@ -198,18 +198,14 @@ html body {
 
 #mainTitle {
   font-size: 220%;
-  font-family: adam-cg-pro;
-  margin: 40px auto;
-}
-
-.student {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
+  font-family: avenir-next-regular;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
-.tutor {
+.relationship-container {
   width: 400px;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
@@ -222,24 +218,24 @@ html body {
   height: 70px;
 }
 
-.student-pfp-container {
+.relationship-pfp-container {
   height: 100%;
   background-color: #D14F52;
 }
 
-.student-pfp {
+.relationship-pfp {
   height: 100%;
   border-right: 2px solid #4A4A4A;
 }
 
-.student-main-info {
+.relationship-main-info {
   height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.student-name {
+.relationship-profile-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
@@ -248,41 +244,11 @@ html body {
   color: #4a4a4a;
 }
 
-.student-link:hover {
+.relationship-profile-link:hover {
   color: black;
 }
 
-.tutor-pfp-container {
-  height: 100%;
-  background-color: #D14F52;
-}
-
-.tutor-pfp {
-  height: 100%;
-  border-right: 2px solid #4A4A4A;
-}
-
-.tutor-main-info {
-  height: 70px;
-  background-color: white;
-  width: 100%;
-  padding-left: 1%;
-}
-
-.tutor-name {
-  padding-top: 0.5%;
-  font-family: BebasNeueRegular;
-  text-align: left;
-  font-size: 200%;
-  margin-bottom: 0;
-  color: #4a4a4a;
-}
-
-.tutor-link:hover {
-  color: black;
-}
-
-.extended-field {
+.relationship-extra-field {
   text-align: left;
   margin-bottom: 0;
   color: #4F4F4F;
@@ -292,6 +258,16 @@ html body {
   display: block;
 }
 
-.extended-detail {
+.relationship-extra-detail {
   font-family: avenir-next-regular;
+}
+
+.details {
+  float: left;
+  padding-left: 5px;
+}
+
+.details-and-buttons {
+  background-color: white;
+  width: 100%;
 }

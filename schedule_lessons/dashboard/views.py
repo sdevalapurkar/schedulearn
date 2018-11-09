@@ -337,7 +337,7 @@ def remove_tutor(request, tutor_id):
 def choose_person(request):
         if request.user.profile.user_type == 'tutor':
             students = []
-            relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+            relationships = Relationship.objects.filter(tutor=request.user, pending=False) # will return a list that is a list of tutors that the current student has added.
             for relationship in relationships:
                 url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.student.profile.id)
                 student_data = {
@@ -345,8 +345,7 @@ def choose_person(request):
                     'last_name': relationship.student.last_name,
                     'email': relationship.student.email,
                     'profile_pic': relationship.student.profile.profile_pic,
-                    'id': relationship.student.profile.id,
-                }
+                    'id': relationship.student.profile.id }
                 students.append(student_data)
             no_results_found = request.GET.get('no_search_result')
             if no_results_found:
@@ -354,7 +353,7 @@ def choose_person(request):
             return render(request, 'dashboard/choose_person.html', {'students': students})
         else:
             tutors = []
-            relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+            relationships = Relationship.objects.filter(student=request.user, pending=False) # will return a list that is a list of tutors that the current student has added.
             for relationship in relationships:
                 url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.tutor.profile.id)
                 tutor_data = {
@@ -594,6 +593,16 @@ def delete_availability(request, availability_id):
 
 def error_check_and_save_lesson(request, lesson, context):
     person_to_schedule_with = User.objects.get(profile__id=context['user_id'])
+    rel_exists = relationship_exists(person_to_schedule_with, request.user)
+    if rel_exists:
+        try:
+            relationship = Relationship.objects.get(tutor=person_to_schedule_with, student=request.user)
+        except:
+            relationship = Relationship.objects.get(tutor=request.user, student=person_to_schedule_with)
+        if relationship.pending:
+            context['pending_relationship_error'] = True
+    else:
+        context['no_relationship_error'] = True
     # Get lesson timezone when (re)scheduling lessons
     time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
     # Get lesson name when (re)scheduling lessons
@@ -628,7 +637,7 @@ def error_check_and_save_lesson(request, lesson, context):
     lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
     lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
-    if not context.get('no_name_error') and not context.get('no_location_error') and not context.get('no_date_error') and not context.get('no_starting_time_error') and not context.get('no_ending_time_error') and not context.get('bigger_start_time_error'):
+    if not context.get('no_name_error') and not context.get('no_location_error') and not context.get('no_date_error') and not context.get('no_starting_time_error') and not context.get('no_ending_time_error') and not context.get('bigger_start_time_error') and not context.get('pending_relationship_error') and not context.get('no_relationship_error'):
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
             context['past_lesson_error'] = "Fix starting time or date of lesson to make sure it's after current time."
