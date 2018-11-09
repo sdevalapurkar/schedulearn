@@ -1,6 +1,21 @@
 var img_url;
 
 $(document).ready(function () {
+  $('#notifcationsDropdownLink').click(function() {
+    if (document.getElementById("notificationIcon").hasAttribute("data-count")) {
+      $('#notificationIcon').removeAttr("data-count");
+      $('#notificationIcon').removeClass("notification-badge");
+    }
+    $.ajax({
+      url: '/dashboard/clear_notifications/',
+      type: 'post',
+      error: function(xhr, status) {
+      },
+      success: function(data) {
+      }
+    });
+  });
+
   $("#myTags").tagit({
     availableTags: ["Elementary Math", "Pre-Algebra", "Algebra I", "Algebra II",
                     "Geometry", "Trigonometry", "Pre-Calculus", "Calculus AB",
