@@ -168,23 +168,11 @@ html body {
 
 /* END Navbar for logged out Users */
 
-#topPane {
-  text-align: center;
-  width: 100%;
-  margin: 35px auto;
-  padding-bottom: 100px;
-}
-
-#userPicture {
-  width: 200px;
-  border-radius: 50%;
-  border: 2px solid #4A4A4A;
-}
 
 #userName {
   font-family: bebas-neue;
   color: black;
-  padding-top: 20px;
+  margin-top: 20px;
   font-size: 350%;
   margin-bottom: -10px;
 }
@@ -196,37 +184,20 @@ html body {
   padding-bottom: 5px;
 }
 
-.user-details {
-  font-family: BrandonGrotesque-Regular;
-  color: #6b6b6b;
-  margin-bottom: 5px;
-  width: 350px;
-  margin: 0 auto;
-  padding-bottom: 20px;
-}
-
-#outerAvailability {
-  margin-top: -15px;
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-#availability {
-  text-align: center;
-}
-
-#availabilityHeading {
-  margin-top: -20px;
-  padding-bottom: 10px;
+.user-headings {
   font-family: BrandonGrotesque-Regular;
   color: #6b6b6b;
   font-weight: bold;
 }
 
-.user-headings {
-    font-family: BrandonGrotesque-Regular;
-    color: #6b6b6b;
-    font-weight: bold;
+.user-details {
+  font-family: BrandonGrotesque-Regular;
+  color: #6b6b6b;
+  padding-bottom: 10px;
+}
+
+.email-style{
+  text-align: center;
 }
 
 #availabilityTable {
@@ -235,20 +206,20 @@ html body {
 }
 
 #availabilityTable td, #availabilityTable th {
-    border: 1px solid #ddd;
-    padding: 8px;
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 #availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
 
 #availabilityTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #D14F52;
-    color: white;
-    text-align: center;
-    font-family: adam-cg-pro;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
 }
 
 #availabilityTable td {
@@ -263,8 +234,71 @@ html body {
   text-transform: uppercase;
 }
 
-#warningText {
-  font-size: 120%;
-  color: #D14F52;
-  font-family: BrandonGrotesque-Regular;
+.slider-line {
+  border-bottom: 1px solid #6b6b6b;
+  font-size: 0;
+  position: relative;
+  padding: 0;
+  width: 300px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.s-line-options {
+  display: inline-block;
+  width: 120px;
+  text-align: center;
+  height: 60px;
+  font-size: 16px;
+  line-height: 60px;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.slider {
+  display: block;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 4px;
+  background: #D14F52;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/*  Ripple */
+.ripple {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(209, 79, 82, 0.4);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+
+.rippleEffect {
+  -webkit-animation: rippleDrop .6s linear;
+  animation: rippleDrop .6s linear;
+}
+ @-webkit-keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
+}
+ @keyframes
+rippleDrop {  100% {
+ -webkit-transform: scale(2);
+ transform: scale(2);
+ opacity: 0;
+}
 }

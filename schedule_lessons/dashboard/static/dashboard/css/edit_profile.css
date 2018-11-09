@@ -218,3 +218,8 @@ html body {
   border-radius: 0.25rem;
   font-family: avenir-next-regular;
 }
+
+.form-control {
+  text-align: center;
+  font-family: avenir-next-regular;
+}
