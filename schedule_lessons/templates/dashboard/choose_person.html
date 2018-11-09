@@ -98,14 +98,16 @@
   {% if students %}
   <h2 id="mainTitle">SELECT A STUDENT:</h2>
   {% for student in students %}
-  <div class="student">
+  <div class="relationship-container">
     <div class="main-information">
-      <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
+      <div class="relationship-pfp-container">
+        <img class="relationship-pfp" src="/media/{{ student.profile_pic }}"></img>
       </div>
-      <div class="student-main-info">
-        <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
+      <div class="details-and-buttons">
+        <div class="details">
+          <a class="relationship-profile-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="relationship-profile-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+          <p class="relationship-extra-field"><span class="relationship-extra-detail">{{ student.email }}</span></p>
+        </div>
       </div>
     </div>
   </div>
@@ -114,14 +116,16 @@
   {% if tutors %}
   <h2 id="mainTitle">SELECT A TUTOR:</h2>
   {% for tutor in tutors %}
-  <div class="tutor">
+  <div class="relationship-container">
     <div class="main-information">
-      <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}"></img>
+      <div class="relationship-pfp-container">
+        <img class="relationship-pfp" src="/media/{{ tutor.profile_pic }}"></img>
       </div>
-      <div class="tutor-main-info">
-        <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ tutor.email }}</span></p>
+      <div class="details-and-buttons">
+        <div class="details">
+          <a class="relationship-profile-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="relationship-profile-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
+          <p class="relationship-extra-field"><span class="relationship-extra-detail">{{ tutor.email }}</span></p>
+        </div>
       </div>
     </div>
   </div>

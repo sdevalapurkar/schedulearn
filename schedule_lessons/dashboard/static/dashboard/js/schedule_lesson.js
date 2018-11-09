@@ -80,6 +80,11 @@ $(document).ready(function() {
           } else if (response.past_lesson_error) {
             $('.error-list').html(response.past_lesson_error);
           }
+          if (response.pending_relationship_error) {
+            $('.error-list').html("You can only schedule lessons with people who have accepted your friend request.");
+          } else if (response.no_relationship_error) {
+            $('.error-list').html("You can only schedule lessons with people you are friends with.");
+          }
         }
       },
     });
