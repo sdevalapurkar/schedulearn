@@ -143,13 +143,13 @@ def relationships(request):
     }
     if request.user.profile.user_type == 'tutor':
         requests_from_students = []
-        requests_to_students = []
+        requested_students = []
         accepted_students = []
         relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_students.append(relationship.student)
+                    requested_students.append(relationship.student)
                 else:
                     requests_from_students.append(relationship.student)
             else:
@@ -163,13 +163,13 @@ def relationships(request):
         return render(request, 'dashboard/relationships.html', context)
     else:
         requests_from_tutors = []
-        requests_to_tutors = []
+        requested_tutors = []
         accepted_tutors = []
         relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_tutors.append(relationship.tutor)
+                    requested_tutors.append(relationship.tutor)
                 else:
                     requests_from_tutors.append(relationship.tutor)
             else:
@@ -221,19 +221,19 @@ def public_profile(request, user_id):
                     context['rel_created_by_request_user'] = True
                 if request.user != relationship.created_by and relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['add_student_url'] =  + '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['add_tutor_url'] = '{}dashboard/add_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
                 elif not relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
             else:
                 if request.user.profile.user_type == 'tutor':
-                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                    context['add_student_url'] = '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
                 else:
                     context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
             context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
