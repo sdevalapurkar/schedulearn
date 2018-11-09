@@ -1,4 +1,4 @@
-@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
@@ -31,7 +31,7 @@ html body {
 }
 
 #loggedInNavbar .nav-item {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
@@ -47,8 +47,10 @@ html body {
 }
 
 #myName #userPicture {
-  width: auto;
-  height: 35px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
 }
 
 #myDropdown {
@@ -79,6 +81,7 @@ html body {
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
+  position: relative;
 }
 
 .extended-button {
@@ -150,17 +153,6 @@ html body {
 }
 /* END Navbar for logged in Users */
 
-#topPane {
-  width: 100%;
-  margin: 35px;
-  padding-bottom: 100px;
-}
-
-#userPicture {
-  border-radius: 50%;
-  border: 2px solid #4A4A4A;
-}
-
 #userName {
   font-family: bebas-neue;
   color: black;
@@ -215,7 +207,7 @@ html body {
 }
 
 #availabilityTable td {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 .unavailable {
@@ -283,7 +275,7 @@ html body {
 }
 
 .text-style {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 /*  Ripple */
@@ -334,7 +326,7 @@ rippleDrop {  100% {
 
 .modal-body .password-input {
   text-align: left;
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 .bold-text-style {
@@ -342,7 +334,7 @@ rippleDrop {  100% {
 }
 
 .error-list {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
   color: #D14F52;
   margin-left: 1rem;
   margin-bottom: 1rem;

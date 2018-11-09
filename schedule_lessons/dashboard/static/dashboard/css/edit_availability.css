@@ -1,4 +1,4 @@
-@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
@@ -31,20 +31,32 @@ html body {
 }
 
 #loggedInNavbar .nav-item {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
+#myName {
+  padding: 0;
+}
+
 #myName:hover {
   cursor: pointer;
+}
+
+#myName #userPicture {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
 }
 
 #myDropdown {
   position: absolute;
   text-align: center;
+  margin-top: 7px;
 }
 
 .dropdown-options {
@@ -69,6 +81,7 @@ html body {
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
+  position: relative;
 }
 
 .extended-button {
@@ -176,7 +189,7 @@ html body {
 }
 
 #availabilityTable td {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 .unavailable {
@@ -221,12 +234,12 @@ tr #deleteAvailability {
 
 .selectpicker {
   background: #F4F4F4;
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
   border: 1px solid #828282;
 }
 
 .form-control {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 .input-error {
@@ -239,7 +252,7 @@ tr #deleteAvailability {
 }
 
 .error-list {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
   color: #D14F52;
   margin: 10px 0;
 }
