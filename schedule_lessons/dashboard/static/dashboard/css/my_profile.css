@@ -218,12 +218,6 @@ html body {
   text-transform: uppercase;
 }
 
-#warningText {
-  font-size: 120%;
-  color: #D14F52;
-  font-family: BrandonGrotesque-Regular;
-}
-
 .slider-line {
   border-bottom: 1px solid #6b6b6b;
   font-size: 0;
@@ -260,7 +254,7 @@ html body {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-
+/* Delete Account Modal Styling */
 .modal-dialog {
   padding-top: 10%;
 }
@@ -277,7 +271,7 @@ html body {
 .text-style {
   font-family: avenir-next-regular;
 }
-
+/* END Delete Account Modal Styling */
 /*  Ripple */
 .ripple {
   width: 0;
@@ -311,11 +305,6 @@ rippleDrop {  100% {
 }
 
 /* Change password modal styling */
-
-.modal-dialog {
-  padding-top: 10%;
-}
-
 .modal-title {
   font-family: avenir-next-demibold;
 }
@@ -327,10 +316,6 @@ rippleDrop {  100% {
 .modal-body .password-input {
   text-align: left;
   font-family: avenir-next-regular;
-}
-
-.bold-text-style {
-  font-family: avenir-next-demibold;
 }
 
 .error-list {
