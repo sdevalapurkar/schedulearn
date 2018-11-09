@@ -38,6 +38,12 @@ class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.CharField(max_length=30)
     created_on = models.DateTimeField()
+    picture = models.ImageField(upload_to="notification_pictures", blank=True)
+    unread = models.BooleanField(default=True)
+    link = models.CharField(max_length=70, default='')
+
+    def __str__(self):
+        return self.message
 
 # Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
 def return_availabilities(user_id):
