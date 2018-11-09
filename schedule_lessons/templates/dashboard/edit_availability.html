@@ -39,18 +39,40 @@
           {% endif %}
         </li>
       </ul>
-      <div class="navbar-nav">
-        <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="notifcationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if unread_notifications > 0 %}
+            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+            {% else %}
+            <i class="far fa-bell"></i>
+            {% endif %}
+          </a>
+          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+            <hr id="notifcationsDropdownHeaderDivider">
+            {% for notification in notifications %}
+            <a href="{{ notification.link }}">
+              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                <div class="notification-picture-container">
+                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                </div>
+                <span class="notification-message">{{ notification.message }}</span>
+              </div>
+            </a>
+            {% endfor %}
           </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+          </a>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <!-- end main navbar -->
