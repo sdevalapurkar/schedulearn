@@ -89,7 +89,7 @@
   <div id="main">
     {% if user.profile.user_type == 'tutor' %}
 
-    {% if not accepted_students and not requests_to_students and not requests_from_students %}
+    {% if not accepted_students and not requested_students and not requests_from_students %}
     <img id="picturePrompt" src="{% static 'dashboard/images/student.png' %}" alt="A confused student">
     <h4 class="text-prompt">You have not added any students. Add a student using the search bar above.</h4>
     {% else %}
@@ -137,9 +137,9 @@
     </div>
     {% endfor %}
     {% endif %}
-    {% if requests_to_students %}
+    {% if requested_students %}
     <h2 class="main-title">REQUESTS TO STUDENTS</h2>
-    {% for student in requests_to_students %}
+    {% for student in requested_students %}
     <div class="relationship-container">
       <div class="main-information">
         <div class="relationship-pfp-container">
@@ -156,10 +156,10 @@
     {% endfor %}
     {% endif %}
 
-    {% endif %} <!-- endif if not accepted_students and not requests_to_students and not requests_from_students -->
+    {% endif %} <!-- endif if not accepted_students and not requested_students and not requests_from_students -->
 
     {% else %}
-    {% if not accepted_tutors and not requests_to_tutors and not requests_from_tutors %}
+    {% if not accepted_tutors and not requested_tutors and not requests_from_tutors %}
     <img id="picturePrompt" src="{% static 'dashboard/images/student.png' %}" alt="A confused student">relationship-container
     <h4 class="text-prompt">You have not added any tutors. Add a tutor using the search bar above.</h4>
     {% else %}
@@ -207,9 +207,9 @@
     </div>
     {% endfor %}
     {% endif %}
-    {% if requests_to_tutors %}
+    {% if requested_tutors %}
     <h2 class="main-title">REQUESTS TO TUTORS</h2>
-    {% for tutor in requests_to_tutors %}
+    {% for tutor in requested_tutors %}
     <div class="relationship-container">
       <div class="main-information">
         <div class="relationship-pfp-container">
