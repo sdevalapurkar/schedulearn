@@ -59,20 +59,38 @@
     {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type %}
     {% if user.profile.user_type == 'tutor' %}
     {% if rel_exists %}
-    <a id="removeStudentBtn" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
-    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    {% if rel_pending %}
+    {% if rel_created_by_request_user %}
+    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
     {% else %}
+    <a class="extended-button" href="{{ remove_student_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+    {% endif %}
+    {% else %} <!-- Else for rel_pending -->
+    <a class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    {% endif %} <!-- End for pending -->
+    {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
-    {% endif %}
-    {% else %}
+    {% endif %} <!-- End for rel exists for tutors -->
+    {% else %} <!-- Else: if the request user is a student -->
     {% if rel_exists %}
-    <a id="removeTutorBtn" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
-    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    {% if rel_pending %}
+    {% if rel_created_by_request_user %}
+    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
     {% else %}
+    <a class="extended-button" href="{{ remove_tutor_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+    {% endif %}
+    {% else %} <!-- Else for rel_pending -->
+    <a class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+    {% endif %} <!-- End for pending -->
+    {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
-    {% endif %}
-    {% endif %}
-    {% endif %}
+    {% endif %} <!-- End for rel exists for students -->
+    {% endif %} <!-- End if for user.profile.user_type == 'tutor' -->
+    {% endif %} <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
   </nav>
   <!-- End navbar for signed in users -->
   {% else %}
