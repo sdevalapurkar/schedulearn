@@ -168,6 +168,10 @@ html body {
 
 /* END Navbar for logged out Users */
 
+#profilePicture {
+  border-radius: 50%;
+  border: 2px solid #4a4a4a;
+}
 
 #userName {
   font-family: bebas-neue;

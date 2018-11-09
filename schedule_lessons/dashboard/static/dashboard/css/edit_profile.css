@@ -221,5 +221,31 @@ html body {
 
 .form-control {
   text-align: center;
-  font-family: avenir-next-regular;
+  font-family: BrandonGrotesque-Regular;
+  font-size: 110%;
+}
+
+#myTags {
+  border-radius: .25rem;
+
+}
+
+#myTags .tagit-choice {
+  padding: 4px 30px;
+  border-radius: 2rem;
+}
+
+#myTags .ui-icon-close {
+  margin-right: 5px;
+}
+
+#myTags .tagit-new .ui-widget-content {
+  font-family: BrandonGrotesque-Regular;
+  font-size: 100%;
+}
+
+#myTags .tagit-label {
+  font-family: BrandonGrotesque-Regular;
+  font-size: 100%;
+  color: #495057;
 }

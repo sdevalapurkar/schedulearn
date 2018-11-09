@@ -1,6 +1,28 @@
 var img_url;
 
 $(document).ready(function () {
+  $("#myTags").tagit({
+    availableTags: ["Elementary Math", "Pre-Algebra", "Algebra I", "Algebra II",
+                    "Geometry", "Trigonometry", "Pre-Calculus", "Calculus AB",
+                    "Calculus BC", "Statistics", "Discrete Math", "Biology",
+                    "Elementary Science", "Middle Grades Science", "Chemistry",
+                    "Environmental Science", "Anatomy & Physiology", "Physics",
+                    "Physics B", "Physics C: Electricity and Magnetism",
+                    "Physics C: Mechanics", "Computer Science", "English Language",
+                    "English as a Second Language", "English Literature",
+                    "Reading Comprehension", "Critical Reading", "Writing",
+                    "College Essay Writing", "French", "Italian", "Spanish",
+                    "German", "Spanish Literature", "Japanese", "Latin",
+                    "U.S. History", "Macroeconomics", "Microeconomics",
+                    "World History", "European History", "Human Geography",
+                    "Art History", "Psychology", "Elementary Social Studies",
+                    "Music Theory", "Middle School Social Studies",
+                    "Reading Comprehension", "Writing", "Reading Speed",
+                    "College Essay Writing", "Critical Reading"],
+  removeConfirmation: true,
+  allowSpaces: true
+  });
+
 
   $("#saveChanges").click(function() {
     $("#profileSave").click();
@@ -12,7 +34,7 @@ $(document).ready(function () {
     viewport: {
         width: 200,
         height: 200,
-        type: 'square'
+        type: 'circle'
     }
   });
 
