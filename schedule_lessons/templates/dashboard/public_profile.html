@@ -92,7 +92,7 @@
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
     {% else %} <!-- Else for rel_pending -->
-    <a class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
+    <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
     <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     {% endif %} <!-- End for pending -->
     {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
@@ -108,7 +108,7 @@
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
     {% else %} <!-- Else for rel_pending -->
-    <a class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
+    <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
     <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
     {% endif %} <!-- End for pending -->
     {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
@@ -226,5 +226,38 @@
         </div>
       </div>
     </div>
+    <!-- delete account modal -->
+    <div id="removeRelationshipModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            {% if user.profile.user_type == 'tutor' %}
+            <h6 class="bold-text-style modal-title">Are you sure you would like to remove your student?</h6>
+            {% else %}
+            <h6 class="bold-text-style modal-title">Are you sure you would like to remove your tutor?</h6>
+            {% endif %}
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-style">This will cancel any of your lessons that you have scheduled with this person.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+            {% if user.profile.user_type == 'tutor' %}
+            <a id="removeRelationshipConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Student</span></button>
+            </a>
+            {% else %}
+            <a id="removeRelationshipConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Tutor</span></button>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>
