@@ -144,7 +144,7 @@
     <div class="row">
       <!-- Left side that contains the profile picture and the skills -->
       <div class="col-md-2 m-4 pl-4">
-        <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
+        <img id="profilePicture" src="/media/{{ profile_user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
         <div class="col-md-12 mt-4">
           <table class="table">
             <thead class="thead-light">
@@ -164,15 +164,15 @@
       <!-- Right side that contains everything else -->
       <div class="col-md-7">
         <div id="availability">
-          <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
-          <h3 id="userType">{{ user.profile.user_type }}</h3>
+          <h1 id="userName">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+          <h3 id="userType">{{ profile_user.profile.user_type }}</h3>
 
           <h5 class="user-headings"><b>Email Address: </b></h5>
-          <h6 class="user-details"><a href="mailto:{{ user.email }}">{{ user.email }}</a></h6>
+          <h6 class="user-details"><a href="mailto:{{ profile_user.email }}">{{ profile_user.email }}</a></h6>
 
           <h5 class="user-headings mt-4">Bio:</h5>
-          {% if user.profile.bio %}
-          <h6 class="user-details">{{ user.profile.bio }}</h6>
+          {% if profile_user.profile.bio %}
+          <h6 class="user-details">{{ profile_user.profile.bio }}</h6>
           {% else %}
           <h6 class="user-details">Sorry, no bio available. ¯\_(ツ)_/¯</h6>
           {% endif %}
