@@ -262,7 +262,7 @@ def add_student(request, student_id):
                 relationship.save()
                 message = "{} has accepted your friend request.".format(request.user.get_full_name())
                 url = "/dashboard/profile/{}".format(request.user.profile.id)
-                Notification(user=student, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+                Notification(user=student, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
             else:
                 return HttpResponse(status=400)
         else:
@@ -270,7 +270,7 @@ def add_student(request, student_id):
             new_rel.save()
             url = "/dashboard/profile/{}".format(request.user.profile.id)
             message = "{} has sent out a friend request.".format(request.user.get_full_name())
-            Notification(user=student, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+            Notification(user=student, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
 
         return redirect('relationships')
     else:
@@ -314,7 +314,7 @@ def add_tutor(request, tutor_id):
                 relationship.save()
                 message = "{} has accepted your friend request.".format(request.user.get_full_name())
                 url = "/dashboard/profile/{}".format(request.user.profile.id)
-                Notification(user=tutor, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+                Notification(user=tutor, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
             else:
                 return HttpResponse(status=400)
         else:
@@ -322,7 +322,7 @@ def add_tutor(request, tutor_id):
             new_rel.save()
             url = "/dashboard/profile/{}".format(request.user.profile.id)
             message = "{} has sent out a friend request.".format(request.user.get_full_name())
-            Notification(user=tutor, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+            Notification(user=tutor, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
         return redirect('relationships')
     else:
         return HttpResponse(status=403)
@@ -415,7 +415,7 @@ def confirm_lesson(request, lesson_id):
             lesson_to_confirm.save()
             url = "/dashboard/agenda/"
             message = "{} has accepted your request to schedule lesson: '{}'".format(request.user.get_full_name(), lesson_to_confirm.name)
-            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
         return redirect('agenda')
     except Exception as e:
         print(str(e))
@@ -429,7 +429,7 @@ def decline_lesson(request, lesson_id):
             person_to_schedule_with = lesson_to_delete.tutor if lesson_to_delete.tutor != request.user else lesson_to_delete.student
             url = "/dashboard/agenda/"
             message = "{} has declined your request to schedule lesson: '{}'".format(request.user.get_full_name(), lesson_to_delete.name) if lesson_to_delete.pending else "{} has cancelled your lesson: '{}'".format(request.user.get_full_name(), lesson_to_delete.name)
-            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
             lesson_to_delete.delete()
         return redirect('agenda')
     except Exception as e:
@@ -705,6 +705,6 @@ def error_check_and_save_lesson(request, lesson, context):
         lesson.save()
         url = "/dashboard/agenda/"
         message = "{} has rescheduled the lesson: {}".format(request.user.get_full_name(), lesson.name) if context.get('rescheduled_lesson', False) else "{} has requested to schedule lesson '{}' with you.".format(request.user.get_full_name(), lesson.name)
-        Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.utcnow(), picture=request.user.profile.profile_pic, link=url).save()
+        Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(UTC_ZONE), picture=request.user.profile.profile_pic, link=url).save()
         context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
     return context
