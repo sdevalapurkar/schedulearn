@@ -92,6 +92,10 @@ html body {
   border-top: 1px solid #4a4a4a;
 }
 
+#notificationsDropdownPane a {
+  text-decoration: none;
+}
+
 .unread-notification-container {
   background-color: rgba(229, 79, 82, .2);
 }
