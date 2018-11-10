@@ -44,19 +44,40 @@
           {% endif %}
         </li>
       </ul>
-      <div class="navbar-nav">
-        <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="notifcationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if unread_notifications > 0 %}
+            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+            {% else %}
+            <i class="far fa-bell"></i>
+            {% endif %}
+          </a>
+          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+            <hr id="notifcationsDropdownHeaderDivider">
+            {% for notification in notifications %}
+            <a href="{{ notification.link }}">
+              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                <div class="notification-picture-container">
+                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                </div>
+                <span class="notification-message">{{ notification.message }}</span>
+              </div>
+            </a>
+            {% endfor %}
           </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+          </a>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
-
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <!-- end main navbar -->
@@ -148,8 +169,8 @@
             <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' scheduled_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+            <a data-target="#declineLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' scheduled_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
         </div>
@@ -190,7 +211,7 @@
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+            <a data-target="#declineLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' pending_lesson.id %}">
               <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
@@ -199,7 +220,7 @@
             <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
             </a>
-            <a href="{% url 'decline_lesson' pending_lesson.id %}">
+            <a data-target="#cancelLessonModal" data-toggle="modal" class="extended-button" href="{% url 'decline_lesson' pending_lesson.id %}">
               <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
@@ -211,5 +232,48 @@
     {% endif %}
   </div>
   {% endif %}
+
+  <!-- decline lesson modal -->
+  <div id="declineLessonModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="bold-text-style modal-title">Are you sure you would like to decline this lesson?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <div class="modal-body">
+          <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <a id="declineLessonConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cancel lesson modal -->
+  <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
+          <a id="cancelLessonConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
