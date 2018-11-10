@@ -169,8 +169,8 @@
             <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
               <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
             </a>
-            <a data-target="#declineLessonModal" data-toggle="modal" href="{% url 'decline_lesson' scheduled_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
+            <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' scheduled_lesson.id %}">
+              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
             </a>
           </div>
         </div>
