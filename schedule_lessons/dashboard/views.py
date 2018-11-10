@@ -155,7 +155,7 @@ def relationships(request):
             else:
                 accepted_students.append(relationship.student)
         no_results_found = request.GET.get('no_search_result')
-        context['requests_to_students'] = requests_to_students
+        context['requested_students'] = requested_students
         context['accepted_students'] = accepted_students
         context['requests_from_students'] = requests_from_students
         if no_results_found:
