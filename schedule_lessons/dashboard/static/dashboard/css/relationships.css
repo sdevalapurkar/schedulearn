@@ -75,6 +75,7 @@ html body {
   border-radius: 50%;
   color:white;
   border: 1px solid #D14F52;
+  font-family: avenir-next-regular;
 }
 
 #notificationsDropdownPane {
