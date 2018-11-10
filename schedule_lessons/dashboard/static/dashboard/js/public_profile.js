@@ -90,8 +90,8 @@ $(document).ready(function() {
     $("#reviewTab").fadeOut(300);
   });
 
-  $('#notifcationsDropdownLink').click(function() {
-    var attr = $(this).attr('data-count');
+  $('#notificationsDropdownLink').click(function() {
+    var attr = $('#notificationIcon').attr('data-count');
     if (typeof attr !== typeof undefined && attr !== false) {
       $('#notificationIcon').removeAttr("data-count");
       $('#notificationIcon').removeClass("notification-badge");

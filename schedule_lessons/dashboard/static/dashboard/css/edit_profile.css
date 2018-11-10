@@ -39,7 +39,7 @@ html body {
   padding: 0;
 }
 
-#notifcationsDropdownLink {
+#notificationsDropdownLink {
   height: 100%;
   display: flex;
   flex-direction: column;
