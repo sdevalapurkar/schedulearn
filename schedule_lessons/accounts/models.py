@@ -36,7 +36,7 @@ class Skill(models.Model):
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.CharField(max_length=30)
+    message = models.CharField(max_length=150)
     created_on = models.DateTimeField()
     picture = models.ImageField(upload_to="notification_pictures", blank=True)
     unread = models.BooleanField(default=True)
