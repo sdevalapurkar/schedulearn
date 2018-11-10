@@ -410,3 +410,22 @@ rippleDrop {  100% {
  opacity: 0;
 }
 }
+
+/* Remove Relationship Modal Styling */
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.btn-danger {
+  background-color:  #D14F52;
+  border-color: #D14F52;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;;
+}
+
+.text-style {
+  font-family: avenir-next-regular;
+}
+/* END Remove Relationship Modal Styling */
