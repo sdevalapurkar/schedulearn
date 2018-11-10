@@ -47,15 +47,40 @@
           {% endif %}
         </li>
       </ul>
-      <div class="navbar-nav">
-        <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="notifcationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if unread_notifications > 0 %}
+            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+            {% else %}
+            <i class="far fa-bell"></i>
+            {% endif %}
+          </a>
+          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+            <hr id="notifcationsDropdownHeaderDivider">
+            {% for notification in notifications %}
+            <a href="{{ notification.link }}">
+              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                <div class="notification-picture-container">
+                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                </div>
+                <span class="notification-message">{{ notification.message }}</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+          </a>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <!-- end main navbar -->
@@ -95,14 +120,16 @@
   {% if students %}
   <h2 id="mainTitle">SELECT A STUDENT:</h2>
   {% for student in students %}
-  <div class="student">
+  <div class="relationship-container">
     <div class="main-information">
-      <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
+      <div class="relationship-pfp-container">
+        <img class="relationship-pfp" src="/media/{{ student.profile_pic }}"></img>
       </div>
-      <div class="student-main-info">
-        <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
+      <div class="details-and-buttons">
+        <div class="details">
+          <a class="relationship-profile-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="relationship-profile-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+          <p class="relationship-extra-field"><span class="relationship-extra-detail">{{ student.email }}</span></p>
+        </div>
       </div>
     </div>
   </div>
@@ -111,14 +138,16 @@
   {% if tutors %}
   <h2 id="mainTitle">SELECT A TUTOR:</h2>
   {% for tutor in tutors %}
-  <div class="tutor">
+  <div class="relationship-container">
     <div class="main-information">
-      <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}"></img>
+      <div class="relationship-pfp-container">
+        <img class="relationship-pfp" src="/media/{{ tutor.profile_pic }}"></img>
       </div>
-      <div class="tutor-main-info">
-        <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ tutor.email }}</span></p>
+      <div class="details-and-buttons">
+        <div class="details">
+          <a class="relationship-profile-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="relationship-profile-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
+          <p class="relationship-extra-field"><span class="relationship-extra-detail">{{ tutor.email }}</span></p>
+        </div>
       </div>
     </div>
   </div>

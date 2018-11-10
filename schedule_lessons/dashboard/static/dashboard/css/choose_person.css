@@ -7,6 +7,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
 @font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 @font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: BebasNeueRegular; src: url("../fonts/BebasNeue-Regular.ttf");}
 
@@ -27,7 +28,7 @@ html body {
 
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
-  font-family: AvenirNext-DemiBold;
+  font-family: avenir-next-demibold;
   padding-top: 0.15%;
   padding-bottom: 0.15%;
   margin-right: 5%;
@@ -41,13 +42,123 @@ html body {
   padding-right: 15px;
 }
 
-#myName:hover {
+#linksDropdownLink, #notifcationsDropdownLink {
+  padding: 0;
+}
+
+#notifcationsDropdownLink {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25px;
+  font-size: 150%;
+}
+
+.fa-bell {
+  text-align:center;
+  vertical-align:middle;
+  position: relative;
+}
+
+.notification-badge::after {
+  content:attr(data-count);
+  position: absolute;
+  background: #D14F52;
+  height: 1.2rem;
+  width: 1.2rem;
+  bottom: 0.8rem;
+  left: 0.5rem;
+  text-align: center;
+  line-height: 1rem;;
+  font-size: 0.6rem;
+  border-radius: 50%;
+  color:white;
+  border: 1px solid #D14F52;
+}
+
+#notificationsDropdownPane {
+  height: 400px;
+  width: 500px;
+  overflow-x: hidden;
+}
+
+#notifcationsDropdownHeaderTitle {
+  margin-bottom: 0;
+  text-align: center;
+  font-family: avenir-next-demibold;
+  font-size: 110%;
+}
+
+#notifcationsDropdownHeaderDivider {
+  margin-top: 0.5rem;
+  margin-bottom: 0rem;
+  border-top: 1px solid #4a4a4a;
+}
+
+.unread-notification-container {
+  background-color: rgba(229, 79, 82, .2);
+}
+
+.unread-notification-container:hover {
+  background-color: rgba(229, 79, 82, .25);
+}
+
+.read-notification-container {
+  background-color: rgba(229, 229, 229, 0.5);
+}
+
+.read-notification-container:hover {
+  background-color: rgba(219, 219, 219, 0.8);
+}
+
+.notification-container {
+  padding: 10px;
+  border-bottom: 1px solid #4a4a4a;
+  display: table;
+  width: 100%;
+}
+
+.notification-picture-container {
+  height: 100%;
+  display: table-cell;
+}
+
+.notification-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #4a4a4a;
+}
+
+.notification-message {
+  margin-left: 7.5px;
+  display: block;
+  color: #4a4a4a;
+}
+
+.notification-button {
+  width: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #4a4a4a;
+  margin-left: 10px;
+  height: 20px;
+  border-radius: 0.6rem;
+}
+
+#linksDropdownLink #userPicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid white;
   cursor: pointer;
 }
 
 #myDropdown {
   position: absolute;
   text-align: center;
+  margin-top: 7px;
 }
 
 .dropdown-options {
@@ -65,6 +176,7 @@ html body {
 #openNavigation {
   margin-right: 15px;
 }
+
 
 #extendedNavbar {
   background-color: #D14F52;
@@ -140,7 +252,7 @@ html body {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
-    font-family: AvenirNext-DemiBold;
+    font-family: avenir-next-demibold;
     padding-top: 0.15%;
     padding-bottom: 0.15%;
     margin-right: auto;
@@ -185,18 +297,14 @@ html body {
 
 #mainTitle {
   font-size: 220%;
-  font-family: adam-cg-pro;
-  margin: 40px auto;
-}
-
-.student {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
+  font-family: avenir-next-regular;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
-.tutor {
+.relationship-container {
   width: 400px;
   margin: 0 auto;
   border: 2px solid #4A4A4A;
@@ -209,24 +317,25 @@ html body {
   height: 70px;
 }
 
-.student-pfp-container {
+.relationship-pfp-container {
   height: 100%;
   background-color: #D14F52;
 }
 
-.student-pfp {
+.relationship-pfp {
+  border-radius: 50%;
   height: 100%;
   border-right: 2px solid #4A4A4A;
 }
 
-.student-main-info {
+.relationship-main-info {
   height: 70px;
   background-color: white;
   width: 100%;
   padding-left: 1%;
 }
 
-.student-name {
+.relationship-profile-name {
   padding-top: 0.5%;
   font-family: BebasNeueRegular;
   text-align: left;
@@ -235,41 +344,11 @@ html body {
   color: #4a4a4a;
 }
 
-.student-link:hover {
+.relationship-profile-link:hover {
   color: black;
 }
 
-.tutor-pfp-container {
-  height: 100%;
-  background-color: #D14F52;
-}
-
-.tutor-pfp {
-  height: 100%;
-  border-right: 2px solid #4A4A4A;
-}
-
-.tutor-main-info {
-  height: 70px;
-  background-color: white;
-  width: 100%;
-  padding-left: 1%;
-}
-
-.tutor-name {
-  padding-top: 0.5%;
-  font-family: BebasNeueRegular;
-  text-align: left;
-  font-size: 200%;
-  margin-bottom: 0;
-  color: #4a4a4a;
-}
-
-.tutor-link:hover {
-  color: black;
-}
-
-.extended-field {
+.relationship-extra-field {
   text-align: left;
   margin-bottom: 0;
   color: #4F4F4F;
@@ -279,6 +358,16 @@ html body {
   display: block;
 }
 
-.extended-detail {
+.relationship-extra-detail {
   font-family: avenir-next-regular;
+}
+
+.details {
+  float: left;
+  padding-left: 5px;
+}
+
+.details-and-buttons {
+  background-color: white;
+  width: 100%;
 }
