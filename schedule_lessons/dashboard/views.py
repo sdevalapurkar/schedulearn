@@ -66,7 +66,7 @@ def agenda(request):
     if context['rescheduled_successful']:
         context['successful_schedule_msg'] = "You've successfully rescheduled " + request.GET.get('lesson')
 
-    context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+    context['notifications'] = Notification.objects.filter(user=request.user).order_by('-created_on')
     context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
     return render(request, 'dashboard/agenda.html', context)
 
@@ -138,7 +138,7 @@ def save_gcalendar_lesson(request, lesson_id):
 @login_required
 def relationships(request):
     context = {
-        'notifications':  list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+        'notifications':  Notification.objects.filter(user=request.user).order_by('-created_on'),
         'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
     }
     if request.user.profile.user_type == 'tutor':
@@ -236,7 +236,7 @@ def public_profile(request, user_id):
                     context['add_student_url'] = '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
                 else:
                     context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-            context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+            context['notifications'] = Notification.objects.filter(user=request.user).order_by('-created_on')
             context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
 
         return render(request, 'dashboard/public_profile.html', context)
@@ -350,7 +350,7 @@ def remove_tutor(request, tutor_id):
 @login_required
 def choose_person(request):
         context = {
-            'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+            'notifications': Notification.objects.filter(user=request.user).order_by('-created_on'),
             'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
         }
         if request.user.profile.user_type == 'tutor':
@@ -393,7 +393,6 @@ def schedule_lesson(request, user_id):
         'user_id': user_id,
         'days_of_the_week': DAYS_OF_THE_WEEK,
         'status': 500,
-        'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
         'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True)),
     }
     if request.method == 'POST':
@@ -403,6 +402,7 @@ def schedule_lesson(request, user_id):
     else:
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
         context['availabilities'] = return_availabilities(user_id)
+        context['notifications'] = Notification.objects.filter(user=request.user).order_by('-created_on')
         return render(request, 'dashboard/schedule_lesson.html', context)
 
 @login_required
@@ -451,7 +451,7 @@ def reschedule_lesson(request, lesson_id):
         context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
         return JsonResponse(context)
     else:
-        context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+        context['notifications'] = Notification.objects.filter(user=request.user).order_by('-created_on')
         context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
         if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
@@ -477,7 +477,7 @@ def my_profile(request):
         'reset_email': request.GET.get('reset_email', False),
         'days_of_the_week': DAYS_OF_THE_WEEK,
         'password_change': request.GET.get('password_change', False),
-        'notifications':  list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+        'notifications':  Notification.objects.filter(user=request.user).order_by('-created_on'),
         'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
     })
 
@@ -579,7 +579,7 @@ def edit_profile(request):
             skills.append(skill.skill)
         return render(request, 'dashboard/edit_profile.html', {
             'skills': skills,
-            'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+            'notifications': Notification.objects.filter(user=request.user).order_by('-created_on'),
             'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True)) })
 
 @login_required
@@ -623,7 +623,7 @@ def edit_availability(request):
             return JsonResponse(context)
     else:
         context['availabilities'] = return_availabilities(request.user.profile.id)
-        context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+        context['notifications'] = Notification.objects.filter(user=request.user).order_by('-created_on')
         context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
         return render(request, 'dashboard/edit_availability.html', context)
 
