@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('#notifcationsDropdownLink').click(function() {
-      if (document.getElementById("notificationIcon").hasAttribute("data-count")) {
+      var attr = $(this).attr('data-count');
+      if (typeof attr !== typeof undefined && attr !== false) {
         $('#notificationIcon').removeAttr("data-count");
         $('#notificationIcon').removeClass("notification-badge");
       }
