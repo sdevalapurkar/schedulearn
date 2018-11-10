@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from accounts.models import *
 from .models import *
 from accounts.models import Availability, return_availabilities, return_skills
 from django.contrib.auth.models import User
@@ -65,6 +66,8 @@ def agenda(request):
     if context['rescheduled_successful']:
         context['successful_schedule_msg'] = "You've successfully rescheduled " + request.GET.get('lesson')
 
+    context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+    context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
     return render(request, 'dashboard/agenda.html', context)
 
 
@@ -134,54 +137,50 @@ def save_gcalendar_lesson(request, lesson_id):
 
 @login_required
 def relationships(request):
+    context = {
+        'notifications':  list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+        'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
+    }
     if request.user.profile.user_type == 'tutor':
         requests_from_students = []
-        requests_to_students = []
+        requested_students = []
         accepted_students = []
         relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_students.append(relationship.student)
+                    requested_students.append(relationship.student)
                 else:
                     requests_from_students.append(relationship.student)
             else:
                 accepted_students.append(relationship.student)
         no_results_found = request.GET.get('no_search_result')
+        context['requests_to_students'] = requests_to_students
+        context['accepted_students'] = accepted_students
+        context['requests_from_students'] = requests_from_students
         if no_results_found:
-            return render(request, 'dashboard/relationships.html', {
-            'accepted_students': accepted_students,
-            'requests_from_students': requests_from_students,
-            'requests_to_students':requests_to_students,
-            'no_results': 'No results were found' })
-        return render(request, 'dashboard/relationships.html', {
-            'accepted_students': accepted_students,
-            'requests_from_students': requests_from_students,
-            'requests_to_students':requests_to_students })
+            context['no_results'] = 'No results were found'
+        return render(request, 'dashboard/relationships.html', context)
     else:
         requests_from_tutors = []
-        requests_to_tutors = []
+        requested_tutors = []
         accepted_tutors = []
         relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
         for relationship in relationships:
             if relationship.pending:
                 if relationship.created_by == request.user:
-                    requests_to_tutors.append(relationship.tutor)
+                    requested_tutors.append(relationship.tutor)
                 else:
                     requests_from_tutors.append(relationship.tutor)
             else:
                 accepted_tutors.append(relationship.tutor)
         no_results_found = request.GET.get('no_search_result')
+        context['requests_to_tutors'] = requests_to_tutors
+        context['accepted_tutors'] = accepted_tutors
+        context['requests_from_tutors'] = requests_from_tutors
         if no_results_found:
-            return render(request, 'dashboard/relationships.html', {
-            'accepted_tutors': accepted_tutors,
-            'requests_from_tutors': requests_from_tutors,
-            'requests_to_tutors':requests_to_tutors,
-            'no_results': 'No results were found' })
-        return render(request, 'dashboard/relationships.html', {
-        'accepted_tutors': accepted_tutors,
-        'requests_from_tutors': requests_from_tutors,
-        'requests_to_tutors':requests_to_tutors })
+            context['no_results'] = 'No results were found'
+        return render(request, 'dashboard/relationships.html', context)
 
 @login_required
 def search(request):
@@ -222,21 +221,23 @@ def public_profile(request, user_id):
                     context['rel_created_by_request_user'] = True
                 if request.user != relationship.created_by and relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['add_student_url'] =  + '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['add_tutor_url'] = '{}dashboard/add_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
                 elif not relationship.pending:
                     if request.user.profile.user_type == 'tutor':
-                        context['remove_student_url'] = request.build_absolute_uri('/') + 'dashboard/remove_student/' + str(user_id)
+                        context['remove_student_url'] = '{}dashboard/remove_student/{}'.format(request.build_absolute_uri('/'), user_id)
                     else:
-                        context['remove_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/remove_tutor/' + str(user_id)
+                        context['remove_tutor_url'] = '{}dashboard/remove_tutor/{}'.format(request.build_absolute_uri('/'), user_id)
             else:
                 if request.user.profile.user_type == 'tutor':
-                    context['add_student_url'] = request.build_absolute_uri('/') + 'dashboard/add_student/' + str(user_id)
+                    context['add_student_url'] = '{}dashboard/add_student/{}'.format(request.build_absolute_uri('/'), user_id)
                 else:
                     context['add_tutor_url'] = request.build_absolute_uri('/') + 'dashboard/add_tutor/' + str(user_id)
+            context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+            context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
 
         return render(request, 'dashboard/public_profile.html', context)
 
@@ -259,11 +260,18 @@ def add_student(request, student_id):
             if relationship.pending and relationship.created_by != request.user:
                 relationship.pending = False
                 relationship.save()
+                message = "{} has accepted your friend request.".format(request.user.get_full_name())
+                url = "/dashboard/profile/{}".format(request.user.profile.id)
+                Notification(user=student, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
             else:
                 return HttpResponse(status=400)
         else:
             new_rel = Relationship(student=student, tutor=request.user, created_by=request.user, pending=True)
             new_rel.save()
+            url = "/dashboard/profile/{}".format(request.user.profile.id)
+            message = "{} has sent out a friend request.".format(request.user.get_full_name())
+            Notification(user=student, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
+
         return redirect('relationships')
     else:
         return HttpResponse(status=403)
@@ -304,11 +312,17 @@ def add_tutor(request, tutor_id):
             if relationship.pending and relationship.created_by != request.user:
                 relationship.pending = False
                 relationship.save()
+                message = "{} has accepted your friend request.".format(request.user.get_full_name())
+                url = "/dashboard/profile/{}".format(request.user.profile.id)
+                Notification(user=tutor, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
             else:
                 return HttpResponse(status=400)
         else:
             new_rel = Relationship(student=request.user, tutor=tutor, created_by=request.user, pending=True)
             new_rel.save()
+            url = "/dashboard/profile/{}".format(request.user.profile.id)
+            message = "{} has sent out a friend request.".format(request.user.get_full_name())
+            Notification(user=tutor, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
         return redirect('relationships')
     else:
         return HttpResponse(status=403)
@@ -335,9 +349,13 @@ def remove_tutor(request, tutor_id):
 
 @login_required
 def choose_person(request):
+        context = {
+            'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+            'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
+        }
         if request.user.profile.user_type == 'tutor':
             students = []
-            relationships = Relationship.objects.filter(tutor=request.user) # will return a list that is a list of tutors that the current student has added.
+            relationships = Relationship.objects.filter(tutor=request.user, pending=False) # will return a list that is a list of tutors that the current student has added.
             for relationship in relationships:
                 url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.student.profile.id)
                 student_data = {
@@ -345,16 +363,15 @@ def choose_person(request):
                     'last_name': relationship.student.last_name,
                     'email': relationship.student.email,
                     'profile_pic': relationship.student.profile.profile_pic,
-                    'id': relationship.student.profile.id,
-                }
+                    'id': relationship.student.profile.id }
                 students.append(student_data)
-            no_results_found = request.GET.get('no_search_result')
-            if no_results_found:
-                return render(request, 'dashboard/choose_person.html', {'students': students, 'no_results': 'No results were found'})
+            context['students'] = students
+            if request.GET.get('no_search_result'):
+                context['no_results'] = "No results were found"
             return render(request, 'dashboard/choose_person.html', {'students': students})
         else:
             tutors = []
-            relationships = Relationship.objects.filter(student=request.user) # will return a list that is a list of tutors that the current student has added.
+            relationships = Relationship.objects.filter(student=request.user, pending=False) # will return a list that is a list of tutors that the current student has added.
             for relationship in relationships:
                 url = request.build_absolute_uri('/') + 'dashboard/profile/' + str(relationship.tutor.profile.id)
                 tutor_data = {
@@ -365,17 +382,19 @@ def choose_person(request):
                     'id': relationship.tutor.profile.id,
                 }
                 tutors.append(tutor_data)
-            no_results_found = request.GET.get('no_search_result')
-            if no_results_found:
-                return render(request, 'dashboard/choose_person.html', {'tutors': tutors, 'no_results': 'No results were found'})
-            return render(request, 'dashboard/choose_person.html', {'tutors': tutors})
+            context['tutors'] = tutors
+            if request.GET.get('no_search_result'):
+                context['no_results'] = "No results were found"
+            return render(request, 'dashboard/choose_person.html', context)
 
 @login_required
 def schedule_lesson(request, user_id):
     context = {
         'user_id': user_id,
         'days_of_the_week': DAYS_OF_THE_WEEK,
-        'status': 500
+        'status': 500,
+        'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+        'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True)),
     }
     if request.method == 'POST':
         new_lesson = Lesson()
@@ -391,10 +410,15 @@ def confirm_lesson(request, lesson_id):
     try:
         lesson_to_confirm = Lesson.objects.get(id=lesson_id)
         if lesson_to_confirm and (lesson_to_confirm.tutor == request.user or lesson_to_confirm.student == request.user) and request.user != lesson_to_confirm.created_by:
+            person_to_schedule_with = lesson_to_confirm.tutor if lesson_to_confirm.tutor != request.user else lesson_to_confirm.student
             lesson_to_confirm.pending = False
             lesson_to_confirm.save()
+            url = "/dashboard/agenda/"
+            message = "{} has accepted your request to schedule lesson: '{}'".format(request.user.get_full_name(), lesson_to_confirm.name)
+            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
         return redirect('agenda')
-    except Exception:
+    except Exception as e:
+        print(str(e))
         return redirect('agenda')
 
 @login_required
@@ -402,9 +426,13 @@ def decline_lesson(request, lesson_id):
     try:
         lesson_to_delete = Lesson.objects.get(id=lesson_id)
         if lesson_to_delete and (lesson_to_delete.tutor == request.user or lesson_to_delete.student == request.user):
+            person_to_schedule_with = lesson_to_delete.tutor if lesson_to_delete.tutor != request.user else lesson_to_delete.student
+            url = "/dashboard/agenda/"
+            message = "{} has declined your request to schedule lesson: '{}'".format(request.user.get_full_name(), lesson_to_delete.name) if lesson_to_delete.pending else "{} has cancelled your lesson: '{}'".format(request.user.get_full_name(), lesson_to_delete.name)
+            Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
             lesson_to_delete.delete()
         return redirect('agenda')
-    except Exception:
+    except Exception as e:
         return redirect('agenda')
 
 @login_required
@@ -419,10 +447,12 @@ def reschedule_lesson(request, lesson_id):
         'status': 500
     }
     if request.method == 'POST':
-        context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
         context['rescheduled_lesson'] = True
+        context = error_check_and_save_lesson(request, lesson_to_reschedule, context)
         return JsonResponse(context)
     else:
+        context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+        context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
         context['person_to_schedule_with'] = User.objects.get(profile__id=context['user_id'])
         if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user or lesson_to_reschedule.student == request.user):
             context['availabilities'] = return_availabilities(context['person_to_schedule_with'].profile.id)
@@ -446,7 +476,9 @@ def my_profile(request):
         'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
         'days_of_the_week': DAYS_OF_THE_WEEK,
-        'password_change': request.GET.get('password_change', False)
+        'password_change': request.GET.get('password_change', False),
+        'notifications':  list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+        'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True))
     })
 
 @login_required
@@ -510,6 +542,11 @@ def edit_profile(request):
             request.user.profile.bio = request.POST['bio']
             # then handle email
             email = request.POST['email']
+            skills = request.POST.getlist('tags')
+            Skill.objects.filter(profile=request.user.profile).delete()
+            for skill in skills:
+                Skill(profile=request.user.profile, skill=skill).save()
+
             if not email == request.user.email: # if the emails are not same that means the user changed emails
                 # send a mail
                 request.user.email = email
@@ -536,7 +573,14 @@ def edit_profile(request):
             request.user.save()
             return redirect('my_profile')
     else:
-        return render(request, 'dashboard/edit_profile.html', {'user': request.user, })
+        skills = []
+        skills_db = Skill.objects.filter(profile=request.user.profile)
+        for skill in skills_db:
+            skills.append(skill.skill)
+        return render(request, 'dashboard/edit_profile.html', {
+            'skills': skills,
+            'notifications': list(Notification.objects.filter(user=request.user).order_by('-created_on')),
+            'unread_notifications': len(Notification.objects.filter(user=request.user, unread=True)) })
 
 @login_required
 def edit_availability(request):
@@ -579,6 +623,8 @@ def edit_availability(request):
             return JsonResponse(context)
     else:
         context['availabilities'] = return_availabilities(request.user.profile.id)
+        context['notifications'] = list(Notification.objects.filter(user=request.user).order_by('-created_on'))
+        context['unread_notifications'] = len(Notification.objects.filter(user=request.user, unread=True))
         return render(request, 'dashboard/edit_availability.html', context)
 
 @login_required
@@ -590,10 +636,28 @@ def delete_availability(request, availability_id):
     except:
         return HttpResponse(status=404)
 
+@login_required
+def clear_notifications(request):
+    notifications = Notification.objects.filter(user=request.user, unread=True)
+    for notification in notifications:
+        notification.unread = False
+        notification.save()
+    return HttpResponse(status=200)
+
 # Error Checking Functions
 
 def error_check_and_save_lesson(request, lesson, context):
     person_to_schedule_with = User.objects.get(profile__id=context['user_id'])
+    rel_exists = relationship_exists(person_to_schedule_with, request.user)
+    if rel_exists:
+        try:
+            relationship = Relationship.objects.get(tutor=person_to_schedule_with, student=request.user)
+        except:
+            relationship = Relationship.objects.get(tutor=request.user, student=person_to_schedule_with)
+        if relationship.pending:
+            context['pending_relationship_error'] = True
+    else:
+        context['no_relationship_error'] = True
     # Get lesson timezone when (re)scheduling lessons
     time_difference = datetime.timezone(datetime.timedelta(minutes=int(request.POST.get('timezoneInfo',''))))
     # Get lesson name when (re)scheduling lessons
@@ -628,7 +692,7 @@ def error_check_and_save_lesson(request, lesson, context):
     lesson.tutor = request.user if request.user.profile.user_type == 'tutor' else person_to_schedule_with
     lesson.student = request.user if request.user.profile.user_type == 'student' else person_to_schedule_with
 
-    if not context.get('no_name_error') and not context.get('no_location_error') and not context.get('no_date_error') and not context.get('no_starting_time_error') and not context.get('no_ending_time_error') and not context.get('bigger_start_time_error'):
+    if not context.get('no_name_error') and not context.get('no_location_error') and not context.get('no_date_error') and not context.get('no_starting_time_error') and not context.get('no_ending_time_error') and not context.get('bigger_start_time_error') and not context.get('pending_relationship_error') and not context.get('no_relationship_error'):
         start_time_in_local_time = datetime.datetime.combine(date, start_time, time_difference)
         if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
             context['past_lesson_error'] = "Fix starting time or date of lesson to make sure it's after current time."
@@ -639,5 +703,8 @@ def error_check_and_save_lesson(request, lesson, context):
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE) # store ending time in UTC
         lesson.created_by = request.user
         lesson.save()
+        url = "/dashboard/agenda/"
+        message = "{} has rescheduled the lesson: {}".format(request.user.get_full_name(), lesson.name) if context.get('rescheduled_lesson', False) else "{} has requested to schedule lesson '{}' with you.".format(request.user.get_full_name(), lesson.name)
+        Notification(user=person_to_schedule_with, message=message, created_on=datetime.datetime.now(), picture=request.user.profile.profile_pic, link=url).save()
         context['schedule_success'] = "Your Lesson '" + lesson.name + "' Was Scheduled Successfully"
     return context
