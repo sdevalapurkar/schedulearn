@@ -106,6 +106,11 @@ $(document).ready(function() {
       }
     });
   });
+
+  $('#removeRelationshipModal').on('show.bs.modal', function (e) {
+    document.getElementById('removeRelationshipConfirm').setAttribute("href", e.relatedTarget.href);
+  });
+
 });
 
 
