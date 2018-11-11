@@ -45,25 +45,6 @@ class Notification(models.Model):
     def __str__(self):
         return self.message
 
-# Will return a list of availabilities (dictionary) of the profile id, sorted by order Monday To Sunday.
-def return_availabilities(user_id):
-    availabilities = []
-    days_of_the_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    for day in days_of_the_week:
-        availabilities_in_day = Availability.objects.filter(profile__id=user_id, day=day)
-        if availabilities_in_day:
-            for availability_in_day in availabilities_in_day:
-                availabilities.append(availability_in_day)
-
-    return availabilities
-
-def return_skills(user_id):
-    skills = []
-    skills_db = Skill.objects.filter(profile__id=user_id)
-    for skill in skills_db:
-        skills.append(skill.skill)
-    return skills
-
 # Below code is necessary
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
