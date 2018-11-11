@@ -1,3 +1,1 @@
-from django.db import models
-
-# Create your models here.
+'''Create database models. However the api app doesn't need models.'''
