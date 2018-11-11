@@ -198,7 +198,7 @@ def reset_password(request, user_id):
                 validate_password(context['user_password1'])
             except ValidationError as password_errors:
                 context['weak_password_errors'] = password_errors
-                return(request, 'accounts/reset_password.html', context)
+                return render(request, 'accounts/reset_password.html', context)
             user = User.objects.get(profile__id=user_id)
             user.set_password(context['user_password1'])
             user.save()
