@@ -601,6 +601,7 @@ def change_password(request):
             return JsonResponse(data)
 
         current_user.set_password(new_password1)
+        current_user.save()
         data['status_code'] = 200
         return JsonResponse(data)
     return HttpResponse(status=403)
