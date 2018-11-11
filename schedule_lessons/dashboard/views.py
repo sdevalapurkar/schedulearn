@@ -290,6 +290,7 @@ def remove_student(request, student_id):
         try:
             old_rel = Relationship.objects.get(student=student, tutor=request.user)
             old_rel.delete()
+            Lesson.objects.filter(student=student, tutor=request.user).delete()
             return redirect('relationships')
         except:
             return HttpResponse(status=400)
@@ -341,6 +342,7 @@ def remove_tutor(request, tutor_id):
         try:
             old_rel = Relationship.objects.get(student=request.user, tutor=tutor)
             old_rel.delete()
+            Lesson.objects.filter(tutor=tutor, student=request.user).delete()
             return redirect('relationships')
         except:
             return HttpResponse(status=400)
