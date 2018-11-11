@@ -61,11 +61,11 @@ def agenda(request):
     if no_results_found:
         context['no_results'] = 'No results were found'
     if context['scheduled_successful']:
-        context['successful_schedule_msg'] = "You've successfully scheduled {}"\
-                                             + request.GET.get('lesson')
+        context['successful_schedule_msg'] = ("You've successfully scheduled "
+                                             + request.GET.get('lesson'))
     if context['rescheduled_successful']:
-        context['successful_schedule_msg'] = "You've successfully rescheduled "\
-                                             + request.GET.get('lesson')
+        context['successful_schedule_msg'] = ("You've successfully rescheduled "
+                                             + request.GET.get('lesson'))
     context['notifications'] = Notification.objects.filter(
         user=request.user).order_by('-created_on')
     context['unread_notifications'] = len(Notification.objects.filter(
