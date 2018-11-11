@@ -1,6 +1,6 @@
+'''This module is used to create routes after /accounts/'''
 from django.urls import path, include
 from django.contrib.auth.views import logout
-
 from . import views
 
 urlpatterns = [
