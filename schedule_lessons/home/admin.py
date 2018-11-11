@@ -1,3 +1,3 @@
-from django.contrib import admin
-
-# Register your models here.
+'''This module is used to register individual home models of which there are
+   none.
+'''
