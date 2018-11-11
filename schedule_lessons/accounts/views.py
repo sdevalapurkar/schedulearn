@@ -1,192 +1,226 @@
+'''This module contains the views that render the webpages when the user wants
+    to go to a route.
+'''
+import base64
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-import base64
 from django.core.files.base import ContentFile
-from django.core.mail import get_connection, send_mail
+from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
-from schedule_lessons.local_settings import *
+from schedule_lessons.local_settings import (EMAIL_HOST, VERIFY_USER_EMAIL,
+                                             FORGET_PASSWORD_EMAIL,
+                                             EMAIL_HOST_PASSWORD, EMAIL_PORT)
+
 
 def signup_view(request):
+    '''This view handles the POST and GET request for signing a user up.'''
+    context = {}
     if request.method == 'POST':
-        email = request.POST['user_email']
-        fullName = request.POST['user_name']
-        passwordOne = request.POST['user_password1']
-        passwordTwo = request.POST['user_password2']
+        context['email'] = request.POST.get('user_email')
+        context['fullName'] = request.POST.get('user_name')
+        context['passwordOne'] = request.POST.get('user_password1')
+        context['passwordTwo'] = request.POST.get('user_password2')
         # User has send post request with information such as email, password
         # etc and they want to sign up.
-        if not email:
-            return render(request, 'accounts/sign_up.html', {'email_missing_error': 'Please enter a valid email address.', 'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+        if not context['email']:
+            context['email_missing_error'] = ('Please enter a valid email '
+                                              'address.')
+            return render(request, 'accounts/sign_up.html', context)
+        if not context['fullName']:
+            context['name_missing_error'] = 'Please enter your name.'
+            return render(request, 'accounts/sign_up.html', context)
 
-        if not fullName:
-            return render(request, 'accounts/sign_up.html', {'name_missing_error': 'Please enter your name.', 'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
-
-        if passwordOne == passwordTwo:
+        if context['passwordOne'] == context['passwordTwo']:
             # The user enterered the password correctly.
             try:
-                user = User.objects.get(email__iexact=email)
-                return render(request, 'accounts/sign_up.html', {'email_error': 'Email is already in use.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+                user = User.objects.get(email__iexact=context['email'])
+                context['email_error'] = 'Email is already in use.'
+                return render(request, 'accounts/sign_up.html', context)
             except User.DoesNotExist:
-                # If code gets here it means that email is not used and we can begin password validation.
+                # If code gets here it means that email is not used and we
+                # can begin password validation.
                 try:
-                    validate_password(passwordOne)
+                    validate_password(context['passwordOne'])
                 except ValidationError as password_errors:
-                    return render(request, 'accounts/sign_up.html', {'password_errors': password_errors,  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
+                    context['password_errors'] = password_errors
+                    return render(request, 'accounts/sign_up.html', context)
                     #password validated, ready to put user in database.
 
-                user = User.objects.create_user(email, email=email, password=passwordOne)
-                user.profile.fullName = fullName
-                fullName = fullName.split()
-                user.first_name = fullName[0]
-                if len(fullName) > 1:
-                    user.last_name = fullName[-1]
+                user = User.objects.create_user(context['email'],
+                                                email=context['email'],
+                                                password=context['passwordOne'])
+                user.profile.fullName = context['fullName']
+                context['fullName'] = context['fullName'].split()
+                user.first_name = context['fullName'][0]
+                if len(context['fullName']) > 1:
+                    user.last_name = context['fullName'][-1]
 
                 user.profile.profile_pic = 'default/man.png'
-                id = user.profile.id
+                user_id = user.profile.id
                 user.profile.has_signed_up = True
-                url = request.build_absolute_uri('/') + "accounts/verify_email/" + str(id)
+                url = '{}accounts/verify_email/{}'.format(
+                    request.build_absolute_uri('/'), user_id)
                 with get_connection(
-                    host=EMAIL_HOST,
-                    port=EMAIL_PORT,
-                    username=VERIFY_USER_EMAIL,
-                    password=EMAIL_HOST_PASSWORD,
-                    use_tls=True,
+                        host=EMAIL_HOST,
+                        port=EMAIL_PORT,
+                        username=VERIFY_USER_EMAIL,
+                        password=EMAIL_HOST_PASSWORD,
+                        use_tls=True,
                 ) as connection:
                     EmailMessage("Schedulearn - Verify Your Email Address",
-                                 "Click on the following link to verify your email address\n\n" + url,
+                                 ("Click on the following link to verify your"
+                                  "email address\n\n" + url),
                                  VERIFY_USER_EMAIL,
                                  [user.email],
                                  connection=connection).send()
                 user.save()
-                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                login(request, user,
+                      backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('personalize')
 
         else:
-            return render(request, 'accounts/sign_up.html', {'unmatching_password_error': 'Passwords do not match.',  'email': email, 'fullName':fullName, 'password1':passwordOne, 'password2':passwordTwo})
-    else:
-        #User want to access homepage.
-        if request.user.is_anonymous:
-            # if the user is not logged in, just send him to the sign up page.
-            return render(request, "accounts/sign_up.html")
-        else:
-            # user is already signed in. so take him to the dashboard page.
-            return redirect('agenda')
+            context['unmatching_password_error'] = 'Passwords do not match.'
+    if not request.user.is_anonymous:
+        # user is already signed in. so take him to the dashboard page.
+        return redirect('agenda')
+    return render(request, 'accounts/sign_up.html', context)
 
 
 def login_view(request):
+    '''This view handles the POST and GET request for logging a user in.'''
+    context = {}
     if request.method == 'POST':
-        email = request.POST['user_email'] # can be username or email
-        password = request.POST['user_password']
+        context['email'] = request.POST.get('user_email')
+        context['password'] = request.POST.get('user_password')
         #check if email first.
         try:
-            user = User.objects.get(email__iexact=email) #searches the database if email exists, ignores case
+            #searches the database if email exists, ignores case
+            user = User.objects.get(email__iexact=context['email'])
         except User.DoesNotExist:
-            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid username/password combination', 'email': email, 'password': password})
+            context['sign_in_error'] = 'Invalid username/password combination'
+            return render(request, 'accounts/sign_in.html', context)
 
-        valid_combination = user.check_password(password) # is a boolean, true if valid login.
-        if valid_combination:
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            if not user.profile.user_type:
+        if user.check_password(context['password']):
+            login(request, user,
+                  backend='django.contrib.auth.backends.ModelBackend')
+            if not user.profile.has_signed_up:
                 return redirect('personalize')
-            else:
-                return redirect('agenda')
-        else:
-            return render(request, 'accounts/sign_in.html', {'sign_in_error': 'Invalid email/password combination', 'email': email, 'password': password})
+            return redirect('agenda')
+        context['sign_in_error'] = 'Invalid username/password combination'
+        return render(request, 'accounts/sign_in.html', context)
 
-    else:
-        reset = request.GET.get('reset', False)
-        if reset:
-            return render(request, "accounts/sign_in.html", {'reset_password': 'Your password has been resetted. You can log in now.'})
-        else:
-            if request.user.is_anonymous:
-                # if the user is not logged in, just send him to the sign up page.
-                return render(request, "accounts/sign_in.html")
-            else:
-                # user is already signed in. so take him to the agenda page.
-                return redirect('agenda')
+    if not request.user.is_anonymous:
+        # user is already signed in. so take him to the agenda page.
+        return redirect('agenda')
+    if request.GET.get('reset', False):
+        context['reset_password'] = ('Your password has been resetted. '
+                                     'You can log in now.')
+    return render(request, "accounts/sign_in.html", context)
 
 
 @login_required
 def personalize_view(request):
+    '''This view handles the POST and GET request for the personalize webpage'''
+    context = {
+        'user': request.user
+        }
     if request.method == 'POST':
-        if request.POST.get('profile_pic', '') != '':
-            cropped_img = request.POST['profile_pic']
-            format, imgstr = cropped_img.split(';base64,')
-            ext = format.split('/')[-1]
-            cropped_img = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+        if request.POST.get('profile_pic', False):
+            cropped_img = request.POST.get('profile_pic')
+            img_format, imgstr = cropped_img.split(';base64,')
+            ext = img_format.split('/')[-1]
+            cropped_img = ContentFile(base64.b64decode(imgstr),
+                                      name='temp.' + ext)
             request.user.profile.profile_pic = cropped_img
         if 'user-type' in request.POST:
-            if request.POST['user-type'] == 'tutor':
+            if request.POST.get('user-type') == 'tutor':
                 request.user.profile.user_type = 'tutor'
             else:
                 request.user.profile.user_type = 'student'
         if 'bio' in request.POST:
-            request.user.profile.bio = request.POST['bio']
+            request.user.profile.bio = request.POST.get('bio')
 
         request.user.save()
         return redirect('agenda')
-    else:
+    if request.method == 'GET':
         if request.user.profile.user_type:
             return redirect('agenda')
-        else:
-            return render(request, "accounts/personalize.html", {'user': request.user})
+    return render(request, "accounts/personalize.html", context)
 
 def forget_password(request):
+    '''This view handles the POST and GET request for when a user forgets their
+       password.
+    '''
+    context = {}
     if request.method == 'POST':
-        user_email = request.POST['user_email']
+        context['user_email'] = request.POST.get('user_email')
         try:
-            user = User.objects.get(email__iexact=user_email)
-            id = user.profile.id
-            # building the reset password url
-            url = request.build_absolute_uri('/') + "accounts/reset_password/" + str(id)
-            # example url: http://127.0.0.1:8000/accounts/reset_password/94c662bf-3542-4090-b776-29bebb1112f5
+            user = User.objects.get(email__iexact=context['user_email'])
+        except User.DoesNotExist:
+            context['email_error'] = "A user with this email doesn't exist."
+            return render(request, 'accounts/forget_password.html', context)
 
-            with get_connection(
+        user_id = user.profile.id
+        # building the reset password url
+        url = '{}accounts/reset_password/{}'.format(
+            request.build_absolute_uri('/'), user_id)
+        with get_connection(
                 host=EMAIL_HOST,
                 port=EMAIL_PORT,
                 username=FORGET_PASSWORD_EMAIL,
                 password=EMAIL_HOST_PASSWORD,
                 use_tls=True,
-            ) as connection:
-                EmailMessage("Schedulearn - Reset Your Password",
-                             "Go to the following link to reset your password:\n\n" + url + "\n\nIf you didn't request for this password reset, then just ignore this email.",
-                             FORGET_PASSWORD_EMAIL,
-                             [user_email],
-                             connection=connection).send()
-        except Exception as e:
-            return render(request, 'accounts/forget_password.html', {'email_error': "A user with this email doesn't exist.", 'user_email': user_email})
-        return render(request, 'accounts/forget_password.html', {'check_email':'Check your email for the reset link.', 'user_email': user_email})
-    else:
-        return render(request, 'accounts/forget_password.html')
+        ) as connection:
+            EmailMessage("Schedulearn - Reset Your Password",
+                         ("Go to this link to reset your password:\n\n"
+                          + url + "\n\nIf you didn't request for this "
+                          "password reset, then just ignore this email."),
+                         FORGET_PASSWORD_EMAIL,
+                         [context['user_email']],
+                         connection=connection).send()
+        context['check_email'] = 'Check your email for the reset link.'
+    return render(request, 'accounts/forget_password.html', context)
 
-def reset_password(request, id):
+def reset_password(request, user_id):
+    '''This view handles the POST and GET request for when a user wants to
+       reset their password.
+    '''
+    context = {}
     if request.method == 'POST':
-        password1 = request.POST['user_password1']
-        password2 = request.POST['user_password2']
-        if password1 == password2:
+        context['user_password1'] = request.POST.get('user_password1')
+        context['user_password2'] = request.POST.get('user_password2')
+        if context['user_password1'] == context['user_password2']:
             try:
-                validate_password(password1)
+                validate_password(context['user_password1'])
             except ValidationError as password_errors:
-                return(request, 'accounts/reset_password.html', {'weak_password_errors': password_errors, 'user_password1': password1, 'user_password2': password2})
-            user = User.objects.get(profile__id=id)
-            user.set_password(password1)
+                context['weak_password_errors'] = password_errors
+                return(request, 'accounts/reset_password.html', context)
+            user = User.objects.get(profile__id=user_id)
+            user.set_password(context['user_password1'])
             user.save()
             response = redirect('login')
             response['Location'] += '?reset=true'
             return response
         else:
-            return render(request, 'accounts/reset_password.html', {'unmatching_password_error': 'Passwords do not match.', 'user_password1': password1, 'user_password2': password2})
-    return render(request, 'accounts/reset_password.html')
+            context['unmatching_password_error'] = 'Passwords do not match.'
+    return render(request, 'accounts/reset_password.html', context)
 
 
-def verify_email(request, id):
+def verify_email(request, user_id):
+    '''This view handles the GET request for verifying a user's email. If they
+    go to this link, they'll automatically get verified if the id is valid in
+    the url.
+    '''
+    context = {}
     try:
-        user = User.objects.get(profile__id=id)
-    except:
-        return render(request, 'accounts/verify_email.html', {'status': 'This user does not exist.'})
-    user.profile.email_verified = True
-    user.save()
-    return render(request, 'accounts/verify_email.html', {'status': 'Your email address has been verified!'})
+        user = User.objects.get(profile__id=user_id)
+        user.profile.email_verified = True
+        user.save()
+        context['status'] = 'Your email address has been verified!'
+    except User.DoesNotExist:
+        context['status'] = 'This user does not exist.'
+    return render(request, 'accounts/verify_email.html', context)
