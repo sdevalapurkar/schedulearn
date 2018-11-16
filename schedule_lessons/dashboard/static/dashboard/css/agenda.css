@@ -93,21 +93,46 @@ html body {
   margin-right: 4px;
 }
 
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #searchBar {
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
   right: 0.1%;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
 }
 
 #searchInput {
-  padding-left: 15px;
-  padding-right: 36px;
+  padding-left: 5px;
+  /* padding-right: 36px; */
   height: 30px;
-  margin-right: .5rem;
+  /* margin-right: .5rem; */
   text-align: left;
-  width: 275px;
-  border-radius: 1.25rem;
+  /* width: 275px; */
+  /* border-radius: 1.25rem; */
+}
+
+.no-border{
+  border: 0px solid #ced4da;
+}
+
+.rounded{
+  border-radius: 100px !important;
+  border: 0px solid #ced4da;
+}
+
+.more-options{
+  color: white;
+  font-weight: bold;
 }
 
 #submitBtn {
@@ -128,21 +153,61 @@ html body {
    color: #595959;
 }
 
+@media (min-width: 576px){
+  #pro_options{
+    display: none !important;
+  }
+
+  .lesson{
+    width: 80% !important;
+  }
+
+  .option-icon{
+    display: none !important;
+  }
+}
+
+.profile-options-button{
+  margin-left: 10px;
+}
+
+@media (max-width: 576px){
+  .two-buttons, .three-buttons{
+    display: none;
+    margin-top: -125px;
+  }
+
+  @keyframes slideInOut {
+    from{transform: translateX(80px);}
+    to{transform: translateX(0px);}
+  }
+
+  .buttons-showHide{
+    display: block;
+    animation: slideInOut 0.3s ease-in-out;
+  }
+
+  @keyframes optionSlide {
+    from{transform: translateX(0px);}
+    to{transform: translateX(-80px);}
+  }
+
+  .slide-position{
+    animation: optionSlide 0.3s ease-in-out;
+    transform: translateX(-80px);
+  }
+}
+
 @media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
+
+  #picturePrompt{
+    height: auto !important;
+    width: inherit;
   }
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
-    font-family: AvenirNext-DemiBold;
+    font-family: avenir-next-demibold;
     padding-top: 0.15%;
     padding-bottom: 0.15%;
     margin-right: auto;
@@ -164,7 +229,7 @@ html body {
   #myDropdown {
     position: absolute;
     text-align: center;
-    left: 0;
+    margin-top: 7px;
     right: auto;
   }
 }
@@ -203,10 +268,16 @@ html body {
 }
 
 .lesson {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
   margin-bottom: 20px;
+}
+
+.option-icon{
+  color: #913537;
+  margin-right: 5px;
+  margin-top: 9px;
 }
 
 .main-information {

@@ -47,6 +47,7 @@ html body {
 
 #myDropdown {
   position: absolute;
+  margin-top: 7px;
   text-align: center;
 }
 
@@ -108,6 +109,17 @@ html body {
   border-radius: 1.25rem;
 }
 
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #submitBtn {
   color: #737373;
   position: absolute;
@@ -126,17 +138,16 @@ html body {
    color: #595959;
 }
 
+@media (min-width: 576px){
+.student, .tutor {
+  width: 400px !important;
+  margin: 0 auto !important;
+  border: 2px solid #4A4A4A;
+  margin-bottom: 20px;
+}
+}
+
 @media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
-  }
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
@@ -189,16 +200,9 @@ html body {
   margin: 40px auto;
 }
 
-.student {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
-  margin-bottom: 20px;
-}
-
-.tutor {
-  width: 400px;
-  margin: 0 auto;
+.tutor, .student{
+  width: auto;
+  margin: 0 10px;
   border: 2px solid #4A4A4A;
   margin-bottom: 20px;
 }

@@ -44,7 +44,42 @@ html body {
 
 #myDropdown {
   position: absolute;
+  margin-top: 7px;
   text-align: center;
+}
+
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
+#userPicture {
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
+}
+
+#myName {
+  padding: 0;
+}
+
+#myName:hover {
+  cursor: pointer;
+}
+
+#myName #userPicture {
+  width: auto;
+  height: 35px;
+}
+
+.pro-options{
+  font-weight: bold;
+  color: white;
 }
 
 .dropdown-options {
@@ -87,17 +122,13 @@ html body {
   margin-right: 4px;
 }
 
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
+@media (min-width: 576px){
+  #pro_options{
+    display: none !important;
   }
+}
+
+@media (max-width: 991.98px) {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;

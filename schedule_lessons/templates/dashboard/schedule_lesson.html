@@ -39,13 +39,15 @@
           {% endif %}
         </li>
       </ul>
+      <div class="dropdown-divider"></div>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
           <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="35" alt="/media/profile_pics/default/man.png">
           </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <div id="triangle-up"></div>
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
@@ -68,81 +70,95 @@
     {% endif %}
   </nav>
   <!-- end extended navbar for signed in users -->
-  {% if lesson_to_reschedule %}
-  <h1 id="editAvailabilityTitle">Reschedule '{{ lesson_to_reschedule.name }}'</h1>
-  {% else %}
-  <h1 id="editAvailabilityTitle">Schedule a Lesson</h1>
-  {% endif %}
-  <p id="scheduleVerification"></p>
-  <div id="currentAvailability">
-    <h4 class="edit-availability-subtitle">Availability for {{ person_to_schedule_with.first_name }} {{ person_to_schedule_with.last_name }}</h4>
-    <table id="availabilityTable">
-      <tr>
-        <th>DAY</th>
-        <th>FROM</th>
-        <th>TO</th>
-      </tr>
-      {% for day in days_of_the_week %}
-        {% define_variable 0 %}
-        {% for availability in availabilities %}
-          {% if availability.start_time|date:"l" == day %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12">
+        {% if lesson_to_reschedule %}
+        <h1 id="editAvailabilityTitle">Reschedule '{{ lesson_to_reschedule.name }}'</h1>
+        {% else %}
+        <h1 id="editAvailabilityTitle">Schedule a Lesson</h1>
+        {% endif %}
+        <p id="scheduleVerification"></p>
+    </div>
+    <div class="col-md-6">
+      
+      <div id="currentAvailability">
+        <h4 class="edit-availability-subtitle">Availability for {{ person_to_schedule_with.first_name }} {{ person_to_schedule_with.last_name }}</h4>
+        <table id="availabilityTable">
+          <tr>
+            <th>DAY</th>
+            <th>FROM</th>
+            <th>TO</th>
+          </tr>
+          {% for day in days_of_the_week %}
+            {% define_variable 0 %}
+            {% for availability in availabilities %}
+              {% if availability.start_time|date:"l" == day %}
+                <tr>
+                  <td class="day">{{ day }}</td>
+                  <td>{{ availability.start_time|date:"g:i A" }}</td>
+                  <td>{{ availability.end_time|date:"g:i A" }}</td>
+                </tr>
+                {% define_variable 1 %}
+              {% endif %}
+            {% endfor %}
+            {% get_variable as available %}
+            {% if not available %}
             <tr>
               <td class="day">{{ day }}</td>
-              <td>{{ availability.start_time|date:"g:i A" }}</td>
-              <td>{{ availability.end_time|date:"g:i A" }}</td>
+              <td class="unavailable" colspan="2">UNAVAILABLE</td>
             </tr>
-            {% define_variable 1 %}
+            {% endif %}
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    
+  <div class="col-md-6">
+    <div id="addAvailability">
+      <h4 class="edit-availability-subtitle">Details</h4>
+      <form id="scheduleForm" method="post">
+        {% csrf_token %}
+        <label id="titleLabel" for="name" class="input-label">Lesson Name</label>
+        <input id="titleInput" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
+        <label id="locationLabel"for="location" class="input-label">Lesson Location</label>
+        <input id="locationInput" class="form-control" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
+        <label id="dateLabel" for="date" class="input-label">Lesson Date</label>
+        <div class="input-group date" id="date" data-target-input="nearest">
+          <input id="dateInput" type="text" name="date" class="form-control datetimepicker-input" data-target="#date" value="{{ lesson_to_reschedule.start_time|date:'m/d/Y' }}"/>
+          <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
+        </div>
+        <label id="startTimeLabel" for="startingTime" class="input-label">Lesson Starting Time</label>
+        <div class="input-group time" id="startingTime" data-target-input="nearest">
+          <input id="startTimeInput" type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time|date:'g:i A' }}"/>
+          <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="far fa-clock"></i></div>
+          </div>
+        </div>
+        <label id="endTimeLabel" for="endingTime" class="input-label">Lesson Ending Time</label>
+        <div class="input-group time" id="endingTime" data-target-input="nearest">
+          <input id="endTimeInput" type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time|date:'g:i A' }}"/>
+          <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="far fa-clock"></i></div>
+          </div>
+        </div>
+        <p class="error-list"></p>
+        <div class="center">
+          {% if lesson_to_reschedule %}
+          <a id="addBtn" href="#">RESCHEDULE</a>
+          {% else %}
+          <a id="addBtn" href="#">SCHEDULE</a>
           {% endif %}
-        {% endfor %}
-        {% get_variable as available %}
-        {% if not available %}
-        <tr>
-          <td class="day">{{ day }}</td>
-          <td class="unavailable" colspan="2">UNAVAILABLE</td>
-        </tr>
-        {% endif %}
-      {% endfor %}
-    </table>
+        </div>
+      </form>
+    </div>
   </div>
-
-  <div id="addAvailability">
-    <h4 class="edit-availability-subtitle">Details</h4>
-    <form id="scheduleForm" method="post">
-      {% csrf_token %}
-      <label id="titleLabel" for="name" class="input-label">Lesson Name</label>
-      <input id="titleInput" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
-      <label id="locationLabel"for="location" class="input-label">Lesson Location</label>
-      <input id="locationInput" class="form-control" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
-      <label id="dateLabel" for="date" class="input-label">Lesson Date</label>
-      <div class="input-group date" id="date" data-target-input="nearest">
-        <input id="dateInput" type="text" name="date" class="form-control datetimepicker-input" data-target="#date" value="{{ lesson_to_reschedule.start_time|date:'m/d/Y' }}"/>
-        <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-        </div>
-      </div>
-      <label id="startTimeLabel" for="startingTime" class="input-label">Lesson Starting Time</label>
-      <div class="input-group time" id="startingTime" data-target-input="nearest">
-        <input id="startTimeInput" type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime" value="{{ lesson_to_reschedule.start_time|date:'g:i A' }}"/>
-        <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="far fa-clock"></i></div>
-        </div>
-      </div>
-      <label id="endTimeLabel" for="endingTime" class="input-label">Lesson Ending Time</label>
-      <div class="input-group time" id="endingTime" data-target-input="nearest">
-        <input id="endTimeInput" type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime" value="{{ lesson_to_reschedule.end_time|date:'g:i A' }}"/>
-        <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="far fa-clock"></i></div>
-        </div>
-      </div>
-      <p class="error-list"></p>
-      <div class="center">
-        {% if lesson_to_reschedule %}
-        <a id="addBtn" href="#">RESCHEDULE</a>
-        {% else %}
-        <a id="addBtn" href="#">SCHEDULE</a>
-        {% endif %}
-      </div>
-    </form>
   </div>
+</div>
+  
+  
 </body>
 </html>

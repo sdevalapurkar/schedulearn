@@ -44,7 +44,19 @@ html body {
 
 #myDropdown {
   position: absolute;
+  margin-top: 7px;
   text-align: center;
+}
+
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
 }
 
 .dropdown-options {
@@ -71,6 +83,17 @@ html body {
   padding: 8px 24px;
 }
 
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 .extended-button {
   font-size: 100%;
   color: #F4F4F4;
@@ -87,17 +110,21 @@ html body {
   margin-right: 4px;
 }
 
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
+@media (min-width: 576px){
+  #currentAvailability {
+    display: inline-block;
+    text-align: center;
     width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
   }
+
+  #addAvailability {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+  }
+}
+
+@media (max-width: 991.98px) {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
@@ -147,10 +174,8 @@ html body {
 }
 
 #currentAvailability {
-  display: inline-block;
   text-align: center;
-  width: 50%;
-  float: left;
+  width: 100%;
 }
 
 .edit-availability-subtitle {
@@ -161,8 +186,8 @@ html body {
 }
 
 #availabilityTable {
-  display: inline-block;
   text-align: center;
+  width: 100%;
 }
 
 #availabilityTable td, #availabilityTable th {
@@ -211,8 +236,7 @@ html body {
 #addAvailability {
   display: inline-block;
   text-align: center;
-  width: 50%;
-  float: right;
+  width: 100%;
 }
 
 #titleInput {

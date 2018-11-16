@@ -47,13 +47,15 @@
           {% endif %}
         </li>
       </ul>
+      <div class="dropdown-divider"></div>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
           <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="35" alt="/media/profile_pics/default/man.png">
           </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <div id="triangle-up"></div>
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
@@ -63,27 +65,75 @@
   </nav>
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
-  <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-      {% if user.profile.user_type == 'tutor' %}
-        {% if no_results %}
-          <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-          <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
-        {% endif %}
-      {% endif %}
+  <nav class="navbar navbar-expand-lg" id="extendedNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
+    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="more-options">More Options</span>
+    </button>
 
-      {% if user.profile.user_type == 'student' %}
-        {% if no_results %}
-          <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-          <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-        {% endif %}
-      {% endif %}
-      <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-    </form>
-  </nav>
+    <!-- This menu shows up on desktop version -->
+    <div class="collapse navbar-collapse">
+      <div class="col-md-10">
+          <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+      </div>
+      <div class="col-md-2 rounded bg-white">
+          <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+              {% if user.profile.user_type == 'tutor' %}
+              {% if no_results %}
+              <input id="searchInput" class="form-control no-border error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+              {% else %}
+              <input id="searchInput" class="form-control no-border" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+              {% endif %}
+              {% endif %}
+        
+              {% if user.profile.user_type == 'student' %}
+              {% if no_results %}
+              <input id="searchInput" class="form-control no-border error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+              {% else %}
+              <input id="searchInput" class="form-control no-border" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+              {% endif %}
+              {% endif %}
+              <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+      </div>
+    </div>
+
+     <!-- This menu is the formatted version to make it look nice on mobile -->
+    <div class="collapse navbar-collapse" id="pro_options">
+      <div class="dropdown-divider"></div>
+      <table class="table table-borderless">
+        <tr>
+          <td>
+            <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="col-md-2 bg-white rounded">
+              <form action="{% url 'search' %}" id="searchBar" class="form-inline border-0">
+                {% if user.profile.user_type == 'tutor' %}
+                {% if no_results %}
+                <input id="searchInput" class="form-control error-list no-border" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                {% else %}
+                <input id="searchInput" class="form-control no-border" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+                {% endif %}
+                {% endif %}
+              
+                {% if user.profile.user_type == 'student' %}
+                {% if no_results %}
+                <input id="searchInput" class="form-control no-border error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                {% else %}
+                <input id="searchInput" class="form-control no-border" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+                {% endif %}
+                {% endif %}
+                <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+              </form>
+            </div> 
+          </td>
+        </tr>
+      </table>
+     </div>
+    </nav>
   <!-- end extended navbar for signed in users -->
 
 <div id="main">
@@ -102,7 +152,7 @@
   <div class="student">
     <div class="main-information">
       <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile.profile_pic }}"></img>
+        <img class="student-pfp" src="/media/{{ student.profile.profile_pic }}" />
       </div>
       <div class="student-main-info">
         <a class="student-link" href="{% url 'public_profile' student.profile.id %}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
@@ -118,7 +168,7 @@
   <div class="tutor">
     <div class="main-information">
       <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile.profile_pic }}"></img>
+        <img class="tutor-pfp" src="/media/{{ tutor.profile.profile_pic }}" />
       </div>
       <div class="tutor-main-info">
         <a class="tutor-link" href="{% url 'public_profile' tutor.profile.id %}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>

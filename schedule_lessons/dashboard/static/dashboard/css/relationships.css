@@ -47,6 +47,7 @@ html body {
 
 #myDropdown {
   position: absolute;
+  margin-top: 7px;
   text-align: center;
 }
 
@@ -75,6 +76,17 @@ html body {
   position: relative;
 }
 
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 .extended-button {
   font-size: 100%;
   color: #F4F4F4;
@@ -92,20 +104,34 @@ html body {
 }
 
 #searchBar {
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
   right: 0.1%;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
 }
 
 #searchInput {
-  padding-left: 15px;
+  /* padding-left: 15px; */
   padding-right: 36px;
   height: 30px;
-  margin-right: .5rem;
+  /* margin-right: .5rem; */
   text-align: left;
-  width: 275px;
-  border-radius: 1.25rem;
+  /* width: 275px; */
+  /* border-radius: 1.25rem; */
+}
+
+.no-border{
+  border: 0px solid #ced4da;
+}
+
+.rounded{
+  border-radius: 100px !important;
+  border: 0px solid #ced4da;
+}
+
+.more-options{
+  color: white;
+  font-weight: bold;
 }
 
 #submitBtn {
@@ -126,18 +152,24 @@ html body {
    color: #595959;
 }
 
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
+@media (min-width: 576px){
+  #pro_options{
+    display: none !important;
   }
 
+  .student, .tutor {
+    width: 400px !important;
+    margin: 0 auto !important;
+    border: 2px solid #4A4A4A;
+    margin-bottom: 20px;
+  }
+}
+
+.profile-options-button{
+  margin-left: 10px;
+}
+
+@media (max-width: 991.98px) {
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
     font-family: AvenirNext-DemiBold;
@@ -162,16 +194,42 @@ html body {
   #myDropdown {
     position: absolute;
     text-align: center;
+    margin-top: 7px;
     left: 0;
     right: auto;
   }
 }
 /* END Navbar for logged in Users */
 
+#userPicture {
+  border-radius: 50%;
+  border: 2px solid #4A4A4A;
+}
+
+#myName {
+  padding: 0;
+}
+
+#myName:hover {
+  cursor: pointer;
+}
+
+#myName #userPicture {
+  width: auto;
+  height: 35px;
+}
+
 #picturePrompt {
   height: 300px;
   margin: 60px auto;
   display: block;
+}
+
+.tutor, .student{
+  width: auto;
+  margin: 0 10px;
+  border: 2px solid #4A4A4A;
+  margin-bottom: 20px;
 }
 
 .text-prompt {
@@ -189,19 +247,7 @@ html body {
   margin: 40px auto;
 }
 
-.student {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
-  margin-bottom: 20px;
-}
 
-.tutor {
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #4A4A4A;
-  margin-bottom: 20px;
-}
 
 .main-information {
   width: 100%;

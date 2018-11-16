@@ -38,10 +38,6 @@ html body {
   padding-right: 15px;
 }
 
-#myName {
-  padding: 0;
-}
-
 #myName:hover {
   cursor: pointer;
 }
@@ -108,8 +104,23 @@ html body {
   margin-right: 24px;
 }
 
+.pro-options{
+  color: white;
+  font-weight: bold;
+}
+
+@media (min-width: 576px){
+  #pro_options{
+    display: none !important;
+  }
+}
+
+.profile-options-button{
+  margin-left: 10px;
+}
+
 @media (max-width: 991.98px) {
-  #navbarContent {
+  /* #navbarContent {
     top: 70px;
     left: 10px;
     background-color: #4F4F4F;
@@ -118,7 +129,7 @@ html body {
     position: fixed;
     border-radius: .25rem;
     z-index: 2;
-  }
+  } */
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
@@ -286,7 +297,7 @@ html body {
   font-family: avenir-next;
 }
 
-/*  Ripple */
+ /* Ripple */
 .ripple {
   width: 0;
   height: 0;

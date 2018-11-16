@@ -47,10 +47,15 @@
           {% endif %}
         </li>
       </ul>
+      <div class="dropdown-divider"></div>
       <div class="navbar-nav">
         <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span></div>
+          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+          </div>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+            <div id="triangle-up"></div>
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
@@ -98,7 +103,7 @@
   <div class="student">
     <div class="main-information">
       <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile_pic }}"></img>
+        <img class="student-pfp" src="/media/{{ student.profile_pic }}" />
       </div>
       <div class="student-main-info">
         <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
@@ -114,7 +119,7 @@
   <div class="tutor">
     <div class="main-information">
       <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}"></img>
+        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}" />
       </div>
       <div class="tutor-main-info">
         <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
