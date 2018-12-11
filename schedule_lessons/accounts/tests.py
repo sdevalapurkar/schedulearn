@@ -1,3 +1,1 @@
-from django.test import TestCase
-
-# Create your tests here.
+'''This module is used to create test cases.'''

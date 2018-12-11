@@ -10,10 +10,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
-  <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+  <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js" integrity="sha256-0vBSIAi/8FxkNOSKyPEfdGQzFDak1dlqFKBYqBp1yC4=" crossorigin="anonymous"></script>
+  <script src="{% static "dashboard/js/tag-it.min.js" %}" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+  <link href="{% static "dashboard/css/jquery.tagit.css" %}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static "dashboard/css/edit_profile.css" %}">
+  <script src="{% static "dashboard/js/edit_profile.js" %}"></script>
 </head>
 <body>
 
@@ -44,14 +48,41 @@
           <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
             <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if unread_notifications > 0 %}
+            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+            {% else %}
+            <i id="notificationIcon" class="far fa-bell"></i>
+            {% endif %}
+          </a>
+          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+            <hr id="notifcationsDropdownHeaderDivider">
+            {% for notification in notifications %}
+            <a href="{{ notification.link }}">
+              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                <div class="notification-picture-container">
+                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                </div>
+                <span class="notification-message">{{ notification.message }}</span>
+              </div>
+            </a>
+            {% endfor %}
           </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+          </a>
           <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
             <div id="triangle-up"></div>
             <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
             <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <!-- end main navbar -->
@@ -109,6 +140,14 @@
         <input class="form-control" type="email" name="email" value="{{ user.email }}">
       </div>
       <div class="form-group">
+        <label for="skills">Skills</label>
+        <ul id="myTags">
+          {% for skill in skills %}
+          <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="form-group">
         <label for="bio">Bio</label>
         <textarea id="userBio" name="bio" rows="8">{{ user.profile.bio }}</textarea>
       </div>
@@ -117,18 +156,5 @@
     </form>
 
   </div>
-
-  <style>
-
-  .cr-boundary {
-    height: 100%;
-  }
-
-  .form-control {
-    text-align: center;
-    font-family: avenir-next;
-  }
-
-  </style>
 </body>
 </html>

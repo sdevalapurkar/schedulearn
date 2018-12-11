@@ -1,10 +1,10 @@
+'''This module is used to create routes after /api/v1/'''
 from django.urls import path, include
-# from api.views import UserViewSet
-from .views import *
+from . import views
 
 urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
-    path('profile/<token>', Profile.as_view()),
-    path('connections/<token>', Connections.as_view()),
-    path('lessons/<token>', Lessons.as_view()),
+    path('profile/<token>', views.Profile.as_view()),
+    path('connections/<token>', views.Connections.as_view()),
+    path('lessons/<token>', views.Lessons.as_view()),
 ]
