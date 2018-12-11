@@ -14,7 +14,6 @@ html body {
 }
 
 /* Navbar for logged in Users */
-
 #loggedInNavbar {
   background-color: #4A4A4A;
 }
@@ -94,6 +93,15 @@ html body {
 
 .extended-icon {
   margin-right: 4px;
+}
+
+.cr-boundary {
+  height: 100%;
+}
+
+.form-control {
+  text-align: center;
+  font-family: avenir-next;
 }
 
 @media (max-width: 991.98px) {

@@ -1,136 +1,132 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if user.profile.user_type == 'tutor' %}
-  <title>My Students | Schedulearn</title>
-  {% else %}
-  <title>My Tutors | Schedulearn</title>
-  {% endif %}
-  <!-- Bootstrap CDNs -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <!-- END Bootstrap CDNs -->
-  <!-- FontAwesome CDN -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <!-- END FontAwesome CDN -->
-  <!-- My Styling and Script -->
-  <link rel="stylesheet" href="{% static 'dashboard/css/choose_person.css' %}">
-  <script src="{% static 'dashboard/js/choose_person.js'%}"></script>
-  <link rel="shortcut icon" href="#">
-  <!-- END My Styling and Script -->
-</head>
-<body>
-
-  <!-- main navbar for signed in users -->
-  <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
-    <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
-
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
-        </li>
-        <li class="nav-item">
-          {% if user.profile.user_type == 'tutor' %}
-          <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
-          {% else %}
-          <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS<span class="sr-only">(current)</span></a>
-          {% endif %}
-        </li>
-      </ul>
-      <div class="dropdown-divider"></div>
-      <div class="navbar-nav">
-        <div class="nav-item dropdown">
-          <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
-          </div>
-          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
-            <div id="triangle-up"></div>
-            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if user.profile.user_type == 'tutor' %}
+    <title>My Students | Schedulearn</title>
+    {% else %}
+    <title>My Tutors | Schedulearn</title>
+    {% endif %}
+    <!-- Bootstrap CDNs -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <!-- END Bootstrap CDNs -->
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- END FontAwesome CDN -->
+    <!-- My Styling and Script -->
+    <link rel="stylesheet" href="{% static 'dashboard/css/choose_person.css' %}">
+    <script src="{% static 'dashboard/js/choose_person.js'%}"></script>
+    <link rel="shortcut icon" href="#">
+    <!-- END My Styling and Script -->
+  </head>
+  <body>
+    <!-- main navbar for signed in users -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
+      <!-- When viewing on mobile, this will show up as the hamburger menu -->
+      <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
+          </li>
+          <li class="nav-item">
+            {% if user.profile.user_type == 'tutor' %}
+            <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
+            {% else %}
+            <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS<span class="sr-only">(current)</span></a>
+            {% endif %}
+          </li>
+        </ul>
+        <div class="dropdown-divider"></div>
+        <div class="navbar-nav">
+          <div class="nav-item dropdown">
+            <div id="myName" class="nav-link" href="{% url 'my_profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ user.first_name }} {{ user.last_name }}<span class="sr-only">(current)</span>
+              <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="30" alt="/media/profile_pics/default/man.png">
+            </div>
+            <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+              <div id="triangle-up"></div>
+              <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+              <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-  <!-- end main navbar -->
-  <!-- extended navbar for signed in users -->
-  <nav id="extendedNavbar">
-    <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-      {% if user.profile.user_type == 'tutor' %}
-        {% if no_results %}
-          <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-          <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+    </nav>
+    <!-- end main navbar -->
+    <!-- extended navbar for signed in users -->
+    <nav id="extendedNavbar">
+      <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+        {% if user.profile.user_type == 'tutor' %}
+          {% if no_results %}
+            <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+          {% else %}
+            <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+          {% endif %}
         {% endif %}
-      {% endif %}
+        {% if user.profile.user_type == 'student' %}
+          {% if no_results %}
+            <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+          {% else %}
+            <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+          {% endif %}
+        {% endif %}
+        <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </nav>
+    <!-- end extended navbar for signed in users -->
 
+    <div id="main">
+      {% if not students and not tutors %}
+      <img id="picturePrompt" src="{% static 'dashboard/images/tutor.png' %}" alt="A teacher">
       {% if user.profile.user_type == 'student' %}
-        {% if no_results %}
-          <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-          <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-        {% endif %}
+      <h4 class="text-prompt">Please add a tutor that you would like to schedule lessons with using the search bar above.</h4>
       {% endif %}
-      <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-    </form>
-  </nav>
-  <!-- end extended navbar for signed in users -->
-
-<div id="main">
-  {% if not students and not tutors %}
-  <img id="picturePrompt" src="{% static 'dashboard/images/tutor.png' %}" alt="A teacher">
-  {% if user.profile.user_type == 'student' %}
-  <h4 class="text-prompt">Please add a tutor that you would like to schedule lessons with using the search bar above.</h4>
-  {% endif %}
-  {% if user.profile.user_type == 'tutor' %}
-  <h4 class="text-prompt">Please add a student that you would like to schedule lessons with using the search bar above.</h4>
-  {% endif %}
-  {% else %}
-  {% if students %}
-  <h2 id="mainTitle">SELECT A STUDENT:</h2>
-  {% for student in students %}
-  <div class="student">
-    <div class="main-information">
-      <div class="student-pfp-container">
-        <img class="student-pfp" src="/media/{{ student.profile_pic }}" />
+      {% if user.profile.user_type == 'tutor' %}
+      <h4 class="text-prompt">Please add a student that you would like to schedule lessons with using the search bar above.</h4>
+      {% endif %}
+      {% else %}
+      {% if students %}
+      <h2 id="mainTitle">SELECT A STUDENT:</h2>
+      {% for student in students %}
+      <div class="student">
+        <div class="main-information">
+          <div class="student-pfp-container">
+            <img class="student-pfp" src="/media/{{ student.profile_pic }}" />
+          </div>
+          <div class="student-main-info">
+            <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
+            <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
+          </div>
+        </div>
       </div>
-      <div class="student-main-info">
-        <a class="student-link" href="/dashboard/schedule_lesson/{{ student.id }}"><h4 class="student-name">{{ student.first_name }} {{ student.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ student.email }}</span></p>
+      {% endfor %}
+      {% endif %}
+      {% if tutors %}
+      <h2 id="mainTitle">SELECT A TUTOR:</h2>
+      {% for tutor in tutors %}
+      <div class="tutor">
+        <div class="main-information">
+          <div class="tutor-pfp-container">
+            <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}" />
+          </div>
+          <div class="tutor-main-info">
+            <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
+            <p class="extended-field"><span class="extended-detail">{{ tutor.email }}</span></p>
+          </div>
+        </div>
       </div>
+      {% endfor %}
+      {% endif %}
+      {% endif %}
     </div>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% if tutors %}
-  <h2 id="mainTitle">SELECT A TUTOR:</h2>
-  {% for tutor in tutors %}
-  <div class="tutor">
-    <div class="main-information">
-      <div class="tutor-pfp-container">
-        <img class="tutor-pfp" src="/media/{{ tutor.profile_pic }}" />
-      </div>
-      <div class="tutor-main-info">
-        <a class="tutor-link" href="/dashboard/schedule_lesson/{{ tutor.id }}"><h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4></a>
-        <p class="extended-field"><span class="extended-detail">{{ tutor.email }}</span></p>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endif %}
-</div>
-
-</body>
+  </body>
 </html>

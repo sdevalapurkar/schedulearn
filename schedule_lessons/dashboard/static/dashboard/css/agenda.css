@@ -11,7 +11,6 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
 
-
 html {
   height: 100%;
 }
@@ -22,7 +21,6 @@ html body {
 }
 
 /* Navbar for logged in Users */
-
 #loggedInNavbar {
   background-color: #4A4A4A;
 }
@@ -105,20 +103,14 @@ html body {
 }
 
 #searchBar {
-  /* position: absolute; */
   top: 50%;
   right: 0.1%;
-  /* transform: translateY(-50%); */
 }
 
 #searchInput {
   padding-left: 5px;
-  /* padding-right: 36px; */
   height: 30px;
-  /* margin-right: .5rem; */
   text-align: left;
-  /* width: 275px; */
-  /* border-radius: 1.25rem; */
 }
 
 .no-border{
