@@ -1,60 +1,71 @@
+'''Create database models.
+
+Lesson -- The lesson model that models the items logged-on a tutor and a student
+          can create between each other.
+
+Relationship -- The relationship model that models the connection between a
+                student and a tutor.
+'''
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
 
-# Create your models here.
 
 class Lesson(models.Model):
+    '''This class models a lesson with 10 fields.
+
+    id -- The primary field of the Lesson model.
+    name -- A character field that's the name of the lesson.
+    description -- A character field that's the description of the lesson.
+    location -- A character field that's the location that the lesson is going
+                to happen in.
+    tutor -- A field that contains the tutor user of the lesson.
+    student -- A field that contains the student user of the lesson.
+    created_by -- A field that contains the user who created the lesson.
+    start_time -- A datetime field that's the starting time of the lesson.
+    end_time -- A datetime field that's the ending time of the lesson.
+    pending -- A boolean field that shows whether the lesson is pending or not.
+    '''
     id = models.AutoField(primary_key=True)
 
     name = models.CharField(max_length=32, blank=True, null=True)
     description = models.CharField(max_length=1000, blank=True, null=True)
     location = models.CharField(max_length=50, blank=True, null=True)
 
-    tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_by', default=None)
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE,
+                              related_name='tutor_user')
+    student = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='student_user')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE,
+                                   related_name='lesson_created_by',
+                                   default=None)
 
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
     pending = models.BooleanField(null=False, default=True)
 
-
     def __str__(self):
+        '''Returns the lessons name for string printing purposes.'''
         return self.name
 
-def getDateFromDay(day):
-    if day == 'Monday':
-        return datetime.datetime(2018, 7, 30)
-    elif day == 'Tuesday':
-        return datetime.datetime(2018, 7, 31)
-    elif day == 'Wednesday':
-        return datetime.datetime(2018, 8, 1)
-    elif day == 'Thursday':
-        return datetime.datetime(2018, 8, 2)
-    elif day == 'Friday':
-        return datetime.datetime(2018, 8, 3)
-    elif day == 'Saturday':
-        return datetime.datetime(2018, 8, 4)
-    elif day == 'Sunday':
-        return datetime.datetime(2018, 8, 5)
-
-
 class Relationship(models.Model):
-    tutor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_user_rel')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user_rel')
+    '''This class models a relationship with 4 fields
+
+    tutor -- A field that contains the tutor user of the relationship.
+    student -- A field that contains the student user of the relationship.
+    created_by -- A field that contains the user who created the relationship.
+    pending -- A boolean field that shows whether the relationship is pending or
+               not.
+    '''
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE,
+                              related_name='tutor_user_rel')
+    student = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='student_user_rel')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL,
+                                   related_name='rel_created_by', default=None,
+                                   null=True)
+
+    pending = models.BooleanField(null=False, default=True)
 
     def __str__(self):
-        return ("Tutor: " + str(self.tutor) + " and Student: " + str(self.student))
-
-def relationship_exists(person_one, person_two):
-    try:
-        Relationship.objects.get(student=person_one, tutor=person_two)
-        return True
-    except:
-        try:
-            Relationship.objects.get(student=person_two, tutor=person_one)
-            return True
-        except:
-            return False
+        return 'Tutor: {} and Student: {}'.format(self.tutor, self.student)

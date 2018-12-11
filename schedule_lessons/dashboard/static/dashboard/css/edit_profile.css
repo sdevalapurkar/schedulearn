@@ -1,5 +1,5 @@
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
-@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 
@@ -27,14 +27,128 @@ html body {
 }
 
 #loggedInNavbar .nav-item {
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
 }
 
 #loggedInNavbar .mr-auto .nav-item {
   padding-right: 15px;
 }
 
-#myName:hover {
+#linksDropdownLink, #notifcationsDropdownLink {
+  padding: 0;
+}
+
+#notificationsDropdownLink {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25px;
+  font-size: 150%;
+}
+
+.fa-bell {
+  text-align:center;
+  vertical-align:middle;
+  position: relative;
+}
+
+.notification-badge::after {
+  content:attr(data-count);
+  position: absolute;
+  background: #D14F52;
+  height: 1.2rem;
+  width: 1.2rem;
+  bottom: 0.8rem;
+  left: 0.5rem;
+  text-align: center;
+  line-height: 1rem;;
+  font-size: 0.6rem;
+  border-radius: 50%;
+  color:white;
+  border: 1px solid #D14F52;
+  font-family: avenir-next-regular;
+}
+
+#notificationsDropdownPane {
+  height: 400px;
+  width: 500px;
+  overflow-x: hidden;
+}
+
+#notifcationsDropdownHeaderTitle {
+  margin-bottom: 0;
+  text-align: center;
+  font-family: avenir-next-demibold;
+  font-size: 110%;
+}
+
+#notifcationsDropdownHeaderDivider {
+  margin-top: 0.5rem;
+  margin-bottom: 0rem;
+  border-top: 1px solid #4a4a4a;
+}
+
+#notificationsDropdownPane a {
+  text-decoration: none;
+}
+
+.unread-notification-container {
+  background-color: rgba(229, 79, 82, .2);
+}
+
+.unread-notification-container:hover {
+  background-color: rgba(229, 79, 82, .25);
+}
+
+.read-notification-container {
+  background-color: rgba(229, 229, 229, 0.5);
+}
+
+.read-notification-container:hover {
+  background-color: rgba(219, 219, 219, 0.8);
+}
+
+.notification-container {
+  padding: 10px;
+  border-bottom: 1px solid #4a4a4a;
+  display: table;
+  width: 100%;
+}
+
+.notification-picture-container {
+  height: 100%;
+  display: table-cell;
+}
+
+.notification-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #4a4a4a;
+}
+
+.notification-message {
+  margin-left: 7.5px;
+  display: block;
+  color: #4a4a4a;
+}
+
+.notification-button {
+  width: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #4a4a4a;
+  margin-left: 10px;
+  height: 20px;
+  border-radius: 0.6rem;
+}
+
+#linksDropdownLink #userPicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid white;
   cursor: pointer;
 }
 
@@ -71,12 +185,14 @@ html body {
   margin-right: 15px;
 }
 
+
 #extendedNavbar {
   background-color: #D14F52;
   box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
+  position: relative;
 }
 
 .extended-button {
@@ -213,5 +329,36 @@ html body {
   width: 100%;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  font-family: avenir-next;
+  font-family: avenir-next-regular;
+}
+
+.form-control {
+  text-align: center;
+  font-family: BrandonGrotesque-Regular;
+  font-size: 110%;
+}
+
+#myTags {
+  border-radius: .25rem;
+
+}
+
+#myTags .tagit-choice {
+  padding: 4px 30px;
+  border-radius: 2rem;
+}
+
+#myTags .ui-icon-close {
+  margin-right: 5px;
+}
+
+#myTags .tagit-new .ui-widget-content {
+  font-family: BrandonGrotesque-Regular;
+  font-size: 100%;
+}
+
+#myTags .tagit-label {
+  font-family: BrandonGrotesque-Regular;
+  font-size: 100%;
+  color: #495057;
 }

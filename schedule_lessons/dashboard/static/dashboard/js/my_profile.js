@@ -5,18 +5,7 @@ $(document).ready(function() {
   $("#reviewTab").fadeOut(0);
   $("#historyTab").fadeOut(0);
 
-  $('#deleteAccountConfirm').click(function() {
-    $('#deleteAccountModal').modal('hide');
-    $.ajax({
-        type: 'DELETE',
-        url: '/dashboard/my_profile/delete_account/',
-        success: function () {
-          document.location.href = "/";
-        }
-    });
-  });
-
-  $("ul li").click(function(e) {
+  $(".slider-line .s-line-options").click(function(e) {
 
     // make sure we cannot click the slider
     if ($(this).hasClass('slider')) {
@@ -29,8 +18,7 @@ $(document).ready(function() {
     var clickedTab = $(this).index();
 
     // Work out how far the slider needs to go
-    var sliderMovesBy = 120
-    * clickedTab;
+    var sliderMovesBy = 120 * clickedTab;
 
     $(".slider").css({
       left: sliderMovesBy + "px"
@@ -101,6 +89,19 @@ $(document).ready(function() {
     $("#reviewTab").fadeOut(300);
   });
 
+  // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
+
+  $('#deleteAccountConfirm').click(function() {
+    $('#deleteAccountModal').modal('hide');
+    $.ajax({
+      type: 'DELETE',
+      url: '/dashboard/my_profile/delete_account/',
+      success: function () {
+        document.location.href = "/";
+      }
+    });
+  });
+
   $("#confirmChangePassword").on("click", function() {
     $.ajax({
       type: 'POST',
@@ -130,6 +131,22 @@ $(document).ready(function() {
       },
     })
   }); // click handler END for #confirmChangePassword
+
+  $('#notificationsDropdownLink').click(function() {
+    var attr = $('#notificationIcon').attr('data-count');
+    if (typeof attr !== typeof undefined && attr !== false) {
+      $('#notificationIcon').removeAttr("data-count");
+      $('#notificationIcon').removeClass("notification-badge");
+    }
+    $.ajax({
+      url: '/dashboard/clear_notifications/',
+      type: 'post',
+      error: function(xhr, status) {
+      },
+      success: function(data) {
+      }
+    });
+  });
 }); // Document.ready function END
 
 
