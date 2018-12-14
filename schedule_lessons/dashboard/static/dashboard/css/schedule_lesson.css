@@ -23,6 +23,17 @@ html body {
   background-color: #4A4A4A;
 }
 
+#triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: avenir-next-demibold;
@@ -268,7 +279,6 @@ html body {
   display: inline-block;
   text-align: center;
   width: 50%;
-  float: left;
 }
 
 .edit-availability-subtitle {
@@ -330,7 +340,6 @@ html body {
   display: inline-block;
   text-align: center;
   width: 50%;
-  float: right;
 }
 
 #titleInput {

@@ -2,6 +2,7 @@
 {% load static %}
 {% load tz_detect %}
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +22,7 @@
   <link rel="shortcut icon" href="#">
   <!-- END My Styling and Script -->
 </head>
+
 <body>
 
   <!-- main navbar for signed in users -->
@@ -44,64 +46,119 @@
           {% endif %}
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% if unread_notifications > 0 %}
-            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
-            {% else %}
-            <i id="notificationIcon" class="far fa-bell"></i>
-            {% endif %}
-          </a>
-          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
-            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
-            <hr id="notifcationsDropdownHeaderDivider">
-            {% for notification in notifications %}
-            <a href="{{ notification.link }}">
-              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
-                <div class="notification-picture-container">
-                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+      <div class="dropdown-divider"></div>
+      <ul class="navbar-nav ml-auto p-0">
+        <table class="table table-borderless w-25 m-0">
+          <tr class="p-0">
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% if unread_notifications > 0 %}
+                  <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+                  {% else %}
+                  <i id="notificationIcon" class="far fa-bell"></i>
+                  {% endif %}
+                </a>
+                <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+                  <div id="noti-triangle-up"></div>
+                  <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+                  <hr id="notifcationsDropdownHeaderDivider">
+                  {% for notification in notifications %}
+                  <a href="{{ notification.link }}">
+                    <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                      <div class="notification-picture-container">
+                        <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                      </div>
+                      <span class="notification-message">{{ notification.message }}</span>
+                    </div>
+                  </a>
+                  {% endfor %}
                 </div>
-                <span class="notification-message">{{ notification.message }}</span>
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
-          </a>
-          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
-            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
-          </div>
-        </li>
+              </li>
+            </td>
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown">
+                <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                </a>
+                <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+                  <div id="pro-triangle-up"></div>
+                  <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+                  <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+                </div>
+              </li>
+            </td>
+          </tr>
+        </table>
       </ul>
     </div>
   </nav>
   <!-- end main navbar -->
-  <!-- extended navbar for signed in users -->
-  <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-      {% if user.profile.user_type == 'tutor' %}
-      {% if no_results %}
-      <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-      {% else %}
-      <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
-      {% endif %}
-      {% endif %}
 
-      {% if user.profile.user_type == 'student' %}
-      {% if no_results %}
-      <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-      {% else %}
-      <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-      {% endif %}
-      {% endif %}
-      <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-    </form>
+  <!-- extended navbar for signed in users -->
+  <nav class="navbar navbar-expand-lg" id="extendedNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
+    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="pro-options">More Options</span>
+    </button>
+
+    <!-- This menu shows up on desktop version -->
+    <div class="collapse navbar-collapse">
+      <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+      <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+        {% if user.profile.user_type == 'tutor' %}
+        {% if no_results %}
+        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+        {% else %}
+        <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+        {% endif %}
+        {% endif %}
+
+        {% if user.profile.user_type == 'student' %}
+        {% if no_results %}
+        <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+        {% else %}
+        <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+        {% endif %}
+        {% endif %}
+        <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+    <!-- This menu is the formatted version to make it look nice on mobile -->
+    <div class="collapse navbar-collapse" id="pro_options">
+      <div class="dropdown-divider"></div>
+      <table class="table table-borderless">
+        <tr>
+          <td>
+            <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a> </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="col-md-2">
+              <form action="{% url 'search' %}" id="searchBar" class="form-inline">
+                {% if user.profile.user_type == 'tutor' %}
+                {% if no_results %}
+                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                {% else %}
+                <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+                {% endif %}
+                {% endif %}
+
+                {% if user.profile.user_type == 'student' %}
+                {% if no_results %}
+                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                {% else %}
+                <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
+                {% endif %}
+                {% endif %}
+                <button id="submitBtn" class="btn my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </nav>
   <!-- end extended navbar for signed in users -->
   {% tz_detect %}
@@ -109,171 +166,175 @@
 
   <img id="picturePrompt" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
   <h2 class="text-prompt">No Lessons Scheduled</h1>
-  {% if user.profile.user_type == 'student' %}
-  <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar above.</h5>
-  {% else %}
-  <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar above.</h5>
-  {% endif %}
-  {% else %}
-  <div id="mainScheduled">
-    {% if gcalender_success == 'Yes' %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Success!</strong> You've added the lesson to your google calendar.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% elif gcalender_success == 'No' %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>Failure!</strong> Something went wrong, try again?
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+    {% if user.profile.user_type == 'student' %}
+    <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar above.</h5>
+    {% else %}
+    <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar above.</h5>
     {% endif %}
-    {% if successful_schedule_msg %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>{{ successful_schedule_msg }}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %}
+    {% else %}
+    <div id="mainScheduled">
+      {% if gcalender_success == 'Yes' %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> You've added the lesson to your google calendar.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% elif gcalender_success == 'No' %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Failure!</strong> Something went wrong, try again?
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+      {% if successful_schedule_msg %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ successful_schedule_msg }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
 
-    {% if scheduled_lessons %}
-    <h2 class="group-title">SCHEDULED LESSONS</h2>
-    {% for scheduled_lesson in scheduled_lessons %}
-    <div class="lesson">
-      <div class="main-information">
-        <div class="date">
-          <span class="day">{{ scheduled_lesson.start_time|date:"D" }}</span>
-          <span class="month-day">{{ scheduled_lesson.start_time|date:"d" }}</span>
-          <span class="month">{{ scheduled_lesson.start_time|date:"M" }}</span>
-          <span class="year">{{ scheduled_lesson.start_time|date:"Y" }}</span>
-        </div>
-        <div class="details-and-buttons">
-          <div class="details">
-            <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
-            <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
-            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
-            {% if user.profile.user_type == 'tutor' %}
-            <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
-            {% else %}
-            <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
-            {% endif %}
+      {% if scheduled_lessons %}
+      <h2 class="group-title">SCHEDULED LESSONS</h2>
+      {% for scheduled_lesson in scheduled_lessons %}
+      <div class="lesson">
+        <div class="main-information">
+          <div class="date">
+            <span class="day">{{ scheduled_lesson.start_time|date:"D" }}</span>
+            <span class="month-day">{{ scheduled_lesson.start_time|date:"d" }}</span>
+            <span class="month">{{ scheduled_lesson.start_time|date:"M" }}</span>
+            <span class="year">{{ scheduled_lesson.start_time|date:"Y" }}</span>
           </div>
-          <div class="three-buttons">
-            <a href="{% url 'social:begin' 'google-calendar' %}?next={% url 'save_gcalendar_lesson' scheduled_lesson.id %}">
-              <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Save Lesson To Your Google Calendar"><i class="far fa-calendar-plus"></i></button>
-            </a>
-            <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
-              <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
-            </a>
-            <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' scheduled_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
-            </a>
+
+          <div class="details-and-buttons">
+            <div class="details">
+              <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
+              <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
+              <p class="extended-field">Timing:</b> <span class="extended-detail">{{
+                  scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
+              {% if user.profile.user_type == 'tutor' %}
+              <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
+              {% else %}
+              <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ scheduled_lesson.tutor_name }}</span></p>
+              {% endif %}
+            </div>
+            <div class="three-buttons">
+              <a href="{% url 'social:begin' 'google-calendar' %}?next={% url 'save_gcalendar_lesson' scheduled_lesson.id %}">
+                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Save Lesson To Your Google Calendar"><i class="far fa-calendar-plus"></i></button>
+              </a>
+              <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
+                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
+              </a>
+              <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' scheduled_lesson.id %}">
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
+      {% endfor %}
+      {% endif %}
     </div>
-    {% endfor %}
-    {% endif %}
-  </div>
-  <div id="mainPending">
-    {% if pending_lessons %}
-    <h2 id="pendingLabel" class="group-title">PENDING LESSONS</h2>
+    <div id="mainPending">
+      {% if pending_lessons %}
+      <h2 id="pendingLabel" class="group-title">PENDING LESSONS</h2>
 
-    {% for pending_lesson in pending_lessons %}
-    <div class="lesson">
-      <div class="main-information">
-        <div class="date">
-          <span class="day">{{ pending_lesson.start_time|date:"D" }}</span>
-          <span class="month-day">{{ pending_lesson.start_time|date:"d" }}</span>
-          <span class="month">{{ pending_lesson.start_time|date:"M" }}</span>
-          <span class="year">{{ pending_lesson.start_time|date:"Y" }}</span>
-        </div>
-        <div class="details-and-buttons">
-          <div class="details">
-            <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
-            <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
-            <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time|date:"g:i A" }} - {{ pending_lesson.end_time|date:"g:i A" }}</span></p>
-            {% if user.profile.user_type == 'tutor' %}
-            <p class="extended-field">Student:</b> <span class="extended-detail">{{ pending_lesson.student_name }}</span></p>
+      {% for pending_lesson in pending_lessons %}
+      <div class="lesson">
+        <div class="main-information">
+          <div class="date">
+            <span class="day">{{ pending_lesson.start_time|date:"D" }}</span>
+            <span class="month-day">{{ pending_lesson.start_time|date:"d" }}</span>
+            <span class="month">{{ pending_lesson.start_time|date:"M" }}</span>
+            <span class="year">{{ pending_lesson.start_time|date:"Y" }}</span>
+          </div>
+          <div class="details-and-buttons">
+            <button id="options_btn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+            <div class="details">
+              <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
+              <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
+              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time|date:"g:i A" }} - {{ pending_lesson.end_time|date:"g:i A" }}</span></p>
+              {% if user.profile.user_type == 'tutor' %}
+              <p class="extended-field">Student:</b> <span class="extended-detail">{{ pending_lesson.student_name }}</span></p>
+              {% else %}
+              <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_lesson.tutor_name }}</span></p>
+              {% endif %}
+            </div>
+            {% if pending_lesson.display_options %}
+            <div class="three-buttons">
+              <a href="{% url 'confirm_lesson' pending_lesson.id %}">
+                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Confirm Lesson"><i class="fas fa-check"></i></button>
+              </a>
+              <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
+                <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"></i></button>
+              </a>
+              <a data-target="#declineLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
+              </a>
+            </div>
             {% else %}
-            <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ pending_lesson.tutor_name }}</span></p>
+            <div class="two-buttons">
+              <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
+                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
+              </a>
+              <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+              </a>
+            </div>
             {% endif %}
           </div>
-          {% if pending_lesson.display_options %}
-          <div class="three-buttons">
-            <a href="{% url 'confirm_lesson' pending_lesson.id %}">
-              <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Confirm Lesson"><i class="fas fa-check"></i></button>
-            </a>
-            <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
-              <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"></i></button>
-            </a>
-            <a data-target="#declineLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
-            </a>
-          </div>
-          {% else %}
-          <div class="two-buttons">
-            <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
-              <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
-            </a>
-            <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
-              <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
-            </a>
-          </div>
-          {% endif %}
         </div>
       </div>
+      {% endfor %}
+      {% endif %}
     </div>
-    {% endfor %}
     {% endif %}
-  </div>
-  {% endif %}
 
-  <!-- decline lesson modal -->
-  <div id="declineLessonModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="bold-text-style modal-title">Are you sure you would like to decline this lesson?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <!-- <div class="modal-body">
+    <!-- decline lesson modal -->
+    <div id="declineLessonModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="bold-text-style modal-title">Are you sure you would like to decline this lesson?</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- <div class="modal-body">
           <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
         </div> -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
-          <a id="declineLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
-          </a>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+            <a id="declineLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- cancel lesson modal -->
-  <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
-          <a id="cancelLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
-          </a>
+    <!-- cancel lesson modal -->
+    <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
+            <a id="cancelLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </body>
+
 </html>
