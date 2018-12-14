@@ -28,6 +28,17 @@ html body {
   background-color: #4A4A4A;
 }
 
+#noti-triangle-up, #pro-triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: avenir-next-demibold;
@@ -80,10 +91,20 @@ html body {
   font-family: avenir-next-regular;
 }
 
-#notificationsDropdownPane {
+#notificationsDropdownPane, #myDropdown {
+  position: absolute;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#notificationsDropdownPane{
   height: 400px;
-  width: 500px;
-  overflow-x: hidden;
+  width: 350px;
+  margin-right: 9px;
+}
+
+#myDropdown{
+  margin-right: -14px;
 }
 
 #notifcationsDropdownHeaderTitle {
@@ -162,12 +183,6 @@ html body {
   cursor: pointer;
 }
 
-#myDropdown {
-  position: absolute;
-  text-align: center;
-  margin-top: 7px;
-}
-
 .dropdown-options {
   display: block;
 }
@@ -212,7 +227,6 @@ html body {
 #searchBar {
   position: absolute;
   top: 50%;
-  right: 0.1%;
   transform: translateY(-50%);
 }
 
@@ -244,17 +258,91 @@ html body {
    color: #595959;
 }
 
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
+.pro-options{
+  font-weight: bold;
+  color: white;
+}
+
+@media(min-width: 576px){
+  #pro_options {
+    display: none !important;
+   }
+
+   #searchBar{
+    right: 0.1%;
   }
+
+  .lesson{
+    width: 80% !important;
+  }
+
+  #options_btn{
+    display: none !important;
+  }
+}
+
+@media(max-width: 570px){
+  #myDropdown {
+    margin-right: -110px !important;
+  }
+
+  #notificationsDropdownPane{
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+
+  #noti-triangle-up{
+    margin-right: 265px;
+  }
+
+  #pro-triangle-up{
+    margin-right: 120px;
+  }
+
+  #searchInput{
+    width: 100%;
+  }
+
+  .extended-button{
+    margin-left: 6%;
+  }
+
+  .lesson{
+    width: 95% !important;
+  }
+}
+
+#options_btn{
+  background: transparent;
+  border: none;
+}
+
+@keyframes slider {
+  from{transform: translateX(20px);}
+  to{transform: translateX(0px);}
+}
+
+@keyframes btnSlider {
+  from{transform: translateX(20px);}
+  to{transform: translateX(-60px);}
+}
+.addAnim{
+  animation: slider .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+@media(max-width: 400px){
+  .two-buttons{
+    margin-top: -125px;
+    display: none;
+  }
+
+  .lesson{
+    width: 95% !important;
+  }
+}
+
+@media (max-width: 991.98px) {
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
@@ -275,13 +363,6 @@ html body {
 
   #loggedInNavbar .active .nav-link {
     color: white;
-  }
-
-  #myDropdown {
-    position: absolute;
-    text-align: center;
-    left: 0;
-    right: auto;
   }
 }
 /* END Navbar for logged in Users */

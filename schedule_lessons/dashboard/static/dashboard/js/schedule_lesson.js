@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-  $('#notificationsDropdownLink').click(function() {
+  $('#notificationsDropdownLink').click(function () {
     var attr = $('#notificationIcon').attr('data-count');
     if (typeof attr !== typeof undefined && attr !== false) {
       $('#notificationIcon').removeAttr("data-count");
@@ -9,9 +9,9 @@ $(document).ready(function() {
     $.ajax({
       url: '/dashboard/clear_notifications/',
       type: 'post',
-      error: function(xhr, status) {
+      error: function (xhr, status) {
       },
-      success: function(data) {
+      success: function (data) {
       }
     });
   });
@@ -28,13 +28,13 @@ $(document).ready(function() {
     format: 'LT'
   });
 
-  $("#addBtn").click(function() {
+  $("#addBtn").click(function () {
     let form_data = $('form#scheduleForm').serialize() + "&timezoneInfo=" + (new Date().getTimezoneOffset() * -1);
     $.ajax({
       url: window.location.href,
       type: 'post',
       data: form_data,
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         $('#scheduleVerification').html('');
         $('.error-list').html('Something went wrong, please make sure your information is correct and try again.');
         $('#titleLabel').addClass('label-error');
@@ -48,7 +48,7 @@ $(document).ready(function() {
         $('#endTimeLabel').addClass('label-error');
         $('#endTimeInput').addClass('input-error');
       },
-      success: function(response) {
+      success: function (response) {
         if (response.status == 200) {
           if (response.rescheduled_lesson) {
             window.location.href = "../../agenda/" + "?reschedule=True&lesson=" + response.lesson_name
@@ -108,26 +108,26 @@ $(document).ready(function() {
 });
 
 function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
+  var cookieValue = null;
+  if (document.cookie && document.cookie != '') {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = jQuery.trim(cookies[i]);
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
     }
-    return cookieValue;
+  }
+  return cookieValue;
 }
 
 $.ajaxSetup({
-     beforeSend: function(xhr, settings) {
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-         }
-     }
+  beforeSend: function (xhr, settings) {
+    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+      // Only send the token to relative URLs i.e. locally.
+      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+  }
 });

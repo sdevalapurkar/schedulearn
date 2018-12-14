@@ -19,6 +19,17 @@ html body {
   background-color: #4A4A4A;
 }
 
+#noti-triangle-up, #pro-triangle-up {
+	width: 0;
+  height: 0;
+  float: right;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: avenir-next-demibold;
@@ -71,10 +82,20 @@ html body {
   font-family: avenir-next-regular;
 }
 
-#notificationsDropdownPane {
+#notificationsDropdownPane, #myDropdown {
+  position: absolute;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#notificationsDropdownPane{
   height: 400px;
-  width: 500px;
-  overflow-x: hidden;
+  width: 350px;
+  margin-right: 9px;
+}
+
+#myDropdown{
+  margin-right: -14px;
 }
 
 #notifcationsDropdownHeaderTitle {
@@ -153,12 +174,6 @@ html body {
   cursor: pointer;
 }
 
-#myDropdown {
-  position: absolute;
-  text-align: center;
-  margin-top: 7px;
-}
-
 .dropdown-options {
   display: block;
 }
@@ -201,18 +216,27 @@ html body {
   margin-right: 4px;
 }
 
-@media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
+@media(max-width: 570px){
+  #myDropdown {
+    margin-right: -110px !important;
   }
 
+  #notificationsDropdownPane{
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+
+  #noti-triangle-up{
+    margin-right: 265px;
+  }
+
+  #pro-triangle-up{
+    margin-right: 120px;
+  }
+}
+
+@media (max-width: 991.98px) {
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
     font-family: avenir-next-demibold;
@@ -249,11 +273,11 @@ html body {
 }
 
 .picture-container {
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
 }
 
 #cropPictureModal {
