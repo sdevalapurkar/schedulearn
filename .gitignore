@@ -1,8 +1,5 @@
 *.pyc
 __pycache__/*
-.vs
-.vscode
-misc/schedulearn-venv
 schedule_lessons/db.sqlite3
 schedule_lessons/staticfiles
 schedule_lessons/media/profile_pics/*

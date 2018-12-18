@@ -4,9 +4,9 @@ A web app that tutors and students can use to schedule lessons efficiently with 
 
 The service is available for free use at `https://www.schedulearn.com`
 
-![Homepage](/misc/homepage.png)
+![Homepage](/img/homepage.png)
 
-![Schedule](/misc/schedule.png)
+![Schedule](/img/schedule.png)
 
 ## Running the Application Locally
 
