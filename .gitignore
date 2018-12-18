@@ -2,6 +2,5 @@
 __pycache__/*
 schedule_lessons/db.sqlite3
 schedule_lessons/staticfiles
-schedule_lessons/schedule_lessons/local_settings.py
 schedule_lessons/media/profile_pics/*
 !schedule_lessons/media/profile_pics/.gitkeep
