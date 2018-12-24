@@ -2,6 +2,7 @@
 {% load static %}
 {% load dashboard_extras %}
 <html>
+
 <head>
   <title>{{ profile_user.first_name }}'s Profile | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,9 +14,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-  <link rel="stylesheet" href="{% static "dashboard/css/public_profile.css" %}">
-  <script src="{% static "dashboard/js/public_profile.js" %}"></script>
+  <link rel="stylesheet" href="{% static " dashboard/css/public_profile.css" %}">
+  <script src="{% static " dashboard/js/public_profile.js" %}"></script>
 </head>
+
 <body>
   {% if not user.is_anonymous %}
   <!-- navbar start for signed in users -->
@@ -39,39 +41,50 @@
           {% endif %}
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% if unread_notifications > 0 %}
-            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
-            {% else %}
-            <i class="far fa-bell"></i>
-            {% endif %}
-          </a>
-          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
-            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
-            <hr id="notifcationsDropdownHeaderDivider">
-            {% for notification in notifications %}
-            <a href="{{ notification.link }}">
-              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
-                <div class="notification-picture-container">
-                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+      <div class="dropdown-divider"></div>
+      <ul class="navbar-nav ml-auto p-0">
+        <table class="table table-borderless w-25 m-0">
+          <tr class="p-0">
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown p-1">
+                <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% if unread_notifications > 0 %}
+                  <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+                  {% else %}
+                  <i id="notificationIcon" class="far fa-bell"></i>
+                  {% endif %}
+                </a>
+                <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+                  <div id="noti-triangle-up"></div>
+                  <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+                  <hr id="notifcationsDropdownHeaderDivider">
+                  {% for notification in notifications %}
+                  <a href="{{ notification.link }}">
+                    <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                      <div class="notification-picture-container">
+                        <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                      </div>
+                      <span class="notification-message">{{ notification.message }}</span>
+                    </div>
+                  </a>
+                  {% endfor %}
                 </div>
-                <span class="notification-message">{{ notification.message }}</span>
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
-          </a>
-          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
-            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
-          </div>
-        </li>
+              </li>
+            </td>
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown">
+                <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                </a>
+                <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+                  <div id="pro-triangle-up"></div>
+                  <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+                  <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+                </div>
+              </li>
+            </td>
+          </tr>
+        </table>
       </ul>
     </div>
   </nav>
@@ -91,14 +104,19 @@
     <a class="extended-button" href="{{ remove_student_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
-    {% else %} <!-- Else for rel_pending -->
+    {% else %}
+    <!-- Else for rel_pending -->
     <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
     <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    {% endif %} <!-- End for pending -->
-    {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
+    {% endif %}
+    <!-- End for pending -->
+    {% else %}
+    <!-- Else for rel_exists (if the relationship doesn't exist)-->
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
-    {% endif %} <!-- End for rel exists for tutors -->
-    {% else %} <!-- Else: if the request user is a student -->
+    {% endif %}
+    <!-- End for rel exists for tutors -->
+    {% else %}
+    <!-- Else: if the request user is a student -->
     {% if rel_exists %}
     {% if rel_pending %}
     {% if rel_created_by_request_user %}
@@ -107,15 +125,21 @@
     <a class="extended-button" href="{{ remove_tutor_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
-    {% else %} <!-- Else for rel_pending -->
+    {% else %}
+    <!-- Else for rel_pending -->
     <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
     <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    {% endif %} <!-- End for pending -->
-    {% else %} <!-- Else for rel_exists (if the relationship doesn't exist)-->
+    {% endif %}
+    <!-- End for pending -->
+    {% else %}
+    <!-- Else for rel_exists (if the relationship doesn't exist)-->
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
-    {% endif %} <!-- End for rel exists for students -->
-    {% endif %} <!-- End if for user.profile.user_type == 'tutor' -->
-    {% endif %} <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
+    {% endif %}
+    <!-- End for rel exists for students -->
+    {% endif %}
+    <!-- End if for user.profile.user_type == 'tutor' -->
+    {% endif %}
+    <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
   </nav>
   <!-- End navbar for signed in users -->
   {% else %}
@@ -195,69 +219,70 @@
               {% define_variable 0 %}
               {% for availability in availabilities %}
               {% if availability.start_time|date:"l" == day %}
-              <tr>
-                <td class="day">{{ day }}</td>
-                <td>{{ availability.start_time|date:"g:i A" }}</td>
-                <td>{{ availability.end_time|date:"g:i A" }}</td>
-              </tr>
-              {% define_variable 1 %}
-              {% endif %}
-              {% endfor %}
-              {% get_variable as available %}
-              {% if not available %}
-              <tr>
-                <td class="day">{{ day }}</td>
-                <td class="unavailable" colspan="2">UNAVAILABLE</td>
-              </tr>
-              {% endif %}
-              {% endfor %}
-            </table>
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td>{{ availability.start_time|date:"g:i A" }}</td>
+              <td>{{ availability.end_time|date:"g:i A" }}</td>
+            </tr>
+            {% define_variable 1 %}
+            {% endif %}
+            {% endfor %}
+            {% get_variable as available %}
+            {% if not available %}
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td class="unavailable" colspan="2">UNAVAILABLE</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </table>
 
-            <!-- Reviews Option -->
-            <div id="reviewTab">
-              This is the review box!
-            </div>
+          <!-- Reviews Option -->
+          <div id="reviewTab">
+            This is the review box!
+          </div>
 
-            <!-- History Option -->
-            <div id="historyTab">
-              This is the history box!
-            </div>
+          <!-- History Option -->
+          <div id="historyTab">
+            This is the history box!
           </div>
         </div>
       </div>
     </div>
-    <!-- delete account modal -->
-    <div id="removeRelationshipModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            {% if user.profile.user_type == 'tutor' %}
-            <h6 class="bold-text-style modal-title">Are you sure you would like to remove your student?</h6>
-            {% else %}
-            <h6 class="bold-text-style modal-title">Are you sure you would like to remove your tutor?</h6>
-            {% endif %}
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p class="text-style">This will cancel any of your lessons that you have scheduled with this person.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
-            {% if user.profile.user_type == 'tutor' %}
-            <a id="removeRelationshipConfirm" href="#">
-              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Student</span></button>
-            </a>
-            {% else %}
-            <a id="removeRelationshipConfirm" href="#">
-              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Tutor</span></button>
-            </a>
-            {% endif %}
-          </div>
+  </div>
+  <!-- delete account modal -->
+  <div id="removeRelationshipModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          {% if user.profile.user_type == 'tutor' %}
+          <h6 class="bold-text-style modal-title">Are you sure you would like to remove your student?</h6>
+          {% else %}
+          <h6 class="bold-text-style modal-title">Are you sure you would like to remove your tutor?</h6>
+          {% endif %}
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-style">This will cancel any of your lessons that you have scheduled with this person.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          {% if user.profile.user_type == 'tutor' %}
+          <a id="removeRelationshipConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Student</span></button>
+          </a>
+          {% else %}
+          <a id="removeRelationshipConfirm" href="#">
+            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Remove Tutor</span></button>
+          </a>
+          {% endif %}
         </div>
       </div>
     </div>
+  </div>
 
 </body>
+
 </html>
