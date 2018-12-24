@@ -167,13 +167,13 @@ html body {
   margin-top: 10px;
 }
 
-#notificationsDropdownPane{
+#notificationsDropdownPane {
   height: 400px;
   width: 350px;
   margin-right: 9px;
 }
 
-#myDropdown{
+#myDropdown {
   margin-right: -14px;
 }
 
@@ -219,56 +219,45 @@ html body {
   margin-right: 4px;
 }
 
-#triangle-up {
-	width: 0;
-  height: 0;
-  float: right;
-	border-left: 9px solid transparent;
-	border-right: 9px solid transparent;
-  border-bottom: 18px solid white;
-  margin-top: -22px;
-  margin-right: 24px;
-}
-
-.pro-options{
+.pro-options {
   font-weight: bold;
   color: white;
 }
 
-@media(min-width: 576px){
+@media(min-width: 576px) {
   #pro_options {
     display: none !important;
-   }
+  }
 
-   #searchBar{
+  #searchBar {
     right: 0.1%;
   }
 
-  .lesson{
+  .lesson {
     width: 80% !important;
   }
 
-  #options_btn{
+  #options_btn {
     display: none !important;
   }
 }
 
-@media(max-width: 570px){
+@media(max-width: 570px) {
   #myDropdown {
     margin-right: -110px !important;
   }
 
-  #notificationsDropdownPane{
+  #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
 
-  #noti-triangle-up{
+  #noti-triangle-up {
     margin-right: 265px;
   }
 
-  #pro-triangle-up{
+  #pro-triangle-up {
     margin-right: 120px;
   }
 }

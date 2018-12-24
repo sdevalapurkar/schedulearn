@@ -221,17 +221,17 @@ html body {
     margin-right: -110px !important;
   }
 
-  #notificationsDropdownPane{
+  #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
 
-  #noti-triangle-up{
+  #noti-triangle-up {
     margin-right: 265px;
   }
 
-  #pro-triangle-up{
+  #pro-triangle-up {
     margin-right: 120px;
   }
 }
