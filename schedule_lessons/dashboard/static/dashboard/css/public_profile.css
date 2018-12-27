@@ -24,11 +24,11 @@ html body {
 }
 
 #triangle-up {
-	width: 0;
+  width: 0;
   height: 0;
   float: right;
-	border-left: 9px solid transparent;
-	border-right: 9px solid transparent;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
   border-bottom: 18px solid white;
   margin-top: -22px;
   margin-right: 24px;
