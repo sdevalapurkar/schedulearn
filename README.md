@@ -8,6 +8,25 @@ The service is available for free use at `https://www.schedulearn.com`
 
 ![Schedule](/img/schedule.png)
 
+## Important Note
+
+In order to make our web app work, you need to add important information by creating a python file called local_settings.py in the following directory: schedule_lessons/schedule_lessons/local_settings.py and copy the following code. After pasting the code in, fill in the blanks to make our web app work. 
+
+````
+EMAIL_HOST = # A string of your email host e.g. 'smtp.zoho.com'
+SCHEDULER_NOTIFY_EMAIL = # A string of your email address that you use to notify people when a lesson has been scheduled
+VERIFY_USER_EMAIL = # A string of your email address that you use to verify users when a user signs up.
+FORGET_PASSWORD_EMAIL = # A string of your email address that you use to email users who forget their password.
+EMAIL_HOST_PASSWORD = # The password to your emails
+EMAIL_PORT = # An integer that's your email port e.g. 587
+EMAIL_USE_TLS = # a boolean value which says whether your email uses TLS or not
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = # a string that's the client key of the social authentication for google+ 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = # a string that's the secret key of the social authentication for google+ 
+SOCIAL_AUTH_GOOGLE_CALENDAR_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+SOCIAL_AUTH_GOOGLE_CALENDAR_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET 
+SOCIAL_AUTH_GOOGLE_CALENDAR_SCOPE = ['https://www.googleapis.com/auth/calendar']
+````
+
 ## Running the Application Locally
 
 ### NOTE: This project is using python 3.6.5 and Django 2.0.6
@@ -15,15 +34,15 @@ The service is available for free use at `https://www.schedulearn.com`
 a. Using your terminal or command prompt, navigate to your workspace directory.
 
 b. You need to clone our repo on the terminal. You can do this by the following command:
-
-```bash
+````
+bash
 #!/bin/bash
 $ git clone https://github.com/sdevalapurkar/schedulearn.git
-```
+````
 
 c. Assuming you have python3.6.5 installed, you can install our dependencies using pip.
 
-#### Side note: We recommend you install these dependencies in a virtual environment, although this isn't necessary
+#### Side note: We recommend you install these dependencies in a virtual environment
 
 In order to do this in a virtual env, start your virtual environment and follow the following steps:
 
@@ -88,10 +107,6 @@ Django version 2.0.2, using settings 'schedule_lessons.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
-
-##### You can now go to the IP address that the app is running on in your browser
-
-NOTE: You can make changes to the code while the server is running and the new code will show up as soon as you refresh your browser, you don't need to restart the server. HOWEVER, in the advanced case you make changes to the database (models.py), you will need to migrate those changes. Additonally, changes to the css files may not show up even if you refresh your browser, this can be because your browser is storing cache files of the css (HINT: try holding shift and refreshing your browser).
 
 ## Development Team
 
