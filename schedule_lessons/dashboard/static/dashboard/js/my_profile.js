@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // This script is used from this website and modified to suit our design needs:
   // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
   $("#reviewTab").fadeOut(0);
   $("#historyTab").fadeOut(0);
 
-  $(".slider-line .s-line-options").click(function(e) {
+  $(".slider-line .s-line-options").click(function (e) {
 
     // make sure we cannot click the slider
     if ($(this).hasClass('slider')) {
@@ -31,9 +31,9 @@ $(document).ready(function() {
 
     // Setup
     var posX = $(this).offset().left,
-    posY = $(this).offset().top,
-    buttonWidth = $(this).width(),
-    buttonHeight = $(this).height();
+      posY = $(this).offset().top,
+      buttonWidth = $(this).width(),
+      buttonHeight = $(this).height();
 
     // Add the element
     $(this).prepend("<span class='ripple'></span>");
@@ -64,26 +64,26 @@ $(document).ready(function() {
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
   _gaq.push(['_trackPageview']);
 
-  (function() {
+  (function () {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
   // This is my own jQuery code
-  $("#avail").click(function(){
+  $("#avail").click(function () {
     $("#availabilityTable").delay(350).fadeIn(100);
     $("#reviewTab").fadeOut(300);
     $("#historyTab").fadeOut(300);
   });
 
-  $("#revi").click(function(){
+  $("#revi").click(function () {
     $("#reviewTab").delay(350).fadeIn(100);
     $("#availabilityTable").fadeOut(300);
     $("#historyTab").fadeOut(300);
   });
 
-  $("#hist").click(function(){
+  $("#hist").click(function () {
     $("#historyTab").delay(350).fadeIn(100);
     $("#availabilityTable").fadeOut(300);
     $("#reviewTab").fadeOut(300);
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
   // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
-  $('#deleteAccountConfirm').click(function() {
+  $('#deleteAccountConfirm').click(function () {
     $('#deleteAccountModal').modal('hide');
     $.ajax({
       type: 'DELETE',
@@ -102,18 +102,18 @@ $(document).ready(function() {
     });
   });
 
-  $("#confirmChangePassword").on("click", function() {
+  $("#confirmChangePassword").on("click", function () {
     $.ajax({
       type: 'POST',
       url: '/dashboard/my_profile/change_password/',
-      data: {'old_password': $("#oldPasswordInput").val(), 'new_password1': $("#newPasswordInput1").val(), 'new_password2': $("#newPasswordInput2").val()},
-      error: function(xhr, status) {
+      data: { 'old_password': $("#oldPasswordInput").val(), 'new_password1': $("#newPasswordInput1").val(), 'new_password2': $("#newPasswordInput2").val() },
+      error: function (xhr, status) {
         $("#oldPasswordInput").html('');
         $("#newPasswordInput1").html('');
         $("#newPasswordInput2").html('');
         $('.error-list').html('Something went wrong, please try again');
       },
-      success: function(response) {
+      success: function (response) {
         if (response.status_code == 200) {
           window.location.href = window.location.href + "?password_change=True";
         } else {
@@ -132,7 +132,7 @@ $(document).ready(function() {
     })
   }); // click handler END for #confirmChangePassword
 
-  $('#notificationsDropdownLink').click(function() {
+  $('#notificationsDropdownLink').click(function () {
     var attr = $('#notificationIcon').attr('data-count');
     if (typeof attr !== typeof undefined && attr !== false) {
       $('#notificationIcon').removeAttr("data-count");
@@ -141,9 +141,9 @@ $(document).ready(function() {
     $.ajax({
       url: '/dashboard/clear_notifications/',
       type: 'post',
-      error: function(xhr, status) {
+      error: function (xhr, status) {
       },
-      success: function(data) {
+      success: function (data) {
       }
     });
   });
@@ -167,7 +167,7 @@ function getCookie(name) {
 }
 
 $.ajaxSetup({
-  beforeSend: function(xhr, settings) {
+  beforeSend: function (xhr, settings) {
     if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
       // Only send the token to relative URLs i.e. locally.
       xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));

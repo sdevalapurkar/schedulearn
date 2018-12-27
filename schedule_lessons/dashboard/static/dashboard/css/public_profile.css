@@ -23,6 +23,17 @@ html body {
   background-color: #4A4A4A;
 }
 
+#triangle-up {
+  width: 0;
+  height: 0;
+  float: right;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
 #loggedInNavbar .navbar-brand {
   font-size: 180%;
   font-family: avenir-next-demibold;
@@ -392,23 +403,25 @@ html body {
   opacity: 1;
 }
 
+@-webkit-keyframes rippleDrop {  
+  100% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes rippleDrop {  
+  100% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
 .rippleEffect {
   -webkit-animation: rippleDrop .6s linear;
   animation: rippleDrop .6s linear;
-}
- @-webkit-keyframes
-rippleDrop {  100% {
- -webkit-transform: scale(2);
- transform: scale(2);
- opacity: 0;
-}
-}
- @keyframes
-rippleDrop {  100% {
- -webkit-transform: scale(2);
- transform: scale(2);
- opacity: 0;
-}
 }
 
 /* Remove Relationship Modal Styling */

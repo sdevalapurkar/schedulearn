@@ -2,6 +2,7 @@
 {% load static %}
 {% load dashboard_extras %}
 <html>
+
 <head>
   <title>{{ user.first_name }}'s Profile | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,6 +15,7 @@
   <link rel="stylesheet" href="{% static 'dashboard/css/my_profile.css' %}">
   <script src="{% static 'dashboard/js/my_profile.js' %}"></script>
 </head>
+
 <body>
 
   <!-- main navbar for signed in users -->
@@ -26,8 +28,8 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
@@ -37,49 +39,95 @@
           {% endif %}
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% if unread_notifications > 0 %}
-            <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
-            {% else %}
-            <i id="notificationIcon" class="far fa-bell"></i>
-            {% endif %}
-          </a>
-          <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
-            <p id="notifcationsDropdownHeaderTitle">Notifications</p>
-            <hr id="notifcationsDropdownHeaderDivider">
-            {% for notification in notifications %}
-            <a href="{{ notification.link }}">
-              <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
-                <div class="notification-picture-container">
-                  <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+      <div class="dropdown-divider"></div>
+      <ul class="navbar-nav ml-auto p-0">
+        <table class="table table-borderless w-25 m-0">
+          <tr class="p-0">
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% if unread_notifications > 0 %}
+                  <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
+                  {% else %}
+                  <i id="notificationIcon" class="far fa-bell"></i>
+                  {% endif %}
+                </a>
+                <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
+                  <div id="noti-triangle-up"></div>
+                  <p id="notifcationsDropdownHeaderTitle">Notifications</p>
+                  <hr id="notifcationsDropdownHeaderDivider">
+                  {% for notification in notifications %}
+                  <a href="{{ notification.link }}">
+                    <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                      <div class="notification-picture-container">
+                        <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
+                      </div>
+                      <span class="notification-message">{{ notification.message }}</span>
+                    </div>
+                  </a>
+                  {% endfor %}
                 </div>
-                <span class="notification-message">{{ notification.message }}</span>
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
-          </a>
-          <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
-            <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-            <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
-          </div>
-        </li>
+              </li>
+            </td>
+            <td class="p-0 pt-1">
+              <li class="nav-item dropdown">
+                <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                </a>
+                <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
+                  <div id="pro-triangle-up"></div>
+                  <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
+                  <a class="dropdown-options" id="signOut" href="{% url 'logout' %}">Sign Out</a>
+                </div>
+              </li>
+            </td>
+          </tr>
+        </table>
       </ul>
     </div>
   </nav>
   <!-- end main navbar -->
   <!-- extended navbar for signed in users -->
-  <nav id="extendedNavbar">
-    <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
-    <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
-    <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#changePasswordModal"><i class="fas fa-lock extended-icon"></i>CHANGE PASSWORD</a>
-    <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
+
+  <nav class="navbar navbar-expand-lg" id="extendedNavbar">
+    <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
+    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="pro-options">More Options</span>
+    </button>
+
+    <!-- This menu shows up on desktop version -->
+    <div class="collapse navbar-collapse">
+      <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
+      <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
+      <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#changePasswordModal"><i class="fas fa-lock extended-icon"></i>CHANGE PASSWORD</a>
+      <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
+    </div>
+
+    <!-- This menu is the formatted version to make it look nice on mobile -->
+    <div class="collapse navbar-collapse" id="pro_options">
+      <div class="dropdown-divider"></div>
+      <table class="table table-borderless">
+        <tr>
+          <td>
+            <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
+        </tr>
+        <tr>
+          <td>
+            <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#changePasswordModal"><i class="fas fa-lock extended-icon"></i>CHANGE PASSWORD</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
+          </td>
+        </tr>
+      </table>
+    </div>
   </nav>
   <!-- end extended navbar for signed in users -->
   {% if password_change %}
@@ -155,93 +203,94 @@
               {% define_variable 0 %}
               {% for availability in availabilities %}
               {% if availability.start_time|date:"l" == day %}
-              <tr>
-                <td class="day">{{ day }}</td>
-                <td>{{ availability.start_time|date:"g:i A" }}</td>
-                <td>{{ availability.end_time|date:"g:i A" }}</td>
-              </tr>
-              {% define_variable 1 %}
-              {% endif %}
-              {% endfor %}
-              {% get_variable as available %}
-              {% if not available %}
-              <tr>
-                <td class="day">{{ day }}</td>
-                <td class="unavailable" colspan="2">UNAVAILABLE</td>
-              </tr>
-              {% endif %}
-              {% endfor %}
-            </table>
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td>{{ availability.start_time|date:"g:i A" }}</td>
+              <td>{{ availability.end_time|date:"g:i A" }}</td>
+            </tr>
+            {% define_variable 1 %}
+            {% endif %}
+            {% endfor %}
+            {% get_variable as available %}
+            {% if not available %}
+            <tr>
+              <td class="day">{{ day }}</td>
+              <td class="unavailable" colspan="2">UNAVAILABLE</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </table>
 
-            <!-- Reviews Option -->
-            <div id="reviewTab">
-              This is the review box!
+          <!-- Reviews Option -->
+          <div id="reviewTab">
+            This is the review box!
+          </div>
+
+          <!-- History Option -->
+          <div id="historyTab">
+            This is the history box!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordHeading">Change your password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="oldPasswordInput" class="col-form-label password-label">Old Password:</label>
+              <input type="password" class="form-control password-input" id="oldPasswordInput">
             </div>
-
-            <!-- History Option -->
-            <div id="historyTab">
-              This is the history box!
+            <div class="form-group">
+              <label for="newPasswordInput1" class="col-form-label password-label">New Password:</label>
+              <input type="password" class="form-control password-input" id="newPasswordInput1"></input>
             </div>
-          </div>
+            <div class="form-group">
+              <label for="newPasswordInput2" class="col-form-label password-label">New Password (confirm):</label>
+              <input type="password" class="form-control password-input" id="newPasswordInput2"></input>
+            </div>
+          </form>
+        </div>
+        <p class="error-list"></p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary bold-text-style" data-dismiss="modal">Close</button>
+          <button type="button" id="confirmChangePassword" class="btn btn-primary bold-text-style">Change Password</button>
         </div>
       </div>
     </div>
+  </div>
 
-
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="changePasswordHeading">Change your password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="oldPasswordInput" class="col-form-label password-label">Old Password:</label>
-                <input type="password" class="form-control password-input" id="oldPasswordInput">
-              </div>
-              <div class="form-group">
-                <label for="newPasswordInput1" class="col-form-label password-label">New Password:</label>
-                <input type="password" class="form-control password-input" id="newPasswordInput1"></input>
-              </div>
-              <div class="form-group">
-                <label for="newPasswordInput2" class="col-form-label password-label">New Password (confirm):</label>
-                <input type="password" class="form-control password-input" id="newPasswordInput2"></input>
-              </div>
-            </form>
-          </div>
-          <p class="error-list"></p>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary bold-text-style" data-dismiss="modal">Close</button>
-            <button type="button" id="confirmChangePassword" class="btn btn-primary bold-text-style">Change Password</button>
-          </div>
+  <!-- delete account modal -->
+  <div id="deleteAccountModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="bold-text-style modal-title">Are you sure you would like to delete your account?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <button id="deleteAccountConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Delete Account</span></button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- delete account modal -->
-    <div id="deleteAccountModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="bold-text-style modal-title">Are you sure you would like to delete your account?</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
-            <button id="deleteAccountConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Delete Account</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
+</body>
 
-  </body>
-  </html>
+</html>
