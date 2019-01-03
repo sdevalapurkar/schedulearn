@@ -1,6 +1,8 @@
 EMAIL_HOST = 'smtp.zoho.com'
 VERIFY_USER_EMAIL = 'verify.user@schedulearn.com'
+EMAIL_HOST_USER = VERIFY_USER_EMAIL
 FORGET_PASSWORD_EMAIL = 'reset.password@schedulearn.com'
 EMAIL_HOST_PASSWORD = 'Schedulearn2018'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
