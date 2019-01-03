@@ -127,6 +127,7 @@ AUTHENTICATION_BACKENDS = (
  'social_core.backends.google.GoogleOpenId',  # for Google authentication
  'social_core.backends.google.GoogleOAuth2',  # for Google authentication
  'django.contrib.auth.backends.ModelBackend',
+ "allauth.account.auth_backends.AuthenticationBackend"
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -190,10 +191,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 ACCOUNT_USERNAME_REQUIRED = False
-
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
 }
+ACCOUNT_FORMS = {'signup': 'accounts.forms.MyCustomSignupForm'}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
