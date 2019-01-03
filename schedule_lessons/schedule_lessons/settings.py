@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'social_django', # for social authentication
     'tz_detect',
     'rest_framework',
@@ -188,6 +189,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_USERNAME_REQUIRED = False
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
