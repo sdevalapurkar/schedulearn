@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'webpack_loader',
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 WEBPACK_LOADER = {
     'DEFAULT': {
