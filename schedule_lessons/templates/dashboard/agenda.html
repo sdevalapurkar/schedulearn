@@ -187,6 +187,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      {% elif gcalender_success == 'invalid_permission' %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Schedulearn has invalid permissions!</strong> Click <a href="{{ gcalendar_access }}">here</a> to grant Schedulearn proper permissions to your calendars. Afterwards, try saving the lesson to your Google Calendars again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% elif gcalender_success == 'granted_permission' %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> You've granted Schedulearn the proper permissions. Try to add the lesson again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       {% endif %}
       {% if successful_schedule_msg %}
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -196,7 +210,6 @@
         </button>
       </div>
       {% endif %}
-
       {% if scheduled_lessons %}
       <h2 class="group-title">SCHEDULED LESSONS</h2>
       {% for scheduled_lesson in scheduled_lessons %}
@@ -213,8 +226,7 @@
             <div class="details">
               <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
               <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
-              <p class="extended-field">Timing:</b> <span class="extended-detail">{{
-                  scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
+              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
               {% if user.profile.user_type == 'tutor' %}
               <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
               {% else %}
@@ -222,7 +234,7 @@
               {% endif %}
             </div>
             <div class="three-buttons">
-              <a href="{% url 'social:begin' 'google-calendar' %}?next={% url 'save_gcalendar_lesson' scheduled_lesson.id %}">
+              <a href="{% url 'save_gcalendar_lesson' scheduled_lesson.id %}">
                 <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Save Lesson To Your Google Calendar"><i class="far fa-calendar-plus"></i></button>
               </a>
               <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
