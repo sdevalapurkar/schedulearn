@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
-from social_django.utils import load_strategy
 from accounts.models import Availability, Skill, Notification
 from schedule_lessons.local_settings import (
     EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL
@@ -582,10 +581,10 @@ def change_password(request):
             'status_code': 400
         }
         current_user = request.user
-        if current_user.social_auth.filter(provider='google-oauth2'):
-            data['social_error'] = ('You are using a google account so '
-                                    "you can't change your password.")
-            return JsonResponse(data)
+        # if current_user.social_auth.filter(provider='google-oauth2'):
+        #     data['social_error'] = ('You are using a google account so '
+        #                             "you can't change your password.")
+        #     return JsonResponse(data)
         old_password = request.POST.get('old_password', '')
         new_password1 = request.POST.get('new_password1', '')
         new_password2 = request.POST.get('new_password2', '')
