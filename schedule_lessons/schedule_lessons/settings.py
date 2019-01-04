@@ -33,7 +33,7 @@ LOGOUT_REDIRECT_URL = '/'
 SECRET_KEY = '&tm9%utcwp=rzanx9%jxn27gnck^4#65316g&6fei94==dml*6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,13 +49,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'social_django', # for social authentication
     'tz_detect',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'rest_auth.registration',
     'webpack_loader',
 ]
+
+SITE_ID = 2
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -182,6 +189,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_USERNAME_REQUIRED = False
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

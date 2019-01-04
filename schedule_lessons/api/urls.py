@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('profile/<token>', views.Profile.as_view()),
     path('connections/<token>', views.Connections.as_view()),
     path('lessons/<token>', views.Lessons.as_view()),
