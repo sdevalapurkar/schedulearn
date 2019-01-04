@@ -148,6 +148,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
 }
+ACCOUNT_FORMS = {'signup': 'accounts.forms.MyCustomSignupForm'}
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 7
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 180
 # Internationalization
