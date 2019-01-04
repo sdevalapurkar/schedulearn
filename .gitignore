@@ -4,3 +4,4 @@ schedule_lessons/db.sqlite3
 schedule_lessons/staticfiles
 schedule_lessons/media/profile_pics/*
 !schedule_lessons/media/profile_pics/.gitkeep
+.DS_Store
