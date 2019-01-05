@@ -57,7 +57,6 @@ def agenda(request):
         }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
-    print(context['gcalender_success'])
     context['scheduled_successful'] = request.GET.get('schedule', False)
     context['rescheduled_successful'] = request.GET.get('reschedule', False)
     if no_results_found:
@@ -587,10 +586,10 @@ def change_password(request):
             'status_code': 400
         }
         current_user = request.user
-        # if current_user.social_auth.filter(provider='google-oauth2'):
-        #     data['social_error'] = ('You are using a google account so '
-        #                             "you can't change your password.")
-        #     return JsonResponse(data)
+        if SocialAccount.objects.filter(user_id=current_user).exists():
+            data['social_error'] = ('You are using a google account so '
+                                    "you can't change your password.")
+            return JsonResponse(data)
         old_password = request.POST.get('old_password', '')
         new_password1 = request.POST.get('new_password1', '')
         new_password2 = request.POST.get('new_password2', '')
