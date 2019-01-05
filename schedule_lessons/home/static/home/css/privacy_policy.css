@@ -1,0 +1,102 @@
+/*
+Colors:
+Primary Light Red Color: #E54F52;
+Primary Dark Red Primary Color: #D14F52
+Black Secondary Color: #4A4A4A
+Offwhite Background Color: #F4F4F4
+
+Title: adam-cg-pro
+Subtitle: DINCondensed-Bold
+nav-links/buttons: avenir-next
+paragraph: Rounded_Elegance
+*/
+
+@font-face { font-family: rounded-elegance; src: url("../fonts/Rounded_Elegance.ttf"); }
+@font-face { font-family: DINCondensed-Bold; src: url("../fonts/DINCondensed-Bold.ttf"); }
+@font-face { font-family: avenir-next; src: url("../fonts/AvenirNext-Regular.ttf"); }
+@font-face { font-family: avenir-next-medium; src: url("../fonts/AvenirNext-Medium.ttf"); }
+@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
+@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
+
+html {
+  height: 100%;
+}
+
+html body {
+  height: 100%;
+  background-color: #ededed;
+}
+
+/* Navbar for logged out Users */
+
+#loggedOutNavbar {
+  background-color: #4A4A4A;
+}
+
+#loggedOutNavbar .nav-link {
+  color: white;
+  font-family: avenir-next;
+  font-size: 130%;
+}
+
+#loggedOutNavbar .nav-link:hover {
+  text-decoration: none;
+  color: #E54F52;
+}
+
+#loggedOutNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+/* END Navbar for logged out Users */
+
+.main {
+  padding-left: 30px;
+  padding-top: 30px;
+  overflow-y: auto;
+}
+
+.main-title {
+  font-family: DINCondensed-Bold;
+  font-size: 250%;
+}
+
+.main-subtitle {
+  font-family: DINCondensed-Bold;
+  font-size: 150%;
+}
+
+.main-text {
+  font-family: avenir-next;
+}
+
+.footer {
+  background-color: #4A4A4A;
+  height: 250px;
+}
+
+.footer-title {
+  font-family: adam-cg-pro;
+  font-size: 250%;
+  text-align: center;
+  color: white;
+  padding-top: 3%;
+}
+
+.links {
+  text-align: center;
+}
+
+.link {
+  padding: 1%;
+  font-size: 300%;
+  color: white;
+}
+
+.link:hover {
+  color: #E54F52;
+}
