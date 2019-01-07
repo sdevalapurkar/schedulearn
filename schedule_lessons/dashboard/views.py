@@ -587,7 +587,7 @@ def change_password(request):
         }
         current_user = request.user
         if SocialAccount.objects.filter(user_id=current_user).exists():
-            data['social_error'] = ('You are using a google account so '
+            data['social_error'] = ('You are using a social account so '
                                     "you can't change your password.")
             return JsonResponse(data)
         old_password = request.POST.get('old_password', '')
