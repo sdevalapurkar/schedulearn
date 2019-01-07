@@ -25,6 +25,6 @@ for provider in providers.registry.get_list():
         prov_mod = import_module(provider.get_package() + '.urls')
     except ImportError:
         continue
-    prov_urlpatterns = getattr(prov_mod, 'urlpatterns', None)
-    if prov_urlpatterns:
-        urlpatterns += prov_urlpatterns
+    prov_url_patterns = getattr(prov_mod, 'urlpatterns', None)
+    if prov_url_patterns:
+        urlpatterns += prov_url_patterns
