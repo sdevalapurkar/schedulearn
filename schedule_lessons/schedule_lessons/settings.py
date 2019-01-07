@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'tz_detect',
     'rest_framework',
     'rest_framework.authtoken',
