@@ -11,12 +11,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
-from social_django.utils import load_strategy
 from accounts.models import Availability, Skill, Notification
 from schedule_lessons.local_settings import (
     EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL
     )
 from .models import Lesson, Relationship
+from allauth.socialaccount.models import SocialAccount, SocialToken
 
 DAYS_OF_THE_WEEK = [
     'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -52,7 +52,8 @@ def agenda(request):
             scheduled_lesson_list.append(data)
     context = {
         'scheduled_lessons': scheduled_lesson_list,
-        'pending_lessons': pending_lesson_list
+        'pending_lessons': pending_lesson_list,
+        'gcalendar_access': '/accounts/google/login/?process=&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar'
         }
     no_results_found = request.GET.get('no_search_result')
     context['gcalender_success'] = request.GET.get('gcalender_success', '')
@@ -81,22 +82,25 @@ def save_gcalendar_lesson(request, lesson_id):
     insert_calendar_url = 'https://www.googleapis.com/calendar/v3/calendars'
     list_calendar_url = ("https://www.googleapis.com/calendar/v3/users/me/"
                          "calendarList")
-    if request.user.social_auth.filter(provider='google-calendar'):
+    if SocialAccount.objects.filter(user_id=request.user).exists():
         try:
             lesson_to_save = Lesson.objects.get(id=lesson_id)
         except Lesson.DoesNotExist:
             response['Location'] += '?gcalender_success=No'
-        if (not request.user == lesson_to_save.tutor and not
+            return response
+        if not (request.user == lesson_to_save.tutor or
                 request.user == lesson_to_save.student):
-            response['Location'] += '?gcalender_success=invalid_permission'
-            return redirect('agenda')
+            response['Location'] += '?gcalender_success=No'
+            return response
+        access_token = SocialToken.objects.get(account__user=request.user)
         headers = {
-            "Authorization": "Bearer {}" + request.user.social_auth.get(
-                provider='google-calendar').get_access_token(
-                    load_strategy())
+            "Authorization": "Bearer " + access_token.token
             }
         user_calendars = requests.get(list_calendar_url,
-                                      headers=headers).json()['items']
+                                      headers=headers).json().get('items', False)
+        if not user_calendars:
+            response['Location'] += '?gcalender_success=invalid_permission'
+            return response
         schedulearn_calendar_exists = False
         for calendar in user_calendars:
             if calendar['summary'] == 'My Lessons (Schedulearn)':
@@ -582,7 +586,7 @@ def change_password(request):
             'status_code': 400
         }
         current_user = request.user
-        if current_user.social_auth.filter(provider='google-oauth2'):
+        if SocialAccount.objects.filter(user_id=current_user).exists():
             data['social_error'] = ('You are using a google account so '
                                     "you can't change your password.")
             return JsonResponse(data)
