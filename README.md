@@ -10,7 +10,7 @@ The service is available for free use at `https://www.schedulearn.com`
 
 ## Important Note
 
-In order to make our web app work, you need to add important information by creating a python file called local_settings.py in the following directory: schedule_lessons/schedule_lessons/local_settings.py and copy the following code. After pasting the code in, fill in the blanks to make our web app work. 
+In order to make our web app work, you need to add important information by creating a python file called local_settings.py in the following directory: schedule_lessons/schedule_lessons/local_settings.py and copy the following code. After pasting the code in, fill in the blanks to make our web app work.
 
 ````
 EMAIL_HOST = # A string of your email host e.g. 'smtp.zoho.com'
@@ -20,11 +20,6 @@ FORGET_PASSWORD_EMAIL = # A string of your email address that you use to email u
 EMAIL_HOST_PASSWORD = # The password to your emails
 EMAIL_PORT = # An integer that's your email port e.g. 587
 EMAIL_USE_TLS = # a boolean value which says whether your email uses TLS or not
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = # a string that's the client key of the social authentication for google+ 
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = # a string that's the secret key of the social authentication for google+ 
-SOCIAL_AUTH_GOOGLE_CALENDAR_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_CALENDAR_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET 
-SOCIAL_AUTH_GOOGLE_CALENDAR_SCOPE = ['https://www.googleapis.com/auth/calendar']
 ````
 
 ## Running the Application Locally
@@ -71,7 +66,7 @@ d. Download our dependencies:
 
 ```bash
 #!/bin/bash
-  $ pip3 install -r requirements.txt 
+  $ pip3 install -r requirements.txt
 ```
 
 e. Navigate inside our django project:
