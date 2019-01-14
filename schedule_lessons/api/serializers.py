@@ -45,8 +45,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    first_name = serializers.CharField(required=True, write_only=True)
-    last_name = serializers.CharField(required=True, write_only=True)
+    full_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
 
@@ -69,15 +68,19 @@ class RegisterSerializer(serializers.Serializer):
 
     def get_cleaned_data(self):
         return {
-            'first_name': self.validated_data.get('first_name', ''),
-            'last_name': self.validated_data.get('last_name', ''),
+            'full_name': self.validated_data.get('first_name', ''),
             'password1': self.validated_data.get('password1', ''),
-            'email': self.validated_data.get('email', ''),
+            'email': self.validated_data.get('email', '')
         }
 
     def save(self, request):
+        full_name_list = request.POST.get('full_name').split()
         adapter = get_adapter()
         user = adapter.new_user(request)
+        user.first_name = full_name_list[0]
+        if len(full_name_list) > 1:
+            user.last_name = full_name_list[-1]
+        user.save()
         self.cleaned_data = self.get_cleaned_data()
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
