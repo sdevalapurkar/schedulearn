@@ -88,7 +88,7 @@ html body {
 
 #notificationsDropdownPane {
   height: 400px;
-  width: 500px;
+  width: 420px;
   overflow-x: hidden;
 }
 
@@ -142,12 +142,14 @@ html body {
   height: 70px;
   border-radius: 50%;
   border: 1px solid #4a4a4a;
+  margin: 10px;
 }
 
 .notification-message {
-  margin-left: 7.5px;
-  display: block;
+  text-align: left;
+  display: table-cell;
   color: #4a4a4a;
+  vertical-align: middle;
 }
 
 .notification-button {
@@ -403,7 +405,7 @@ html body {
   opacity: 1;
 }
 
-@-webkit-keyframes rippleDrop {  
+@-webkit-keyframes rippleDrop {
   100% {
     -webkit-transform: scale(2);
     transform: scale(2);
@@ -411,7 +413,7 @@ html body {
   }
 }
 
-@keyframes rippleDrop {  
+@keyframes rippleDrop {
   100% {
     -webkit-transform: scale(2);
     transform: scale(2);
