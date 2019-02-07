@@ -142,12 +142,14 @@ html body {
   height: 70px;
   border-radius: 50%;
   border: 1px solid #4a4a4a;
+  margin: 10px;
 }
 
 .notification-message {
-  margin-left: 7.5px;
-  display: block;
+  text-align: left;
+  display: table-cell;
   color: #4a4a4a;
+  vertical-align: middle;
 }
 
 .notification-button {
