@@ -139,15 +139,13 @@ html body {
 }
 
 .notification-container {
-  padding: 10px;
+  padding: 3px;
   border-bottom: 1px solid #4a4a4a;
-  display: table;
-  width: 100%;
 }
 
 .notification-picture-container {
   height: 100%;
-  display: table-cell;
+  display: inline-block;
 }
 
 .notification-picture {
@@ -158,11 +156,27 @@ html body {
   margin: 10px;
 }
 
+.notification-message-and-timestamp {
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+  margin-top: 17px;
+}
+
 .notification-message {
   text-align: left;
-  display: table-cell;
   color: #4a4a4a;
-  vertical-align: middle;
+  font-family: avenir-next-regular;
+  font-size: 18px;
+  display: block;
+}
+
+.notification-timestamp {
+  color: #4a4a4a;
+  text-align: center;
+  font-size: 13px;
+  display: block;
+  text-align: right;
 }
 
 .notification-button {
