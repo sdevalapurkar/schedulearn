@@ -277,10 +277,17 @@ html body {
   text-align: center;
 }
 
+.columns-container {
+  white-space: nowrap;
+  padding-top: 35px;
+}
+
 #currentAvailability {
   display: inline-block;
   text-align: center;
   width: 50%;
+  white-space: normal;
+  vertical-align: top;
 }
 
 .edit-availability-subtitle {
@@ -342,6 +349,8 @@ html body {
   display: inline-block;
   text-align: center;
   width: 50%;
+  white-space: normal;
+  vertical-align: top;
 }
 
 #titleInput {
