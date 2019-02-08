@@ -141,6 +141,7 @@ html body {
 .notification-picture-container {
   height: 100%;
   display: table-cell;
+  text-align: center;
 }
 
 .notification-picture {
@@ -152,10 +153,18 @@ html body {
 }
 
 .notification-message {
-  text-align: left;
-  display: table-cell;
+  text-align: center;
+  display: table-row;
   color: #4a4a4a;
   vertical-align: middle;
+  font-family: avenir-next-regular;
+  font-size: 19px;
+}
+
+.notification-timestamp {
+  color: #4a4a4a;
+  text-align: center;
+  display: table-row;
 }
 
 .notification-button {
