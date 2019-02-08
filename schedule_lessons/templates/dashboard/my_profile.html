@@ -62,8 +62,10 @@
                       <div class="notification-picture-container">
                         <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
-                      <span class="notification-message">{{ notification.message }}</span>
-                      <span class="notification-timestamp">{{ notification.time_info }}</span>
+                      <div class="notification-message-and-timestamp">
+                        <span class="notification-message">{{ notification.message }}</span>
+                        <span class="notification-timestamp">{{ notification.time_info }}</span>
+                      </div>
                     </div>
                   </a>
                   {% endfor %}
