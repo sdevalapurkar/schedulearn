@@ -104,7 +104,7 @@
     {% if rel_created_by_request_user %}
     <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
     {% else %}
-    <a class="extended-button" href="{{ remove_student_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ remove_student_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
     <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
     {% else %}
@@ -125,7 +125,7 @@
     {% if rel_created_by_request_user %}
     <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
     {% else %}
-    <a class="extended-button" href="{{ remove_tutor_url }}"><i class="fas fa-ban extended-icon"></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ remove_tutor_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
     <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
     {% else %}
