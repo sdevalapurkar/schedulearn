@@ -67,8 +67,13 @@ def agenda(request):
     if context['rescheduled_successful']:
         context['successful_schedule_msg'] = ("You've successfully rescheduled "
                                              + request.GET.get('lesson'))
-    context['notifications'] = Notification.objects.filter(
-        user=request.user).order_by('-created_on')
+    notifications = Notification.objects.filter(
+        user=request.user).order_by('-created_on') # most recent
+    context['notifications'] = []
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context['notifications'].append(notification)
     context['unread_notifications'] = len(Notification.objects.filter(
         user=request.user, unread=True))
     return render(request, 'dashboard/agenda.html', context)
@@ -165,13 +170,18 @@ def relationships(request):
        users.
     '''
     context = {
-        'notifications':  Notification.objects.filter(
-            user=request.user).order_by('-created_on'),
+        'notifications': [],
         'unread_notifications': len(Notification.objects.filter(
             user=request.user, unread=True)),
         'no_results': 'No results were found' if request.GET.get(
             'no_search_result') else False
     }
+    notifications = Notification.objects.filter(
+        user=request.user).order_by('-created_on') # most recent
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context['notifications'].append(notification)
     if request.user.profile.user_type == 'tutor':
         context['requests_from_students'] = []
         context['requested_students'] = []
@@ -271,8 +281,13 @@ def public_profile(request, user_id):
             else:
                 context['add_tutor_url'] = '{}dashboard/add_tutor/{}'.format(
                     request.build_absolute_uri('/'), user_id)
-        context['notifications'] = Notification.objects.filter(
-            user=request.user).order_by('-created_on')
+        notifications = Notification.objects.filter(
+            user=request.user).order_by('-created_on') # most recent
+        context['notifications'] = []
+        for notification in notifications:
+            notification.time_info = get_timestamp(notification.created_on)
+            notification.save()
+            context['notifications'].append(notification)
         context['unread_notifications'] = len(Notification.objects.filter(
             user=request.user, unread=True))
     return render(request, 'dashboard/public_profile.html', context)
@@ -401,11 +416,16 @@ def choose_person(request):
        page.
     '''
     context = {
-        'notifications': Notification.objects.filter(
-            user=request.user).order_by('-created_on'),
+        'notifications': [],
         'unread_notifications': len(Notification.objects.filter(
             user=request.user, unread=True))
     }
+    notifications = Notification.objects.filter(
+        user=request.user).order_by('-created_on') # most recent
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context['notifications'].append(notification)
     if request.GET.get('no_search_result'):
         context['no_results'] = 'No results were found'
     if request.user.profile.user_type == 'tutor':
@@ -457,8 +477,13 @@ def schedule_lesson(request, user_id):
         context['person_to_schedule_with'] = User.objects.get(
             profile__id=context['user_id'])
         context['availabilities'] = return_availabilities(user_id)
-        context['notifications'] = Notification.objects.filter(
-            user=request.user).order_by('-created_on')
+        notifications = Notification.objects.filter(
+            user=request.user).order_by('-created_on') # most recent
+        context['notifications'] = []
+        for notification in notifications:
+            notification.time_info = get_timestamp(notification.created_on)
+            notification.save()
+            context['notifications'].append(notification)
     return render(request, 'dashboard/schedule_lesson.html', context)
 
 @login_required
@@ -532,8 +557,13 @@ def reschedule_lesson(request, lesson_id):
                                               context)
         return JsonResponse(context)
     if request.method == 'GET':
-        context['notifications'] = Notification.objects.filter(
-            user=request.user).order_by('-created_on')
+        notifications = Notification.objects.filter(
+            user=request.user).order_by('-created_on') # most recent
+        context['notifications'] = []
+        for notification in notifications:
+            notification.time_info = get_timestamp(notification.created_on)
+            notification.save()
+            context['notifications'].append(notification)
         context['unread_notifications'] = len(Notification.objects.filter(
             user=request.user, unread=True))
         context['person_to_schedule_with'] = User.objects.get(
@@ -557,18 +587,24 @@ def reschedule_lesson(request, lesson_id):
 @login_required
 def my_profile(request):
     '''A view that handles the GET request for the my profile page.'''
-    return render(request, 'dashboard/my_profile.html', {
+    context = {
         'user': request.user,
         'availabilities': return_availabilities(request.user.profile.id),
         'skills': return_skills(request.user.profile.id),
         'reset_email': request.GET.get('reset_email', False),
         'days_of_the_week': DAYS_OF_THE_WEEK,
         'password_change': request.GET.get('password_change', False),
-        'notifications':  Notification.objects.filter(
-            user=request.user).order_by('-created_on'),
+        'notifications':  [],
         'unread_notifications': len(Notification.objects.filter(
             user=request.user, unread=True))
-    })
+    }
+    notifications = Notification.objects.filter(
+        user=request.user).order_by('-created_on') # most recent
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context['notifications'].append(notification)
+    return render(request, 'dashboard/my_profile.html', context)
 
 @login_required
 def delete_account(request):
@@ -615,12 +651,17 @@ def edit_profile(request):
     '''A view that handles the GET and POST request for the edit profile page.
     '''
     context = {
-        'notifications': Notification.objects.filter(
-            user=request.user).order_by('-created_on'),
+        'notifications': [],
         'unread_notifications': len(Notification.objects.filter(
             user=request.user, unread=True)),
         'skills': []
         }
+    notifications = Notification.objects.filter(
+        user=request.user).order_by('-created_on') # most recent
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context['notifications'].append(notification)
     if request.method == 'POST':
         if 'profile_pic' in request.POST:
             cropped_img = request.POST['profile_pic']
@@ -727,8 +768,13 @@ def edit_availability(request):
     if request.method == 'GET':
         context['availabilities'] = return_availabilities(
             request.user.profile.id)
-        context['notifications'] = Notification.objects.filter(
-            user=request.user).order_by('-created_on')
+        notifications = Notification.objects.filter(
+            user=request.user).order_by('-created_on') # most recent
+        context['notifications'] = []
+        for notification in notifications:
+            notification.time_info = get_timestamp(notification.created_on)
+            notification.save()
+            context['notifications'].append(notification)
         context['unread_notifications'] = len(Notification.objects.filter(
             user=request.user, unread=True))
     return render(request, 'dashboard/edit_availability.html', context)
@@ -909,3 +955,37 @@ def return_skills(user_id):
     for skill in skills_db:
         skills.append(skill.skill)
     return skills
+
+def get_timestamp(time_of_notification):
+    '''A helper function that returns a list of the skills of a user given the
+    user's id.
+    '''
+    time_difference = datetime.datetime.now(datetime.timezone.utc) - time_of_notification
+    time_in_seconds = int(time_difference.total_seconds())
+    time_in_minutes = int(time_in_seconds / 60)
+    time_in_hours = int(time_in_minutes / 60)
+    time_in_days = int(time_in_hours / 24)
+    time_in_months = int(time_in_days / 30)
+    time_in_years = int(time_in_months / 12)
+    if time_in_seconds < 60: # less than a minute ago.
+        return "Less than a minute ago"
+    elif time_in_minutes < 60: # less than an hour
+        if time_in_minutes == 1:
+            return (str(time_in_minutes) + " minute ago")
+        return (str(time_in_minutes) + " minutes ago")
+    elif time_in_hours < 24: # less than 24 hour
+        if time_in_hours == 1:
+            return (str(time_in_hours) + " hour ago")
+        return (str(time_in_hours) + " hours ago")
+    elif time_in_days < 30: # less than 30 days
+        if time_in_days == 1:
+            return (str(time_in_days) + " day ago")
+        return (str(time_in_days) + " days ago")
+    elif time_in_months < 12: # less than 12 months
+        if time_in_months == 1:
+            return (str(time_in_months) + " month ago")
+        return (str(time_in_months) + " months ago")
+    else:
+        if time_in_years == 1:
+            return (str(time_in_years) + " year ago")
+        return (str(time_in_years) + " years ago")
