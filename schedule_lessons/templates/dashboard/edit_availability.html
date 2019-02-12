@@ -30,7 +30,7 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
@@ -64,7 +64,10 @@
                       <div class="notification-picture-container">
                         <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
-                      <span class="notification-message">{{ notification.message }}</span>
+                      <div class="notification-message-and-timestamp">
+                        <span class="notification-message">{{ notification.message }}</span>
+                        <span class="notification-timestamp">{{ notification.time_info }}</span>
+                      </div>
                     </div>
                   </a>
                   {% endfor %}

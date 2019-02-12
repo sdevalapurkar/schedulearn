@@ -51,7 +51,7 @@
         <table class="table table-borderless w-25 m-0">
           <tr class="p-0">
             <td class="p-0 pt-1">
-              <li class="nav-item dropdown p-1">
+              <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {% if unread_notifications > 0 %}
                   <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
@@ -69,7 +69,10 @@
                       <div class="notification-picture-container">
                         <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
-                      <span class="notification-message">{{ notification.message }}</span>
+                      <div class="notification-message-and-timestamp">
+                        <span class="notification-message">{{ notification.message }}</span>
+                        <span class="notification-timestamp">{{ notification.time_info }}</span>
+                      </div>
                     </div>
                   </a>
                   {% endfor %}
