@@ -126,15 +126,14 @@ html body {
 }
 
 .notification-container {
-  padding: 10px;
+  padding: 3px;
   border-bottom: 1px solid #4a4a4a;
-  display: table;
-  width: 100%;
 }
 
 .notification-picture-container {
   height: 100%;
-  display: table-cell;
+  display: inline-block;
+  text-align: center;
 }
 
 .notification-picture {
@@ -142,12 +141,30 @@ html body {
   height: 70px;
   border-radius: 50%;
   border: 1px solid #4a4a4a;
+  margin: 10px;
+}
+
+.notification-message-and-timestamp {
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+  margin-top: 17px;
 }
 
 .notification-message {
-  margin-left: 7.5px;
-  display: block;
+  text-align: left;
   color: #4a4a4a;
+  font-family: avenir-next-regular;
+  font-size: 18px;
+  display: block;
+}
+
+.notification-timestamp {
+  color: #4a4a4a;
+  text-align: center;
+  font-size: 13px;
+  display: block;
+  text-align: right;
 }
 
 .notification-button {
@@ -275,10 +292,17 @@ html body {
   text-align: center;
 }
 
+.columns-container {
+  white-space: nowrap;
+  padding-top: 35px;
+}
+
 #currentAvailability {
   display: inline-block;
   text-align: center;
   width: 50%;
+  white-space: normal;
+  vertical-align: top;
 }
 
 .edit-availability-subtitle {
@@ -340,6 +364,8 @@ html body {
   display: inline-block;
   text-align: center;
   width: 50%;
+  white-space: normal;
+  vertical-align: top;
 }
 
 #titleInput {
