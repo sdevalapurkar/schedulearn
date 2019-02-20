@@ -97,54 +97,59 @@
     {% else %}
     <a class="extended-button" href="{% url 'relationships' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO MY TUTORS</a>
     {% endif %}
-    {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type %}
-    {% if user.profile.user_type == 'tutor' %}
-    {% if rel_exists %}
-    {% if rel_pending %}
-    {% if rel_created_by_request_user %}
-    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
-    {% else %}
-    <a class="extended-button" href="{{ remove_student_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
-    <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+    {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type and not blocked_by_user %}
+      {% if not blocked %}
+        {% if user.profile.user_type == 'tutor' %}
+          {% if rel_exists %}
+            {% if rel_pending %}
+              {% if rel_created_by_request_user %}
+              <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
+              {% else %}
+              <a class="extended-button" href="{{ remove_student_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
+              <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+              {% endif %}
+            {% else %}
+            <!-- Else for rel_pending -->
+            <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
+            <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+            {% endif %}
+          <!-- End for pending -->
+          {% else %}
+          <!-- Else for rel_exists (if the relationship doesn't exist)-->
+          <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
+          {% endif %}
+        <!-- End for rel exists for tutors -->
+        {% else %}
+        <!-- Else: if the request user is a student -->
+          {% if rel_exists %}
+            {% if rel_pending %}
+              {% if rel_created_by_request_user %}
+              <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
+              {% else %}
+              <a class="extended-button" href="{{ remove_tutor_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
+              <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+              {% endif %}
+            {% else %}
+            <!-- Else for rel_pending -->
+            <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
+            <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+            {% endif %}
+          <!-- End for pending -->
+          {% else %}
+          <!-- Else for rel_exists (if the relationship doesn't exist)-->
+          <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
+          {% endif %} <!-- End for rel exists for students -->
+        {% endif %} <!-- End if for user.profile.user_type == 'tutor' -->
+      {% endif %}
+    {% endif %} <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
+    {% if not profile_user == user %}
+      {% if blocked %}
+      <a id="unblockLink" data-target="#unblockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i class="fas fa-ban extended-icon"></i>UNBLOCK USER</a>
+      {% else %}
+      <a id="blockLink" data-target="#blockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i class="fas fa-ban extended-icon"></i>BLOCK USER</a>
+      {% endif %}
     {% endif %}
-    {% else %}
-    <!-- Else for rel_pending -->
-    <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
-    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    {% endif %}
-    <!-- End for pending -->
-    {% else %}
-    <!-- Else for rel_exists (if the relationship doesn't exist)-->
-    <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
-    {% endif %}
-    <!-- End for rel exists for tutors -->
-    {% else %}
-    <!-- Else: if the request user is a student -->
-    {% if rel_exists %}
-    {% if rel_pending %}
-    {% if rel_created_by_request_user %}
-    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
-    {% else %}
-    <a class="extended-button" href="{{ remove_tutor_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
-    <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
-    {% endif %}
-    {% else %}
-    <!-- Else for rel_pending -->
-    <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
-    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-    {% endif %}
-    <!-- End for pending -->
-    {% else %}
-    <!-- Else for rel_exists (if the relationship doesn't exist)-->
-    <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
-    {% endif %}
-    <!-- End for rel exists for students -->
-    {% endif %}
-    <!-- End if for user.profile.user_type == 'tutor' -->
-    {% endif %}
-    <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
-  </nav>
-  <!-- End navbar for signed in users -->
+  </nav>   <!-- End navbar for signed in users -->
   {% else %}
   <!--navbar start -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedOutNavbar">
@@ -285,6 +290,49 @@
       </div>
     </div>
   </div>
+
+  <!-- unblock user modal -->
+  <div id="unblockUserModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure you want to unblock?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-style">This person will be able to send you friend requests again if you unblock</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <button id="unblockConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Unblock User</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- block user modal -->
+  <div id="blockUserModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure you would like to block?</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-style">Blocking this person will cancel any existing lessons between you and this person as well as revoke any existing friendship connecting in Schedulearn.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <button id="blockConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Block User</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 
