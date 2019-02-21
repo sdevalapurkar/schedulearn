@@ -89,7 +89,8 @@ html body {
 #notificationsDropdownPane {
   height: 400px;
   width: 420px;
-  overflow-x: hidden;
+  margin-right: 9px;
+  overflow: scroll;
 }
 
 #notifcationsDropdownHeaderTitle {

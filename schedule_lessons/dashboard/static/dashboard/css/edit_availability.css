@@ -91,10 +91,11 @@ html body {
   margin-top: 10px;
 }
 
-#notificationsDropdownPane{
+#notificationsDropdownPane {
   height: 400px;
   width: 420px;
   margin-right: 9px;
+  overflow: scroll;
 }
 
 #myDropdown{
