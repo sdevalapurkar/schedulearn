@@ -74,6 +74,21 @@ class Skill(models.Model):
         '''Used for string outputs for a skill'''
         return self.profile.user.get_full_name() + ' has skill: ' + self.skill
 
+class BlockedUsers(models.Model):
+    '''This class models a blocking relationship between a user blocking another
+    user
+
+    User -- The person who's blocking
+    Blocked_User -- The blocked person.
+    '''
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_rel')
+    blocked_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blocked_user_rel')
+
+    def __str__(self):
+        '''Used for string outputs for a blocked user'''
+        return '{} blocked {}'.format(self.user.get_full_name(),
+                                          self.blocked_user.get_full_name())
+
 class Notification(models.Model):
     '''This class models a notification with 6 fields.
 
