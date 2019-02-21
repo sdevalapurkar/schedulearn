@@ -418,6 +418,37 @@ html body {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
+
+/* Blocked Users Modal Styling */
+
+#blockedUsersTable {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#blockedUsersTable td, #blockedUsersTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#blockedUsersTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#blockedUsersTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
+}
+
+#blockedUsersTable td {
+  font-family: avenir-next-regular;
+}
+
+/* END Blocked Users Modal Styling */
 /* Delete Account Modal Styling */
 .modal-dialog {
   padding-top: 10%;

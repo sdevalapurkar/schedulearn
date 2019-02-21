@@ -111,6 +111,16 @@ $(document).ready(function () {
     document.getElementById('removeRelationshipConfirm').setAttribute("href", e.relatedTarget.href);
   });
 
+  $('#unblockConfirm').on('click', function(e) {
+    var link = $('#unblockLink').attr('href');
+    window.location.href = link;
+  });
+
+  $('#blockConfirm').on('click', function(e) {
+    var link = $('#blockLink').attr('href');
+    window.location.href = link;
+  });
+
 });
 
 

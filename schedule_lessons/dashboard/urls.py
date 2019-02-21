@@ -36,4 +36,6 @@ urlpatterns = [
          views.delete_availability, name='delete_availability'),
     path('clear_notifications/', views.clear_notifications,
          name='clear_notifications'),
+    path('block/<user_id>', views.block_user, name='block_user'),
+    path('unblock/<user_id>', views.unblock_user, name='unblock_user'),
 ]
