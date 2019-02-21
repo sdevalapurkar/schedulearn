@@ -101,6 +101,7 @@ html body {
   height: 400px;
   width: 420px;
   margin-right: 9px;
+  overflow: scroll;
 }
 
 #myDropdown {
