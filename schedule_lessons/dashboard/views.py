@@ -316,11 +316,10 @@ def add_student(request, student_id):
         student = User.objects.get(profile__id=student_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
-    blocking_relationship = []
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=request.user, blocked_user=student))
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=student, blocked_user=request.user))
+    blocking_relationship = False
+    if (BlockedUsers.objects.filter(user=request.user, blocked_user=student) or
+        BlockedUsers.objects.filter(user=student, blocked_user=request.user)):
+        blocking_relationship = True
     if (student.profile.user_type != "student"
             or request.user.profile.user_type != "tutor") or blocking_relationship:
         return HttpResponse(status=400)
