@@ -31,9 +31,9 @@ def agenda(request):
     pending_lesson_list = []
     scheduled_lesson_list = []
     if request.user.profile.user_type == "student":
-        lessons = Lesson.objects.filter(student=request.user)
+        lessons = Lesson.objects.filter(student=request.user, expired=False)
     else:
-        lessons = Lesson.objects.filter(tutor=request.user)
+        lessons = Lesson.objects.filter(tutor=request.user, expired=False)
     for lesson in lessons:
         data = {
             "id": lesson.id,
