@@ -620,8 +620,15 @@ def my_profile(request):
         "notifications":  [],
         "unread_notifications": len(Notification.objects.filter(
             user=request.user, unread=True)),
-        "blocked_people": []
+        "blocked_people": [],
     }
+    expired_lessons = []
+    if request.user.profile.user_type == 'tutor':
+        context['expired_lessons'] = Lesson.objects.filter(
+                                tutor=request.user, expired=True)
+    elif request.user.profile.user_type == 'student':
+        context['expired_lessons'] = Lesson.objects.filter(
+                                student=request.user, expired=True)
     blocked_people = BlockedUsers.objects.filter(user=request.user)
     for blocked_person in blocked_people:
         context["blocked_people"].append({
