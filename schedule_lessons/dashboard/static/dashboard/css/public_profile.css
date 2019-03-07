@@ -218,7 +218,7 @@ html body {
   position: relative;
 }
 
-.extended-button {
+.extended-button, .extended-uninteractive-text {
   font-size: 100%;
   color: #F4F4F4;
   margin-right: 3%;
