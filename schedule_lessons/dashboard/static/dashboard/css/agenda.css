@@ -390,7 +390,59 @@ html body {
   height: 300px;
   margin: 60px auto;
   display: block;
+
 }
+
+#tut-background{
+  position: absolute;
+  top:0px;
+  left:0px;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+}
+
+#tutorial-wrapper{
+  position: absolute;
+}
+
+#tutorial1 {
+  height: 200px;
+  margin-left: 2%;
+  margin-top: 5px;
+  top:80px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial2 {
+  height: 250px;
+  margin-left: 300px;
+  top:40px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial3 {
+  height: 120px;
+  margin-left: 490px;
+  top:25px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial4 {
+  height: 200px;
+  margin-left: 90%;
+  top:50px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  right: 5px;
+}
+
 
 .text-prompt {
   text-align: center;
