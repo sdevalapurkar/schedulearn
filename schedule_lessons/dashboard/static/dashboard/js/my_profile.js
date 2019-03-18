@@ -89,6 +89,10 @@ $(document).ready(function () {
     $("#reviewTab").fadeOut(300);
   });
 
+  $("#secondNavBtn").click(function(){
+    $("#navbarSupportedContent").slideToggle("fast");
+  });
+
   // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
   $('#deleteAccountConfirm').click(function () {
