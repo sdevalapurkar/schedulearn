@@ -10,6 +10,10 @@ $(document).ready(function () {
     // $('#options_btn').toggleClass('addBtnAnim');
   });
 
+  $("#secondNavBtn").click(function(){
+    $("#navbarSupportedContent").slideToggle("fast");
+  });
+
   $('#declineLessonModal').on('show.bs.modal', function (e) {
     document.getElementById('declineLessonConfirm').setAttribute("href", e.relatedTarget.href);
   });

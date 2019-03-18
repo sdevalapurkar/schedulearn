@@ -94,12 +94,12 @@
 
   <nav class="navbar navbar-expand-lg" id="extendedNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
-    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler w-100" type="button" id="secondNavBtn">
       <span class="pro-options">More Options</span>
     </button>
 
     <!-- This menu shows up on desktop version -->
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="desktopNav">
       <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
       <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
       <a data-target="#blockedUsersModal" data-toggle="modal" class="extended-button" href="#blockedUsersModal"><i class="fas fa-ban extended-icon"></i>BLOCKED USERS</a>
@@ -108,7 +108,7 @@
     </div>
 
     <!-- This menu is the formatted version to make it look nice on mobile -->
-    <div class="collapse navbar-collapse" id="pro_options">
+    <div id="navbarSupportedContent" class="w-100">
       <div class="dropdown-divider"></div>
       <table class="table table-borderless">
         <tr>
@@ -250,9 +250,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Blocked Users</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <table id="blockedUsersTable">
@@ -319,9 +319,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Are you sure?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
