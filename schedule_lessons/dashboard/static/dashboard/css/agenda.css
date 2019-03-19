@@ -104,10 +104,6 @@ html body {
   overflow-y: auto;
 }
 
-#myDropdown {
-  margin-right: -14px;
-}
-
 #notifcationsDropdownHeaderTitle {
   margin-bottom: 0;
   text-align: center;
@@ -371,6 +367,7 @@ html body {
   border: none;
   position: absolute;
   right: 12px;
+  transition: 0.3s ease;
 }
 
 @keyframes slider {
@@ -385,6 +382,11 @@ html body {
 
 .addAnim {
   animation: slider .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.addBtnAnim{
+  transform: translateY(-35px) !important;
+  transition: 0.3s ease;
 }
 
 @media(max-width: 400px) {
