@@ -82,7 +82,7 @@
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
                 <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="pic">
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
@@ -268,7 +268,7 @@
             <span class="year">{{ pending_lesson.start_time|date:"Y" }}</span>
           </div>
           <div class="details-and-buttons">
-            <button id="options_btn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+            <button id="options_btn"><i id="optionsBtnIcon" class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
             <div class="details">
               <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
               <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>

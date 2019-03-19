@@ -191,10 +191,6 @@ html body {
   overflow-y: auto;
 }
 
-#myDropdown {
-  margin-right: -14px;
-}
-
 .dropdown-options {
   display: block;
 }
@@ -279,10 +275,22 @@ html body {
 }
 
 @media(max-width: 570px) {
-  #myDropdown {
-    margin-right: -110px !important;
+  .align-left{
+    text-align: left !important;
   }
-
+  
+  .align-center{
+    text-align: center !important;
+  }
+  
+  .align-right{
+    text-align: right !important;
+  }
+  
+  .align-justify{
+    text-align: justify !important;
+  }
+  
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
@@ -299,9 +307,6 @@ html body {
 }
 
 @media (max-width: 991.98px) {
-  #myDropdown {
-    margin-right: -110px !important;
-  }
 
   #notificationsDropdownPane {
     height: 350px;
