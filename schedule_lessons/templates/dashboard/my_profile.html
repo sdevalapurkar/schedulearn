@@ -75,7 +75,7 @@
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
                 <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="media/default/man.png">
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
@@ -160,7 +160,7 @@
     <div class="row">
 
       <!-- Left side that contains the profile picture and the skills -->
-      <div class="col-md-2 m-4 pl-4">
+      <div class="col-md-2 m-4 pl-4 align-center">
         <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
         <div class="col-md-12 mt-4">
           <table class="table">
@@ -179,7 +179,7 @@
       </div>
 
       <!-- Right side that contains everything else -->
-      <div class="col-md-7">
+      <div class="col-md-7 align-center">
         <div id="availability">
           <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
           <h3 id="userType">{{ user.profile.user_type }}</h3>
