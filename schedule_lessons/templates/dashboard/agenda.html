@@ -82,7 +82,7 @@
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
                 <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="pic">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
@@ -322,34 +322,35 @@
           <!-- <div class="modal-body">
           <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
         </div> -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
-          <a id="declineLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
-          </a>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+            <a id="declineLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- cancel lesson modal -->
-  <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
-          <a id="cancelLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
-          </a>
+    <!-- cancel lesson modal -->
+    <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
+            <a id="cancelLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </body>
+
 </html>
