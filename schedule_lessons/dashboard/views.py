@@ -31,9 +31,9 @@ def agenda(request):
     pending_lesson_list = []
     scheduled_lesson_list = []
     if request.user.profile.user_type == "student":
-        lessons = Lesson.objects.filter(student=request.user)
+        lessons = Lesson.objects.filter(student=request.user, expired=False)
     else:
-        lessons = Lesson.objects.filter(tutor=request.user)
+        lessons = Lesson.objects.filter(tutor=request.user, expired=False)
     for lesson in lessons:
         data = {
             "id": lesson.id,
@@ -316,11 +316,10 @@ def add_student(request, student_id):
         student = User.objects.get(profile__id=student_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
-    blocking_relationship = []
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=request.user, blocked_user=student))
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=student, blocked_user=request.user))
+    blocking_relationship = False
+    if (BlockedUsers.objects.filter(user=request.user, blocked_user=student) or
+        BlockedUsers.objects.filter(user=student, blocked_user=request.user)):
+        blocking_relationship = True
     if (student.profile.user_type != "student"
             or request.user.profile.user_type != "tutor") or blocking_relationship:
         return HttpResponse(status=400)
@@ -379,11 +378,10 @@ def add_tutor(request, tutor_id):
         tutor = User.objects.get(profile__id=tutor_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
-    blocking_relationship = []
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=request.user, blocked_user=tutor))
-    blocking_relationship.append(
-        BlockedUsers.objects.filter(user=tutor, blocked_user=request.user))
+    blocking_relationship = False
+    if (BlockedUsers.objects.filter(user=request.user, blocked_user=tutor) or
+        BlockedUsers.objects.filter(user=tutor, blocked_user=request.user)):
+        blocking_relationship = True
     if (tutor.profile.user_type != "tutor"
             or request.user.profile.user_type != "student") or blocking_relationship:
         return HttpResponse(status=400)
@@ -622,8 +620,15 @@ def my_profile(request):
         "notifications":  [],
         "unread_notifications": len(Notification.objects.filter(
             user=request.user, unread=True)),
-        "blocked_people": []
+        "blocked_people": [],
     }
+    expired_lessons = []
+    if request.user.profile.user_type == 'tutor':
+        context['expired_lessons'] = Lesson.objects.filter(
+                                tutor=request.user, expired=True)
+    elif request.user.profile.user_type == 'student':
+        context['expired_lessons'] = Lesson.objects.filter(
+                                student=request.user, expired=True)
     blocked_people = BlockedUsers.objects.filter(user=request.user)
     for blocked_person in blocked_people:
         context["blocked_people"].append({
