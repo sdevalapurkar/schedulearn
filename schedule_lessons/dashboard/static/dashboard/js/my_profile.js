@@ -71,26 +71,26 @@ $(document).ready(function () {
   })();
 
   // This is my own jQuery code
-  $("#avail").click(function () {
-    $("#availabilityTable").delay(350).fadeIn(100);
-    $("#reviewTab").fadeOut(300);
-    $("#historyTab").fadeOut(300);
+  $('#avail').click(function () {
+    $('#availabilityTable').delay(350).fadeIn(100);
+    $('#reviewTab').fadeOut(300);
+    $('#historyTab').fadeOut(300);
   });
 
-  $("#revi").click(function () {
-    $("#reviewTab").delay(350).fadeIn(100);
-    $("#availabilityTable").fadeOut(300);
-    $("#historyTab").fadeOut(300);
+  $('#revi').click(function () {
+    $('#reviewTab').delay(350).fadeIn(100);
+    $('#availabilityTable').fadeOut(300);
+    $('#historyTab').fadeOut(300);
   });
 
-  $("#hist").click(function () {
-    $("#historyTab").delay(350).fadeIn(100);
-    $("#availabilityTable").fadeOut(300);
-    $("#reviewTab").fadeOut(300);
+  $('#hist').click(function () {
+    $('#historyTab').delay(350).fadeIn(100);
+    $('#availabilityTable').fadeOut(300);
+    $('#reviewTab').fadeOut(300);
   });
 
-  $("#secondNavBtn").click(function(){
-    $("#navbarSupportedContent").slideToggle("fast");
+  $('#secondNavBtn').click(function(){
+    $('#navbarSupportedContent').slideToggle('fast');
   });
 
   // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
