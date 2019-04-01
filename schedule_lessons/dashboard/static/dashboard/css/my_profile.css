@@ -5,7 +5,7 @@
 @font-face { font-family: bariol; src: url("../fonts/Bariol_Regular.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
 @font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
-
+@font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
 
 html {
   height: 100%;
@@ -378,7 +378,7 @@ html body {
   color: #D14F52;
 }
 
-.day {
+.availability-day {
   text-transform: uppercase;
 }
 
@@ -526,4 +526,78 @@ html body {
 #confirmChangePassword {
   background-color: #D14F52;
   border: 0;
+}
+
+.lesson {
+  box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
+  margin-bottom: 20px;
+}
+
+.main-information {
+  width: 100%;
+  display: inline-flex;
+  height: 130px;
+}
+
+.date {
+  min-width: 80px;
+  height: 100%;
+  background-color: #D14F52;
+  font-family: code-bold;
+  color: #F4F4F4;
+  text-align: center;
+}
+
+.day {
+  display: block;
+  margin-top: 1px;
+  font-size: 140%;
+}
+
+.month-day {
+  font-size: 260%;
+  margin-bottom: -18px;
+  margin-top: -14px;
+  display: block;
+  padding-right: 5px;
+}
+
+.month {
+  display: block;
+  font-size: 180%;
+  margin-bottom: -11px;
+}
+
+.year {
+  font-size: 150%;
+  display: block;
+}
+
+.details {
+  background-color: white;
+  width: 100%;
+  padding-left: 9px;
+  padding-top: 4px;
+}
+
+.lesson-title {
+  padding-top: 0.5%;
+  font-family: bebas-neue;
+  text-align: left;
+  font-size: 200%;
+  margin-bottom: 0;
+}
+
+.extended-field {
+  text-align: left;
+  margin-bottom: 0;
+  color: #4F4F4F;
+  font-family: adam-cg-pro;
+  font-weight: lighter;
+  font-size: 100%;
+  display: block;
+}
+
+.extended-detail {
+  font-family: avenir-next-regular;
 }
