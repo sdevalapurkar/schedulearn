@@ -1,15 +1,15 @@
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 
-  $("#secondNavBtn").click(function(){
-    $("#navbarSupportedContent").slideToggle("fast");
+  $('#secondNavBtn').click(function(){
+    $('#navbarSupportedContent').slideToggle('fast');
   });
 
   $('#notificationsDropdownLink').click(function () {
     var attr = $('#notificationIcon').attr('data-count');
     if (typeof attr !== typeof undefined && attr !== false) {
-      $('#notificationIcon').removeAttr("data-count");
-      $('#notificationIcon').removeClass("notification-badge");
+      $('#notificationIcon').removeAttr('data-count');
+      $('#notificationIcon').removeClass('notification-badge');
     }
     $.ajax({
       url: '/dashboard/clear_notifications/',
