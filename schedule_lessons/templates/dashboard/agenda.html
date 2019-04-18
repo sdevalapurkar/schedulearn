@@ -167,15 +167,25 @@
   <!-- end extended navbar for signed in users -->
   {% tz_detect %}
   {% if not scheduled_lessons and not pending_lessons %}
+  {% if show_tutorial %}
+  <div class="tutorial-wrapper">
+     <form class="tutorial-acknowledge-form" action="index.html" method="post">
+         <div class="acknowledge-btn-div">
+           <a class="acknowledge-btn" href="#">OK</a>
+         </div>
+         <div class="acknowledge-options">
+             <input id="dontShowTutorialCheckbox" type="checkbox" name="dontshowagain" value="">
+             <span id="dontShowTutorialText">Don't Show Tutorial Again</span>
+         </div>
 
-  <div class = "tutorial-wrapper">
+     </form>
     <img id="tut-background" src="{% static 'dashboard/images/tut-background.png' %}" alt="Tut-background">
     <img id="tutorial1" src="{% static 'dashboard/images/arrow1.png' %}" alt="Tutorial1">
     <img id="tutorial2" src="{% static 'dashboard/images/arrow2.png' %}" alt="Tutorial2">
     <img id="tutorial3" src="{% static 'dashboard/images/arrow3.png' %}" alt="Tutorial3">
     <img id="tutorial4" src="{% static 'dashboard/images/Arrow4.png' %}" alt="Tutorial4">
   </div>
-
+  {% endif %}
   <img id="picturePrompt" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
   <h2 class="text-prompt">No Lessons Scheduled</h1>
     {% if user.profile.user_type == 'student' %}
