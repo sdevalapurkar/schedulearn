@@ -8,5 +8,7 @@ class Command(BaseCommand):
     help = 'Expires event objects which are out-of-date'
     def handle(self, *args, **options):
         '''This method describes the actions to perform for crontab.'''
-        Lesson.objects.filter(end_time__lt=datetime.datetime.now(
-            datetime.timezone.utc)).delete()
+        for lesson in Lesson.objects.filter(end_time__lt=datetime.datetime.now(
+            datetime.timezone.utc)):
+            lesson.expired = True
+            lesson.save()
