@@ -2,7 +2,6 @@ $(document).ready(function () {
   // This script is used from this website and modified to suit our design needs:
   // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
-  $("#reviewTab").fadeOut(0);
   $("#historyTab").fadeOut(0);
 
   $(".slider-line .s-line-options").click(function (e) {
@@ -73,20 +72,12 @@ $(document).ready(function () {
   // This is my own jQuery code
   $("#avail").click(function () {
     $("#availabilityTable").delay(350).fadeIn(100);
-    $("#reviewTab").fadeOut(300);
-    $("#historyTab").fadeOut(300);
-  });
-
-  $("#revi").click(function () {
-    $("#reviewTab").delay(350).fadeIn(100);
-    $("#availabilityTable").fadeOut(300);
     $("#historyTab").fadeOut(300);
   });
 
   $("#hist").click(function () {
     $("#historyTab").delay(350).fadeIn(100);
     $("#availabilityTable").fadeOut(300);
-    $("#reviewTab").fadeOut(300);
   });
 
   // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
