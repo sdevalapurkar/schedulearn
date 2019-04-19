@@ -99,7 +99,7 @@ html body {
   height: 400px;
   width: 420px;
   margin-right: 9px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 #myDropdown {
@@ -243,6 +243,8 @@ html body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  right: 0.1%;
+  width: 275px !important;
 }
 
 #searchInput {
@@ -276,6 +278,24 @@ html body {
 .pro-options {
   font-weight: bold;
   color: white;
+}
+
+#desktopNav{
+  display: block !important;
+}
+
+#navbarSupportedContent{
+  display: none;
+}
+
+@media(max-width: 991.98px) {
+  #desktopNav{
+    display: none !important;
+  }
+
+  #searchBar { 
+    left: 0%;
+  }
 }
 
 @media(min-width: 576px) {
@@ -315,10 +335,6 @@ html body {
     margin-right: 120px;
   }
 
-  #searchInput {
-    width: 100%;
-  }
-
   .extended-button {
     margin-left: 6%;
   }
@@ -329,6 +345,24 @@ html body {
 }
 
 @media (max-width: 991.98px) {
+
+  #myDropdown {
+    margin-right: -110px !important;
+  }
+
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+
+  #noti-triangle-up {
+    margin-right: 265px;
+  }
+
+  #pro-triangle-up {
+    margin-right: 120px;
+  }
 
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
