@@ -103,12 +103,12 @@
   <!-- extended navbar for signed in users -->
   <nav class="navbar navbar-expand-lg" id="extendedNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
-    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler w-100" type="button" id="secondNavBtn">
       <span class="pro-options">More Options</span>
     </button>
 
     <!-- This menu shows up on desktop version -->
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="desktopNav">
       <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
       <form action="{% url 'search' %}" id="searchBar" class="form-inline">
         {% if user.profile.user_type == 'tutor' %}
@@ -131,7 +131,7 @@
     </div>
 
     <!-- This menu is the formatted version to make it look nice on mobile -->
-    <div class="collapse navbar-collapse" id="pro_options">
+    <div id="navbarSupportedContent" class="w-100">
       <div class="dropdown-divider"></div>
       <table class="table table-borderless">
         <tr>
