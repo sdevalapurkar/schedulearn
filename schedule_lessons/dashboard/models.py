@@ -43,6 +43,7 @@ class Lesson(models.Model):
     end_time = models.DateTimeField()
 
     pending = models.BooleanField(null=False, default=True)
+    expired = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         '''Returns the lessons name for string printing purposes.'''

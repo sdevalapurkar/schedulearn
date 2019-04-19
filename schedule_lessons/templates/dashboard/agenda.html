@@ -101,12 +101,12 @@
   <!-- extended navbar for signed in users -->
   <nav class="navbar navbar-expand-lg" id="extendedNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
-    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler w-100" type="button" id="secondNavBtn">
       <span class="pro-options">More Options</span>
     </button>
 
     <!-- This menu shows up on desktop version -->
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="desktopNav">
       <a class="extended-button" href="{% url 'choose_person' %}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
       <form action="{% url 'search' %}" id="searchBar" class="form-inline">
         {% if user.profile.user_type == 'tutor' %}
@@ -129,7 +129,7 @@
     </div>
 
     <!-- This menu is the formatted version to make it look nice on mobile -->
-    <div class="collapse navbar-collapse" id="pro_options">
+    <div id="navbarSupportedContent" class="w-100">
       <div class="dropdown-divider"></div>
       <table class="table table-borderless">
         <tr>
@@ -288,7 +288,7 @@
             <span class="year">{{ pending_lesson.start_time|date:"Y" }}</span>
           </div>
           <div class="details-and-buttons">
-            <button id="options_btn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+            <button id="options_btn"><i id="optionsBtnIcon" class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
             <div class="details">
               <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
               <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
@@ -342,34 +342,35 @@
           <!-- <div class="modal-body">
           <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
         </div> -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
-          <a id="declineLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
-          </a>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+            <a id="declineLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Decline Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- cancel lesson modal -->
-  <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
-          <a id="cancelLessonConfirm" href="#">
-            <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
-          </a>
+    <!-- cancel lesson modal -->
+    <div id="cancelLessonModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Return</span></button>
+            <a id="cancelLessonConfirm" href="#">
+              <button type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Cancel Lesson</span></button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </body>
+
 </html>

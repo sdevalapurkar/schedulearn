@@ -75,7 +75,7 @@
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
                 <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="media/default/man.png">
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
@@ -94,12 +94,12 @@
 
   <nav class="navbar navbar-expand-lg" id="extendedNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu for Profile Options -->
-    <button class="navbar-toggler profile-options-button w-100" id="openNavigation" type="button" data-toggle="collapse" data-target="#pro_options" aria-controls="pro_options" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler w-100" type="button" id="secondNavBtn">
       <span class="pro-options">More Options</span>
     </button>
 
     <!-- This menu shows up on desktop version -->
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="desktopNav">
       <a class="extended-button" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit extended-icon"></i>EDIT PROFILE</a>
       <a class="extended-button" href="{% url 'edit_availability' %}"><i class="fas fa-calendar-alt extended-icon"></i>EDIT AVAILABILITY</a>
       <a data-target="#blockedUsersModal" data-toggle="modal" class="extended-button" href="#blockedUsersModal"><i class="fas fa-ban extended-icon"></i>BLOCKED USERS</a>
@@ -108,7 +108,7 @@
     </div>
 
     <!-- This menu is the formatted version to make it look nice on mobile -->
-    <div class="collapse navbar-collapse" id="pro_options">
+    <div id="navbarSupportedContent" class="w-100">
       <div class="dropdown-divider"></div>
       <table class="table table-borderless">
         <tr>
@@ -160,7 +160,7 @@
     <div class="row">
 
       <!-- Left side that contains the profile picture and the skills -->
-      <div class="col-md-2 m-4 pl-4">
+      <div class="col-md-2 m-4 pl-4 align-center">
         <img id="profilePicture" src="/media/{{ user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
         <div class="col-md-12 mt-4">
           <table class="table">
@@ -179,7 +179,7 @@
       </div>
 
       <!-- Right side that contains everything else -->
-      <div class="col-md-7">
+      <div class="col-md-7 align-center">
         <div id="availability">
           <h1 id="userName">{{ user.first_name }} {{ user.last_name }}</h1>
           <h3 id="userType">{{ user.profile.user_type }}</h3>
@@ -213,7 +213,7 @@
               {% for availability in availabilities %}
               {% if availability.start_time|date:"l" == day %}
             <tr>
-              <td class="day">{{ day }}</td>
+              <td class="availability-day">{{ day }}</td>
               <td>{{ availability.start_time|date:"g:i A" }}</td>
               <td>{{ availability.end_time|date:"g:i A" }}</td>
             </tr>
@@ -223,7 +223,7 @@
             {% get_variable as available %}
             {% if not available %}
             <tr>
-              <td class="day">{{ day }}</td>
+              <td class="availability-day">{{ day }}</td>
               <td class="unavailable" colspan="2">UNAVAILABLE</td>
             </tr>
             {% endif %}
@@ -237,7 +237,29 @@
 
           <!-- History Option -->
           <div id="historyTab">
-            This is the history box!
+            {% for lesson in expired_lessons %}
+            <div class="lesson">
+              <div class="main-information">
+                <div class="date">
+                  <span class="day">{{ lesson.start_time|date:"D" }}</span>
+                  <span class="month-day">{{ lesson.start_time|date:"d" }}</span>
+                  <span class="month">{{ lesson.start_time|date:"M" }}</span>
+                  <span class="year">{{ lesson.start_time|date:"Y" }}</span>
+                </div>
+
+                <div class="details">
+                    <h4 class="lesson-title">{{ lesson.name }}</h4>
+                    <p class="extended-field">Location: <span class="extended-detail">{{ lesson.location }}</span></p>
+                    <p class="extended-field">Timing:</b> <span class="extended-detail">{{ lesson.start_time|date:"g:i A" }} - {{ lesson.end_time|date:"g:i A" }}</span></p>
+                    {% if user.profile.user_type == 'tutor' %}
+                    <p class="extended-field">Student:</b> <a href="/dashboard/profile/{{ lesson.student.profile.id }}" class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
+                    {% else %}
+                    <p class="extended-field">Tutor:</b> <a href="/dashboard/profile/{{ lesson.tutor.profile.id }}" class="extended-detail">{{ lesson.tutor.get_full_name }}</a></p>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -250,9 +272,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Blocked Users</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <table id="blockedUsersTable">
@@ -319,9 +341,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Are you sure?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <p class="text-style">If you delete your account, you will no longer be able to use Schedulearn or any of its features.</p>
