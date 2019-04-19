@@ -397,8 +397,8 @@ html body {
   position: absolute;
   z-index: 1000;
   left:50%;
-  margin-left:-105px;
-  width: 210px;
+  margin-left:-170px;
+  width: 340px;
   bottom: 150px;
 }
 
@@ -425,8 +425,14 @@ html body {
   text-decoration: none;
 }
 
+.acknowledge-options {
+  text-align: center;
+}
+
 #dontShowTutorialText {
   font-family: avenir-next-regular;
+  color: #FDFDFD;
+  font-size: 24px;
 }
 
 #tut-background{
