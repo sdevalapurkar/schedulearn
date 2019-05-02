@@ -2,15 +2,11 @@ $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 
   $(".acknowledge-btn").on('click', function(e) {
-    var data;
+    let data = {
+      'show_tutorial': false
+    };
     if (!$('#dontShowTutorialCheckbox').is(":checked")) {
-      data = {
-        'show_tutorial': 1, // true
-      }
-    } else {
-      data = {
-        'show_tutorial': 0, // false 
-      };
+      data.show_tutorial = true;
     }
     $(".tutorial-wrapper").remove();
     $.ajax({
@@ -18,12 +14,8 @@ $(document).ready(function () {
       type: 'post',
       data: data,
       error: function(xhr, status) {
-
-      },
-      success: function (data) {
-
+        alert("Something went wrong, please try again.");
       }
-
     });
   });
 

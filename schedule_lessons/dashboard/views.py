@@ -4,6 +4,7 @@
 import datetime
 import base64
 import requests
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -879,7 +880,7 @@ def unblock_user(request, user_id):
 @login_required
 def save_tutorial_preferences(request):
     user_profile = request.user.profile
-    user_profile.show_tutorial = request.POST.get('show_tutorial')
+    user_profile.show_tutorial = json.loads(request.POST.get('show_tutorial'))
     user_profile.save()
     return HttpResponse(status=200)
 
