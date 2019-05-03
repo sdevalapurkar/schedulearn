@@ -11,6 +11,7 @@ White (background) Color: #F4F4F4;
 @font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
 @font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
 @font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: anson; src: url("../fonts/Anson-Regular.otf"); }
 
 
 html {
@@ -429,7 +430,48 @@ html body {
   height: 300px;
   margin: 60px auto;
   display: block;
+}
 
+.tutorial-acknowledge-form {
+  position: absolute;
+  z-index: 1000;
+  left:50%;
+  margin-left:-170px;
+  width: 340px;
+  bottom: 150px;
+}
+
+.acknowledge-btn-div {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.acknowledge-btn {
+  font-family: anson;
+  padding: 1% 7%;
+  display: inline-block;
+  margin-top: 3%;
+  background-color: #E54F52;
+  font-size: 140%;
+  color: #F4F4F4;
+  border-radius:50px;
+}
+
+.acknowledge-btn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+.acknowledge-options {
+  text-align: center;
+}
+
+#dontShowTutorialText {
+  font-family: avenir-next-regular;
+  color: #FDFDFD;
+  font-size: 24px;
 }
 
 #tut-background{
