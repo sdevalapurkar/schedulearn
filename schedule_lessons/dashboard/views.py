@@ -4,6 +4,7 @@
 import datetime
 import base64
 import requests
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -60,6 +61,7 @@ def agenda(request):
     context["gcalender_success"] = request.GET.get("gcalender_success", "")
     context["scheduled_successful"] = request.GET.get("schedule", False)
     context["rescheduled_successful"] = request.GET.get("reschedule", False)
+    context["show_tutorial"] = request.user.profile.show_tutorial
     if no_results_found:
         context["no_results"] = "No results were found"
     if context["scheduled_successful"]:
@@ -874,6 +876,13 @@ def unblock_user(request, user_id):
     except BlockedUsers.DoesNotExist:
         return HttpResponse(status=404)
     return redirect(public_profile, user_id=user_id)
+
+@login_required
+def save_tutorial_preferences(request):
+    user_profile = request.user.profile
+    user_profile.show_tutorial = json.loads(request.POST.get('show_tutorial'))
+    user_profile.save()
+    return HttpResponse(status=200)
 
 # Helper Functions
 

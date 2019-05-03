@@ -1,6 +1,24 @@
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 
+  $(".acknowledge-btn").on('click', function(e) {
+    let data = {
+      'show_tutorial': false
+    };
+    if (!$('#dontShowTutorialCheckbox').is(":checked")) {
+      data.show_tutorial = true;
+    }
+    $(".tutorial-wrapper").remove();
+    $.ajax({
+      url: '/dashboard/save_tutorial_preferences',
+      type: 'post',
+      data: data,
+      error: function(xhr, status) {
+        alert("Something went wrong, please try again.");
+      }
+    });
+  });
+
   $('#cancelLessonModal').on('show.bs.modal', function (e) {
     document.getElementById('cancelLessonConfirm').setAttribute("href", e.relatedTarget.href);
   });

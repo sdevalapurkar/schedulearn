@@ -26,6 +26,8 @@ class Profile(models.Model):
                       his email or not.
     has_signed_up -- A boolean field which tells us if it's the user's first
                      time signing up or not.
+    show_tutorial -- A boolean field which tells us if have to show
+                            the tutorial when they open the agenda page.
     '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -35,6 +37,7 @@ class Profile(models.Model):
     email_verified = models.BooleanField(default=False)
     # the following field is useful for google sign ups
     has_signed_up = models.BooleanField(default=False)
+    show_tutorial = models.BooleanField(default=True)
 
     def __str__(self):
         '''Used for string outputs for a profile'''
