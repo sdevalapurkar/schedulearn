@@ -261,9 +261,9 @@
                     <p class="extended-field">Location: <span class="extended-detail">{{ lesson.location }}</span></p>
                     <p class="extended-field">Timing:</b> <span class="extended-detail">{{ lesson.start_time|date:"g:i A" }} - {{ lesson.end_time|date:"g:i A" }}</span></p>
                     {% if user.profile.user_type == 'tutor' %}
-                    <p class="extended-field">Student:</b> <a href="/dashboard/profile/{{ lesson.student.profile.id }}" class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
+                    <p class="extended-field">Student:</b> <span class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
                     {% else %}
-                    <p class="extended-field">Tutor:</b> <a href="/dashboard/profile/{{ lesson.tutor.profile.id }}" class="extended-detail">{{ lesson.tutor.get_full_name }}</a></p>
+                    <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ lesson.tutor.get_full_name }}</span></p>
                     {% endif %}
                 </div>
               </div>
