@@ -238,7 +238,8 @@ def public_profile(request, user_id):
         context = {
             "profile_user": User.objects.get(profile__id=user_id),
             "availabilities": return_availabilities(user_id),
-            "days_of_the_week": DAYS_OF_THE_WEEK
+            "days_of_the_week": DAYS_OF_THE_WEEK,
+            "expired_lessons": []
         }
     except User.DoesNotExist:
         return HttpResponse(status=404)
@@ -308,6 +309,16 @@ def public_profile(request, user_id):
             context["notifications"].append(notification)
         context["unread_notifications"] = len(Notification.objects.filter(
             user=request.user, unread=True))
+        if request.user.profile.user_type == 'tutor':
+            context['expired_lessons'].extend(list(Lesson.objects.filter(
+                                                tutor=request.user,
+                                                student=context["profile_user"],
+                                                expired=True)))
+        else:
+            context['expired_lessons'].extend(list(Lesson.objects.filter(
+                                                student=request.user,
+                                                tutor=context["profile_user"],
+                                                expired=True)))
     return render(request, "dashboard/public_profile.html", context)
 
 @login_required
