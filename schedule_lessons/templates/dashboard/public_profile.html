@@ -212,7 +212,6 @@
           <!-- Options  -->
           <ul class="col-md-12 slider-line w-100">
             <li class="col-xs-3 s-line-options" id="avail">AVAILABILITY</li>
-            <li class="col-xs-3 s-line-options" id="revi">REVIEWS</li>
             <li class="col-xs-3 s-line-options" id="hist">HISTORY</li>
             <li class="col-xs-3 slider s-line-options"></li>
           </ul>
@@ -245,14 +244,35 @@
             {% endfor %}
           </table>
 
-          <!-- Reviews Option -->
-          <div id="reviewTab">
-            This is the review box!
-          </div>
-
           <!-- History Option -->
           <div id="historyTab">
-            This is the history box!
+            {% for lesson in expired_lessons %}
+            <div class="lesson">
+              <div class="main-information">
+                <div class="date">
+                  <span class="day">{{ lesson.start_time|date:"D" }}</span>
+                  <span class="month-day">{{ lesson.start_time|date:"d" }}</span>
+                  <span class="month">{{ lesson.start_time|date:"M" }}</span>
+                  <span class="year">{{ lesson.start_time|date:"Y" }}</span>
+                </div>
+
+                <div class="details">
+                    <h4 class="lesson-title">{{ lesson.name }}</h4>
+                    <p class="extended-field">Location: <span class="extended-detail">{{ lesson.location }}</span></p>
+                    <p class="extended-field">Timing:</b> <span class="extended-detail">{{ lesson.start_time|date:"g:i A" }} - {{ lesson.end_time|date:"g:i A" }}</span></p>
+                    {% if user.profile.user_type == 'tutor' %}
+                    <p class="extended-field">Student:</b> <span class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
+                    {% else %}
+                    <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ lesson.tutor.get_full_name }}</span></p>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <!-- TODO: Add a image with a caption like in the empty agenda and
+                       tutors/students page to show that there are no past
+                     lessons -->
+            {% endfor %}
           </div>
         </div>
       </div>
