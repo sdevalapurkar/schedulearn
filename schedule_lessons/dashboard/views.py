@@ -1060,11 +1060,10 @@ def return_availabilities(user_id):
     """
     availabilities = []
     for day in DAYS_OF_THE_WEEK:
-        availabilities_in_day = Availability.objects.filter(profile__id=user_id,
-                                                            day=day)
-        if availabilities_in_day:
-            for availability_in_day in availabilities_in_day:
-                availabilities.append(availability_in_day)
+        availabilities_in_day = list(Availability.objects.filter(
+                                        profile__id=user_id, day=day))
+        availabilities.extend(sorted(availabilities_in_day,
+                                     key=lambda x: x.start_time))
 
     return availabilities
 
