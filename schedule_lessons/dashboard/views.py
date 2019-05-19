@@ -813,7 +813,7 @@ def edit_availability(request):
         new_availability.profile = request.user.profile
         new_availability.start_time = start_time.astimezone(UTC_ZONE)
         new_availability.end_time = end_time.astimezone(UTC_ZONE)
-        new_availability.day = context["day"]
+        new_availability.day = new_availability.start_time.strftime("%A")
         new_availability.save()
         context["status"] = 200
         return JsonResponse(context)
@@ -986,22 +986,26 @@ def error_check_and_save_lesson(request, lesson, context):
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE)
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE)
         availabilities = list(Availability.objects.filter(
-                                    profile__user=person_to_schedule_with))
+                                    profile__user=person_to_schedule_with,
+                                    day=lesson.start_time.strftime("%A")))
         context['non_available_time_error'] = True
         if availabilities:
             for availability in availabilities:
-                lesson_start = lesson.start_time
-                availability_start = availability.start_time
-                lesson_end = lesson.end_time
-                availability_end = availability.end_time
-                if (lesson_start.weekday() == availability_start.weekday() and
-                    ((lesson_end.time() < lesson_start.time() and
-                    availability_end.time() < availability_start.time() and
-                    lesson_start.time() >= availability_start.time() and
-                    lesson_end.time() <= availability_end.time()) or
-                    (lesson_end.time() > lesson_start.time() and
-                    availability_end.time() < availability_start.time() and
-                    lesson_start.time() >= availability_start.time()))):
+                lesson_start_t = lesson.start_time.time()
+                availability_start_t = availability.start_time.time()
+                lesson_end_t = lesson.end_time.time()
+                availability_end_t = availability.end_time.time()
+                if ((lesson_end_t < lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t > availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t)):
                     context['non_available_time_error'] = False
 
         if context.get('non_available_time_error'):
