@@ -995,9 +995,15 @@ def error_check_and_save_lesson(request, lesson, context):
                 lesson_end = lesson.end_time
                 availability_end = availability.end_time
                 if (lesson_start.weekday() == availability_start.weekday() and
-                    lesson_start.time() > availability_start.time() and
-                    lesson_end.time() < availability_end.time()):
+                    ((lesson_end.time() < lesson_start.time() and
+                    availability_end.time() < availability_start.time() and
+                    lesson_start.time() >= availability_start.time() and
+                    lesson_end.time() <= availability_end.time()) or
+                    (lesson_end.time() > lesson_start.time() and
+                    availability_end.time() < availability_start.time() and
+                    lesson_start.time() >= availability_start.time()))):
                     context['non_available_time_error'] = False
+
         if context.get('non_available_time_error'):
             context['non_available_time_error'] = ("Please choose timings that "
             "are within the availabilities of the person that you're trying to "
