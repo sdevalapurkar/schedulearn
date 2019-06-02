@@ -188,7 +188,10 @@ body {
 }
 
 .google-btn {
-  background-color: rgba(224, 72, 58, 0.9);
+  background-color: white;
+  color: rgba(224, 72, 58, 0.9);
+
+
   margin-bottom: 20px;
 }
 
@@ -197,7 +200,8 @@ body {
 }
 
 .facebook-btn {
-  background-color: #3b5998;
+  background-color: white;
+  color: #3b5998;
 }
 
 .facebook-btn:hover {
@@ -212,7 +216,7 @@ body {
   font-size: 140%;
   display: block;
   padding: 3%;
-  color: white;
+
   border: none;
   border-radius: 1000px;
 }
