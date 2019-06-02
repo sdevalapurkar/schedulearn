@@ -190,11 +190,12 @@ body {
 .google-btn {
   background-color: white;
   border-color: rgba(224, 72, 58, 0.9);
-  color: #E0483A;
+  color: rgba(224, 72, 58, 0.9);
   margin-bottom: 20px;
 }
 
 .google-btn:hover {
+  background-color: #ededed;
   border-color: #E0483A;
   color: #E0483A;
 }
@@ -206,7 +207,9 @@ body {
 }
 
 .facebook-btn:hover {
+  background-color: #d8d8d8;
   border-color: #2f4779;
+  color: #203154;
 
 }
 .social-btn {
@@ -224,7 +227,7 @@ body {
 .social-btn:hover {
 
   text-decoration: none;
-  border-style: solid;
+
 }
 
 .center {
