@@ -14,7 +14,8 @@ from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
 from accounts.models import Availability, Skill, Notification, BlockedUsers
 from schedule_lessons.local_settings import (
-    EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL
+    EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL,
+    SCHEDULER_NOTIFY_EMAIL
     )
 from .models import Lesson, Relationship
 from allauth.socialaccount.models import SocialAccount, SocialToken
@@ -555,16 +556,34 @@ def decline_lesson(request, lesson_id):
     except Lesson.DoesNotExist:
         return HttpResponse(status=404)
     if (lesson_to_delete and (lesson_to_delete.tutor == request.user or
-                              lesson_to_delete.student == request.user)):
+                              lesson_to_delete.student == request.user) ):
+        if (lesson_to_delete.pending and
+            lesson_to_delete.created_by == request.user):
+            lesson_to_delete.delete()
+            return redirect("agenda")
         person_to_schedule_with = (lesson_to_delete.tutor if
                                    lesson_to_delete.tutor != request.user else
                                    lesson_to_delete.student)
-        url = "/dashboard/agenda/"
+        url = request.build_absolute_uri("/") + "dashboard/agenda/"
         message = ("{} has declined your request to schedule lesson: '{}'"
                     .format(request.user.get_full_name(), lesson_to_delete.name)
-                   if lesson_to_delete.pending else "{} has cancelled your lesson: "
+                   if lesson_to_delete.pending else "{} has cancelled lesson: "
                    "'{}'".format(request.user.get_full_name(),
                                  lesson_to_delete.name))
+        email_message = (message + "\n\nClick on the following link to view"
+                        " your updated agenda: " + url)
+        with get_connection(host=EMAIL_HOST, port=EMAIL_PORT,
+                            username=SCHEDULER_NOTIFY_EMAIL,
+                            password=EMAIL_HOST_PASSWORD,
+                            use_tls=True,
+                            ) as connection:
+            EmailMessage("Schedulearn - Lesson Declined"
+                         if lesson_to_delete.pending
+                         else "Schedulearn - Lesson Cancelled",
+                         email_message,
+                         SCHEDULER_NOTIFY_EMAIL,
+                         [person_to_schedule_with.email],
+                         connection=connection).send()
         Notification(user=person_to_schedule_with, message=message,
                      created_on=datetime.datetime.now(tz=UTC_ZONE),
                      picture=request.user.profile.profile_pic,
