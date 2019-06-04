@@ -989,24 +989,23 @@ def error_check_and_save_lesson(request, lesson, context):
                                     profile__user=person_to_schedule_with,
                                     day=lesson.start_time.strftime("%A")))
         context['non_available_time_error'] = True
-        if availabilities:
-            for availability in availabilities:
-                lesson_start_t = lesson.start_time.time()
-                availability_start_t = availability.start_time.time()
-                lesson_end_t = lesson.end_time.time()
-                availability_end_t = availability.end_time.time()
-                if ((lesson_end_t < lesson_start_t and
-                    availability_end_t < availability_start_t and
-                    lesson_start_t >= availability_start_t and
-                    lesson_end_t <= availability_end_t) or
-                    (lesson_end_t > lesson_start_t and
-                    availability_end_t < availability_start_t and
-                    lesson_start_t >= availability_start_t) or
-                    (lesson_end_t > lesson_start_t and
-                    availability_end_t > availability_start_t and
-                    lesson_start_t >= availability_start_t and
-                    lesson_end_t <= availability_end_t)):
-                    context['non_available_time_error'] = False
+        for availability in availabilities:
+            lesson_start_t = lesson.start_time.time()
+            availability_start_t = availability.start_time.time()
+            lesson_end_t = lesson.end_time.time()
+            availability_end_t = availability.end_time.time()
+            if ((lesson_end_t < lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t > availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t)):
+                context['non_available_time_error'] = False
 
         if context.get('non_available_time_error'):
             context['non_available_time_error'] = ("Please choose timings that "
