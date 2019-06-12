@@ -91,15 +91,16 @@ $(document).ready(function () {
             $('#endTimeLabel').removeClass('label-error');
             $('#endTimeInput').removeClass('input-error');
           }
-          if (response.bigger_start_time_error) {
+          if (response.no_relationship_error) {
+            $('.error-list').html("You can only schedule lessons with people you are friends with.");
+          } else if (response.bigger_start_time_error) {
             $('.error-list').html(response.bigger_start_time_error);
           } else if (response.past_lesson_error) {
             $('.error-list').html(response.past_lesson_error);
-          }
-          if (response.pending_relationship_error) {
+          } else if (response.pending_relationship_error) {
             $('.error-list').html("You can only schedule lessons with people who have accepted your friend request.");
-          } else if (response.no_relationship_error) {
-            $('.error-list').html("You can only schedule lessons with people you are friends with.");
+          } else if (response.non_available_time_error) {
+            $('.error-list').html(response.non_available_time_error);
           }
         }
       },
