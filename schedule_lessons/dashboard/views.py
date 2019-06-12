@@ -685,8 +685,8 @@ def change_password(request):
             data["missing_field"] = "Please fill in a missing field."
             return JsonResponse(data)
         if not current_user.check_password(old_password):
-            data["invalid_old_password"] = ("Your old password is wrong, please "
-                                            "try again.")
+            data["invalid_old_password"] = ("Your old password is wrong, please"
+                                            " try again.")
             return JsonResponse(data)
         if new_password1 != new_password2:
             data["inequal_password"] = "Your new passwords do not match."
@@ -813,7 +813,7 @@ def edit_availability(request):
         new_availability.profile = request.user.profile
         new_availability.start_time = start_time.astimezone(UTC_ZONE)
         new_availability.end_time = end_time.astimezone(UTC_ZONE)
-        new_availability.day = context["day"]
+        new_availability.day = new_availability.start_time.strftime("%A")
         new_availability.save()
         context["status"] = 200
         return JsonResponse(context)
@@ -973,8 +973,7 @@ def error_check_and_save_lesson(request, lesson, context):
             context.get("no_ending_time_error") and not
             context.get("bigger_start_time_error") and not
             context.get("pending_relationship_error") and not
-            context.get("no_relationship_error") and not
-            context.get("")):
+            context.get("no_relationship_error")):
         start_time_in_local_time = datetime.datetime.combine(date, start_time,
                                                              time_difference)
         if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
@@ -982,11 +981,38 @@ def error_check_and_save_lesson(request, lesson, context):
                 "Fix starting time or date of lesson to make sure it's after "
                 "current time.")
             return context
-        context["status"] = 200
         end_time_in_local_time = datetime.datetime.combine(date, end_time,
                                                            time_difference)
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE)
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE)
+        availabilities = list(Availability.objects.filter(
+                                    profile__user=person_to_schedule_with,
+                                    day=lesson.start_time.strftime("%A")))
+        context['non_available_time_error'] = True
+        for availability in availabilities:
+            lesson_start_t = lesson.start_time.time()
+            availability_start_t = availability.start_time.time()
+            lesson_end_t = lesson.end_time.time()
+            availability_end_t = availability.end_time.time()
+            if ((lesson_end_t < lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t > availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t)):
+                context['non_available_time_error'] = False
+
+        if context.get('non_available_time_error'):
+            context['non_available_time_error'] = ("Please choose timings that "
+            "are within the availabilities of the person that you're trying to "
+            "schedule with.")
+            return context
+        context["status"] = 200
         lesson.created_by = request.user
         lesson.save()
         url = "/dashboard/agenda/"
