@@ -895,6 +895,21 @@ def save_tutorial_preferences(request):
     user_profile.save()
     return HttpResponse(status=200)
 
+@login_required
+def settings(request):
+    notifications = Notification.objects.filter(
+        user=request.user).order_by("-created_on")
+    context = {
+        "notifications": []
+    }
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context["notifications"].append(notification)
+    context["unread_notifications"] = len(Notification.objects.filter(
+        user=request.user, unread=True))
+    return render(request, "dashboard/settings.html", context)
+
 # Helper Functions
 
 def error_check_and_save_lesson(request, lesson, context):
