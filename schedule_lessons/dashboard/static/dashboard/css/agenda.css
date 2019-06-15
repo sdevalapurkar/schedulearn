@@ -5,14 +5,40 @@ Light Red (search button) Color: #E54F52;
 White (background) Color: #F4F4F4;
 */
 
-@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
-@font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
-@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
-@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
-@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
-@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
-@font-face { font-family: anson; src: url("../fonts/Anson-Regular.otf"); }
+@font-face {
+  font-family: adam-cg-pro;
+  src: url("../fonts/adam-cg-pro.regular.otf");
+}
 
+@font-face {
+  font-family: code-bold;
+  src: url("../fonts/CODE-Bold.otf");
+}
+
+@font-face {
+  font-family: avenir-next-regular;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
+
+@font-face {
+  font-family: avenir-next-demibold;
+  src: url("../fonts/AvenirNext-DemiBold.ttf");
+}
+
+@font-face {
+  font-family: BrandonGrotesque-Regular;
+  src: url("../fonts/Brandon_reg.otf");
+}
+
+@font-face {
+  font-family: bebas-neue;
+  src: url("../fonts/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: anson;
+  src: url("../fonts/Anson-Regular.otf");
+}
 
 html {
   height: 100%;
@@ -70,13 +96,13 @@ html body {
 }
 
 .fa-bell {
-  text-align:center;
-  vertical-align:middle;
+  text-align: center;
+  vertical-align: middle;
   position: relative;
 }
 
 .notification-badge::after {
-  content:attr(data-count);
+  content: attr(data-count);
   position: absolute;
   background: #D14F52;
   height: 1.2rem;
@@ -84,10 +110,11 @@ html body {
   bottom: 0.8rem;
   left: 0.5rem;
   text-align: center;
-  line-height: 1rem;;
+  line-height: 1rem;
+  ;
   font-size: 0.6rem;
   border-radius: 50%;
-  color:white;
+  color: white;
   border: 1px solid #D14F52;
   font-family: avenir-next-regular;
 }
@@ -216,7 +243,7 @@ html body {
 
 #extendedNavbar {
   background-color: #D14F52;
-  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.50);
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
@@ -271,7 +298,7 @@ html body {
   color: red;
 }
 
- #submitBtn:hover {
+#submitBtn:hover {
   color: #595959;
 }
 
@@ -280,11 +307,11 @@ html body {
   color: white;
 }
 
-#desktopNav{
+#desktopNav {
   display: block !important;
 }
 
-#navbarSupportedContent{
+#navbarSupportedContent {
   display: none;
 }
 
@@ -292,40 +319,32 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
-
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
-
   #noti-triangle-up {
     margin-right: 265px;
   }
-
   #pro-triangle-up {
     margin-right: 120px;
   }
-  
-  #desktopNav{
+  #desktopNav {
     display: none !important;
   }
-
-  #searchBar { 
+  #searchBar {
     left: 0%;
   }
 }
 
 @media(min-width: 576px) {
-
   #pro_options {
     display: none !important;
-   }
-
+  }
   .lesson {
     width: 80% !important;
   }
-
   #options_btn {
     display: none !important;
   }
@@ -335,29 +354,23 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
-
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
-
   #noti-triangle-up {
     margin-right: 265px;
   }
-
   #pro-triangle-up {
     margin-right: 120px;
   }
-
   #searchInput {
     width: 100%;
   }
-
   .extended-button {
     margin-left: 6%;
   }
-
   .lesson {
     width: 95% !important;
   }
@@ -372,20 +385,28 @@ html body {
 }
 
 @keyframes slider {
-  from{transform: translateX(20px);}
-  to{transform: translateX(0px);}
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
 }
 
 @keyframes btnSlider {
-  from{transform: translateX(20px);}
-  to{transform: translateX(-60px);}
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(-60px);
+  }
 }
 
 .addAnim {
   animation: slider .5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.addBtnAnim{
+.addBtnAnim {
   transform: translateY(-35px) !important;
   transition: 0.3s ease;
 }
@@ -395,14 +416,12 @@ html body {
     margin-top: -125px;
     display: none;
   }
-
   .lesson {
     width: 95% !important;
   }
 }
 
 @media (max-width: 991.98px) {
-
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
     font-family: AvenirNext-DemiBold;
@@ -410,24 +429,22 @@ html body {
     padding-bottom: 0.15%;
     margin-right: auto;
   }
-
   #navbarContent .nav-link {
     text-decoration: none;
-    color: rgba(255,255,255,.5);
+    color: rgba(255, 255, 255, .5);
   }
-
   #navbarContent .nav-link:hover {
-    color: rgba(255,255,255,.75);
+    color: rgba(255, 255, 255, .75);
   }
-
   #loggedInNavbar .active .nav-link {
     color: white;
   }
 }
+
 /* END Navbar for logged in Users */
 
 #picturePrompt {
-  height: 300px;
+  width: 90%;
   margin: 60px auto;
   display: block;
 }
@@ -435,8 +452,8 @@ html body {
 .tutorial-acknowledge-form {
   position: absolute;
   z-index: 1000;
-  left:50%;
-  margin-left:-170px;
+  left: 50%;
+  margin-left: -170px;
   width: 340px;
   bottom: 150px;
 }
@@ -454,7 +471,7 @@ html body {
   background-color: #E54F52;
   font-size: 140%;
   color: #F4F4F4;
-  border-radius:50px;
+  border-radius: 50px;
 }
 
 .acknowledge-btn:hover {
@@ -474,16 +491,16 @@ html body {
   font-size: 24px;
 }
 
-#tut-background{
+#tut-background {
   position: absolute;
-  top:0px;
-  left:0px;
+  top: 0px;
+  left: 0px;
   opacity: 0.5;
   width: 100%;
   height: 100%;
 }
 
-#tutorial-wrapper{
+#tutorial-wrapper {
   position: absolute;
 }
 
@@ -491,7 +508,7 @@ html body {
   height: 200px;
   margin-left: 2%;
   margin-top: 5px;
-  top:80px;
+  top: 80px;
   display: block;
   position: absolute;
 }
@@ -499,7 +516,7 @@ html body {
 #tutorial2 {
   height: 250px;
   margin-left: 300px;
-  top:40px;
+  top: 40px;
   margin-top: 5px;
   display: block;
   position: absolute;
@@ -508,22 +525,21 @@ html body {
 #tutorial3 {
   height: 120px;
   margin-left: 490px;
-  top:25px;
+  top: 25px;
   margin-top: 5px;
   display: block;
   position: absolute;
 }
 
 #tutorial4 {
-height: 250px;
-margin-left: 80%;
-top: 0px;
-margin-top: 5px;
-display: block;
-position: absolute;
-right: 40px;
+  height: 250px;
+  margin-left: 80%;
+  top: 0px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  right: 40px;
 }
-
 
 .text-prompt {
   text-align: center;
@@ -554,7 +570,7 @@ right: 40px;
 .lesson {
   width: 80%;
   margin: 0 auto;
-  box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
+  box-shadow: 0 0px 7px 2px rgba(0, 0, 0, 0.50);
   margin-bottom: 20px;
 }
 
@@ -690,20 +706,23 @@ right: 40px;
 }
 
 /* Cancel/Delete Lesson Modal Styling */
+
 .modal-dialog {
   padding-top: 10%;
 }
 
 .btn-danger {
-  background-color:  #D14F52;
+  background-color: #D14F52;
   border-color: #D14F52;
 }
 
 .bold-text-style {
-  font-family: avenir-next-demibold;;
+  font-family: avenir-next-demibold;
+  ;
 }
 
 .text-style {
   font-family: avenir-next-regular;
 }
+
 /* END Cancel/Delete Account Modal Styling */
