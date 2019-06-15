@@ -444,7 +444,7 @@ html body {
 /* END Navbar for logged in Users */
 
 #picturePrompt {
-  height: 300px;
+  width: 90%;
   margin: 60px auto;
   display: block;
 }
@@ -726,3 +726,27 @@ html body {
 }
 
 /* END Cancel/Delete Account Modal Styling */
+
+/* Settings Page CSS */
+
+.settings-option {
+  position: relative;
+  border-bottom: 1px solid #4A4A4A;
+  padding: 1em 0.5em;
+}
+
+.settings-title {
+  text-transform: uppercase;
+  padding: 1em 0.5em;
+}
+
+.option-btn {
+  position: absolute;
+  right: 1em;
+}
+
+.settings-checkbox {
+  border-radius: 100px;
+  height: 20px;
+  width: 20px;
+}
