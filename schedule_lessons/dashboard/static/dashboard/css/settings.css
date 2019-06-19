@@ -55,7 +55,8 @@ html body {
   background-color: #4A4A4A;
 }
 
-#noti-triangle-up, #pro-triangle-up {
+#noti-triangle-up,
+#pro-triangle-up {
   width: 0;
   height: 0;
   float: right;
@@ -82,7 +83,8 @@ html body {
   padding-right: 15px;
 }
 
-#linksDropdownLink, #notifcationsDropdownLink {
+#linksDropdownLink,
+#notifcationsDropdownLink {
   padding: 0;
 }
 
@@ -119,7 +121,8 @@ html body {
   font-family: avenir-next-regular;
 }
 
-#notificationsDropdownPane, #myDropdown {
+#notificationsDropdownPane,
+#myDropdown {
   position: absolute;
   text-align: center;
   margin-top: 10px;
@@ -319,20 +322,25 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
+
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
+
   #noti-triangle-up {
     margin-right: 265px;
   }
+
   #pro-triangle-up {
     margin-right: 120px;
   }
+
   #desktopNav {
     display: none !important;
   }
+
   #searchBar {
     left: 0%;
   }
@@ -342,9 +350,11 @@ html body {
   #pro_options {
     display: none !important;
   }
+
   .lesson {
     width: 80% !important;
   }
+
   #options_btn {
     display: none !important;
   }
@@ -354,23 +364,29 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
+
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
+
   #noti-triangle-up {
     margin-right: 265px;
   }
+
   #pro-triangle-up {
     margin-right: 120px;
   }
+
   #searchInput {
     width: 100%;
   }
+
   .extended-button {
     margin-left: 6%;
   }
+
   .lesson {
     width: 95% !important;
   }
@@ -388,6 +404,7 @@ html body {
   from {
     transform: translateX(20px);
   }
+
   to {
     transform: translateX(0px);
   }
@@ -397,6 +414,7 @@ html body {
   from {
     transform: translateX(20px);
   }
+
   to {
     transform: translateX(-60px);
   }
@@ -416,6 +434,7 @@ html body {
     margin-top: -125px;
     display: none;
   }
+
   .lesson {
     width: 95% !important;
   }
@@ -429,16 +448,20 @@ html body {
     padding-bottom: 0.15%;
     margin-right: auto;
   }
+
   #navbarContent .nav-link {
     text-decoration: none;
     color: rgba(255, 255, 255, .5);
   }
+
   #navbarContent .nav-link:hover {
     color: rgba(255, 255, 255, .75);
   }
+
   #loggedInNavbar .active .nav-link {
     color: white;
   }
+
   .settings-title {
     text-align: center;
   }
@@ -661,7 +684,8 @@ html body {
   height: 33.33%;
 }
 
-.two-buttons .btn, .three-buttons .btn {
+.two-buttons .btn,
+.three-buttons .btn {
   display: block;
   margin-left: auto;
   border-radius: 0;
@@ -752,6 +776,10 @@ html body {
   border-radius: 100px;
   height: 20px;
   width: 20px;
+}
+
+.settings-option h6 {
+  text-transform: capitalize;
 }
 
 /* CSS for Switch */
