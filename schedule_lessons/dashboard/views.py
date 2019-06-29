@@ -629,11 +629,9 @@ def my_profile(request):
         "skills": return_skills(request.user.profile.id),
         "reset_email": request.GET.get("reset_email", False),
         "days_of_the_week": DAYS_OF_THE_WEEK,
-        "password_change": request.GET.get("password_change", False),
         "notifications":  [],
         "unread_notifications": len(Notification.objects.filter(
             user=request.user, unread=True)),
-        "blocked_people": [],
     }
     expired_lessons = []
     if request.user.profile.user_type == 'tutor':
@@ -642,14 +640,6 @@ def my_profile(request):
     elif request.user.profile.user_type == 'student':
         context['expired_lessons'] = Lesson.objects.filter(
                                 student=request.user, expired=True)
-    blocked_people = BlockedUsers.objects.filter(user=request.user)
-    for blocked_person in blocked_people:
-        context["blocked_people"].append({
-            "full_name": blocked_person.blocked_user.get_full_name(),
-            "unblock_url": "{}dashboard/unblock/{}".format(
-            request.build_absolute_uri("/"),
-            str(blocked_person.blocked_user.profile.id))
-        })
     notifications = Notification.objects.filter(
         user=request.user).order_by("-created_on") # most recent
     for notification in notifications:
@@ -900,8 +890,17 @@ def settings(request):
     notifications = Notification.objects.filter(
         user=request.user).order_by("-created_on")
     context = {
-        "notifications": []
+        "notifications": [],
+        "blocked_people": []
     }
+    blocked_people = BlockedUsers.objects.filter(user=request.user)
+    for blocked_person in blocked_people:
+        context["blocked_people"].append({
+            "full_name": blocked_person.blocked_user.get_full_name(),
+            "unblock_url": "{}dashboard/unblock/{}".format(
+            request.build_absolute_uri("/"),
+            str(blocked_person.blocked_user.profile.id))
+        })
     for notification in notifications:
         notification.time_info = get_timestamp(notification.created_on)
         notification.save()
