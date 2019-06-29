@@ -444,7 +444,8 @@ html body {
 /* END Navbar for logged in Users */
 
 #picturePrompt {
-  width: 90%;
+  width: 28%;
+  min-width: 350px;
   margin: 60px auto;
   display: block;
 }
