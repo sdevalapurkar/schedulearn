@@ -21,6 +21,12 @@ White (background) Color: #F4F4F4;
 }
 
 @font-face {
+  font-family: avenir-next-medium;
+  src: url("../fonts/AvenirNext-Medium.ttf");
+}
+
+
+@font-face {
   font-family: avenir-next-demibold;
   src: url("../fonts/AvenirNext-DemiBold.ttf");
 }
@@ -327,28 +333,6 @@ html body {
 
 /* END Navbar for logged in Users */
 
-/* Cancel/Delete Lesson Modal Styling */
-
-.modal-dialog {
-  padding-top: 10%;
-}
-
-.btn-danger {
-  background-color: #D14F52;
-  border-color: #D14F52;
-}
-
-.bold-text-style {
-  font-family: avenir-next-demibold;
-  ;
-}
-
-.text-style {
-  font-family: avenir-next-regular;
-}
-
-/* END Cancel/Delete Account Modal Styling */
-
 /* Settings Page CSS */
 
 .settings-option {
@@ -434,3 +418,83 @@ input:checked+.slider:before {
   border-radius: 10px 10px 0 10px;
   transform: rotate(-45deg);
 }
+
+/* Blocked Users Modal Styling */
+
+#blockedUsersTable {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#blockedUsersTable td, #blockedUsersTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#blockedUsersTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#blockedUsersTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #D14F52;
+  color: white;
+  text-align: center;
+  font-family: adam-cg-pro;
+}
+
+#blockedUsersTable td {
+  font-family: avenir-next-regular;
+}
+
+/* END Blocked Users Modal Styling */
+
+/* Change password modal styling */
+.modal-title {
+  font-family: avenir-next-demibold;
+}
+
+.password-label {
+  font-family: avenir-next-medium;
+}
+
+.modal-body .password-input {
+  text-align: left;
+  font-family: avenir-next-regular;
+}
+
+.error-list {
+  font-family: avenir-next-regular;
+  color: #D14F52;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+#confirmChangePassword {
+  background-color: #D14F52;
+  border: 0;
+}
+/* END Change password modal styling */
+
+/* Cancel/Delete Lesson Modal Styling */
+
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.btn-danger {
+  background-color: #D14F52;
+  border-color: #D14F52;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;
+  ;
+}
+
+.text-style {
+  font-family: avenir-next-regular;
+}
+
+/* END Cancel/Delete Account Modal Styling */
