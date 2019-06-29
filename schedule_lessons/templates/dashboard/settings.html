@@ -8,24 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Settings | Schedulearn</title>
   <!-- Bootstrap CDNs -->
-  <link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <!-- END Bootstrap CDNs -->
   <!-- FontAwesome CDN -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-    crossorigin="anonymous">
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- END FontAwesome CDN -->
   <!-- My Styling and Script -->
   <link rel="stylesheet" href="{% static 'dashboard/css/settings.css' %}">
@@ -39,18 +33,16 @@
   <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse"
-      data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
-      aria-label="Toggle navigation">
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'agenda' %}">AGENDA<span
-              class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'agenda' %}">AGENDA</a>
         </li>
         <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
@@ -69,17 +61,14 @@
           <tr class="p-0">
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="#" id="notificationsDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {% if unread_notifications > 0 %}
-                  <i id="notificationIcon" data-count="{{ unread_notifications }}"
-                    class="far fa-bell notification-badge"></i>
+                  <i id="notificationIcon" data-count="{{ unread_notifications }}" class="far fa-bell notification-badge"></i>
                   {% else %}
                   <i id="notificationIcon" class="far fa-bell"></i>
                   {% endif %}
                 </a>
-                <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="notifcationsDropdownLink">
+                <div id="notificationsDropdownPane" class="dropdown-menu dropdown-menu-right" aria-labelledby="notifcationsDropdownLink">
                   <div id="noti-triangle-up"></div>
                   <p id="notifcationsDropdownHeaderTitle">Notifications</p>
                   <hr id="notifcationsDropdownHeaderDivider">
@@ -88,8 +77,7 @@
                     <div
                       class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
                       <div class="notification-picture-container">
-                        <img class="notification-picture" src="/media/{{ notification.picture }}"
-                          alt="Notification picture">
+                        <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
                       <div class="notification-message-and-timestamp">
                         <span class="notification-message">{{ notification.message }}</span>
@@ -103,13 +91,10 @@
             </td>
             <td class="p-0 pt-1">
               <li class="nav-item dropdown">
-                <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44"
-                    height="44" alt="/media/profile_pics/default/man.png">
+                <a id="linksDropdownLink" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img id="userPicture" src="/media/{{ user.profile.profile_pic }}" width="44" height="44" alt="/media/profile_pics/default/man.png">
                 </a>
-                <div id="myDropdown" class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="profile-picture">
+                <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
                   <a class="dropdown-options" href="{% url 'settings' %}">Settings</a>
                   <a class="dropdown-options" id="signOut" href="{% url 'account_logout' %}">Sign
@@ -133,31 +118,12 @@
 
     <!-- This menu shows up on desktop version -->
     <div class="collapse navbar-collapse" id="desktopNav">
-      <a class="extended-button" href="{% url 'choose_person' %}"><i
-          class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-      <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-        {% if user.profile.user_type == 'tutor' %}
-        {% if no_results %}
-        <input id="searchInput" class="form-control error-list" type="search" name="searchResult"
-          aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-        <input id="searchInput" class="form-control" type="search"
-          placeholder="Find Student via Email" name="searchResult" aria-label="Search">
-        {% endif %}
-        {% endif %}
-
-        {% if user.profile.user_type == 'student' %}
-        {% if no_results %}
-        <input id="searchInput" class="form-control error-list" type="search" name="searchResult"
-          aria-label="Search" placeholder="{{ no_results }}">
-        {% else %}
-        <input id="searchInput" class="form-control" type="search"
-          placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-        {% endif %}
-        {% endif %}
-        <button id="submitBtn" class="btn my-sm-0" type="submit"><i
-            class="fas fa-search"></i></button>
-      </form>
+      <a data-target="#blockedUsersModal" data-toggle="modal" class="extended-button" href="#blockedUsersModal"><i
+          class="fas fa-ban extended-icon"></i>BLOCKED USERS</a>
+      <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#changePasswordModal"><i
+          class="fas fa-lock extended-icon"></i>CHANGE PASSWORD</a>
+      <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i
+          class="fas fa-trash-alt extended-icon"></i>DELETE ACCOUNT</a>
     </div>
 
     <!-- This menu is the formatted version to make it look nice on mobile -->
@@ -166,37 +132,22 @@
       <table class="table table-borderless">
         <tr>
           <td>
-            <a class="extended-button" href="{% url 'choose_person' %}"><i
-                class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
+            <a data-target="#blockedUsersModal" data-toggle="modal" class="extended-button" href="#blockedUsersModal"><i
+                class="fas fa-ban extended-icon"></i>BLOCKED USERS</a>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="col-md-2">
-              <form action="{% url 'search' %}" id="searchBar" class="form-inline">
-                {% if user.profile.user_type == 'tutor' %}
-                {% if no_results %}
-                <input id="searchInput" class="form-control error-list" type="search"
-                  name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-                {% else %}
-                <input id="searchInput" class="form-control" type="search"
-                  placeholder="Find Student via Email" name="searchResult" aria-label="Search">
-                {% endif %}
-                {% endif %}
-
-                {% if user.profile.user_type == 'student' %}
-                {% if no_results %}
-                <input id="searchInput" class="form-control error-list" type="search"
-                  name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
-                {% else %}
-                <input id="searchInput" class="form-control" type="search"
-                  placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
-                {% endif %}
-                {% endif %}
-                <button id="submitBtn" class="btn my-sm-0" type="submit"><i
-                    class="fas fa-search"></i></button>
-              </form>
-            </div>
+            <a data-target="#changePasswordModal" data-toggle="modal" class="extended-button" href="#changePasswordModal"><i
+                class="fas fa-lock extended-icon"></i>CHANGE
+              PASSWORD</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a data-target="#deleteAccountModal" data-toggle="modal" class="extended-button" href="#deleteAccountModal"><i
+                class="fas fa-trash-alt extended-icon"></i>DELETE
+              ACCOUNT</a>
           </td>
         </tr>
       </table>
@@ -228,6 +179,101 @@
             <input type="checkbox">
             <span class="slider round"></span>
           </label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blocked users modal -->
+  <div id="blockedUsersModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Blocked Users</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <table id="blockedUsersTable">
+            <tr>
+              <th style="width:80%">NAME</th>
+              <th>REMOVE</th>
+            </tr>
+            {% if not blocked_people %}
+            <tr>
+              <td colspan="2">NO BLOCKED USERS</td>
+            </tr>
+            {% else %}
+            {% for blocked_person in blocked_people %}
+            <tr>
+              <td>{{ blocked_person.full_name }}</td>
+              <td><a href="{{ blocked_person.unblock_url }}">REMOVE</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Password Change Modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordHeading">Change your password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="oldPasswordInput" class="col-form-label password-label">Old
+                Password:</label>
+              <input type="password" class="form-control password-input" id="oldPasswordInput">
+            </div>
+            <div class="form-group">
+              <label for="newPasswordInput1" class="col-form-label password-label">New
+                Password:</label>
+              <input type="password" class="form-control password-input" id="newPasswordInput1"></input>
+            </div>
+            <div class="form-group">
+              <label for="newPasswordInput2" class="col-form-label password-label">New Password
+                (confirm):</label>
+              <input type="password" class="form-control password-input" id="newPasswordInput2"></input>
+            </div>
+          </form>
+        </div>
+        <p class="error-list"></p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary bold-text-style" data-dismiss="modal">Close</button>
+          <button type="button" id="confirmChangePassword" class="btn btn-primary bold-text-style">Change Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete account modal -->
+  <div id="deleteAccountModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-style">If you delete your account, you will no longer be able to use
+            Schedulearn or any of its features.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
+          <button id="deleteAccountConfirm" type="button" class="delete-button btn btn-danger"><span class="bold-text-style">Delete
+              Account</span></button>
+        </div>
       </div>
     </div>
   </div>

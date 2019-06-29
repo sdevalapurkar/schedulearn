@@ -6,12 +6,16 @@
 <head>
   <title>{{ profile_user.first_name }}'s Profile | Schedulearn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
   <link rel="stylesheet" href="{% static "dashboard/css/public_profile.css" %}">
@@ -23,7 +27,8 @@
   <!-- navbar start for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
@@ -35,10 +40,13 @@
         </li>
         <li class="nav-item">
           {% if user.profile.user_type == 'tutor' %}
-          <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'relationships' %}">MY STUDENTS</a>
           {% else %}
-          <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS</a>
           {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'my_profile' %}">MY PROFILE</a>
         </li>
       </ul>
       <div class="dropdown-divider"></div>
@@ -60,7 +68,8 @@
                   <hr id="notifcationsDropdownHeaderDivider">
                   {% for notification in notifications %}
                   <a href="{{ notification.link }}">
-                    <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                    <div
+                      class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
                       <div class="notification-picture-container">
                         <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
@@ -81,8 +90,9 @@
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
-                  <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-                  <a class="dropdown-options" id="signOut" href="{% url 'account_logout' %}">Sign Out</a>
+                  <a class="dropdown-options" href="{% url 'settings' %}">Settings</a>
+                  <a class="dropdown-options" id="signOut" href="{% url 'account_logout' %}">Sign
+                    Out</a>
                 </div>
               </li>
             </td>
@@ -91,6 +101,8 @@
       </ul>
     </div>
   </nav>
+  <!-- end main navbar -->
+
   <nav id="extendedNavbar">
     {% if user.profile.user_type == 'tutor' %}
     <a class="extended-button" href="{% url 'relationships' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO MY STUDENTS</a>
@@ -98,58 +110,67 @@
     <a class="extended-button" href="{% url 'relationships' %}"><i class="fas fa-arrow-left extended-icon"></i>RETURN TO MY TUTORS</a>
     {% endif %}
     {% if not profile_user == user and profile_user.profile.user_type != user.profile.user_type and not blocked_by_user %}
-      {% if not blocked %}
-        {% if user.profile.user_type == 'tutor' %}
-          {% if rel_exists %}
-            {% if rel_pending %}
-              {% if rel_created_by_request_user %}
-              <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
-              {% else %}
-              <a class="extended-button" href="{{ remove_student_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
-              <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
-              {% endif %}
-            {% else %}
-            <!-- Else for rel_pending -->
-            <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
-            <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-            {% endif %}
-          <!-- End for pending -->
-          {% else %}
-          <!-- Else for rel_exists (if the relationship doesn't exist)-->
-          <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
-          {% endif %}
-        <!-- End for rel exists for tutors -->
-        {% else %}
-        <!-- Else: if the request user is a student -->
-          {% if rel_exists %}
-            {% if rel_pending %}
-              {% if rel_created_by_request_user %}
-              <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
-              {% else %}
-              <a class="extended-button" href="{{ remove_tutor_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
-              <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
-              {% endif %}
-            {% else %}
-            <!-- Else for rel_pending -->
-            <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
-            <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A LESSON</a>
-            {% endif %}
-          <!-- End for pending -->
-          {% else %}
-          <!-- Else for rel_exists (if the relationship doesn't exist)-->
-          <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
-          {% endif %} <!-- End for rel exists for students -->
-        {% endif %} <!-- End if for user.profile.user_type == 'tutor' -->
-      {% endif %}
-    {% endif %} <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
-    {% if not profile_user == user %}
-      {% if blocked %}
-      <a id="unblockLink" data-target="#unblockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i class="fas fa-ban extended-icon"></i>UNBLOCK USER</a>
-      {% else %}
-      <a id="blockLink" data-target="#blockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i class="fas fa-ban extended-icon"></i>BLOCK USER</a>
-      {% endif %}
+    {% if not blocked %}
+    {% if user.profile.user_type == 'tutor' %}
+    {% if rel_exists %}
+    {% if rel_pending %}
+    {% if rel_created_by_request_user %}
+    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
+    {% else %}
+    <a class="extended-button" href="{{ remove_student_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
     {% endif %}
-  </nav>   <!-- End navbar for signed in users -->
+    {% else %}
+    <!-- Else for rel_pending -->
+    <a id="removeStudentBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_student_url }}"><i
+        class='fas fa-user-minus extended-icon'></i>REMOVE STUDENT</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A
+      LESSON</a>
+    {% endif %}
+    <!-- End for pending -->
+    {% else %}
+    <!-- Else for rel_exists (if the relationship doesn't exist)-->
+    <a class="extended-button" href="{{ add_student_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD STUDENT</a>
+    {% endif %}
+    <!-- End for rel exists for tutors -->
+    {% else %}
+    <!-- Else: if the request user is a student -->
+    {% if rel_exists %}
+    {% if rel_pending %}
+    {% if rel_created_by_request_user %}
+    <span class="extended-uninteractive-text"><i class="fas fa-check extended-icon"></i>REQUEST SENT</span>
+    {% else %}
+    <a class="extended-button" href="{{ remove_tutor_url }}"><i class="far fa-times-circle extended-icon"></i></i>DECLINE REQUEST</a>
+    <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-check extended-icon"></i>ACCEPT REQUEST</a>
+    {% endif %}
+    {% else %}
+    <!-- Else for rel_pending -->
+    <a id="removeTutorBtn" data-target="#removeRelationshipModal" data-toggle="modal" class="extended-button" href="{{ remove_tutor_url }}"><i
+        class='fas fa-user-minus extended-icon'></i>REMOVE TUTOR</a>
+    <a class="extended-button" href="/dashboard/schedule_lesson/{{ profile_user.profile.id }}"><i class="far fa-calendar extended-icon"></i>SCHEDULE A
+      LESSON</a>
+    {% endif %}
+    <!-- End for pending -->
+    {% else %}
+    <!-- Else for rel_exists (if the relationship doesn't exist)-->
+    <a class="extended-button" href="{{ add_tutor_url }}"><i class="fas fa-user-plus extended-icon"></i>ADD TUTOR</a>
+    {% endif %}
+    <!-- End for rel exists for students -->
+    {% endif %}
+    <!-- End if for user.profile.user_type == 'tutor' -->
+    {% endif %}
+    {% endif %}
+    <!-- End if for profile_user == user and profile_user.profile.user_type != user.profile.user_type -->
+    {% if not profile_user == user %}
+    {% if blocked %}
+    <a id="unblockLink" data-target="#unblockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i
+        class="fas fa-ban extended-icon"></i>UNBLOCK USER</a>
+    {% else %}
+    <a id="blockLink" data-target="#blockUserModal" data-toggle="modal" class="extended-button" href="{{ block_user_url }}"><i
+        class="fas fa-ban extended-icon"></i>BLOCK USER</a>
+    {% endif %}
+    {% endif %}
+  </nav> <!-- End navbar for signed in users -->
   {% else %}
   <!--navbar start -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedOutNavbar">
@@ -158,7 +179,8 @@
       <a class="navbar-brand" href="{% url 'home' %}">SCHEDULEARN</a>
     </ul>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -176,7 +198,8 @@
     <div class="row">
       <!-- Left side that contains the profile picture and the skills -->
       <div class="col-md-2 m-4 pl-4">
-        <img id="profilePicture" src="/media/{{ profile_user.profile.profile_pic }}" width="auto" height="200" alt="/media/profile_pics/default/man.png">
+        <img id="profilePicture" src="/media/{{ profile_user.profile.profile_pic }}" width="auto" height="200"
+          alt="/media/profile_pics/default/man.png">
         <div class="col-md-12 mt-4">
           <table class="table">
             <thead class="thead-light">
@@ -257,14 +280,15 @@
                 </div>
 
                 <div class="details">
-                    <h4 class="lesson-title">{{ lesson.name }}</h4>
-                    <p class="extended-field">Location: <span class="extended-detail">{{ lesson.location }}</span></p>
-                    <p class="extended-field">Timing:</b> <span class="extended-detail">{{ lesson.start_time|date:"g:i A" }} - {{ lesson.end_time|date:"g:i A" }}</span></p>
-                    {% if user.profile.user_type == 'tutor' %}
-                    <p class="extended-field">Student:</b> <span class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
-                    {% else %}
-                    <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ lesson.tutor.get_full_name }}</span></p>
-                    {% endif %}
+                  <h4 class="lesson-title">{{ lesson.name }}</h4>
+                  <p class="extended-field">Location: <span class="extended-detail">{{ lesson.location }}</span></p>
+                  <p class="extended-field">Timing:</b> <span class="extended-detail">{{ lesson.start_time|date:"g:i A" }} -
+                      {{ lesson.end_time|date:"g:i A" }}</span></p>
+                  {% if user.profile.user_type == 'tutor' %}
+                  <p class="extended-field">Student:</b> <span class="extended-detail">{{ lesson.student.get_full_name }}</span></p>
+                  {% else %}
+                  <p class="extended-field">Tutor:</b> <span class="extended-detail">{{ lesson.tutor.get_full_name }}</span></p>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -317,9 +341,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Are you sure you want to unblock?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <p class="text-style">This person will be able to send you friend requests again if you unblock</p>
@@ -338,12 +362,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Are you sure you would like to block?</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
-          <p class="text-style">Blocking this person will cancel any existing lessons between you and this person as well as revoke any existing friendship connecting in Schedulearn.</p>
+          <p class="text-style">Blocking this person will cancel any existing lessons between you and this person as well as revoke any existing
+            friendship connecting in Schedulearn.</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="bold-text-style">Cancel</span></button>
