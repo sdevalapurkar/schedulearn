@@ -159,9 +159,8 @@
     <div class="col-md-12">
       <div class="row settings-option">
         <div class="pr-5">
-          <h6>Respect availabilities</h6>
-          <small class="d-block">Only allow users to schedule lessons within your
-            availability</small>
+          <h6>Force Lesson Timings To Be Within Your Availablity</h6>
+          <small class="d-block">Choose if you want lessons scheduled with you to be only within your availablity timings.</small>
         </div>
         <div class="option-btn"><label class="switch">
             <input type="checkbox" checked>
@@ -169,11 +168,12 @@
           </label></div>
       </div>
     </div>
+    {% if user.profile.user_type == 'tutor' %}
     <div class="col-md-12">
-      <div class="row settings-option ">
+      <div class="row settings-option">
         <div class="pr-5">
-          <h6>Allow lesson rescheduling</h6>
-          <small class="d-block">Let your students reschedule your accepted lessons</small>
+          <h6>Allow Students to Schedule Lessons</h6>
+          <small class="d-block">Choose if you want students to be able to make lesson requests with you.</small>
         </div>
         <div class="option-btn"><label class="switch">
             <input type="checkbox">
@@ -182,6 +182,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <!-- Blocked users modal -->
   <div id="blockedUsersModal" class="modal" tabindex="-1" role="dialog">
