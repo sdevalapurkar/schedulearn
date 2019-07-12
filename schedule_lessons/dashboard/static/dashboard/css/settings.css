@@ -109,6 +109,24 @@ html body {
   position: relative;
 }
 
+.notification-badge::after {
+  content: attr(data-count);
+  position: absolute;
+  background: #D14F52;
+  height: 1.2rem;
+  width: 1.2rem;
+  bottom: 0.8rem;
+  left: 0.5rem;
+  text-align: center;
+  line-height: 1rem;
+  ;
+  font-size: 0.6rem;
+  border-radius: 50%;
+  color: white;
+  border: 1px solid #D14F52;
+  font-family: avenir-next-regular;
+}
+
 #notificationsDropdownPane,
 #myDropdown {
   position: absolute;
