@@ -14,7 +14,8 @@ from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
 from accounts.models import Availability, Skill, Notification, BlockedUsers
 from schedule_lessons.local_settings import (
-    EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL
+    EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL,
+    SCHEDULER_NOTIFY_EMAIL
     )
 from .models import Lesson, Relationship
 from allauth.socialaccount.models import SocialAccount, SocialToken
@@ -555,16 +556,34 @@ def decline_lesson(request, lesson_id):
     except Lesson.DoesNotExist:
         return HttpResponse(status=404)
     if (lesson_to_delete and (lesson_to_delete.tutor == request.user or
-                              lesson_to_delete.student == request.user)):
+                              lesson_to_delete.student == request.user) ):
+        if (lesson_to_delete.pending and
+            lesson_to_delete.created_by == request.user):
+            lesson_to_delete.delete()
+            return redirect("agenda")
         person_to_schedule_with = (lesson_to_delete.tutor if
                                    lesson_to_delete.tutor != request.user else
                                    lesson_to_delete.student)
-        url = "/dashboard/agenda/"
+        url = request.build_absolute_uri("/") + "dashboard/agenda/"
         message = ("{} has declined your request to schedule lesson: '{}'"
                     .format(request.user.get_full_name(), lesson_to_delete.name)
-                   if lesson_to_delete.pending else "{} has cancelled your lesson: "
+                   if lesson_to_delete.pending else "{} has cancelled lesson: "
                    "'{}'".format(request.user.get_full_name(),
                                  lesson_to_delete.name))
+        email_message = (message + "\n\nClick on the following link to view"
+                        " your updated agenda: " + url)
+        with get_connection(host=EMAIL_HOST, port=EMAIL_PORT,
+                            username=SCHEDULER_NOTIFY_EMAIL,
+                            password=EMAIL_HOST_PASSWORD,
+                            use_tls=True,
+                            ) as connection:
+            EmailMessage("Schedulearn - Lesson Declined"
+                         if lesson_to_delete.pending
+                         else "Schedulearn - Lesson Cancelled",
+                         email_message,
+                         SCHEDULER_NOTIFY_EMAIL,
+                         [person_to_schedule_with.email],
+                         connection=connection).send()
         Notification(user=person_to_schedule_with, message=message,
                      created_on=datetime.datetime.now(tz=UTC_ZONE),
                      picture=request.user.profile.profile_pic,
@@ -675,8 +694,8 @@ def change_password(request):
             data["missing_field"] = "Please fill in a missing field."
             return JsonResponse(data)
         if not current_user.check_password(old_password):
-            data["invalid_old_password"] = ("Your old password is wrong, please "
-                                            "try again.")
+            data["invalid_old_password"] = ("Your old password is wrong, please"
+                                            " try again.")
             return JsonResponse(data)
         if new_password1 != new_password2:
             data["inequal_password"] = "Your new passwords do not match."
@@ -803,7 +822,7 @@ def edit_availability(request):
         new_availability.profile = request.user.profile
         new_availability.start_time = start_time.astimezone(UTC_ZONE)
         new_availability.end_time = end_time.astimezone(UTC_ZONE)
-        new_availability.day = context["day"]
+        new_availability.day = new_availability.start_time.strftime("%A")
         new_availability.save()
         context["status"] = 200
         return JsonResponse(context)
@@ -987,8 +1006,7 @@ def error_check_and_save_lesson(request, lesson, context):
             context.get("no_ending_time_error") and not
             context.get("bigger_start_time_error") and not
             context.get("pending_relationship_error") and not
-            context.get("no_relationship_error") and not
-            context.get("")):
+            context.get("no_relationship_error")):
         start_time_in_local_time = datetime.datetime.combine(date, start_time,
                                                              time_difference)
         if start_time_in_local_time < datetime.datetime.now(tz=time_difference):
@@ -996,11 +1014,38 @@ def error_check_and_save_lesson(request, lesson, context):
                 "Fix starting time or date of lesson to make sure it's after "
                 "current time.")
             return context
-        context["status"] = 200
         end_time_in_local_time = datetime.datetime.combine(date, end_time,
                                                            time_difference)
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE)
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE)
+        availabilities = list(Availability.objects.filter(
+                                    profile__user=person_to_schedule_with,
+                                    day=lesson.start_time.strftime("%A")))
+        context['non_available_time_error'] = True
+        for availability in availabilities:
+            lesson_start_t = lesson.start_time.time()
+            availability_start_t = availability.start_time.time()
+            lesson_end_t = lesson.end_time.time()
+            availability_end_t = availability.end_time.time()
+            if ((lesson_end_t < lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t < availability_start_t and
+                lesson_start_t >= availability_start_t) or
+                (lesson_end_t > lesson_start_t and
+                availability_end_t > availability_start_t and
+                lesson_start_t >= availability_start_t and
+                lesson_end_t <= availability_end_t)):
+                context['non_available_time_error'] = False
+
+        if context.get('non_available_time_error'):
+            context['non_available_time_error'] = ("Please choose timings that "
+            "are within the availabilities of the person that you're trying to "
+            "schedule with.")
+            return context
+        context["status"] = 200
         lesson.created_by = request.user
         lesson.save()
         url = "/dashboard/agenda/"
