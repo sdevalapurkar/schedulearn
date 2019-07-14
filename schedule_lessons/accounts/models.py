@@ -114,6 +114,26 @@ class Notification(models.Model):
         '''Used for string outputs for a notification'''
         return self.message
 
+class Preference(models.Model):
+    '''This class models a notification with 4 fields.
+    id - The ID to track the preference object.
+    user -- A one-to-one field that is a user.
+    title -- The title of the preference.
+    description -- The description of the preference.
+    active -- Whether the preference is active or not.
+    '''
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=80)
+    description = models.CharField(max_length=150)
+    active = models.BooleanField(default=True)
+
+    @classmethod
+    def create(cls, user, title, description, active):
+        preference = cls(user=user, title=title, description=description,
+                         active=active).save()
+        return preference
+
 # Below code is necessary
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -156,33 +156,26 @@
   <!-- end extended navbar for signed in users -->
   <div class="container settings-page">
     <h5 class="text-style settings-title">Settings</h5>
+    {% for preference in preferences %}
     <div class="col-md-12">
       <div class="row settings-option">
         <div class="pr-5">
-          <h6>Force Lesson Timings To Be Within Your Availablity</h6>
-          <small class="d-block">Choose if you want lessons scheduled with you to be only within your availablity timings.</small>
+          <h6>{{ preference.title }}</h6>
+          <small class="d-block">{{ preference.description }}</small>
         </div>
         <div class="option-btn"><label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-          </label></div>
-      </div>
-    </div>
-    {% if user.profile.user_type == 'tutor' %}
-    <div class="col-md-12">
-      <div class="row settings-option">
-        <div class="pr-5">
-          <h6>Allow Students to Schedule Lessons</h6>
-          <small class="d-block">Choose if you want students to be able to make lesson requests with you.</small>
+          {% if preference.active %}
+          <input class="preference" id="{{ preference.id }}" type="checkbox" checked>
+          {% else %}
+          <input class="preference" id="{{ preference.id }}" type="checkbox">
+          {% endif %}
+          <span class="slider round"></span>
+          </label>
         </div>
-        <div class="option-btn"><label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label></div>
       </div>
     </div>
+    {% endfor %}
   </div>
-  {% endif %}
 
   <!-- Blocked users modal -->
   <div id="blockedUsersModal" class="modal" tabindex="-1" role="dialog">
