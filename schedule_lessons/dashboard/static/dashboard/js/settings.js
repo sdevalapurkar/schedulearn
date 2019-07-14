@@ -55,6 +55,15 @@ $(document).ready(() => {
       });
     }
   });
+
+  $(".preference").click((event) => {
+    const preference_id = event.target.id;
+    $.ajax({
+      type: "POST",
+      url: "/dashboard/modify_preference/" + preference_id + "/",
+      data: { "active": event.target.checked }
+    });
+  });
 });
 
 function csrfSafeMethod(method) {
@@ -70,7 +79,7 @@ function getCookie(name) {
 
   // Search through the cookies to find the desired cookie.
   let cookieValue = null;
-  let cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {
       let cookie = cookies[i].trim();
       // Does this cookie string begin with the name we want?

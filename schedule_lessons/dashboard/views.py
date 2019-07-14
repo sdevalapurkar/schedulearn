@@ -12,7 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
-from accounts.models import Availability, Skill, Notification, BlockedUsers
+from accounts.models import (
+    Availability, Skill, Notification, BlockedUsers, Preference
+    )
 from schedule_lessons.local_settings import (
     EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL,
     SCHEDULER_NOTIFY_EMAIL
@@ -910,7 +912,8 @@ def settings(request):
         user=request.user).order_by("-created_on")
     context = {
         "notifications": [],
-        "blocked_people": []
+        "blocked_people": [],
+        "preferences": list(Preference.objects.filter(user=request.user))
     }
     blocked_people = BlockedUsers.objects.filter(user=request.user)
     for blocked_person in blocked_people:
@@ -927,6 +930,20 @@ def settings(request):
     context["unread_notifications"] = len(Notification.objects.filter(
         user=request.user, unread=True))
     return render(request, "dashboard/settings.html", context)
+
+@login_required
+def modify_preference(request, preference_id):
+    if request.method == "POST":
+        preference = None
+        try:
+            preference = Preference.objects.get(id=preference_id,
+                                               user=request.user)
+        except:
+            return HttpResponse(status=404)
+        preference.active = True if request.POST.get("active") == "true" else False
+        preference.save()
+        return HttpResponse(status=200)
+
 
 # Helper Functions
 
