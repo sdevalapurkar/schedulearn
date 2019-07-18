@@ -251,7 +251,7 @@ html body {
     display: none !important;
   }
 
-  #searchBar { 
+  #searchBar {
     left: 0%;
   }
 }
@@ -278,19 +278,19 @@ html body {
   .align-left{
     text-align: left !important;
   }
-  
+
   .align-center{
     text-align: center !important;
   }
-  
+
   .align-right{
     text-align: right !important;
   }
-  
+
   .align-justify{
     text-align: justify !important;
   }
-  
+
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
@@ -641,3 +641,13 @@ html body {
 .extended-detail {
   font-family: avenir-next-regular;
 }
+
+  #no-lesson-picture {
+    margin-left: 1000px;
+  }
+
+  #Nolessons{
+    margin-left: 1000px;
+    height: 2000px;
+
+  }
