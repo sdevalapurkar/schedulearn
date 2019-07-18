@@ -8,6 +8,8 @@ from django.core.files.base import ContentFile
 
 from accounts.models import Preference
 
+AVAILABILITIY_SETTINGS_NAME = ("Force Lesson Timings To Be Within Your "
+                               "Availablity")
 
 @login_required
 def personalize_view(request):
@@ -26,23 +28,13 @@ def personalize_view(request):
         if 'user-type' in request.POST:
             if request.POST.get('user-type') == 'tutor':
                 request.user.profile.user_type = 'tutor'
-                Preference.create(request.user,
-                    "Force Lesson Timings To Be Within Your Availablity",
-                    "Choose if you want lessons scheduled with you to be"
-                    " only within your availablity timings.",
-                    True)
-                Preference.create(request.user,
-                    "Allow Students To Schedule Lessons",
-                    "Choose if you want students to be able to make"
-                    " lesson requests with you.",
-                    False)
             else:
                 request.user.profile.user_type = 'student'
-                Preference.create(request.user,
-                    "Force Lesson Timings To Be Within Your Availablity",
-                    "Choose if you want lessons scheduled with you to be"
-                    " only within your availablity timings.",
-                    True)
+            Preference.create(request.user,
+                AVAILABILITIY_SETTINGS_NAME,
+                "Choose if you want lessons scheduled with you to be"
+                " only within your availablity timings.",
+                True)
         if 'bio' in request.POST:
             request.user.profile.bio = request.POST.get('bio')
         request.user.save()

@@ -15,6 +15,7 @@ from django.core.files.base import ContentFile
 from accounts.models import (
     Availability, Skill, Notification, BlockedUsers, Preference
     )
+from accounts.views import AVAILABILITIY_SETTINGS_NAME
 from schedule_lessons.local_settings import (
     EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL,
     SCHEDULER_NOTIFY_EMAIL
@@ -1009,6 +1010,7 @@ def error_check_and_save_lesson(request, lesson, context):
         context["bigger_start_time_error"] = (
             "The starting time provided is greater than the end time."
             " Please fix this.")
+
     lesson.tutor = request.user\
                             if request.user.profile.user_type == "tutor"\
                             else person_to_schedule_with
@@ -1035,27 +1037,29 @@ def error_check_and_save_lesson(request, lesson, context):
                                                            time_difference)
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE)
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE)
-        availabilities = list(Availability.objects.filter(
-                                    profile__user=person_to_schedule_with,
-                                    day=lesson.start_time.strftime("%A")))
-        context['non_available_time_error'] = True
-        for availability in availabilities:
-            lesson_start_t = lesson.start_time.time()
-            availability_start_t = availability.start_time.time()
-            lesson_end_t = lesson.end_time.time()
-            availability_end_t = availability.end_time.time()
-            if ((lesson_end_t < lesson_start_t and
-                availability_end_t < availability_start_t and
-                lesson_start_t >= availability_start_t and
-                lesson_end_t <= availability_end_t) or
-                (lesson_end_t > lesson_start_t and
-                availability_end_t < availability_start_t and
-                lesson_start_t >= availability_start_t) or
-                (lesson_end_t > lesson_start_t and
-                availability_end_t > availability_start_t and
-                lesson_start_t >= availability_start_t and
-                lesson_end_t <= availability_end_t)):
-                context['non_available_time_error'] = False
+        if Preference.objects.get(title=AVAILABILITIY_SETTINGS_NAME,
+                                  user=person_to_schedule_with).active:
+            availabilities = list(Availability.objects.filter(
+                                        profile__user=person_to_schedule_with,
+                                        day=lesson.start_time.strftime("%A")))
+            context['non_available_time_error'] = True
+            for availability in availabilities:
+                lesson_start_t = lesson.start_time.time()
+                availability_start_t = availability.start_time.time()
+                lesson_end_t = lesson.end_time.time()
+                availability_end_t = availability.end_time.time()
+                if ((lesson_end_t < lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t > availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t)):
+                    context['non_available_time_error'] = False
 
         if context.get('non_available_time_error'):
             context['non_available_time_error'] = ("Please choose timings that "
