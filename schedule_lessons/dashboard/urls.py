@@ -38,5 +38,8 @@ urlpatterns = [
          name='clear_notifications'),
     path('block/<user_id>', views.block_user, name='block_user'),
     path('unblock/<user_id>', views.unblock_user, name='unblock_user'),
-    path('save_tutorial_preferences', views.save_tutorial_preferences, name='save_tutorial_preferences')
+    path('save_tutorial_preferences', views.save_tutorial_preferences, name='save_tutorial_preferences'),
+    path('settings/', views.settings, name='settings'),
+    path('modify_preference/<preference_id>/', views.modify_preference,
+         name='modify_preference'),
 ]

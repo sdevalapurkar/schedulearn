@@ -1,13 +1,47 @@
-@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
-@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
-@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
-@font-face { font-family: DIN-Condensed; src: url("../fonts/DINCondensed-Bold.ttf"); }
-@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
-@font-face { font-family: bariol; src: url("../fonts/Bariol_Regular.otf"); }
-@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
-@font-face { font-family: adam-cg-pro; src: url("../fonts/adam-cg-pro.regular.otf"); }
-@font-face { font-family: code-bold; src: url("../fonts/CODE-Bold.otf"); }
+@font-face {
+  font-family: avenir-next-regular;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
 
+@font-face {
+  font-family: avenir-next-demibold;
+  src: url("../fonts/AvenirNext-DemiBold.ttf");
+}
+
+@font-face {
+  font-family: BrandonGrotesque-Regular;
+  src: url("../fonts/Brandon_reg.otf");
+}
+
+@font-face {
+  font-family: DIN-Condensed;
+  src: url("../fonts/DINCondensed-Bold.ttf");
+}
+
+@font-face {
+  font-family: adam-cg-pro;
+  src: url("../fonts/adam-cg-pro.regular.otf");
+}
+
+@font-face {
+  font-family: bariol;
+  src: url("../fonts/Bariol_Regular.otf");
+}
+
+@font-face {
+  font-family: bebas-neue;
+  src: url("../fonts/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: adam-cg-pro;
+  src: url("../fonts/adam-cg-pro.regular.otf");
+}
+
+@font-face {
+  font-family: code-bold;
+  src: url("../fonts/CODE-Bold.otf");
+}
 
 html {
   height: 100%;
@@ -65,13 +99,13 @@ html body {
 }
 
 .fa-bell {
-  text-align:center;
-  vertical-align:middle;
+  text-align: center;
+  vertical-align: middle;
   position: relative;
 }
 
 .notification-badge::after {
-  content:attr(data-count);
+  content: attr(data-count);
   position: absolute;
   background: #D14F52;
   height: 1.2rem;
@@ -79,19 +113,26 @@ html body {
   bottom: 0.8rem;
   left: 0.5rem;
   text-align: center;
-  line-height: 1rem;;
+  line-height: 1rem;
+  ;
   font-size: 0.6rem;
   border-radius: 50%;
-  color:white;
+  color: white;
   border: 1px solid #D14F52;
   font-family: avenir-next-regular;
+}
+
+#notificationsDropdownPane, #myDropdown {
+  position: absolute;
+  text-align: center;
+  margin-top: 10px;
 }
 
 #notificationsDropdownPane {
   height: 400px;
   width: 420px;
   margin-right: 9px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 #notifcationsDropdownHeaderTitle {
@@ -209,10 +250,9 @@ html body {
   margin-right: 15px;
 }
 
-
 #extendedNavbar {
   background-color: #D14F52;
-  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.50);
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
@@ -236,17 +276,6 @@ html body {
 }
 
 @media (max-width: 991.98px) {
-  #navbarContent {
-    top: 70px;
-    left: 10px;
-    background-color: #4F4F4F;
-    width: 50%;
-    padding: 1rem;
-    position: fixed;
-    border-radius: .25rem;
-    z-index: 2;
-  }
-
   #loggedInNavbar .navbar-brand {
     font-size: 180%;
     font-family: AvenirNext-DemiBold;
@@ -254,20 +283,21 @@ html body {
     padding-bottom: 0.15%;
     margin-right: auto;
   }
-
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
   #navbarContent .nav-link {
     text-decoration: none;
-    color: rgba(255,255,255,.5);
+    color: rgba(255, 255, 255, .5);
   }
-
   #navbarContent .nav-link:hover {
-    color: rgba(255,255,255,.75);
+    color: rgba(255, 255, 255, .75);
   }
-
   #loggedInNavbar .active .nav-link {
     color: white;
   }
-
   #myDropdown {
     position: absolute;
     text-align: center;
@@ -275,6 +305,7 @@ html body {
     right: auto;
   }
 }
+
 /* END Navbar for logged in Users */
 
 #loggedOutNavbar {
@@ -334,7 +365,7 @@ html body {
   padding-bottom: 10px;
 }
 
-.email-style{
+.email-style {
   text-align: center;
 }
 
@@ -348,7 +379,9 @@ html body {
   padding: 8px;
 }
 
-#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
+#availabilityTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 #availabilityTable th {
   padding-top: 12px;
@@ -410,6 +443,7 @@ html body {
 }
 
 /*  Ripple */
+
 .ripple {
   width: 0;
   height: 0;
@@ -444,26 +478,29 @@ html body {
 }
 
 /* Remove Relationship Modal Styling */
+
 .modal-dialog {
   padding-top: 10%;
 }
 
 .btn-danger {
-  background-color:  #D14F52;
+  background-color: #D14F52;
   border-color: #D14F52;
 }
 
 .bold-text-style {
-  font-family: avenir-next-demibold;;
+  font-family: avenir-next-demibold;
+  ;
 }
 
 .text-style {
   font-family: avenir-next-regular;
 }
+
 /* END Remove Relationship Modal Styling */
 
 .lesson {
-  box-shadow: 0 0px 7px 2px rgba(0,0,0,0.50);
+  box-shadow: 0 0px 7px 2px rgba(0, 0, 0, 0.50);
   margin-bottom: 20px;
 }
 
