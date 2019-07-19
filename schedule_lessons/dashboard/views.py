@@ -12,7 +12,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
 from django.core.files.base import ContentFile
-from accounts.models import Availability, Skill, Notification, BlockedUsers
+from accounts.models import (
+    Availability, Skill, Notification, BlockedUsers, Preference
+    )
+from accounts.views import AVAILABILITIY_SETTINGS_NAME
 from schedule_lessons.local_settings import (
     EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_PORT, VERIFY_USER_EMAIL,
     SCHEDULER_NOTIFY_EMAIL
@@ -648,11 +651,9 @@ def my_profile(request):
         "skills": return_skills(request.user.profile.id),
         "reset_email": request.GET.get("reset_email", False),
         "days_of_the_week": DAYS_OF_THE_WEEK,
-        "password_change": request.GET.get("password_change", False),
         "notifications":  [],
         "unread_notifications": len(Notification.objects.filter(
             user=request.user, unread=True)),
-        "blocked_people": [],
     }
     expired_lessons = []
     if request.user.profile.user_type == 'tutor':
@@ -661,14 +662,6 @@ def my_profile(request):
     elif request.user.profile.user_type == 'student':
         context['expired_lessons'] = Lesson.objects.filter(
                                 student=request.user, expired=True)
-    blocked_people = BlockedUsers.objects.filter(user=request.user)
-    for blocked_person in blocked_people:
-        context["blocked_people"].append({
-            "full_name": blocked_person.blocked_user.get_full_name(),
-            "unblock_url": "{}dashboard/unblock/{}".format(
-            request.build_absolute_uri("/"),
-            str(blocked_person.blocked_user.profile.id))
-        })
     notifications = Notification.objects.filter(
         user=request.user).order_by("-created_on") # most recent
     for notification in notifications:
@@ -914,6 +907,45 @@ def save_tutorial_preferences(request):
     user_profile.save()
     return HttpResponse(status=200)
 
+@login_required
+def settings(request):
+    notifications = Notification.objects.filter(
+        user=request.user).order_by("-created_on")
+    context = {
+        "notifications": [],
+        "blocked_people": [],
+        "preferences": list(Preference.objects.filter(user=request.user))
+    }
+    blocked_people = BlockedUsers.objects.filter(user=request.user)
+    for blocked_person in blocked_people:
+        context["blocked_people"].append({
+            "full_name": blocked_person.blocked_user.get_full_name(),
+            "unblock_url": "{}dashboard/unblock/{}".format(
+            request.build_absolute_uri("/"),
+            str(blocked_person.blocked_user.profile.id))
+        })
+    for notification in notifications:
+        notification.time_info = get_timestamp(notification.created_on)
+        notification.save()
+        context["notifications"].append(notification)
+    context["unread_notifications"] = len(Notification.objects.filter(
+        user=request.user, unread=True))
+    return render(request, "dashboard/settings.html", context)
+
+@login_required
+def modify_preference(request, preference_id):
+    if request.method == "POST":
+        preference = None
+        try:
+            preference = Preference.objects.get(id=preference_id,
+                                               user=request.user)
+        except:
+            return HttpResponse(status=404)
+        preference.active = True if request.POST.get("active") == "true" else False
+        preference.save()
+        return HttpResponse(status=200)
+
+
 # Helper Functions
 
 def error_check_and_save_lesson(request, lesson, context):
@@ -978,6 +1010,7 @@ def error_check_and_save_lesson(request, lesson, context):
         context["bigger_start_time_error"] = (
             "The starting time provided is greater than the end time."
             " Please fix this.")
+
     lesson.tutor = request.user\
                             if request.user.profile.user_type == "tutor"\
                             else person_to_schedule_with
@@ -1004,27 +1037,29 @@ def error_check_and_save_lesson(request, lesson, context):
                                                            time_difference)
         lesson.start_time = start_time_in_local_time.astimezone(UTC_ZONE)
         lesson.end_time = end_time_in_local_time.astimezone(UTC_ZONE)
-        availabilities = list(Availability.objects.filter(
-                                    profile__user=person_to_schedule_with,
-                                    day=lesson.start_time.strftime("%A")))
-        context['non_available_time_error'] = True
-        for availability in availabilities:
-            lesson_start_t = lesson.start_time.time()
-            availability_start_t = availability.start_time.time()
-            lesson_end_t = lesson.end_time.time()
-            availability_end_t = availability.end_time.time()
-            if ((lesson_end_t < lesson_start_t and
-                availability_end_t < availability_start_t and
-                lesson_start_t >= availability_start_t and
-                lesson_end_t <= availability_end_t) or
-                (lesson_end_t > lesson_start_t and
-                availability_end_t < availability_start_t and
-                lesson_start_t >= availability_start_t) or
-                (lesson_end_t > lesson_start_t and
-                availability_end_t > availability_start_t and
-                lesson_start_t >= availability_start_t and
-                lesson_end_t <= availability_end_t)):
-                context['non_available_time_error'] = False
+        if Preference.objects.get(title=AVAILABILITIY_SETTINGS_NAME,
+                                  user=person_to_schedule_with).active:
+            availabilities = list(Availability.objects.filter(
+                                        profile__user=person_to_schedule_with,
+                                        day=lesson.start_time.strftime("%A")))
+            context['non_available_time_error'] = True
+            for availability in availabilities:
+                lesson_start_t = lesson.start_time.time()
+                availability_start_t = availability.start_time.time()
+                lesson_end_t = lesson.end_time.time()
+                availability_end_t = availability.end_time.time()
+                if ((lesson_end_t < lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t < availability_start_t and
+                    lesson_start_t >= availability_start_t) or
+                    (lesson_end_t > lesson_start_t and
+                    availability_end_t > availability_start_t and
+                    lesson_start_t >= availability_start_t and
+                    lesson_end_t <= availability_end_t)):
+                    context['non_available_time_error'] = False
 
         if context.get('non_available_time_error'):
             context['non_available_time_error'] = ("Please choose timings that "

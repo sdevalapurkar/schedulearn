@@ -8,13 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agenda | Schedulearn</title>
   <!-- Bootstrap CDNs -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <!-- END Bootstrap CDNs -->
   <!-- FontAwesome CDN -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- END FontAwesome CDN -->
   <!-- My Styling and Script -->
   <link rel="stylesheet" href="{% static 'dashboard/css/agenda.css' %}">
@@ -28,7 +33,8 @@
   <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
-    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" id="openNavigation" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{% url 'agenda' %}">SCHEDULEARN</a>
@@ -44,6 +50,9 @@
           {% else %}
           <a class="nav-link" href="{% url 'relationships' %}">MY TUTORS</a>
           {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'my_profile' %}">MY PROFILE</a>
         </li>
       </ul>
       <div class="dropdown-divider"></div>
@@ -65,7 +74,8 @@
                   <hr id="notifcationsDropdownHeaderDivider">
                   {% for notification in notifications %}
                   <a href="{{ notification.link }}">
-                    <div class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
+                    <div
+                      class="{% if notification.unread %} unread-notification-container {% else %} read-notification-container {% endif %} notification-container">
                       <div class="notification-picture-container">
                         <img class="notification-picture" src="/media/{{ notification.picture }}" alt="Notification picture">
                       </div>
@@ -86,8 +96,9 @@
                 </a>
                 <div id="myDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-picture">
                   <div id="pro-triangle-up"></div>
-                  <a class="dropdown-options" href="{% url 'my_profile' %}">My Profile</a>
-                  <a class="dropdown-options" id="signOut" href="{% url 'account_logout' %}">Sign Out</a>
+                  <a class="dropdown-options" href="{% url 'settings' %}">Settings</a>
+                  <a class="dropdown-options" id="signOut" href="{% url 'account_logout' %}">Sign
+                    Out</a>
                 </div>
               </li>
             </td>
@@ -143,15 +154,18 @@
               <form action="{% url 'search' %}" id="searchBar" class="form-inline">
                 {% if user.profile.user_type == 'tutor' %}
                 {% if no_results %}
-                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search"
+                  placeholder="{{ no_results }}">
                 {% else %}
-                <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult" aria-label="Search">
+                <input id="searchInput" class="form-control" type="search" placeholder="Find Student via Email" name="searchResult"
+                  aria-label="Search">
                 {% endif %}
                 {% endif %}
 
                 {% if user.profile.user_type == 'student' %}
                 {% if no_results %}
-                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search" placeholder="{{ no_results }}">
+                <input id="searchInput" class="form-control error-list" type="search" name="searchResult" aria-label="Search"
+                  placeholder="{{ no_results }}">
                 {% else %}
                 <input id="searchInput" class="form-control" type="search" placeholder="Find Tutor via Email" name="searchResult" aria-label="Search">
                 {% endif %}
@@ -169,16 +183,16 @@
   {% if not scheduled_lessons and not pending_lessons %}
   {% if show_tutorial %}
   <div class="tutorial-wrapper">
-     <form class="tutorial-acknowledge-form" action="index.html" method="post">
-         <div class="acknowledge-btn-div">
-           <a class="acknowledge-btn" href="#">OK</a>
-         </div>
-         <div class="acknowledge-options">
-             <input id="dontShowTutorialCheckbox" type="checkbox" name="dontshowagain" value="">
-             <span id="dontShowTutorialText">Don't Show Tutorial Again</span>
-         </div>
+    <form class="tutorial-acknowledge-form" action="index.html" method="post">
+      <div class="acknowledge-btn-div">
+        <a class="acknowledge-btn" href="#">OK</a>
+      </div>
+      <div class="acknowledge-options">
+        <input id="dontShowTutorialCheckbox" type="checkbox" name="dontshowagain" value="">
+        <span id="dontShowTutorialText">Don't Show Tutorial Again</span>
+      </div>
 
-     </form>
+    </form>
     <img id="tut-background" src="{% static 'dashboard/images/tut-background.png' %}" alt="Tut-background">
     <img id="tutorial1" src="{% static 'dashboard/images/arrow1.png' %}" alt="Tutorial1">
     <img id="tutorial2" src="{% static 'dashboard/images/arrow2.png' %}" alt="Tutorial2">
@@ -189,10 +203,12 @@
   <img id="picturePrompt" src="{% static 'dashboard/images/whiteboard.png' %}" alt="A whiteboard">
   <h2 class="text-prompt">No Lessons Scheduled</h1>
     {% if user.profile.user_type == 'student' %}
-    <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar above.</h5>
+    <h5 class="text-prompt">You can schedule a lesson by finding your tutor using the search bar
+      above.</h5>
 
     {% else %}
-    <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar above.</h5>
+    <h5 class="text-prompt">You can schedule a lesson by finding your student using the search bar
+      above.</h5>
 
     {% endif %}
     {% else %}
@@ -213,14 +229,17 @@
       </div>
       {% elif gcalender_success == 'invalid_permission' %}
       <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <strong>Schedulearn has invalid permissions!</strong> Click <a href="{{ gcalendar_access }}">here</a> to grant Schedulearn proper permissions to your calendars. Afterwards, try saving the lesson to your Google Calendars again.
+        <strong>Schedulearn has invalid permissions!</strong> Click <a href="{{ gcalendar_access }}">here</a> to grant Schedulearn proper permissions
+        to your
+        calendars. Afterwards, try saving the lesson to your Google Calendars again.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       {% elif gcalender_success == 'granted_permission' %}
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Success!</strong> You've granted Schedulearn the proper permissions. Try to add the lesson again.
+        <strong>Success!</strong> You've granted Schedulearn the proper permissions. Try to add the
+        lesson again.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -250,7 +269,8 @@
             <div class="details">
               <h4 class="lesson-title">{{ scheduled_lesson.name }}</h4>
               <p class="extended-field">Location: <span class="extended-detail">{{ scheduled_lesson.location }}</span></p>
-              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} - {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
+              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ scheduled_lesson.start_time|date:"g:i A" }} -
+                  {{ scheduled_lesson.end_time|date:"g:i A" }}</span></p>
               {% if user.profile.user_type == 'tutor' %}
               <p class="extended-field">Student:</b> <span class="extended-detail">{{ scheduled_lesson.student_name }}</span></p>
               {% else %}
@@ -259,13 +279,16 @@
             </div>
             <div class="three-buttons">
               <a href="{% url 'save_gcalendar_lesson' scheduled_lesson.id %}">
-                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Save Lesson To Your Google Calendar"><i class="far fa-calendar-plus"></i></button>
+                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top"
+                  title="Save Lesson To Your Google Calendar"><i class="far fa-calendar-plus"></i></button>
               </a>
               <a href="{% url 'reschedule_lesson' scheduled_lesson.id %}">
-                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
+                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i
+                    class="far fa-edit"></i></button>
               </a>
               <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' scheduled_lesson.id %}">
-                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i
+                    class="fas fa-times"></i></button>
               </a>
             </div>
           </div>
@@ -292,7 +315,8 @@
             <div class="details">
               <h4 class="lesson-title">{{ pending_lesson.name }}</h4>
               <p class="extended-field">Location: <span class="extended-detail">{{ pending_lesson.location }}</span></p>
-              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time|date:"g:i A" }} - {{ pending_lesson.end_time|date:"g:i A" }}</span></p>
+              <p class="extended-field">Timing:</b> <span class="extended-detail">{{ pending_lesson.start_time|date:"g:i A" }} -
+                  {{ pending_lesson.end_time|date:"g:i A" }}</span></p>
               {% if user.profile.user_type == 'tutor' %}
               <p class="extended-field">Student:</b> <span class="extended-detail">{{ pending_lesson.student_name }}</span></p>
               {% else %}
@@ -302,22 +326,27 @@
             {% if pending_lesson.display_options %}
             <div class="three-buttons">
               <a href="{% url 'confirm_lesson' pending_lesson.id %}">
-                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Confirm Lesson"><i class="fas fa-check"></i></button>
+                <button class="accept-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Confirm Lesson"><i
+                    class="fas fa-check"></i></button>
               </a>
               <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
-                <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"></i></button>
+                <button class="reschedule-btn btn" type="button" name="button"><i class="far fa-edit" data-toggle="tooltip" data-placement="top"
+                    title="Reschedule Lesson"></i></button>
               </a>
               <a data-target="#declineLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
-                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i class="fas fa-times"></i></button>
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Decline Lesson"><i
+                    class="fas fa-times"></i></button>
               </a>
             </div>
             {% else %}
             <div class="two-buttons">
               <a href="{% url 'reschedule_lesson' pending_lesson.id %}">
-                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i class="far fa-edit"></i></button>
+                <button class="reschedule-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Reschedule Lesson"><i
+                    class="far fa-edit"></i></button>
               </a>
               <a data-target="#cancelLessonModal" data-toggle="modal" href="{% url 'decline_lesson' pending_lesson.id %}">
-                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i class="fas fa-times"></i></button>
+                <button class="decline-btn btn" type="button" name="button" data-toggle="tooltip" data-placement="top" title="Cancel Lesson"><i
+                    class="fas fa-times"></i></button>
               </a>
             </div>
             {% endif %}
@@ -334,7 +363,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="bold-text-style modal-title">Are you sure you would like to decline this lesson?</h6>
+            <h6 class="bold-text-style modal-title">Are you sure you would like to decline this
+              lesson?</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -357,7 +387,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this lesson?</h6>
+            <h6 class="bold-text-style modal-title">Are you sure you would like to cancel this
+              lesson?</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

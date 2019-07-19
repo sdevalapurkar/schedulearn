@@ -21,6 +21,12 @@ White (background) Color: #F4F4F4;
 }
 
 @font-face {
+  font-family: avenir-next-medium;
+  src: url("../fonts/AvenirNext-Medium.ttf");
+}
+
+
+@font-face {
   font-family: avenir-next-demibold;
   src: url("../fonts/AvenirNext-DemiBold.ttf");
 }
@@ -55,7 +61,8 @@ html body {
   background-color: #4A4A4A;
 }
 
-#noti-triangle-up, #pro-triangle-up {
+#noti-triangle-up,
+#pro-triangle-up {
   width: 0;
   height: 0;
   float: right;
@@ -82,7 +89,8 @@ html body {
   padding-right: 15px;
 }
 
-#linksDropdownLink, #notifcationsDropdownLink {
+#linksDropdownLink,
+#notifcationsDropdownLink {
   padding: 0;
 }
 
@@ -119,7 +127,8 @@ html body {
   font-family: avenir-next-regular;
 }
 
-#notificationsDropdownPane, #myDropdown {
+#notificationsDropdownPane,
+#myDropdown {
   position: absolute;
   text-align: center;
   margin-top: 10px;
@@ -207,16 +216,6 @@ html body {
   text-align: right;
 }
 
-.notification-button {
-  width: 60px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border: 1px solid #4a4a4a;
-  margin-left: 10px;
-  height: 20px;
-  border-radius: 0.6rem;
-}
-
 #linksDropdownLink #userPicture {
   width: 40px;
   height: 40px;
@@ -266,42 +265,6 @@ html body {
   margin-right: 4px;
 }
 
-#searchBar {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0.1%;
-  width: 275px !important;
-}
-
-#searchInput {
-  padding-left: 15px;
-  padding-right: 36px;
-  height: 30px;
-  margin-right: .5rem;
-  text-align: left;
-  width: 275px;
-  border-radius: 1.25rem;
-}
-
-#submitBtn {
-  color: #737373;
-  position: absolute;
-  right: 10px;
-  background-color: Transparent;
-  padding: 0;
-  padding-right: 10px;
-}
-
-.error-list::placeholder {
-  opacity: 0.65;
-  color: red;
-}
-
-#submitBtn:hover {
-  color: #595959;
-}
-
 .pro-options {
   font-weight: bold;
   color: white;
@@ -319,33 +282,22 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
+
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
+
   #noti-triangle-up {
     margin-right: 265px;
   }
+
   #pro-triangle-up {
     margin-right: 120px;
   }
-  #desktopNav {
-    display: none !important;
-  }
-  #searchBar {
-    left: 0%;
-  }
-}
 
-@media(min-width: 576px) {
-  #pro_options {
-    display: none !important;
-  }
-  .lesson {
-    width: 80% !important;
-  }
-  #options_btn {
+  #desktopNav {
     display: none !important;
   }
 }
@@ -354,70 +306,23 @@ html body {
   #myDropdown {
     margin-right: -110px !important;
   }
+
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
+
   #noti-triangle-up {
     margin-right: 265px;
   }
+
   #pro-triangle-up {
     margin-right: 120px;
   }
-  #searchInput {
-    width: 100%;
-  }
+
   .extended-button {
     margin-left: 6%;
-  }
-  .lesson {
-    width: 95% !important;
-  }
-}
-
-#options_btn {
-  background: transparent;
-  border: none;
-  position: absolute;
-  right: 12px;
-  transition: 0.3s ease;
-}
-
-@keyframes slider {
-  from {
-    transform: translateX(20px);
-  }
-  to {
-    transform: translateX(0px);
-  }
-}
-
-@keyframes btnSlider {
-  from {
-    transform: translateX(20px);
-  }
-  to {
-    transform: translateX(-60px);
-  }
-}
-
-.addAnim {
-  animation: slider .5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.addBtnAnim {
-  transform: translateY(-35px) !important;
-  transition: 0.3s ease;
-}
-
-@media(max-width: 400px) {
-  .two-buttons {
-    margin-top: -125px;
-    display: none;
-  }
-  .lesson {
-    width: 95% !important;
   }
 }
 
@@ -429,282 +334,166 @@ html body {
     padding-bottom: 0.15%;
     margin-right: auto;
   }
+
   #navbarContent .nav-link {
     text-decoration: none;
     color: rgba(255, 255, 255, .5);
   }
+
   #navbarContent .nav-link:hover {
     color: rgba(255, 255, 255, .75);
   }
-  #loggedInNavbar .active .nav-link {
-    color: white;
+
+  .settings-title {
+    text-align: center;
   }
 }
 
 /* END Navbar for logged in Users */
 
-#picturePrompt {
-  width: 28%;
-  min-width: 350px;
-  margin: 60px auto;
-  display: block;
+/* Settings Page CSS */
+
+.settings-option {
+  position: relative;
+  border-bottom: 1px solid #4A4A4A;
+  padding: 1em 0.5em;
 }
 
-.tutorial-acknowledge-form {
+.settings-title {
+  text-transform: uppercase;
+  padding: 1em 0.5em;
+}
+
+.option-btn {
   position: absolute;
-  z-index: 1000;
-  left: 50%;
-  margin-left: -170px;
-  width: 340px;
-  bottom: 150px;
+  right: 1em;
 }
 
-.acknowledge-btn-div {
-  text-align: center;
-  margin-bottom: 5px;
+.settings-option h6 {
+  text-transform: capitalize;
 }
 
-.acknowledge-btn {
-  font-family: anson;
-  padding: 1% 7%;
+/* CSS for Switch */
+
+.switch {
+  position: relative;
   display: inline-block;
-  margin-top: 3%;
-  background-color: #E54F52;
-  font-size: 140%;
-  color: #F4F4F4;
-  border-radius: 50px;
+  width: 50px;
+  height: 24px;
 }
 
-.acknowledge-btn:hover {
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
   background-color: #D14F52;
-  border-color: #D14F52;
-  color: #E6E6E6;
-  text-decoration: none;
 }
 
-.acknowledge-options {
+input:focus+.slider {
+  box-shadow: 0 0 1px #D14F52;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px) rotateX(180deg) rotateZ(135deg);
+  -ms-transform: translateX(26px) rotateX(180deg) rotateZ(135deg);
+  transform: translateX(26px) rotateX(180deg) rotateZ(135deg);
+}
+
+/* Rounded sliders */
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 10px 10px 0 10px;
+  transform: rotate(-45deg);
+}
+
+/* Blocked Users Modal Styling */
+
+#blockedUsersTable {
   text-align: center;
-}
-
-#dontShowTutorialText {
-  font-family: avenir-next-regular;
-  color: #FDFDFD;
-  font-size: 24px;
-}
-
-#tut-background {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  opacity: 0.5;
-  width: 100%;
-  height: 100%;
-}
-
-#tutorial-wrapper {
-  position: absolute;
-}
-
-#tutorial1 {
-  height: 200px;
-  margin-left: 2%;
-  margin-top: 5px;
-  top: 80px;
-  display: block;
-  position: absolute;
-}
-
-#tutorial2 {
-  height: 250px;
-  margin-left: 300px;
-  top: 40px;
-  margin-top: 5px;
-  display: block;
-  position: absolute;
-}
-
-#tutorial3 {
-  height: 120px;
-  margin-left: 490px;
-  top: 25px;
-  margin-top: 5px;
-  display: block;
-  position: absolute;
-}
-
-#tutorial4 {
-  height: 250px;
-  margin-left: 80%;
-  top: 0px;
-  margin-top: 5px;
-  display: block;
-  position: absolute;
-  right: 40px;
-}
-
-.text-prompt {
-  text-align: center;
-  display: block;
-  font-family: avenir-next-regular;
-  color: #4a4a4a;
-}
-
-#mainScheduled {
-  text-align: center;
-}
-
-#mainPending {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-.group-title {
-  font-size: 220%;
-  font-family: avenir-next-regular;
-  margin: 40px auto;
-}
-
-#pendingLabel {
-  margin-top: 50px;
-}
-
-.lesson {
   width: 80%;
   margin: 0 auto;
-  box-shadow: 0 0px 7px 2px rgba(0, 0, 0, 0.50);
-  margin-bottom: 20px;
 }
 
-.main-information {
-  width: 100%;
-  display: inline-flex;
-  height: 130px;
+#blockedUsersTable td, #blockedUsersTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.date {
-  min-width: 80px;
-  height: 100%;
+#blockedUsersTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#blockedUsersTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
   background-color: #D14F52;
-  font-family: code-bold;
-  color: #F4F4F4;
-}
-
-.day {
-  display: block;
-  margin-top: 1px;
-  font-size: 140%;
-}
-
-.month-day {
-  font-size: 260%;
-  margin-bottom: -18px;
-  margin-top: -14px;
-  display: block;
-  padding-right: 5px;
-}
-
-.month {
-  display: block;
-  font-size: 180%;
-  margin-bottom: -11px;
-}
-
-.year {
-  font-size: 150%;
-  display: block;
-}
-
-.details-and-buttons {
-  background-color: white;
-  width: 100%;
-}
-
-.details {
-  float: left;
-  padding-left: 9px;
-  padding-top: 4px;
-}
-
-.lesson-title {
-  padding-top: 0.5%;
-  font-family: bebas-neue;
-  text-align: left;
-  font-size: 200%;
-  margin-bottom: 0;
-}
-
-.extended-field {
-  text-align: left;
-  margin-bottom: 0;
-  color: #4F4F4F;
+  color: white;
+  text-align: center;
   font-family: adam-cg-pro;
-  font-weight: lighter;
-  font-size: 100%;
-  display: block;
 }
 
-.extended-detail {
+#blockedUsersTable td {
   font-family: avenir-next-regular;
 }
 
-.two-buttons {
-  float: right;
-  width: 80px;
-  height: 50%;
+/* END Blocked Users Modal Styling */
+
+/* Change password modal styling */
+.modal-title {
+  font-family: avenir-next-demibold;
 }
 
-.three-buttons {
-  float: right;
-  width: 80px;
-  height: 33.33%;
+.password-label {
+  font-family: avenir-next-medium;
 }
 
-.two-buttons .btn, .three-buttons .btn {
-  display: block;
-  margin-left: auto;
-  border-radius: 0;
-  width: 100%;
-  height: 100%;
-  font-family: bariol;
+.modal-body .password-input {
+  text-align: left;
+  font-family: avenir-next-regular;
 }
 
-.accept-btn {
-  background-color: #2E8B57;
-  color: white;
+.error-list {
+  font-family: avenir-next-regular;
+  color: #D14F52;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
-.accept-btn:hover {
-  background-color: green;
-}
-
-.fa-check {
-  font-size: 130%;
-}
-
-.decline-btn {
-  background-color: #E54F52;
-  color: white;
-}
-
-.decline-btn:hover {
+#confirmChangePassword {
   background-color: #D14F52;
+  border: 0;
 }
-
-.fa-times {
-  font-size: 140%;
-}
-
-.reschedule-btn {
-  background-color: #efef00;
-}
-
-.reschedule-btn:hover {
-  background-color: gold;
-}
-
-.details-and-buttons .fa-calendar {
-  font-size: 110%;
-}
+/* END Change password modal styling */
 
 /* Cancel/Delete Lesson Modal Styling */
 
