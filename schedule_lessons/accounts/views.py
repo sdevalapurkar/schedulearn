@@ -6,6 +6,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 
+from accounts.models import Preference
+
+AVAILABILITIY_SETTINGS_NAME = ("Force Lesson Timings To Be Within Your "
+                               "Availablity")
 
 @login_required
 def personalize_view(request):
@@ -26,6 +30,11 @@ def personalize_view(request):
                 request.user.profile.user_type = 'tutor'
             else:
                 request.user.profile.user_type = 'student'
+            Preference.create(request.user,
+                AVAILABILITIY_SETTINGS_NAME,
+                "Choose if you want lessons scheduled with you to be"
+                " only within your availablity timings.",
+                True)
         if 'bio' in request.POST:
             request.user.profile.bio = request.POST.get('bio')
         request.user.save()
