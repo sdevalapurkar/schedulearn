@@ -57,11 +57,11 @@ $(document).ready(() => {
   });
 
   $(".preference").click((event) => {
-    const preference_id = event.target.id;
+    const {id, checked} = event.target;
     $.ajax({
       type: "POST",
-      url: "/dashboard/modify_preference/" + preference_id + "/",
-      data: { "active": event.target.checked }
+      url: `/dashboard/modify_preference/${id}/`,
+      data: { "active": checked }
     });
   });
 });
