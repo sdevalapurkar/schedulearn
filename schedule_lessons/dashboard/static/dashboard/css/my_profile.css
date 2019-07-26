@@ -638,6 +638,11 @@ html body {
   display: block;
 }
 
+.empty-field {
+  font-family: avenir-next-demibold;
+  font-size: 105%;
+}
+
 .extended-detail {
   font-family: avenir-next-regular;
 }
