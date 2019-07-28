@@ -33,7 +33,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True, null=True, default='')
     user_type = models.CharField(max_length=16, blank=False, null=False)
-    profile_pic = models.ImageField(upload_to="profile_pics", blank=False, default='/default/man.png')
+    profile_pic = models.ImageField(upload_to="profile_pics", blank=False, default='profile_pics/default.png')
     email_verified = models.BooleanField(default=False)
     # the following field is useful for google sign ups
     has_signed_up = models.BooleanField(default=False)
