@@ -1,5 +1,5 @@
 *.pyc
-__pycache__/*
+__pycache__/
 schedule_lessons/db.sqlite3
 schedule_lessons/staticfiles
 schedule_lessons/media/profile_pics/*
