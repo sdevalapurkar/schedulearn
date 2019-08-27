@@ -210,20 +210,27 @@ body {
   border-color: #2f4779;
   color: #203154;
 }
+
 .social-btn {
   margin-left: auto;
   margin-right: auto;
   width: 350px;
   font-family: anson;
   font-size: 140%;
-  display: block;
+  display: flex;
   padding: 3%;
   border-style: solid;
   border-radius: 1000px;
+  align-items: center;
+  justify-content: center;
 }
 
 .social-btn:hover {
   text-decoration: none;
+}
+
+.social-btn i {
+  font-size: 34px;
 }
 
 .center {
