@@ -201,7 +201,7 @@
             {% for blocked_person in blocked_people %}
             <tr>
               <td>{{ blocked_person.full_name }}</td>
-              <td><a href="{{ blocked_person.unblock_url }}">REMOVE</a></td>
+              <td><a class="unblock-link" href="{{ blocked_person.unblock_url }}">REMOVE</a></td>
             </tr>
             {% endfor %}
             {% endif %}

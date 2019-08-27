@@ -64,6 +64,17 @@ $(document).ready(() => {
       data: { "active": checked }
     });
   });
+
+  $(".unblock-link").click((event) => {
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: event.target.getAttribute("href"),
+      success: (response) => {
+        location.reload();
+      }
+    });
+  });
 });
 
 function csrfSafeMethod(method) {

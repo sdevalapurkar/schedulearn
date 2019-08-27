@@ -90,11 +90,7 @@ $(document).ready(function () {
     }
     $.ajax({
       url: '/dashboard/clear_notifications/',
-      type: 'post',
-      error: function (xhr, status) {
-      },
-      success: function (data) {
-      }
+      type: 'POST'
     });
   });
 
@@ -103,39 +99,55 @@ $(document).ready(function () {
   });
 
   $('#unblockConfirm').on('click', function(e) {
-    var link = $('#unblockLink').attr('href');
-    window.location.href = link;
+    $.ajax({
+      url: $('#unblockLink').attr('href'),
+      type: 'POST',
+      success: (response) => {
+        location.reload();
+      }
+    });
   });
 
   $('#blockConfirm').on('click', function(e) {
-    var link = $('#blockLink').attr('href');
-    window.location.href = link;
+    $.ajax({
+      url: $('#blockLink').attr('href'),
+      type: 'POST',
+      success: (response) => {
+        location.reload();
+      }
+    });
   });
-
 });
 
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
 
 function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie != '') {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = jQuery.trim(cookies[i]);
+  // Sanity check
+  if (!document.cookie) {
+    return null;
+  }
+
+  // Search through the cookies to find the desired cookie.
+  let cookieValue = null;
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
       // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
-    }
   }
   return cookieValue;
 }
 
 $.ajaxSetup({
-  beforeSend: function (xhr, settings) {
-    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-      // Only send the token to relative URLs i.e. locally.
-      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+  beforeSend: (xhr, settings) => {
+    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+      xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
     }
   }
 });
