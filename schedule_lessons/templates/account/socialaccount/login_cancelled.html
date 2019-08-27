@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Cancelled | Schedulearn</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/login_cancelled.css' %}">
+</head>
+<body>
+  <div class="div-left"></div>
+
+  <div class="homepage">
+    <a class="homepage-btn" href="{% url 'home' %}">HOMEPAGE</a>
+  </div>
+
+  <div class="div-right">
+      <h1 class="main-title">Login Cancelled. <a href="{% url 'account_login' %}">Try Again?</a></h1>
+  </div>
+
+</body>
+</html>
