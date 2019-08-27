@@ -886,7 +886,7 @@ def block_user(request, user_id):
                               student=user_to_be_blocked).delete()
         Relationship.objects.filter(student=request.user,
                               tutor=user_to_be_blocked).delete()
-    return redirect(public_profile, user_id=user_id)
+    return HttpResponse(status=200)
 
 @login_required
 def unblock_user(request, user_id):
@@ -898,7 +898,7 @@ def unblock_user(request, user_id):
         BlockedUsers.objects.get(user=request.user, blocked_user=user).delete()
     except BlockedUsers.DoesNotExist:
         return HttpResponse(status=404)
-    return redirect(public_profile, user_id=user_id)
+    return HttpResponse(status=200)
 
 @login_required
 def save_tutorial_preferences(request):
