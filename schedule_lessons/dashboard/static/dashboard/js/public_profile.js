@@ -99,9 +99,8 @@ $(document).ready(function () {
   });
 
   $('#unblockConfirm').on('click', function(e) {
-    var unblock_link = $('#unblockLink').attr('href');
     $.ajax({
-      url: unblock_link,
+      url: $('#unblockLink').attr('href'),
       type: 'POST',
       success: (response) => {
         location.reload();
@@ -110,9 +109,8 @@ $(document).ready(function () {
   });
 
   $('#blockConfirm').on('click', function(e) {
-    var block_link = $('#blockLink').attr('href');
     $.ajax({
-      url: block_link,
+      url: $('#blockLink').attr('href'),
       type: 'POST',
       success: (response) => {
         location.reload();
