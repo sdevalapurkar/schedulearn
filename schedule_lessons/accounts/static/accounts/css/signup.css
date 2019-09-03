@@ -46,6 +46,8 @@ body {
   margin: 15% auto;
   padding-left: 15%;
   padding-right: 15%;
+  background-color: #F4F4F4;
+  padding-bottom: 20px;
 }
 
 .login {
@@ -196,7 +198,8 @@ body {
 .social-btn {
   margin-left: auto;
   margin-right: auto;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   font-family: anson;
   font-size: 140%;
   display: flex;
@@ -230,6 +233,10 @@ body {
     width: 100%;
     height: 100%;
     background-color: #F4F4F4;
+  }
+
+  .social-btn {
+    font-size: 130%;
   }
 
 }

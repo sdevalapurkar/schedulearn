@@ -47,6 +47,8 @@ body {
   padding-left: 15%;
   padding-right: 15%;
   z-index: 1;
+  background-color: #F4F4F4;
+  padding-bottom: 20px;
 }
 
 .sign-up {
@@ -214,7 +216,8 @@ body {
 .social-btn {
   margin-left: auto;
   margin-right: auto;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   font-family: anson;
   font-size: 140%;
   display: flex;
@@ -250,6 +253,10 @@ body {
     width: 100%;
     height: 100%;
     background-color: #F4F4F4;
+  }
+
+  .social-btn {
+    font-size: 130%;
   }
 
 }
