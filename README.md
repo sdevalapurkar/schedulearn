@@ -107,7 +107,13 @@ Quit the server with CONTROL-C.
 
 * [Ahmed Siddiqui](https://github.com/JeSuisAhmedN)
 * [Shreyas Devalapurkar](https://github.com/sdevalapurkar)
-* [Lee Zeitz](https://github.com/LeeZeitz)
 * [Nisarg Patel](https://github.com/Nppatel97)
-* [John Schriemer](https://github.com/jschriem)
 * [David Schriemer](https://github.com/CodemanDave)
+
+## Contributors 
+
+Thank you to all of our contributers who helped in the development of Schedulearn.
+
+* [Lee Zeitz](https://github.com/LeeZeitz)
+* [John Schriemer](https://github.com/jschriem)
+
