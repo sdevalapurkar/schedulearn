@@ -502,6 +502,7 @@ html body {
 }
 
 #tutorial-wrapper {
+  display: none;
   position: absolute;
 }
 
