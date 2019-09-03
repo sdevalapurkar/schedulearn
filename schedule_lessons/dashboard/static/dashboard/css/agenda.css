@@ -502,7 +502,7 @@ html body {
   height: 100%;
 }
 
-#tutorial-wrapper {
+.tutorial-wrapper {
   display: none;
   position: absolute;
 }
