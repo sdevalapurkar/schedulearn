@@ -458,3 +458,7 @@ html body {
   text-align: center;
   padding-bottom: 100px;
 }
+
+#map {
+  height: 100%;
+}

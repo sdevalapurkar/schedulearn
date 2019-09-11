@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WhiK7CLDk9IkV1MnDB1vVGhbSvOdTl4&libraries=places&callback=initMap" async defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -18,10 +19,12 @@
     integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static "dashboard/css/schedule_lesson.css" %}">
   <script src="{% static "dashboard/js/schedule_lesson.js" %}"></script>
+  <script src="{% static "dashboard/js/maps.js" %}"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
 </head>
 
 <body>
@@ -163,6 +166,10 @@
         <input id="titleInput" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
         <label id="locationLabel" for="location" class="input-label">Lesson Location</label>
         <input id="locationInput" class="form-control" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WhiK7CLDk9IkV1MnDB1vVGhbSvOdTl4&libraries=places&callback=initMap" async defer></script>
+
+
         <label id="dateLabel" for="date" class="input-label">Lesson Date</label>
         <div class="input-group date" id="date" data-target-input="nearest">
           <input id="dateInput" type="text" name="date" class="form-control datetimepicker-input" data-target="#date"
