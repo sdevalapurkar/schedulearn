@@ -18,7 +18,9 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
     integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static "dashboard/css/schedule_lesson.css" %}">
+  
   <script src="{% static "dashboard/js/schedule_lesson.js" %}"></script>
+  <script src="{% static "dashboard/js/mapsearch.js" %}"></script>
   <script src="{% static "dashboard/js/maps.js" %}"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
@@ -125,6 +127,7 @@
   {% else %}
   <h1 id="editAvailabilityTitle">Schedule a Lesson</h1>
   {% endif %}
+
   <p id="scheduleVerification"></p>
   <div class="columns-container">
     <div id="currentAvailability">
@@ -166,8 +169,10 @@
         <input id="titleInput" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
         <label id="locationLabel" for="location" class="input-label">Lesson Location</label>
         <input id="locationInput" class="form-control" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
-        <div id="map"></div>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WhiK7CLDk9IkV1MnDB1vVGhbSvOdTl4&libraries=places&callback=initMap" async defer></script>
+
+
+        <input id="searchTextField" type="text">
+
 
 
         <label id="dateLabel" for="date" class="input-label">Lesson Date</label>
@@ -205,6 +210,7 @@
       </form>
     </div>
   </div>
+
 </body>
 
 </html>
