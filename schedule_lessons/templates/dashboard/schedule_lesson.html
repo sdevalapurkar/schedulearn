@@ -29,7 +29,6 @@
 </head>
 
 <body>
-
   <!-- main navbar for signed in users -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="loggedInNavbar">
     <!-- When viewing on mobile, this will show up as the hamburger menu -->
@@ -164,17 +163,13 @@
       <h4 class="edit-availability-subtitle">Details</h4>
       <form id="scheduleForm" method="post">
         {% csrf_token %}
-
         <label id="titleLabel" for="name" class="input-label">Lesson Name</label>
         <input id="titleInput" class="form-control" type="text" name="name" value="{{ lesson_to_reschedule.name }}">
-
-        <div class="form-group">
         <label id="locationLabel" for="location" class="input-label">Lesson Location</label>
-        <input id="autocomplete" placeholder="" onFocus="geolocate()" type="text" class="form-control" value="{{ lesson_to_reschedule.location }}"/>
+        <input id="locationInput" class="form-control" placeholder = "" onFocus="geolocate()" type="text" name="location" value="{{ lesson_to_reschedule.location }}">
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WhiK7CLDk9IkV1MnDB1vVGhbSvOdTl4&libraries=places&callback=initAutocomplete"
         async defer></script>
-        </div>
-
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WhiK7CLDk9IkV1MnDB1vVGhbSvOdTl4&libraries=places"></script>
         <label id="dateLabel" for="date" class="input-label">Lesson Date</label>
         <div class="input-group date" id="date" data-target-input="nearest">
           <input id="dateInput" type="text" name="date" class="form-control datetimepicker-input" data-target="#date"

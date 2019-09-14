@@ -40,7 +40,7 @@ $(document).ready(function () {
         $('#titleLabel').addClass('label-error');
         $('#titleInput').addClass('input-error');
         $('#locationLabel').addClass('label-error');
-        $('#locationInput').addClass('input-error');
+        $('#autocomplete').addClass('input-error');
         $('#dateLabel').addClass('label-error');
         $('#dateInput').addClass('input-error');
         $('#startTimeLabel').addClass('label-error');
