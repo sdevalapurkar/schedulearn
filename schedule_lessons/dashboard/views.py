@@ -59,7 +59,9 @@ def agenda(request):
     context = {
         "scheduled_lessons": scheduled_lesson_list,
         "pending_lessons": pending_lesson_list,
-        "gcalendar_access": "/accounts/google/login/?process=&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar"
+        "gcalendar_access": "/accounts/google/login/?process=&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar",
+        "unread_notifications": len(Notification.objects.filter(
+        user=request.user, unread=True))
         }
     no_results_found = request.GET.get("no_search_result")
     context["gcalender_success"] = request.GET.get("gcalender_success", "")
@@ -81,8 +83,6 @@ def agenda(request):
         notification.time_info = get_timestamp(notification.created_on)
         notification.save()
         context["notifications"].append(notification)
-    context["unread_notifications"] = len(Notification.objects.filter(
-        user=request.user, unread=True))
     return render(request, "dashboard/agenda.html", context)
 
 @login_required
@@ -244,7 +244,9 @@ def public_profile(request, user_id):
             "profile_user": User.objects.get(profile__id=user_id),
             "availabilities": return_availabilities(user_id),
             "days_of_the_week": DAYS_OF_THE_WEEK,
-            "expired_lessons": []
+            "expired_lessons": [],
+            "unread_notifications": len(Notification.objects.filter(
+        user=request.user, unread=True))
         }
     except User.DoesNotExist:
         return HttpResponse(status=404)
@@ -312,8 +314,6 @@ def public_profile(request, user_id):
             notification.time_info = get_timestamp(notification.created_on)
             notification.save()
             context["notifications"].append(notification)
-        context["unread_notifications"] = len(Notification.objects.filter(
-            user=request.user, unread=True))
         if request.user.profile.user_type == 'tutor':
             context['expired_lessons'].extend(list(Lesson.objects.filter(
                                                 tutor=request.user,
@@ -607,7 +607,9 @@ def reschedule_lesson(request, lesson_id):
         if request.user.profile.user_type == "tutor"\
         else lesson_to_reschedule.tutor.profile.id,
         "days_of_the_week": DAYS_OF_THE_WEEK,
-        "status": 500
+        "status": 500,
+        "unread_notifications": len(Notification.objects.filter(
+        user=request.user, unread=True))
     }
     if request.method == "POST":
         context["rescheduled_lesson"] = True
@@ -622,8 +624,6 @@ def reschedule_lesson(request, lesson_id):
             notification.time_info = get_timestamp(notification.created_on)
             notification.save()
             context["notifications"].append(notification)
-        context["unread_notifications"] = len(Notification.objects.filter(
-            user=request.user, unread=True))
         context["person_to_schedule_with"] = User.objects.get(
             profile__id=context["user_id"])
         if lesson_to_reschedule and (lesson_to_reschedule.tutor == request.user\
@@ -787,7 +787,10 @@ def edit_availability(request):
                "day": request.POST.get("day", ""),
                "start_time": request.POST.get("startingTime", ""),
                "end_time": request.POST.get("endingTime", ""),
-               "status": 500}
+               "status": 500,
+               "unread_notifications": len(Notification.objects.filter(
+        user=request.user, unread=True))
+               }
     if request.method == "POST":
         date = get_date_from_day(context["day"]).date()
         time_difference = datetime.timezone(datetime.timedelta(
@@ -839,8 +842,6 @@ def edit_availability(request):
             notification.time_info = get_timestamp(notification.created_on)
             notification.save()
             context["notifications"].append(notification)
-        context["unread_notifications"] = len(Notification.objects.filter(
-            user=request.user, unread=True))
     return render(request, "dashboard/edit_availability.html", context)
 
 @login_required
@@ -914,7 +915,9 @@ def settings(request):
     context = {
         "notifications": [],
         "blocked_people": [],
-        "preferences": list(Preference.objects.filter(user=request.user))
+        "preferences": list(Preference.objects.filter(user=request.user)),
+        "unread_notifications": len(Notification.objects.filter(
+        user=request.user, unread=True))
     }
     blocked_people = BlockedUsers.objects.filter(user=request.user)
     for blocked_person in blocked_people:
@@ -928,8 +931,6 @@ def settings(request):
         notification.time_info = get_timestamp(notification.created_on)
         notification.save()
         context["notifications"].append(notification)
-    context["unread_notifications"] = len(Notification.objects.filter(
-        user=request.user, unread=True))
     return render(request, "dashboard/settings.html", context)
 
 @login_required
