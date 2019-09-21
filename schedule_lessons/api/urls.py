@@ -10,7 +10,7 @@ urlpatterns = [
     path('rest-auth/google/', google_login, name='google_login'),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('rest-auth/', include('rest_auth.urls')),
-    path('profile/<token>', views.Profile.as_view()),
-    path('connections/<token>', views.Connections.as_view()),
-    path('lessons/<token>', views.Lessons.as_view()),
+    path('profile/<token>/', views.Profile.as_view()),
+    path('connections/<token>/', views.Connections.as_view()),
+    path('lessons/<token>/', views.Lessons.as_view()),
 ]

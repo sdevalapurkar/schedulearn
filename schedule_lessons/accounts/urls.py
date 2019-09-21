@@ -16,7 +16,7 @@ urlpatterns = [
     path('reset_password/', password_reset, name='account_reset_password'),
     path('reset_password/done/', password_reset_done, name='account_reset_password_done'),
     path('reset_password_key/<uidb36>/<key>/', password_reset_from_key, name='account_reset_password_from_key'),
-    path('reset_password_key/done', password_reset_from_key_done, name='account_reset_password_from_key_done'),
+    path('reset_password_key/done/', password_reset_from_key_done, name='account_reset_password_from_key_done'),
     path('social/', include('allauth.socialaccount.urls')),
 ]
 
