@@ -10,7 +10,7 @@ $(document).ready(function () {
     }
     $(".tutorial-wrapper").remove();
     $.ajax({
-      url: '/dashboard/save_tutorial_preferences',
+      url: '/dashboard/save_tutorial_preferences/',
       type: 'post',
       data: data,
       error: function(xhr, status) {
