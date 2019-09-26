@@ -300,135 +300,16 @@ html body {
 #editAvailabilityTitle {
   font-family: bebas-neue;
   color: black;
-  margin: 40px 0;
+  margin: 40px 0 20px;
   font-size: 350%;
   text-align: center;
 }
 
-.row {
-  width: 100%;
-}
-
-.col-md {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-.edit-availability-subtitle {
-  font-family: bariol;
-  font-size: 180%;
-  color: black;
-  font-weight: bold;
-}
-
-#availabilityTable {
-  display: inline-block;
-  text-align: center;
-}
-
-#availabilityTable td, #availabilityTable th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#availabilityTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#availabilityTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #D14F52;
-  color: white;
-  text-align: center;
-  font-family: adam-cg-pro;
-}
-
-#availabilityTable td {
+#calendar {
+  margin: 10px 20px 60px;
+  padding: 30px 30px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 122px -90px rgba(0,0,0,0.75);
+  border: 3px solid #D14F52;
   font-family: avenir-next-regular;
-}
-
-.unavailable {
-  color: #D14F52;
-}
-
-.day {
-  text-transform: uppercase;
-}
-
-tr #deleteAvailability {
-  border: 0;
-  background-color: #ededed;
-}
-
-#deleteAvailability a {
-  color: #E54F52;
-}
-
-#deleteAvailability a:hover {
-  color: #D14F52;
-}
-
-#warningText {
-  font-size: 120%;
-  color: #D14F52;
-  font-family: BrandonGrotesque-Regular;
-}
-
-.input-label {
-  display: block;
-  font-family: BrandonGrotesque-Regular;
-  color: #6b6b6b;
-  font-weight: bold;
-  font-size: 120%;
-  margin: 10px 0;
-}
-
-.label-error {
-  color: #D14F52;
-}
-
-.selectpicker {
-  background: #F4F4F4;
-  font-family: avenir-next-regular;
-  border: 1px solid #828282;
-}
-
-.form-control {
-  font-family: avenir-next-regular;
-}
-
-.input-error {
-  border: 1px solid #D14F52;
-}
-
-.time {
-  margin: 0 auto;
-  width: 50%;
-}
-
-.error-list {
-  font-family: avenir-next-regular;
-  color: #D14F52;
-  margin: 10px 0;
-}
-
-#addBtn {
-  font-family: anson;
-  padding: 2px 35px;
-  display: inline-block;
-  background-color: #E54F52;
-  font-size: 120%;
-  color: #F4F4F4;
-  border-radius: 50px;
-}
-
-#addBtn:hover {
-  background-color: #D14F52;
-  border-color: #D14F52;
-  color: #E6E6E6;
-  text-decoration: none;
-}
-
-.center {
-  text-align: center;
 }

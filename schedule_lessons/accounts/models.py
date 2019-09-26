@@ -54,15 +54,14 @@ class Availability(models.Model):
     '''
     id = models.AutoField(primary_key=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    day = models.CharField(max_length=15)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    repeat_weekly = models.BooleanField(default=False)
 
     def __str__(self):
         '''Used for string outputs for an Availability'''
-        return '{} from {} to {} on {}'.format(
-            self.profile.user.get_full_name(), self.start_time, self.end_time,
-            self.day)
+        return '{} from {} to {}'.format(
+            self.profile.user.get_full_name(), self.start_time, self.end_time)
 
 class Skill(models.Model):
     '''This class models a skill with 2 fields.

@@ -825,11 +825,10 @@ def edit_availability(request):
         new_availability.profile = request.user.profile
         new_availability.start_time = start_time.astimezone(UTC_ZONE)
         new_availability.end_time = end_time.astimezone(UTC_ZONE)
-        new_availability.day = new_availability.start_time.strftime("%A")
         new_availability.save()
         context["status"] = 200
         return JsonResponse(context)
-    if request.method == "GET":
+    elif request.method == "GET":
         context["availabilities"] = return_availabilities(
             request.user.profile.id)
         notifications = Notification.objects.filter(
@@ -1123,8 +1122,14 @@ def return_availabilities(user_id):
     """
     availabilities = []
     for day in DAYS_OF_THE_WEEK:
-        availabilities_in_day = list(Availability.objects.filter(
-                                        profile__id=user_id, day=day))
+        availabilities_in_day = [x for x in Availability.objects.filter(
+            profile__id=user_id) if x.start_time.strftime("%A") == day]
+        # for availability in availabilities_in_day:
+        #     availabilities.append({
+        #         "start_time": availability.start_time,
+        #         "duration": (availability.end_time - availability.start_time)
+        #     })
+        #     print(availabilities[-1])
         availabilities.extend(sorted(availabilities_in_day,
                                      key=lambda x: x.start_time))
 

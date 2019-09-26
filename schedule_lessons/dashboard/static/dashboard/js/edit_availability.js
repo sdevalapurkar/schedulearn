@@ -55,10 +55,6 @@ $(document).ready(function () {
     $.ajax({
       url: '/dashboard/clear_notifications/',
       type: 'post',
-      error: function (xhr, status) {
-      },
-      success: function (data) {
-      }
     });
   });
 });

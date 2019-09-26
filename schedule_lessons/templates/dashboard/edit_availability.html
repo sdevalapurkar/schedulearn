@@ -21,6 +21,65 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+  <!-- FullCalender CDNs -->
+  <link href="{% static 'fullcalendar/core/main.min.css' %}" rel='stylesheet'/>
+  <link href="{% static 'fullcalendar/daygrid/main.min.css' %}" rel='stylesheet'/>
+  <link href="{% static 'fullcalendar/timegrid/main.min.css' %}" rel='stylesheet'/>
+  <script src="{% static 'fullcalendar/core/main.min.js' %}"></script>
+  <script src="{% static 'fullcalendar/interaction/main.min.js' %}"></script>
+  <script src="{% static 'fullcalendar/daygrid/main.min.js' %}"></script>
+  <script src="{% static 'fullcalendar/timegrid/main.min.js' %}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let availabilities = []
+      {% for availability in availabilities %}
+      let start_time = new Date("{{ availability.start_time.isoformat }}");
+      let end_time = new Date("{{ availability.end_time.isoformat }}");
+      let start_day = start_time.getDay();
+      if (start_time.getDay() !== end_time.getDay()) {
+        end_time = `${end_time.getHours() + 24}:${String(end_time.getMinutes()).padStart(2, "0")}`;
+      } else {
+        end_time = `${String(end_time.getHours()).padStart(2, "0")}:${String(end_time.getMinutes()).padStart(2, "0")}`;
+      }
+      start_time = `${String(start_time.getHours()).padStart(2, "0")}:${String(start_time.getMinutes()).padStart(2, "0")}`;
+
+      availabilities.push({
+        title: "Available",
+        daysOfWeek: [ start_day ],
+        startTime: start_time,
+        endTime: end_time,
+        textColor: "#FFFFFF"
+      })
+      {% endfor %}
+      let calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+        plugins: [ 'timeGrid' ],
+        defaultView: 'timeGridWeek',
+        events: availabilities,
+        height: 1342,
+        nowIndicator: true,
+        customButtons: {
+          addAvailablity: {
+            text: 'Add Availability',
+            click: () => {
+              alert('clicked the custom button!');
+            }
+          }
+        },
+        eventClick: (info) => {
+          alert('Event: ' + info.event.title);
+        },
+        header: {
+          left: 'title',
+          center: 'addAvailablity',
+          right: 'prev,next today'
+        }
+      });
+
+      calendar.render();
+  });
+
+  </script>
 </head>
 
 <body>
@@ -110,84 +169,7 @@
   <!-- end extended navbar for signed in users -->
 
   <h1 id="editAvailabilityTitle">Edit Availability</h1>
-  <div class="row">
-
-    <div class="col-md">
-      <h4 class="edit-availability-subtitle">Current Availability</h4>
-
-      <table id="availabilityTable">
-        <tr>
-          <th>DAY</th>
-          <th>FROM</th>
-          <th>TO</th>
-          <th hidden>DELETE</th>
-        </tr>
-        {% for day in days_of_the_week %}
-        {% define_variable 0 %}
-        {% for availability in availabilities %}
-        {% if availability.start_time|date:"l" == day %}
-        <tr>
-          <td class="day">{{ day }}</td>
-          <td>{{ availability.start_time|date:"g:i A" }}</td>
-          <td>{{ availability.end_time|date:"g:i A" }}</td>
-          <td id="deleteAvailability"><a href="/dashboard/my_profile/delete_availability/{{ availability.id }}"><i class="far fa-trash-alt"></i></a>
-          </td>
-        </tr>
-        {% define_variable 1 %}
-        {% endif %}
-        {% endfor %}
-        {% get_variable as available %}
-        {% if not available %}
-        <tr>
-          <td class="day">{{ day }}</td>
-          <td class="unavailable" colspan="2">UNAVAILABLE</td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-      </table>
-    </div>
-
-    <div class="col-md">
-      <h4 class="edit-availability-subtitle">Add Availability</h4>
-      <form method="post" id="availabilityForm">
-        {% csrf_token %}
-        <label for="day" class="input-label">Select a Day</label>
-        <select name="day" class="selectpicker">
-          <option>Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
-
-        <label id="startTimeLabel" for="startingTime" class="input-label">Select a Start
-          Time</label>
-        <div class="input-group time" id="startingTime" data-target-input="nearest">
-          <input id="startTimeInput" type="text" name="startingTime" class="form-control datetimepicker-input" data-target="#startingTime"
-            value="{{ start_time }}" />
-          <div class="input-group-append" data-target="#startingTime" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-clock"></i></div>
-          </div>
-        </div>
-
-        <label id="endTimeLabel" for="endingTime" class="input-label">Select an End Time</label>
-        <div class="input-group time" id="endingTime" data-target-input="nearest">
-          <input id="endTimeInput" type="text" name="endingTime" class="form-control datetimepicker-input" data-target="#endingTime"
-            value="{{ end_time }}" />
-          <div class="input-group-append" data-target="#endingTime" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-clock"></i></div>
-          </div>
-        </div>
-        <p class="error-list"></p>
-        <div class="center">
-          <a id="addBtn" href="#">ADD</a>
-        </div>
-      </form>
-    </div>
-  </div>
-
+  <div id="calendar"><div/>
 </body>
 
 </html>
