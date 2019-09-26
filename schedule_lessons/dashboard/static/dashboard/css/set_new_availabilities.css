@@ -1,0 +1,731 @@
+/*
+Black (navbar) Color: #4A4A4A;
+Red (extended-navbar) Color: #D14F52;
+Light Red (search button) Color: #E54F52;
+White (background) Color: #F4F4F4;
+*/
+
+@font-face {
+  font-family: adam-cg-pro;
+  src: url("../fonts/adam-cg-pro.regular.otf");
+}
+
+@font-face {
+  font-family: code-bold;
+  src: url("../fonts/CODE-Bold.otf");
+}
+
+@font-face {
+  font-family: avenir-next-regular;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
+
+@font-face {
+  font-family: avenir-next-demibold;
+  src: url("../fonts/AvenirNext-DemiBold.ttf");
+}
+
+@font-face {
+  font-family: BrandonGrotesque-Regular;
+  src: url("../fonts/Brandon_reg.otf");
+}
+
+@font-face {
+  font-family: bebas-neue;
+  src: url("../fonts/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: anson;
+  src: url("../fonts/Anson-Regular.otf");
+}
+
+html {
+  height: 100%;
+}
+
+html body {
+  height: 100%;
+  background-color: #ededed;
+}
+
+/* Navbar for logged in Users */
+
+#loggedInNavbar {
+  background-color: #4A4A4A;
+}
+
+#noti-triangle-up, #pro-triangle-up {
+  width: 0;
+  height: 0;
+  float: right;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 18px solid white;
+  margin-top: -22px;
+  margin-right: 24px;
+}
+
+#loggedInNavbar .navbar-brand {
+  font-size: 180%;
+  font-family: avenir-next-demibold;
+  padding-top: 0.15%;
+  padding-bottom: 0.15%;
+  margin-right: 5%;
+}
+
+#loggedInNavbar .nav-item {
+  font-family: avenir-next-regular;
+}
+
+#loggedInNavbar .mr-auto .nav-item {
+  padding-right: 15px;
+}
+
+#linksDropdownLink, #notifcationsDropdownLink {
+  padding: 0;
+}
+
+#notificationsDropdownLink {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25px;
+  font-size: 150%;
+}
+
+.fa-bell {
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+
+.notification-badge::after {
+  content: attr(data-count);
+  position: absolute;
+  background: #D14F52;
+  height: 1.2rem;
+  width: 1.2rem;
+  bottom: 0.8rem;
+  left: 0.5rem;
+  text-align: center;
+  line-height: 1rem;
+  ;
+  font-size: 0.6rem;
+  border-radius: 50%;
+  color: white;
+  border: 1px solid #D14F52;
+  font-family: avenir-next-regular;
+}
+
+#notificationsDropdownPane, #myDropdown {
+  position: absolute;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#notificationsDropdownPane {
+  height: 400px;
+  width: 420px;
+  margin-right: 9px;
+  overflow-y: auto;
+}
+
+#notifcationsDropdownHeaderTitle {
+  margin-bottom: 0;
+  text-align: center;
+  font-family: avenir-next-demibold;
+  font-size: 110%;
+}
+
+#notifcationsDropdownHeaderDivider {
+  margin-top: 0.5rem;
+  margin-bottom: 0rem;
+  border-top: 1px solid #4a4a4a;
+}
+
+#notificationsDropdownPane a {
+  text-decoration: none;
+}
+
+.unread-notification-container {
+  background-color: rgba(229, 79, 82, .2);
+}
+
+.unread-notification-container:hover {
+  background-color: rgba(229, 79, 82, .25);
+}
+
+.read-notification-container {
+  background-color: rgba(229, 229, 229, 0.5);
+}
+
+.read-notification-container:hover {
+  background-color: rgba(219, 219, 219, 0.8);
+}
+
+.notification-container {
+  padding: 3px;
+  border-bottom: 1px solid #4a4a4a;
+}
+
+.notification-picture-container {
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+.notification-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #4a4a4a;
+  margin: 10px;
+}
+
+.notification-message-and-timestamp {
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+  margin-top: 17px;
+}
+
+.notification-message {
+  text-align: left;
+  color: #4a4a4a;
+  font-family: avenir-next-regular;
+  font-size: 18px;
+  display: block;
+}
+
+.notification-timestamp {
+  color: #4a4a4a;
+  text-align: center;
+  font-size: 13px;
+  display: block;
+  text-align: right;
+}
+
+.notification-button {
+  width: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #4a4a4a;
+  margin-left: 10px;
+  height: 20px;
+  border-radius: 0.6rem;
+}
+
+#linksDropdownLink #userPicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.dropdown-options {
+  display: block;
+}
+
+#signOut {
+  color: #E54F52;
+}
+
+#signOut:hover {
+  color: #913537;
+}
+
+#openNavigation {
+  margin-right: 15px;
+}
+
+#extendedNavbar {
+  background-color: #D14F52;
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.50);
+  font-family: BrandonGrotesque-Regular;
+  color: #F4F4F4;
+  padding: 8px 24px;
+  position: relative;
+}
+
+.extended-button {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
+}
+
+.extended-button:hover {
+  color: #D9D9D9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.extended-icon {
+  margin-right: 4px;
+}
+
+#searchBar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.1%;
+  width: 275px !important;
+}
+
+#searchInput {
+  padding-left: 15px;
+  padding-right: 36px;
+  height: 30px;
+  margin-right: .5rem;
+  text-align: left;
+  width: 275px;
+  border-radius: 1.25rem;
+}
+
+#submitBtn {
+  color: #737373;
+  position: absolute;
+  right: 10px;
+  background-color: Transparent;
+  padding: 0;
+  padding-right: 10px;
+}
+
+.error-list::placeholder {
+  opacity: 0.65;
+  color: red;
+}
+
+#submitBtn:hover {
+  color: #595959;
+}
+
+.pro-options {
+  font-weight: bold;
+  color: white;
+}
+
+#desktopNav {
+  display: block !important;
+}
+
+#navbarSupportedContent {
+  display: none;
+}
+
+@media(max-width: 991.98px) {
+  #myDropdown {
+    margin-right: -110px !important;
+  }
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+  #noti-triangle-up {
+    margin-right: 265px;
+  }
+  #pro-triangle-up {
+    margin-right: 120px;
+  }
+  #desktopNav {
+    display: none !important;
+  }
+  #searchBar {
+    left: 0%;
+  }
+}
+
+@media(min-width: 576px) {
+  #pro_options {
+    display: none !important;
+  }
+  .lesson {
+    width: 80% !important;
+  }
+  #options_btn {
+    display: none !important;
+  }
+}
+
+@media(max-width: 570px) {
+  #myDropdown {
+    margin-right: -110px !important;
+  }
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+  #noti-triangle-up {
+    margin-right: 265px;
+  }
+  #pro-triangle-up {
+    margin-right: 120px;
+  }
+  #searchInput {
+    width: 100%;
+  }
+  .extended-button {
+    margin-left: 6%;
+  }
+  .lesson {
+    width: 95% !important;
+  }
+}
+
+#options_btn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 12px;
+  transition: 0.3s ease;
+}
+
+@keyframes slider {
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes btnSlider {
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(-60px);
+  }
+}
+
+.addAnim {
+  animation: slider .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.addBtnAnim {
+  transform: translateY(-35px) !important;
+  transition: 0.3s ease;
+}
+
+@media(max-width: 400px) {
+  .two-buttons {
+    margin-top: -125px;
+    display: none;
+  }
+  .lesson {
+    width: 95% !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #loggedInNavbar .navbar-brand {
+    font-size: 180%;
+    font-family: AvenirNext-DemiBold;
+    padding-top: 0.15%;
+    padding-bottom: 0.15%;
+    margin-right: auto;
+  }
+  #navbarContent .nav-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, .5);
+  }
+  #navbarContent .nav-link:hover {
+    color: rgba(255, 255, 255, .75);
+  }
+  #loggedInNavbar .active .nav-link {
+    color: white;
+  }
+}
+
+/* END Navbar for logged in Users */
+
+#picturePrompt {
+  width: 28%;
+  min-width: 350px;
+  margin: 60px auto;
+  display: block;
+}
+
+.tutorial-acknowledge-form {
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  margin-left: -170px;
+  width: 340px;
+  bottom: 150px;
+}
+
+.acknowledge-btn-div {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.acknowledge-btn {
+  font-family: anson;
+  padding: 1% 7%;
+  display: inline-block;
+  margin-top: 3%;
+  background-color: #E54F52;
+  font-size: 140%;
+  color: #F4F4F4;
+  border-radius: 50px;
+}
+
+.acknowledge-btn:hover {
+  background-color: #D14F52;
+  border-color: #D14F52;
+  color: #E6E6E6;
+  text-decoration: none;
+}
+
+.acknowledge-options {
+  text-align: center;
+}
+
+#dontShowTutorialText {
+  font-family: avenir-next-regular;
+  color: #FDFDFD;
+  font-size: 24px;
+}
+
+#tut-background {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+}
+
+.tutorial-wrapper {
+  display: none;
+  position: absolute;
+}
+
+#tutorial1 {
+  height: 200px;
+  margin-left: 2%;
+  margin-top: 5px;
+  top: 80px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial2 {
+  height: 250px;
+  margin-left: 300px;
+  top: 40px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial3 {
+  height: 120px;
+  margin-left: 490px;
+  top: 25px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+}
+
+#tutorial4 {
+  height: 250px;
+  margin-left: 80%;
+  top: 0px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  right: 40px;
+}
+
+.text-prompt {
+  text-align: center;
+  display: block;
+  font-family: avenir-next-regular;
+  color: #4a4a4a;
+}
+
+#mainScheduled {
+  text-align: center;
+}
+
+#mainPending {
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.group-title {
+  font-size: 220%;
+  font-family: avenir-next-regular;
+  margin: 40px auto;
+}
+
+#pendingLabel {
+  margin-top: 50px;
+}
+
+.lesson {
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 0px 7px 2px rgba(0, 0, 0, 0.50);
+  margin-bottom: 20px;
+}
+
+.main-information {
+  width: 100%;
+  display: inline-flex;
+  height: 130px;
+}
+
+.date {
+  min-width: 80px;
+  height: 100%;
+  background-color: #D14F52;
+  font-family: code-bold;
+  color: #F4F4F4;
+}
+
+.day {
+  display: block;
+  margin-top: 1px;
+  font-size: 140%;
+}
+
+.month-day {
+  font-size: 260%;
+  margin-bottom: -18px;
+  margin-top: -14px;
+  display: block;
+  padding-right: 5px;
+}
+
+.month {
+  display: block;
+  font-size: 180%;
+  margin-bottom: -11px;
+}
+
+.year {
+  font-size: 150%;
+  display: block;
+}
+
+.details-and-buttons {
+  background-color: white;
+  width: 100%;
+}
+
+.details {
+  float: left;
+  padding-left: 9px;
+  padding-top: 4px;
+}
+
+.lesson-title {
+  padding-top: 0.5%;
+  font-family: bebas-neue;
+  text-align: left;
+  font-size: 200%;
+  margin-bottom: 0;
+}
+
+.extended-field {
+  text-align: left;
+  margin-bottom: 0;
+  color: #4F4F4F;
+  font-family: adam-cg-pro;
+  font-weight: lighter;
+  font-size: 100%;
+  display: block;
+}
+
+.extended-detail {
+  font-family: avenir-next-regular;
+}
+
+.two-buttons {
+  float: right;
+  width: 80px;
+  height: 50%;
+}
+
+.three-buttons {
+  float: right;
+  width: 80px;
+  height: 33.33%;
+}
+
+.two-buttons .btn, .three-buttons .btn {
+  display: block;
+  margin-left: auto;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  font-family: bariol;
+}
+
+.accept-btn {
+  background-color: #2E8B57;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: green;
+}
+
+.fa-check {
+  font-size: 130%;
+}
+
+.decline-btn {
+  background-color: #E54F52;
+  color: white;
+}
+
+.decline-btn:hover {
+  background-color: #D14F52;
+}
+
+.fa-times {
+  font-size: 140%;
+}
+
+.reschedule-btn {
+  background-color: #efef00;
+}
+
+.reschedule-btn:hover {
+  background-color: gold;
+}
+
+.details-and-buttons .fa-calendar {
+  font-size: 110%;
+}
+
+/* Cancel/Delete Lesson Modal Styling */
+
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.btn-danger {
+  background-color: #D14F52;
+  border-color: #D14F52;
+}
+
+.bold-text-style {
+  font-family: avenir-next-demibold;
+  ;
+}
+
+.text-style {
+  font-family: avenir-next-regular;
+}
+
+/* END Cancel/Delete Account Modal Styling */
