@@ -38,9 +38,13 @@ def personalize_view(request):
         if 'bio' in request.POST:
             request.user.profile.bio = request.POST.get('bio')
         request.user.save()
-        return redirect('agenda')
-    if request.method == 'GET':
+        return redirect('set_availabilities')
+    elif request.method == 'GET':
         if request.user.profile.user_type:
-            return redirect('agenda')
+            return redirect('set_availabilities')
         else:
             return render(request, "account/personalize.html", context)
+
+@login_required
+def set_availabilities_view(request):
+    return render(request, "account/set_new_availabilities.html")

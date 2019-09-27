@@ -10,6 +10,7 @@ from importlib import import_module
 urlpatterns = [
     path('signup/', signup, name='account_signup'),
     path('personalize/', views.personalize_view, name='personalize'),
+    path('set_availabilities/', views.set_availabilities_view, name='set_availabilities'),
     path('login/', login, name='account_login'),
     path('logout/', logout, name='account_logout'),
     path('email/', email, name='account_email'),
