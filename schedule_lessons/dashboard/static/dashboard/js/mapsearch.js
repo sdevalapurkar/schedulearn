@@ -6,9 +6,9 @@
 // <script
 // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-var placeSearch, autocomplete;
+let placeSearch, autocomplete;
 
-var componentForm = {
+let componentForm = {
   street_number: 'short_name',
   route: 'long_name',
   locality: 'long_name',
@@ -42,12 +42,12 @@ function initAutocomplete() {
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
+    navigator.geolocation.getCurrentPosition((position)=> {
+      let geolocation = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      var circle = new google.maps.Circle(
+      let circle = new google.maps.Circle(
           {center: geolocation, radius: position.coords.accuracy});
       autocomplete.setBounds(circle.getBounds());
     });
@@ -56,6 +56,6 @@ function geolocate() {
 
 function fillInAddress() {
     // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
+    let place = autocomplete.getPlace();
 
   }
