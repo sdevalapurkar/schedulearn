@@ -1,8 +1,22 @@
-@font-face { font-family: bebas-neue; src: url("../fonts/BebasNeue-Regular.ttf"); }
-@font-face { font-family: avenir-next-regular; src: url("../fonts/AvenirNext-Regular.ttf"); }
-@font-face { font-family: avenir-next-demibold; src: url("../fonts/AvenirNext-DemiBold.ttf"); }
-@font-face { font-family: BrandonGrotesque-Regular; src: url("../fonts/Brandon_reg.otf"); }
+@font-face {
+  font-family: bebas-neue;
+  src: url("../fonts/BebasNeue-Regular.ttf");
+}
 
+@font-face {
+  font-family: avenir-next-regular;
+  src: url("../fonts/AvenirNext-Regular.ttf");
+}
+
+@font-face {
+  font-family: avenir-next-demibold;
+  src: url("../fonts/AvenirNext-DemiBold.ttf");
+}
+
+@font-face {
+  font-family: BrandonGrotesque-Regular;
+  src: url("../fonts/Brandon_reg.otf");
+}
 
 html {
   height: 100%;
@@ -60,13 +74,13 @@ html body {
 }
 
 .fa-bell {
-  text-align:center;
-  vertical-align:middle;
+  text-align: center;
+  vertical-align: middle;
   position: relative;
 }
 
 .notification-badge::after {
-  content:attr(data-count);
+  content: attr(data-count);
   position: absolute;
   background: #D14F52;
   height: 1.2rem;
@@ -74,10 +88,11 @@ html body {
   bottom: 0.8rem;
   left: 0.5rem;
   text-align: center;
-  line-height: 1rem;;
+  line-height: 1rem;
+  ;
   font-size: 0.6rem;
   border-radius: 50%;
-  color:white;
+  color: white;
   border: 1px solid #D14F52;
   font-family: avenir-next-regular;
 }
@@ -95,7 +110,7 @@ html body {
   overflow: scroll;
 }
 
-#myDropdown{
+#myDropdown {
   margin-right: -14px;
 }
 
@@ -208,10 +223,9 @@ html body {
   margin-right: 15px;
 }
 
-
 #extendedNavbar {
   background-color: #D14F52;
-  box-shadow: 0 2px 7px 2px rgba(0,0,0,0.50);
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.50);
   font-family: BrandonGrotesque-Regular;
   color: #F4F4F4;
   padding: 8px 24px;
@@ -234,21 +248,18 @@ html body {
   margin-right: 4px;
 }
 
-@media(max-width: 570px){
+@media(max-width: 570px) {
   #myDropdown {
     margin-right: -110px !important;
   }
-
   #notificationsDropdownPane {
     height: 350px;
     width: 300px;
     margin-right: -240px !important;
   }
-
   #noti-triangle-up {
     margin-right: 265px;
   }
-
   #pro-triangle-up {
     margin-right: 120px;
   }
@@ -262,27 +273,27 @@ html body {
     padding-bottom: 0.15%;
     margin-right: auto;
   }
-
   #navbarContent .nav-link {
     text-decoration: none;
-    color: rgba(255,255,255,.5);
+    color: rgba(255, 255, 255, .5);
   }
-
   #navbarContent .nav-link:hover {
-    color: rgba(255,255,255,.75);
+    color: rgba(255, 255, 255, .75);
   }
-
   #loggedInNavbar .active .nav-link {
     color: white;
   }
-
   #myDropdown {
     position: absolute;
     text-align: center;
     left: 0;
     right: auto;
   }
+  #extendedNavbar {
+    text-align: center;
+  }
 }
+
 /* END Navbar for logged in Users */
 
 #container {
@@ -299,7 +310,7 @@ html body {
 }
 
 #cropPictureModal {
-  height:95%;
+  height: 95%;
 }
 
 #cropModalDialog, #cropModalContent {
@@ -307,8 +318,8 @@ html body {
 }
 
 #cropModalBody {
-  height:74%;
-  margin-bottom:4%;
+  height: 74%;
+  margin-bottom: 4%;
 }
 
 .middle {
@@ -373,7 +384,6 @@ html body {
 
 #myTags {
   border-radius: .25rem;
-
 }
 
 #myTags .tagit-choice {
