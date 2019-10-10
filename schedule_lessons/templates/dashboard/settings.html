@@ -163,12 +163,27 @@
           <small class="d-block">{{ preference.description }}</small>
         </div>
         <div class="option-btn"><label class="switch">
-          {% if preference.active %}
-          <input class="preference" id="{{ preference.id }}" type="checkbox" checked>
-          {% else %}
-          <input class="preference" id="{{ preference.id }}" type="checkbox">
-          {% endif %}
-          <span class="slider round"></span>
+            {% if preference.active %}
+            <input class="preference" id="{{ preference.id }}" type="checkbox" checked>
+            {% else %}
+            <input class="preference" id="{{ preference.id }}" type="checkbox">
+            {% endif %}
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="row settings-option">
+        <div class="pr-5">
+          <h6 class="max-width">Disable Lesson Scheduling</h6>
+          <small class="d-block">Disallow student to book lessons with you</small>
+        </div>
+        <div class="option-btn"><label class="switch">
+            {% if preference.active %}
+            <input class="preference" id="{{ preference.id }}" type="checkbox">
+            {% else %}
+            <input class="preference" id="{{ preference.id }}" type="checkbox">
+            {% endif %}
+            <span class="slider round"></span>
           </label>
         </div>
       </div>
