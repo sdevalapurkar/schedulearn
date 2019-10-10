@@ -1,11 +1,10 @@
-$(document).ready(function () {
+$(document).ready(function() {
   // This script is used from this website and modified to suit our design needs:
   // https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
-  $("#historyTab").fadeOut(0);
+  $('#historyTab').fadeOut(0);
 
-  $(".slider-line .s-line-options").click(function (e) {
-
+  $('.slider-line .s-line-options').click(function(e) {
     // make sure we cannot click the slider
     if ($(this).hasClass('slider')) {
       return;
@@ -19,14 +18,14 @@ $(document).ready(function () {
     // Work out how far the slider needs to go
     var sliderMovesBy = 120 * clickedTab;
 
-    $(".slider").css({
-      left: sliderMovesBy + "px"
+    $('.slider').css({
+      left: sliderMovesBy + 'px'
     });
 
     /* Add the ripple */
 
     // Remove olds ones
-    $(".ripple").remove();
+    $('.ripple').remove();
 
     // Setup
     var posX = $(this).offset().left,
@@ -49,44 +48,65 @@ $(document).ready(function () {
     var y = e.pageY - posY - buttonHeight / 2;
 
     // Add the ripples CSS and start the animation
-    $(".ripple").css({
-      width: buttonWidth,
-      height: buttonHeight,
-      top: y + 'px',
-      left: x + 'px'
-    }).addClass("rippleEffect");
+    $('.ripple')
+      .css({
+        width: buttonWidth,
+        height: buttonHeight,
+        top: y + 'px',
+        left: x + 'px'
+      })
+      .addClass('rippleEffect');
   });
-
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
   _gaq.push(['_trackPageview']);
 
-  (function () {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  (function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src =
+      ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+      '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
   })();
 
   // This is my own jQuery code
-  $("#avail").click(function () {
-    $("#availabilityTable").delay(350).fadeIn(100);
-    $("#historyTab").fadeOut(300);
+  $('#avail').click(function() {
+    $('#availabilityTable')
+      .delay(350)
+      .fadeIn(100);
+    $('#historyTab').fadeOut(300);
   });
 
-  $("#hist").click(function () {
-    $("#historyTab").delay(350).fadeIn(100);
-    $("#availabilityTable").fadeOut(300);
+  $('#hist').click(function() {
+    $('#historyTab')
+      .delay(350)
+      .fadeIn(100);
+    $('#availabilityTable').fadeOut(300);
+  });
+
+  $('#options_btn').click(function() {
+    $('.two-buttons')
+      .fadeToggle(300)
+      .toggleClass('addAnim');
+    $('#options_btn').toggleClass('addBtnAnim');
+  });
+
+  $('#secondNavBtn').click(function() {
+    $('#navbarSupportedContent').slideToggle('fast');
   });
 
   // END script from https://www.jqueryscript.net/menu/Material-Design-Sliding-Tab-Menu-With-jQuery-CSS3.html
 
-  $('#notificationsDropdownLink').click(function () {
+  $('#notificationsDropdownLink').click(function() {
     var attr = $('#notificationIcon').attr('data-count');
     if (typeof attr !== typeof undefined && attr !== false) {
-      $('#notificationIcon').removeAttr("data-count");
-      $('#notificationIcon').removeClass("notification-badge");
+      $('#notificationIcon').removeAttr('data-count');
+      $('#notificationIcon').removeClass('notification-badge');
     }
     $.ajax({
       url: '/dashboard/clear_notifications/',
@@ -94,15 +114,17 @@ $(document).ready(function () {
     });
   });
 
-  $('#removeRelationshipModal').on('show.bs.modal', function (e) {
-    document.getElementById('removeRelationshipConfirm').setAttribute("href", e.relatedTarget.href);
+  $('#removeRelationshipModal').on('show.bs.modal', function(e) {
+    document
+      .getElementById('removeRelationshipConfirm')
+      .setAttribute('href', e.relatedTarget.href);
   });
 
   $('#unblockConfirm').on('click', function(e) {
     $.ajax({
       url: $('#unblockLink').attr('href'),
       type: 'POST',
-      success: (response) => {
+      success: response => {
         location.reload();
       }
     });
@@ -112,7 +134,7 @@ $(document).ready(function () {
     $.ajax({
       url: $('#blockLink').attr('href'),
       type: 'POST',
-      success: (response) => {
+      success: response => {
         location.reload();
       }
     });
@@ -120,8 +142,8 @@ $(document).ready(function () {
 });
 
 function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  // these HTTP methods do not require CSRF protection
+  return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
 }
 
 function getCookie(name) {
@@ -134,12 +156,12 @@ function getCookie(name) {
   let cookieValue = null;
   const cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i].trim();
-      // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+    let cookie = cookies[i].trim();
+    // Does this cookie string begin with the name we want?
+    if (cookie.substring(0, name.length + 1) === name + '=') {
+      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+      break;
+    }
   }
   return cookieValue;
 }
@@ -147,7 +169,7 @@ function getCookie(name) {
 $.ajaxSetup({
   beforeSend: (xhr, settings) => {
     if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-      xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+      xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
     }
   }
 });

@@ -259,12 +259,6 @@ html body {
   position: relative;
 }
 
-.extended-button, .extended-uninteractive-text {
-  font-size: 100%;
-  color: #F4F4F4;
-  margin-right: 3%;
-}
-
 .extended-button:hover {
   color: #D9D9D9;
   cursor: pointer;
@@ -273,6 +267,12 @@ html body {
 
 .extended-icon {
   margin-right: 4px;
+}
+
+.extended-button, .extended-uninteractive-text {
+  font-size: 100%;
+  color: #F4F4F4;
+  margin-right: 3%;
 }
 
 @media (max-width: 991.98px) {
@@ -304,6 +304,102 @@ html body {
     left: 0;
     right: auto;
   }
+}
+
+@media(max-width: 570px) {
+  .align-left {
+    text-align: left !important;
+  }
+  .align-center {
+    text-align: center !important;
+  }
+  .align-right {
+    text-align: right !important;
+  }
+  .align-justify {
+    text-align: justify !important;
+  }
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+  #noti-triangle-up {
+    margin-right: 265px;
+  }
+  #pro-triangle-up {
+    margin-right: 120px;
+  }
+}
+
+.pro-options {
+  font-weight: bold;
+  color: white;
+}
+
+.second-nav-options {
+  display: grid;
+}
+
+.second-nav-options a {
+  padding: .75rem;
+}
+
+#navbarSupportedContent {
+  display: none;
+}
+
+@media(min-width: 576px) {
+  #pro_options {
+    display: none !important;
+  }
+  .lesson {
+    width: 80% !important;
+  }
+  #options_btn {
+    display: none !important;
+  }
+}
+
+@media(max-width: 991.98px) {
+  #myDropdown {
+    margin-right: -110px !important;
+  }
+  #notificationsDropdownPane {
+    height: 350px;
+    width: 300px;
+    margin-right: -240px !important;
+  }
+  #noti-triangle-up {
+    margin-right: 265px;
+  }
+  #pro-triangle-up {
+    margin-right: 120px;
+  }
+  #desktopNav {
+    display: none !important;
+  }
+  #searchBar {
+    left: 0%;
+  }
+}
+
+@media(max-width: 400px) {
+  .two-buttons {
+    margin-top: -125px;
+    display: none;
+  }
+  .lesson {
+    width: 95% !important;
+  }
+}
+
+#options_btn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 12px;
+  transition: 0.3s ease;
 }
 
 /* END Navbar for logged in Users */
