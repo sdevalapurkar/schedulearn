@@ -17,11 +17,6 @@ let componentForm = {
   postal_code: 'short_name'
 };
 
-//function activatePlacesSearch(){
-//  var input = document.getElementById('search_term');
-//  var autocomplete = new google.maps.places.Autocomplete(input);
-//}
-
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
@@ -37,12 +32,11 @@ function initAutocomplete() {
   autocomplete.addListener('place_changed', fillInAddress);
 }
 
-
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position)=> {
+    navigator.geolocation.getCurrentPosition(position=> {
       let geolocation = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -57,5 +51,4 @@ function geolocate() {
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     let place = autocomplete.getPlace();
-
   }

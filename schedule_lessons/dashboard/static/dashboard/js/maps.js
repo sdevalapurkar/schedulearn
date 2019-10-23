@@ -32,7 +32,7 @@ function initAutocomplete() {
     }
 
     // Clear out the old markers.
-    markers.forEach(function(marker) {
+    markers.forEach((marker) => {
       marker.setMap(null);
     });
     markers = [];
