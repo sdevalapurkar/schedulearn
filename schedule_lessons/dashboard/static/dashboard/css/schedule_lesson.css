@@ -451,6 +451,14 @@ html body {
   text-decoration: none;	
 }
 
+.label-error {	
+  color: #D14F52;	
+}	
+
+.input-error {	
+  border: 1px solid #D14F52;	
+}
+
 /* 
 Styling changes for future development work with Google Maps API
 */
